@@ -208,3 +208,14 @@ img { max-width: 100%; }
 .fuss { border-top: 1px solid var(--grid); color: var(--muted); font-size: 14px; padding: 28px 0 36px; margin-top: 64px; }
 .fuss .huelle { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; }
 .fuss a { color: var(--text2); }
+
+/* Merksätze am Ende eines Abschnitts */
+.text blockquote {
+  margin: 28px 0 8px;
+  padding: 16px 20px;
+  background: var(--wash-orange);
+  border: 1px solid color-mix(in srgb, var(--orange) 28%, transparent);
+  border-radius: 14px;
+}
+.text blockquote p { margin: 0; }
+.text blockquote strong { color: var(--text); }

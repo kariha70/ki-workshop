@@ -42,7 +42,7 @@ KAPITEL = [
         "quelle": "02-Tokenizer-und-Sprachmodelle.md",
         "ziel": "kapitel-2.html",
         "labor": "app/labor-2.html",
-        "bild": "bilder/kapitel-2/01-tokens.png",
+        "bild": "bilder/kapitel-2/08-transformer.png",
         "teaser": "Wie Text zu Zahlen wird, was Embeddings und Attention leisten, warum größere Modelle besser werden und wo ihre Grenzen liegen.",
         "themen": ["Nächstes Token", "Kreuzentropie", "Tokenizer", "tiktoken", "Embeddings", "Attention", "Transformer", "Skalierung", "Temperatur"],
         "labore": {
