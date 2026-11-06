@@ -523,7 +523,7 @@ Wie das bei Text funktioniert und wie daraus ein großes Sprachmodell wird, zeig
 
 ## Selbst ausprobieren
 
-Zum Spielen mit Weights und Bias gibt es eine interaktive Seite: [Labor 1](app/labor-1.html). Sie braucht keine Bibliotheken, läuft auch ohne Internet und lässt sich direkt im Browser öffnen. Die ganze Webseite des Workshops mit beiden Kapiteln und Laboren lässt sich auch lokal starten, etwa mit `python3 -m http.server --directory docs`. In vier Schritten lassen sich dort die Gerade verschieben, der Gradientenabstieg mit verschiedenen Lernraten beobachten, das Neuron mit Knick einstellen und das kleine Netz von Hand setzen oder mit Zufallsstarts trainieren.
+Zum Spielen mit Weights und Bias gibt es eine interaktive Seite: [Labor 1](app/labor-1.html). Sie braucht keine Bibliotheken, läuft auch ohne Internet und lässt sich direkt im Browser öffnen. Die ganze Webseite des Workshops mit allen Kapiteln und Laboren lässt sich auch lokal starten, etwa mit `python3 -m http.server --directory docs`. In vier Schritten lassen sich dort die Gerade verschieben, der Gradientenabstieg mit verschiedenen Lernraten beobachten, das Neuron mit Knick einstellen und das kleine Netz von Hand setzen oder mit Zufallsstarts trainieren.
 
 Das Skript rechnet das gesamte Beispiel nach und erzeugt alle Grafiken neu. Der Lauf dauert etwa eine halbe Minute. Dafür wird [uv](https://docs.astral.sh/uv/) benötigt:
 

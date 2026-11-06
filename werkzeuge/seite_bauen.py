@@ -6,7 +6,7 @@
 
 Start: uv run werkzeuge/seite_bauen.py
 
-Erzeugt docs/index.html (Startseite) sowie docs/kapitel-1.html und docs/kapitel-2.html
+Erzeugt docs/index.html (Startseite) sowie docs/kapitel-1.html bis docs/kapitel-3.html
 aus den Markdown-Dateien. Nach jeder Änderung an einem Kapitel neu ausführen.
 Die Labore in docs/app/ sind eigenständige Seiten und werden hier nur verlinkt.
 """
@@ -50,11 +50,27 @@ KAPITEL = [
             8: ("app/labor-2.html#temperatur", "Temperatur", "Die Temperatur verstellen und zufällig ziehen lassen."),
         },
     },
+    {
+        "nr": 3,
+        "quelle": "03-Semantische-Suche-und-RAG.md",
+        "ziel": "kapitel-3.html",
+        "labor": "app/labor-3.html",
+        "bild": "bilder/kapitel-3/04-suche.png",
+        "teaser": "Wie Embeddings ganze Texte vergleichbar machen, wie man damit nach Bedeutung sucht und wie RAG einem Sprachmodell neues Wissen mitgibt.",
+        "themen": ["Text-Embeddings", "Kosinus", "Embedding-Modell", "Semantische Suche", "Vektordatenbank", "RAG", "Hybride Suche"],
+        "labore": {
+            3: ("app/labor-3.html#kosinus", "Kosinus von Hand", "Zwei Pfeile ziehen und zusehen, wie sich Kosinus, Winkel und Abstand verändern."),
+            4: ("app/labor-3.html#vergleich", "Sätze vergleichen", "Zwei eigene Sätze eingeben und ihren Kosinus mit dem echten Embedding-Modell berechnen."),
+            5: ("app/labor-3.html#suche", "Suche im Handbuch", "Eigene Fragen stellen und semantische Suche und Stichwortsuche nebeneinander vergleichen."),
+            6: ("app/labor-3.html#rag", "Prompt für RAG", "Den Prompt aus Anweisung, Treffern und Frage zusammenstellen und in einen Chat-Assistenten kopieren."),
+        },
+    },
 ]
 
 LABORE = [
     ("app/labor-1.html", "Labor 1: Neuronale Netze", "Gerade verschieben, bergab lernen, den Knick einschalten und ein kleines Netz trainieren.", "bilder/labor-1.png"),
     ("app/labor-2.html", "Labor 2: Tokens und Temperatur", "Eigenen Text mit echten Tokenizern zerlegen, Deutsch und Englisch vergleichen und die Temperatur beim Ziehen des nächsten Tokens verstellen.", "bilder/labor-2.png"),
+    ("app/labor-3.html", "Labor 3: Suchen nach Bedeutung", "Den Kosinus von Hand nachrechnen, eigene Sätze vergleichen, im Handbuch der Eisdiele suchen und einen Prompt für RAG bauen.", "bilder/labor-3.png"),
 ]
 
 LOGO = (DOCS / "assets" / "logo.svg").read_text().strip()
@@ -63,7 +79,8 @@ SYMBOL_LABOR = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width=
 
 
 def leiste(aktiv):
-    eintraege = [("kapitel-1.html", "Kapitel 1"), ("kapitel-2.html", "Kapitel 2"), None, ("app/labor-1.html", "Labor 1"), ("app/labor-2.html", "Labor 2")]
+    eintraege = [("kapitel-1.html", "Kapitel 1"), ("kapitel-2.html", "Kapitel 2"), ("kapitel-3.html", "Kapitel 3"), None,
+                 ("app/labor-1.html", "Labor 1"), ("app/labor-2.html", "Labor 2"), ("app/labor-3.html", "Labor 3")]
     links = ""
     for eintrag in eintraege:
         if eintrag is None:
@@ -102,7 +119,7 @@ def seite(titel, beschreibung, aktiv, inhalt):
 </main>
 <footer class="fuss"><div class="huelle">
   <span>KI-Workshop: vom Eisverkäufer zum Sprachmodell. Alle Daten im Beispiel sind erfunden.</span>
-  <span><a href="index.html">Startseite</a> · <a href="kapitel-1.html">Kapitel 1</a> · <a href="kapitel-2.html">Kapitel 2</a> · <a href="app/labor-1.html">Labor 1</a> · <a href="app/labor-2.html">Labor 2</a></span>
+  <span><a href="index.html">Startseite</a> · <a href="kapitel-1.html">Kapitel 1</a> · <a href="kapitel-2.html">Kapitel 2</a> · <a href="kapitel-3.html">Kapitel 3</a> · <a href="app/labor-1.html">Labor 1</a> · <a href="app/labor-2.html">Labor 2</a> · <a href="app/labor-3.html">Labor 3</a></span>
 </div></footer>
 <script src="assets/thema.js"></script>
 <script src="assets/site.js"></script>
@@ -250,7 +267,7 @@ def startseite(infos):
   <div>
     <p class="augenbraue">KI-Workshop</p>
     <h1>Vom Eisverkäufer zum Sprachmodell</h1>
-    <p class="lead">Wie neuronale Netze und große Sprachmodelle funktionieren: an einem durchgehenden Beispiel erklärt, mit Zahlen zum Nachrechnen und Laboren zum Ausprobieren.</p>
+    <p class="lead">Wie neuronale Netze, große Sprachmodelle und die Suche nach Bedeutung funktionieren: an einem durchgehenden Beispiel erklärt, mit Zahlen zum Nachrechnen und Laboren zum Ausprobieren.</p>
     <div class="aktionen"><a class="knopf primaer" href="kapitel-1.html">Mit Kapitel 1 beginnen</a><a class="knopf" href="#labore">Direkt ausprobieren</a></div>
   </div>
   {ILLUSTRATION}
@@ -259,7 +276,7 @@ def startseite(infos):
 <div class="huelle">
   <section class="bereich">
     <h2>Die Kapitel</h2>
-    <p class="bereich-sub">Beide Kapitel bauen aufeinander auf. Kapitel 1 kommt ohne Vorwissen aus, Kapitel 2 nutzt die Begriffe aus Kapitel 1.</p>
+    <p class="bereich-sub">Die Kapitel bauen aufeinander auf. Kapitel 1 kommt ohne Vorwissen aus, jedes weitere nutzt die Begriffe der vorigen.</p>
     <div class="kapitelkarten">{karten}</div>
   </section>
 
@@ -269,7 +286,7 @@ def startseite(infos):
     <div class="merkmale">
       <div class="merkmal"><div class="symbol">{SYMBOLE["faden"]}</div><h3>Ein Beispiel, das trägt</h3><p>Ein Eisverkäufer will wissen, wie viel Eis er braucht. An seinen Daten entstehen Gerade, Neuron und Netz, und auch das Sprachmodell knüpft daran an.</p></div>
       <div class="merkmal"><div class="symbol">{SYMBOLE["rechnen"]}</div><h3>Jede Zahl nachrechenbar</h3><p>Zu jedem Kapitel gibt es ein Python-Skript, das alle Zahlen und Grafiken erzeugt. Nichts ist geschätzt oder von Hand eingetragen.</p></div>
-      <div class="merkmal"><div class="symbol">{SYMBOLE["labor"]}</div><h3>Labore zum Anfassen</h3><p>Regler verschieben, Schritte bergab gehen, Tokens ansehen. Die Labore laufen im Browser, auch ohne Internetverbindung.</p></div>
+      <div class="merkmal"><div class="symbol">{SYMBOLE["labor"]}</div><h3>Labore zum Anfassen</h3><p>Regler verschieben, Schritte bergab gehen, Tokens ansehen, nach Bedeutung suchen. Die Labore laufen direkt im Browser, ohne Server.</p></div>
     </div>
   </section>
 
@@ -283,7 +300,8 @@ def startseite(infos):
     <h2>Selbst nachrechnen</h2>
     <p>Die Skripte brauchen nur <a href="https://docs.astral.sh/uv/">uv</a>, die Abhängigkeiten installiert uv selbst:</p>
     <div class="text"><pre><code>uv run docs/beispiele/01_eisverkaeufer.py
-uv run docs/beispiele/02_tokenizer.py "Drei Kugeln Vanille, bitte."</code></pre></div>
+uv run docs/beispiele/02_tokenizer.py "Drei Kugeln Vanille, bitte."
+uv run docs/beispiele/03_semantische_suche.py "Habt ihr Eis für Hunde?"</code></pre></div>
   </section>
 </div>"""
     (DOCS / "index.html").write_text(seite("KI-Workshop: Vom Eisverkäufer zum Sprachmodell", "Neuronale Netze und große Sprachmodelle an einem durchgehenden Beispiel erklärt, mit Laboren zum Ausprobieren.", "index.html", inhalt), encoding="utf-8")

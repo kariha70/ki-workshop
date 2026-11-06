@@ -220,6 +220,12 @@ Die Halluzination ist dabei dasselbe Problem wie in Kapitel 1, als die Gerade be
 - Aus einem Textvervollständiger wird durch **Feinabstimmung** und **menschliches Feedback** ein Assistent.
 - Ein Sprachmodell erzeugt plausiblen Text, nicht zwingend wahren.
 
+## Wie es weitergeht
+
+Zwei Gedanken aus diesem Kapitel lassen sich weiterführen. Wenn Embeddings ähnliche Bedeutung in ähnliche Zahlen übersetzen, kann man damit auch ganze Texte vergleichen und nach Bedeutung suchen statt nach Wörtern. Und wenn ein Sprachmodell nur weiß, was in seinen Trainingsdaten steckt, kann man ihm passende Texte heraussuchen und im Kontextfenster mitgeben.
+
+Beides zeigt [Kapitel 3: Semantische Suche und RAG](03-Semantische-Suche-und-RAG.md).
+
 ## Selbst ausprobieren
 
 In [Labor 2](app/labor-2.html) lässt sich beliebiger Text eintippen und sofort mit beiden Tokenizern zerlegen. Dort arbeitet js-tiktoken, eine Umsetzung von tiktoken für den Browser, die exakt dieselben Tokens liefert. Außerdem enthält das Labor alle Beispiele aus Abschnitt 3 und die Temperatur aus Abschnitt 8 zum freien Einstellen. Wie die Seite zu Kapitel 1 läuft es ohne Internet und ohne Server.
