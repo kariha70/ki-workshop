@@ -53,3 +53,29 @@
   .marke span { display: none; }
   .leiste nav { margin-left: 0; }
 }
+
+/* Umschalter zwischen hellem und dunklem Design */
+.thema-knopf {
+  flex: none;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--grid);
+  border-radius: 10px;
+  background: none;
+  color: var(--text2);
+  cursor: pointer;
+  padding: 0;
+}
+.thema-knopf:hover { color: var(--text); background: var(--wash); }
+.thema-knopf:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.thema-knopf svg { width: 18px; height: 18px; }
+.thema-knopf .sonne { display: none; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .thema-knopf .sonne { display: block; }
+  :root:not([data-theme="light"]) .thema-knopf .mond { display: none; }
+}
+:root[data-theme="dark"] .thema-knopf .sonne { display: block; }
+:root[data-theme="dark"] .thema-knopf .mond { display: none; }

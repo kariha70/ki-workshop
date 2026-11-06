@@ -76,6 +76,7 @@ def leiste(aktiv):
     return f"""<header class="leiste"><div class="leiste-innen">
   <a class="marke" href="index.html" aria-label="KI-Workshop, zur Startseite">{LOGO}<span>KI-Workshop</span></a>
   <nav aria-label="Workshop">{links}</nav>
+  <button class="thema-knopf" type="button" aria-label="Design wechseln"><svg class="mond" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><svg class="sonne" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
 </div></header>"""
 
 
@@ -85,6 +86,7 @@ def seite(titel, beschreibung, aktiv, inhalt):
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try{{var t=localStorage.getItem("ki-workshop-thema");if(t==="dark"||t==="light")document.documentElement.dataset.theme=t}}catch(e){{}}</script>
 <title>{html.escape(titel)}</title>
 <meta name="description" content="{html.escape(beschreibung)}">
 <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
@@ -102,6 +104,7 @@ def seite(titel, beschreibung, aktiv, inhalt):
   <span>KI-Workshop: vom Eisverkäufer zum Sprachmodell. Alle Daten im Beispiel sind erfunden.</span>
   <span><a href="index.html">Startseite</a> · <a href="kapitel-1.html">Kapitel 1</a> · <a href="kapitel-2.html">Kapitel 2</a> · <a href="app/labor-1.html">Labor 1</a> · <a href="app/labor-2.html">Labor 2</a></span>
 </div></footer>
+<script src="assets/thema.js"></script>
 <script src="assets/site.js"></script>
 </body>
 </html>
