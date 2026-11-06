@@ -431,6 +431,8 @@ Neben ReLU gibt es weitere Aktivierungsfunktionen, etwa die S-förmige Sigmoid-F
 
 Eigentlich haben wir in Abschnitt 9 schon ein neuronales Netz gebaut. Das Abziehen ist nämlich selbst ein Neuron: Es hat die Ausgaben von A und B als Inputs, die Weights +1 und −1 und den Bias 0. Zusammen sind das drei Neuronen in zwei Schichten. Die Eingabe davor zählt nicht als Schicht mit Neuronen, sie reicht nur die Werte weiter.
 
+Jedes Neuron hat ein Weight pro Input und einen eigenen Bias. A und B haben je zwei Weights und einen Bias, die Ausgabe ebenfalls. Das Netz hat also 3 + 3 + 3 = **9 Parameter**. Auch die Werte, die wir von Hand gesetzt haben, zählen dazu, etwa die +1, die −1 und der Bias 0 der Ausgabe. Beim Training (weiter unten) lernt das Netz alle neun, und A und B dürfen sich dabei unterscheiden, obwohl sie von Hand dieselben Weights haben.
+
 Die Abbildung zeigt die Rechnung für einen Samstag mit 35 °C. Man liest sie von links nach rechts:
 
 ![Ein kleines Netz in drei Spalten. Links die Eingaben Temperatur 35 und Wochenende 1. In der Mitte Neuron A mit Bias 20 und dem Ergebnis 420 sowie Neuron B mit Bias minus 330 und dem Ergebnis 70. Rechts die Ausgabe mit Bias 0 und plus 1 mal 420 minus 1 mal 70 plus 0 gleich 350.](bilder/12-netz.png)
