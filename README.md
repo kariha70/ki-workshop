@@ -4,7 +4,7 @@
 
 # KI-Workshop: Vom Eisverkäufer zum Sprachmodell
 
-**Wie lernt eine Maschine? Was steckt hinter ChatGPT und Co.? Und wie schlägt eine KI in eigenen Unterlagen nach?<br>Dieser Workshop erklärt es an einem durchgehenden Beispiel, ohne Vorkenntnisse und ohne Programmieren.**
+**Ein Workshop über neuronale Netze, Sprachmodelle wie ChatGPT und die Suche in eigenen Unterlagen.<br>Alles wird an einem durchgehenden Beispiel erklärt, Vorkenntnisse und Programmieren sind nicht nötig.**
 
 [**Zur Website**](https://kariha70.github.io/ki-workshop/) ·
 [Kapitel 1](https://kariha70.github.io/ki-workshop/kapitel-1.html) ·
@@ -22,21 +22,21 @@
 
 ## Worum es geht
 
-Ein Eisverkäufer möchte wissen, wie viel Eis er morgen braucht. Aus dieser einfachen Frage entsteht Schritt für Schritt alles, was man zum Verständnis heutiger KI braucht: eine Gerade durch die Verkaufszahlen, ein Neuron, ein kleines Netz, ein Sprachmodell und schließlich eine Suche, die nach Bedeutung statt nach Wörtern sucht.
+Ein Eisverkäufer möchte wissen, wie viel Eis er morgen braucht. Von dieser Frage aus geht der Workshop Schritt für Schritt weiter: zu einer Geraden durch die Verkaufszahlen, einem Neuron, einem kleinen Netz, einem Sprachmodell und einer Suche nach Bedeutung.
 
 Der Workshop richtet sich an alle, die verstehen wollen, was in einem Chat-Assistenten wie ChatGPT, Claude oder Gemini passiert, und die ihn danach besser einsetzen möchten. Vorwissen ist nicht nötig, Grundrechenarten genügen.
 
 | | |
 | --- | --- |
-| 🍦 **Ein Beispiel, das trägt** | Statt vieler kleiner Beispiele gibt es eine Geschichte. Gerade, Neuron, Netz, Sprachmodell und Suche bauen alle auf dem Eisverkäufer auf. |
-| 💭 **Mitdenken statt nur zuhören** | Lernziele am Anfang, Fragen zum Kurz-Überlegen, ein Merksatz nach jedem Abschnitt und ein kleiner Selbsttest am Ende jedes Kapitels. |
-| 🎛️ **Ausprobieren im Labor** | Regler verschieben, Texte zerlegen, nach Bedeutung suchen. Die Labore laufen direkt im Browser, ohne Installation. |
-| 🔍 **Mathematik nur für Neugierige** | Formeln und Rechenwege stehen in aufklappbaren Kästen. Wer sie überspringt, verliert nicht den Faden. |
-| 🧮 **Jede Zahl nachrechenbar** | Zu jedem Kapitel gibt es ein Python-Skript, das alle Zahlen und Grafiken erzeugt. Nichts ist geschätzt oder von Hand eingetragen. |
+| **Ein durchgehendes Beispiel** | Gerade, Neuron, Netz, Sprachmodell und Suche bauen alle auf dem Eisverkäufer auf. |
+| **Fragen und Merksätze** | Jedes Kapitel beginnt mit Lernzielen und enthält Fragen zum Nachdenken, einen Merksatz pro Abschnitt und am Ende einen kurzen Selbsttest. |
+| **Labore im Browser** | Regler verschieben, Texte zerlegen, nach Bedeutung suchen. Die Labore laufen direkt im Browser, ohne Installation. |
+| **Rechnungen zum Aufklappen** | Formeln und Rechenwege stehen in aufklappbaren Kästen. Für das Verständnis des Haupttexts sind sie nicht nötig. |
+| **Nachrechenbare Zahlen** | Zu jedem Kapitel gibt es ein Python-Skript, das alle Zahlen und Grafiken erzeugt. Ausgedachte Werte in schematischen Grafiken sind als solche gekennzeichnet. |
 
 ## Die Kapitel
 
-Jedes Kapitel beantwortet eine Leitfrage. Die Kapitel bauen aufeinander auf.
+Die Kapitel bauen aufeinander auf.
 
 <table>
 <tr>
@@ -44,25 +44,25 @@ Jedes Kapitel beantwortet eine Leitfrage. Die Kapitel bauen aufeinander auf.
 <a href="https://kariha70.github.io/ki-workshop/kapitel-1.html"><img src="docs/bilder/11-zwei-knicke.png" alt="Zwei Neuronen mit Knick bilden zusammen eine Kurve"></a>
 <h3>1 · Neuronale Netze</h3>
 <b>Wie eine Maschine aus Beispielen lernt</b><br><br>
-Wie lernt eine Maschine aus Beispielen? Ein Eisverkäufer, eine Gerade und ein kleines Netz zeigen das Grundprinzip hinter jeder heutigen KI.<br><br>
+Ein Eisverkäufer will wissen, wie viel Eis er morgen braucht. Aus seinen Daten entstehen eine Gerade, ein Neuron und ein kleines Netz, das selbst lernt.<br><br>
 <sub>Aus Beispielen lernen · Fehler messen · Schritt für Schritt bergab · Auswendiglernen erkennen · Neuron · Neuronales Netz</sub><br><br>
-⏱ etwa 20 Minuten Lesezeit
+Lesezeit: etwa 20 Minuten
 </td>
 <td width="33%" valign="top">
 <a href="https://kariha70.github.io/ki-workshop/kapitel-2.html"><img src="docs/bilder/kapitel-2/08-transformer.png" alt="Der Weg vom Text zum nächsten Token durch einen Transformer"></a>
 <h3>2 · Große Sprachmodelle</h3>
 <b>Wie ein Computer Texte schreibt</b><br><br>
-Was in ChatGPT und Co. steckt, warum es so flüssig formuliert und warum man trotzdem nachprüfen sollte.<br><br>
+Wie aus der Vorhersage des nächsten Wortes ganze Antworten werden, was Tokens sind und warum man Antworten von Chat-Assistenten prüfen sollte.<br><br>
 <sub>Das nächste Wort · Tokens · Bedeutung als Zahlen · Attention · Transformer · Temperatur · Halluzinationen</sub><br><br>
-⏱ etwa 20 Minuten Lesezeit
+Lesezeit: etwa 20 Minuten
 </td>
 <td width="33%" valign="top">
 <a href="https://kariha70.github.io/ki-workshop/kapitel-3.html"><img src="docs/bilder/kapitel-3/04-suche.png" alt="Semantische Suche und Stichwortsuche im Vergleich"></a>
 <h3>3 · Suchen nach Bedeutung</h3>
 <b>Wie eine KI in Dokumenten nachschlägt</b><br><br>
-Wie beantwortet eine KI Fragen zu eigenen Unterlagen? Suchen nach Bedeutung statt nach Wörtern, und Nachschlagen statt Raten.<br><br>
+Wie eine Suche nach Bedeutung funktioniert und wie ein Chat-Assistent mit RAG Fragen zu eigenen Unterlagen beantwortet.<br><br>
 <sub>Suchen nach Bedeutung · Ähnlichkeit messen · Embedding-Modell · RAG · Grenzen · Praxistipps</sub><br><br>
-⏱ etwa 15 Minuten Lesezeit
+Lesezeit: etwa 15 Minuten
 </td>
 </tr>
 </table>
@@ -97,16 +97,16 @@ Labor 1 und 2 funktionieren auch ohne Internet. Labor 3 rechnet die Beispiele au
 
 ## Zum Nachschlagen und Vorbereiten
 
-**📖 [Glossar](https://kariha70.github.io/ki-workshop/glossar.html):** Alle 51 Fachbegriffe aus dem Workshop in Alltagssprache, von *Aktivierungsfunktion* bis *Weight*, jeweils mit Verweis auf den Abschnitt, in dem sie ausführlich erklärt werden.
+**[Glossar](https://kariha70.github.io/ki-workshop/glossar.html):** Alle 51 Fachbegriffe aus dem Workshop in Alltagssprache, von *Aktivierungsfunktion* bis *Weight*, jeweils mit Verweis auf den Abschnitt, in dem sie ausführlich erklärt werden.
 
-**🧭 [Leitfaden für Moderierende](https://kariha70.github.io/ki-workshop/leitfaden.html):** Alles, um den Workshop vor Ort mit einer Gruppe ohne technisches Vorwissen zu halten:
+**[Leitfaden für Moderierende](https://kariha70.github.io/ki-workshop/leitfaden.html):** für alle, die den Workshop vor Ort mit einer Gruppe ohne technisches Vorwissen halten. Er enthält
 
 - das didaktische Konzept hinter den Kapiteln
 - einen Zeitplan für zwei Sitzungen von je etwa dreieinhalb Stunden, gedacht für 10 bis 15 Teilnehmende
 - für jedes Modul Einstieg, Fragen an die Gruppe, typische Rückfragen und Aufträge für die Labore
 - eine Checkliste für Vorbereitung und Technik, auch für einen Raum ohne Internet
 
-**🖨️ Handouts:** Jedes Kapitel lässt sich über die Druckfunktion des Browsers ausdrucken oder als PDF speichern. Navigation und Schaltflächen werden dabei ausgeblendet, die aufklappbaren Kästen automatisch geöffnet.
+**Handouts:** Jedes Kapitel lässt sich über die Druckfunktion des Browsers ausdrucken oder als PDF speichern. Navigation und Schaltflächen werden dabei ausgeblendet, die aufklappbaren Kästen automatisch geöffnet.
 
 ## Schnellstart
 
@@ -161,11 +161,11 @@ ki-workshop/
 3. **Seiten bauen:** `uv run werkzeuge/seite_bauen.py` erzeugt alle HTML-Seiten in `docs/` neu. Die erzeugten Seiten werden mit eingecheckt.
 4. **Veröffentlichen:** Ein Push auf `main` startet den Workflow, der `docs/` auf GitHub Pages stellt.
 
-Ein paar Grundsätze, die sich durch alle Kapitel ziehen:
+Für die Texte gelten folgende Regeln:
 
 - **Erst erleben, dann benennen:** Jeder größere Gedanke beginnt mit einer Frage an die Leserin oder den Leser („Kurz überlegen“). Der Fachbegriff kommt danach.
 - **Der Hauptweg kommt ohne Formeln aus.** Rechnungen, Programmcode und Hintergründe stehen in Kästen `<details class="vertiefung">` mit dem Titel „Für Neugierige“.
-- **Jeder Abschnitt endet mit einem Merksatz**, jedes Kapitel mit „Das Wichtigste in Kürze“, einem Selbsttest „Teste dich“ und Quellen.
+- **Jeder Abschnitt endet mit einem Merksatz**, jedes Kapitel mit „Das Wichtigste in Kürze“ und einem Selbsttest „Teste dich“. Kapitel 2 und 3 nennen außerdem ihre Quellen.
 - **Alle Daten im Beispiel sind erfunden**, alle Zahlen im Text kommen aus den Skripten. Ausgedachte Werte, etwa in schematischen Grafiken, sind als ausgedacht gekennzeichnet.
 - **Neue Fachbegriffe** gehören auch ins Glossar.
 
@@ -185,7 +185,7 @@ npm --prefix werkzeuge/tiktoken run bauen
 | [paraphrase-multilingual-MiniLM-L12-v2](https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2) | Embedding-Modell für Kapitel 3 | Apache-2.0 |
 | [NumPy](https://numpy.org), [Matplotlib](https://matplotlib.org), [ONNX Runtime](https://onnxruntime.ai), [Python-Markdown](https://python-markdown.github.io) | Skripte und Seitenbau | jeweils eigene freie Lizenz |
 
-Die Quellen zu den Inhalten, von „Attention Is All You Need“ bis zu RAG, stehen am Ende jedes Kapitels.
+Die Quellen zu den Inhalten stehen am Ende von Kapitel 2 und 3.
 
 ## Lizenz
 

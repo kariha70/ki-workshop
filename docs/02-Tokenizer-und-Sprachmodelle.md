@@ -1,8 +1,8 @@
 # Große Sprachmodelle: Wie ein Computer Texte schreibt
 
-ChatGPT, Claude, Gemini: Viele haben schon mit einem Chat-Assistenten gearbeitet und gestaunt, wie flüssig er formuliert. Und manche haben erlebt, wie überzeugend er sich irren kann. Wie passt beides zusammen?
+Chat-Assistenten wie ChatGPT, Claude oder Gemini formulieren flüssig und liegen trotzdem manchmal daneben, ohne dass man es dem Text ansieht. Dieses Kapitel erklärt, woher beides kommt.
 
-Dieses Kapitel zeigt, was in einem großen Sprachmodell (englisch Large Language Model, kurz LLM) steckt. Die überraschende Antwort: Es ist nach demselben Rezept gebaut wie das Netz des Eisverkäufers aus Kapitel 1. Eingaben gewichten, Fehler messen, Schritt für Schritt bergab gehen. Neu sind drei Dinge: Die Eingabe ist Text, die Vorhersage ist das nächste Stück Text, und alles ist um viele Größenordnungen größer.
+Ein großes Sprachmodell (englisch Large Language Model, kurz LLM) wird mit demselben Verfahren trainiert wie das Netz des Eisverkäufers aus Kapitel 1: Eingaben gewichten, Fehler messen, Schritt für Schritt bergab gehen. Anders sind drei Dinge: Die Eingabe ist Text, die Vorhersage ist das nächste Stück Text, und alles ist um viele Größenordnungen größer.
 
 <div class="lernziele" markdown="1">
 
@@ -13,11 +13,11 @@ Dieses Kapitel zeigt, was in einem großen Sprachmodell (englisch Large Language
 - in groben Zügen sagen, wie ein Sprachmodell Bedeutung und Zusammenhänge im Text erfasst.
 - einschätzen, wann du einer Antwort trauen kannst und wann du nachprüfen solltest.
 
-Kästen „Für Neugierige“ enthalten Rechnungen und Hintergründe. Du kannst sie überspringen, ohne den Faden zu verlieren.
+Kästen „Für Neugierige“ enthalten Rechnungen und Hintergründe. Für den Rest des Kapitels brauchst du sie nicht.
 
 </div>
 
-Was gleich bleibt und was neu ist:
+Der Vergleich im Überblick:
 
 | | Das Netz des Eisverkäufers | Ein großes Sprachmodell |
 | --- | --- | --- |
@@ -29,7 +29,7 @@ Was gleich bleibt und was neu ist:
 
 ## 1. Was kommt als Nächstes?
 
-Kennst du die Wortvorschläge auf der Tastatur deines Smartphones? Nach „Bis“ schlägt sie „morgen“ oder „später“ vor. Ein Sprachmodell macht im Grunde dasselbe, nur unvergleichlich besser.
+Die Tastatur auf dem Smartphone schlägt nach „Bis“ Wörter wie „morgen“ oder „später“ vor. Ein Sprachmodell löst dieselbe Aufgabe, berücksichtigt dabei aber viel mehr vorangehenden Text und hat an viel mehr Beispielen gelernt.
 
 <div class="frage" markdown="1">
 
@@ -38,7 +38,7 @@ Kennst du die Wortvorschläge auf der Tastatur deines Smartphones? Nach „Bis�
 <details markdown="1">
 <summary>Auflösung</summary>
 
-Wahrscheinlich hast du an „Becher“ gedacht, vielleicht auch an „Hörnchen“. An „Regen“ eher nicht, obwohl auch das ein möglicher Satz wäre. Du hast gerade getan, was ein Sprachmodell tut: aus Erfahrung abgeschätzt, welche Fortsetzungen wie wahrscheinlich sind.
+Wahrscheinlich hast du an „Becher“ gedacht, vielleicht auch an „Hörnchen“. An „Regen“ eher nicht, obwohl auch das ein möglicher Satz wäre. Ein Sprachmodell macht dasselbe: Es schätzt, welche Fortsetzungen wie wahrscheinlich sind.
 
 </details>
 </div>
@@ -49,15 +49,15 @@ Ein Sprachmodell bekommt den bisherigen Text und gibt für jedes mögliche näch
 Zwei Kugeln Schokolade im  →  Becher 62 %, Hörnchen 28 %, Glas 8 %, …
 ```
 
-Die Prozentzahlen sind ausgedacht. Zur Auswahl stehen dabei nicht drei Wörter, sondern das ganze Vokabular des Modells, oft 100.000 Einträge und mehr.
+Die Prozentzahlen sind ausgedacht. Zur Auswahl steht das ganze Vokabular des Modells, oft 100.000 Einträge und mehr.
 
-**Trainingsdaten gibt es umsonst.** Der Eisverkäufer musste seine Verkäufe aufschreiben. Ein Text dagegen ist schon eine Sammlung fertiger Übungsaufgaben, denn an jeder Stelle ist bekannt, wie es weitergeht:
+Der Eisverkäufer musste seine Verkäufe aufschreiben. Für ein Sprachmodell liefert jeder Text die Übungsaufgaben gleich mit, denn an jeder Stelle ist bekannt, wie es weitergeht:
 
 ![Der Satz „Zwei Kugeln Schokolade im Becher, bitte.“ ergibt sieben Aufgaben. In Aufgabe 1 bekommt das Modell „Zwei“ und soll „Kugeln“ vorhersagen, in Aufgabe 2 bekommt es „Zwei Kugeln“ und soll „Schokolade“ vorhersagen, und so weiter bis zum Punkt.](bilder/kapitel-2/01-trainingsaufgaben.png)
 
 Niemand muss etwas beschriften. Deshalb kann man mit riesigen Textmengen aus Büchern, Webseiten und Programmcode trainieren. Das nennt man **selbstüberwachtes Lernen**.
 
-**Wie wird der Fehler gemessen?** Zwischen „Becher“ und „Glas“ gibt es keinen Abstand wie zwischen 270 und 320 Kugeln. Stattdessen fragt man: Wie überrascht war das Modell? Hat es dem Wort, das tatsächlich kam, eine hohe Wahrscheinlichkeit gegeben, ist der Fehler klein. Hielt es das Wort für unwahrscheinlich, ist der Fehler groß. Das Fachwort für dieses Fehlermaß ist **Kreuzentropie**.
+Auch der Fehler wird anders gemessen, denn zwischen „Becher“ und „Glas“ gibt es keinen Abstand wie zwischen 270 und 320 Kugeln. Gemessen wird, wie viel Wahrscheinlichkeit das Modell dem Wort gegeben hat, das tatsächlich kam. War es viel, ist der Fehler klein, war es wenig, ist er groß. Das Fachwort für dieses Fehlermaß ist **Kreuzentropie**.
 
 <details class="vertiefung" markdown="1">
 <summary>Für Neugierige: Wahrscheinlichkeiten und Kreuzentropie</summary>
@@ -78,7 +78,7 @@ Wie beim Quadrieren in Kapitel 1 kosten grobe Fehlgriffe besonders viel. Und auc
 
 Netze rechnen nur mit Zahlen. In Kapitel 1 wurde deshalb aus dem Wochenende eine 0 oder 1. Für Text erledigt das der **Tokenizer**: Er zerlegt Text in Stücke, die **Tokens**, und gibt jedem Stück eine Nummer.
 
-Doch wie groß sollen die Stücke sein?
+Für die Größe der Stücke gibt es drei Möglichkeiten:
 
 | Zerlegen in      | Vorteil                            | Nachteil                                              |
 | ---------------- | ---------------------------------- | ----------------------------------------------------- |
@@ -99,40 +99,40 @@ Das Verfahren heißt **Byte-Pair-Encoding**. Echte Tokenizer beginnen nicht bei 
 
 </details>
 
-> **Merke:** Der Tokenizer zerlegt Text in Teilwörter und gibt ihnen Nummern. Er wird einmal vorab gelernt und bleibt danach fest. Er ist die Brille, durch die das Modell jeden Text sieht.
+> **Merke:** Der Tokenizer zerlegt Text in Teilwörter und gibt ihnen Nummern. Er wird einmal vorab gelernt und bleibt danach fest. Das Modell bekommt nur diese Nummern zu sehen.
 
 ## 3. Ein echter Tokenizer bei der Arbeit
 
-Wie das in der Praxis aussieht, zeigt der Tokenizer, den OpenAI für GPT-4o verwendet und frei zur Verfügung stellt. Andere Modellfamilien wie Claude, Gemini oder Llama haben eigene Tokenizer, das Prinzip ist dasselbe. So zerlegt er eine Bestellung:
+Als Beispiel dient der Tokenizer, den OpenAI für GPT-4o verwendet und frei zur Verfügung stellt. Andere Modellfamilien wie Claude, Gemini oder Llama haben eigene Tokenizer, das Prinzip ist dasselbe. So zerlegt er eine Bestellung:
 
 ![Der deutsche Satz „Zwei Kugeln Schokolade im Becher, bitte.“ wird in 12 Tokens zerlegt, zum Beispiel ␣Kug, eln, ␣Sch und okolade. Der englische Satz „Two scoops of chocolate in a cup, please.“ braucht 11 Tokens. Unter jedem Token steht seine Nummer im Vokabular.](bilder/kapitel-2/04-tokens.png)
 
-Das Zeichen ␣ steht für ein Leerzeichen. An solchen Zerlegungen sieht man einiges:
+Das Zeichen ␣ steht für ein Leerzeichen. Daran lässt sich einiges ablesen:
 
 | Beobachtung | Beispiel | Folge |
 | --- | --- | --- |
 | Das Leerzeichen gehört zum Wort | `␣Kugeln` → `␣Kug` `eln`, aber `Kugeln` am Satzanfang → `K` `ug` `eln` | Dasselbe Wort kann ganz verschieden aussehen. |
-| Häufig heißt ganz | `␣bitte` und `␣verkauft` sind je ein Token, `Erdbeere` am Satzanfang → `E` `rd` `be` `ere` | Seltene Wörter kosten mehr Tokens. |
+| Häufige Wörter bleiben ganz | `␣bitte` und `␣verkauft` sind je ein Token, `Erdbeere` am Satzanfang → `E` `rd` `be` `ere` | Seltene Wörter kosten mehr Tokens. |
 | Zahlen kommen in Blöcken | `12345678` → `123` `456` `78` | Rechnen mit langen Zahlen ist schwer. |
 | Die Nummern bedeuten nichts | `␣Kug` ist 110582, `␣bitte` ist 49309 | Wie bei den Wochentag-Nummern in Kapitel 1 sagt die Größe nichts aus. |
 
 <div class="frage" markdown="1">
 
-**Kurz überlegen:** Chat-Assistenten tun sich überraschend schwer mit der Frage „Wie viele r stecken in Erdbeere?“. Warum?
+**Kurz überlegen:** Chat-Assistenten tun sich oft schwer mit der Frage „Wie viele r stecken in Erdbeere?“. Warum?
 
 <details markdown="1">
 <summary>Auflösung</summary>
 
-Das Modell sieht keine Buchstaben. Bei „…&nbsp;in Erdbeere?“ kommt das Wort als drei Nummern an: 104051, 1464 und 512, die für `␣Erd`, `be` und `ere` stehen. Wie viele r darin stecken, muss das Modell irgendwann einmal nebenbei gelernt haben. Ablesen kann es das nicht.
+Das Modell sieht keine Buchstaben. Bei „…&nbsp;in Erdbeere?“ kommt das Wort als drei Nummern an: 104051, 1464 und 512, die für `␣Erd`, `be` und `ere` stehen. Wie viele r darin stecken, lässt sich an diesen Nummern nicht ablesen.
 
 </details>
 </div>
 
-**Deutsch ist teurer als Englisch.** Für denselben Inhalt braucht Deutsch mehr Tokens, und ältere Tokenizer mit kleinerem Vokabular trifft es stärker:
+Deutscher Text braucht für denselben Inhalt mehr Tokens als englischer. Bei älteren Tokenizern mit kleinerem Vokabular ist der Unterschied größer:
 
 ![Zwei Balkendiagramme. Mit o200k_base braucht die Bestellung auf Deutsch 12 Tokens, auf Englisch 11, der Satz aus Kapitel 1 auf Deutsch 15, auf Englisch 14. Mit cl100k_base sind es 15 gegen 11 und 20 gegen 14.](bilder/kapitel-2/05-deutsch-englisch.png)
 
-Das hat praktische Folgen, denn bei Sprachmodellen wird fast alles in Tokens gemessen: der Preis einer Anfrage, die Geschwindigkeit der Antwort und wie viel Text das Modell auf einmal überblicken kann (Abschnitt 9). Als grobe Faustregel entspricht ein Token im Deutschen etwa einem Wortteil, ein Wort hat oft ein bis drei Tokens.
+Bei Sprachmodellen wird fast alles in Tokens gemessen: der Preis einer Anfrage, die Geschwindigkeit der Antwort und wie viel Text das Modell auf einmal verarbeiten kann (Abschnitt 9). Grob gerechnet hat ein deutsches Wort ein bis drei Tokens.
 
 <details class="vertiefung" markdown="1">
 <summary>Für Neugierige: Die beiden Vokabulare im Vergleich</summary>
@@ -148,17 +148,17 @@ Alle Beispiele in der Tabelle oben stammen von `o200k_base`.
 
 </details>
 
-> **Merke:** Tokens sind die Währung von Sprachmodellen. Wer weiß, wie ein Text zerlegt wird, versteht viele seltsame Schwächen, etwa beim Buchstabenzählen und Rechnen.
+> **Merke:** Preis, Geschwindigkeit und Textlänge werden in Tokens gemessen. Weil das Modell nur Tokens sieht, hat es Schwierigkeiten beim Buchstabenzählen und beim Rechnen mit langen Zahlen.
 
 ## 4. Bedeutung als Zahlenliste: Embeddings
 
 Eine Token-Nummer allein sagt nichts über die Bedeutung. Deshalb bekommt jedes Token eine eigene Liste von Zahlen, ein **Embedding**. Bei großen Modellen hat sie einige tausend Einträge.
 
-Diese Zahlen sind ganz gewöhnliche Parameter: Am Anfang sind sie zufällig, beim Training werden sie mit dem Gradientenabstieg angepasst, wie das Wochenend-Weight in Kapitel 1. Weil das Ziel nur ist, das nächste Token gut vorherzusagen, landen Wörter, die in ähnlichen Zusammenhängen vorkommen, bei ähnlichen Zahlenlisten. Man kann sich das wie eine Landkarte der Bedeutung vorstellen:
+Diese Zahlen sind ganz gewöhnliche Parameter: Am Anfang sind sie zufällig, beim Training werden sie mit dem Gradientenabstieg angepasst, wie das Wochenend-Weight in Kapitel 1. Weil das Ziel nur ist, das nächste Token gut vorherzusagen, landen Wörter, die in ähnlichen Zusammenhängen vorkommen, bei ähnlichen Zahlenlisten. Vereinfacht auf eine Karte gezeichnet, sieht das so aus:
 
 ![Schematische Karte mit vier Gruppen von Wörtern. Eissorten wie Vanille, Schokolade, Erdbeere und Stracciatella liegen nah beieinander, ebenso Gefäße wie Becher, Waffel und Hörnchen, Wetterwörter und Wochentage. Zwischen den Gruppen ist viel Abstand.](bilder/kapitel-2/06-embeddings.png)
 
-Die Karte ist vereinfacht: Echte Embeddings haben tausende Dimensionen, nicht zwei, und die Positionen hier sind ausgedacht. Das Prinzip stimmt aber, und niemand hat es dem Modell gesagt. Es ergibt sich aus den Daten.
+Die Karte ist vereinfacht: Echte Embeddings haben tausende Dimensionen, nicht zwei, und die Positionen hier sind ausgedacht. Dass ähnliche Wörter beieinanderliegen, gilt aber auch für echte Modelle. Vorgegeben hat das niemand, es ergibt sich beim Training.
 
 <details class="vertiefung" markdown="1">
 <summary>Für Neugierige: Wie groß diese Tabelle wird</summary>
@@ -167,7 +167,7 @@ Bei 200.000 Tokens mit je 4.000 Zahlen sind es schon 800 Millionen Parameter, nu
 
 </details>
 
-> **Merke:** Embeddings übersetzen Token-Nummern in Bedeutung: Ähnliches liegt nah beieinander.
+> **Merke:** Ein Embedding ist eine gelernte Zahlenliste für jedes Token. Wörter, die ähnlich verwendet werden, bekommen ähnliche Listen.
 
 ## 5. Ein Wort reicht nicht: Attention
 
@@ -180,16 +180,16 @@ Zum Vorhersagen genügt das letzte Wort selten. Ein Kunde sagt: „Ich nehme Erd
 <details markdown="1">
 <summary>Auflösung</summary>
 
-Auf die Kugel. Ändert man „zu groß“ in „zu klein“, ist plötzlich die Waffel gemeint. Grammatisch ginge beides, entscheiden kann man es nur, wenn man mehrere Wörter gleichzeitig im Blick hat. Genau dafür gibt es Attention.
+Auf die Kugel. Ändert man „zu groß“ in „zu klein“, ist die Waffel gemeint. Grammatisch ginge beides, entscheiden kann man es nur, wenn man mehrere Wörter gleichzeitig im Blick hat. Dafür ist Attention da.
 
 </details>
 </div>
 
-Die Lösung heißt **Attention** (Aufmerksamkeit). Jedes Token schaut auf die Tokens vor sich und entscheidet, wie wichtig ihm jedes davon gerade ist. Von den wichtigen holt es sich mehr Information, von den unwichtigen weniger:
+Der Baustein dafür heißt **Attention** (Aufmerksamkeit). Jedes Token schaut auf die Tokens vor sich und entscheidet, wie wichtig ihm jedes davon gerade ist. Von den wichtigen holt es sich mehr Information, von den unwichtigen weniger:
 
 ![Die Tokens des Satzes stehen in einer Reihe. Vom Token „elbe“ aus „dasselbe“ führen Bögen zurück zu allen früheren Tokens. Die dicksten Bögen gehen zu „␣Erd“, „be“ und „ere“, also zur Erdbeere, dünne zu „␣Für“ oder „Ich“.](bilder/kapitel-2/07-attention.png)
 
-Die Gewichte in der Grafik sind ausgedacht. Wichtig ist der Unterschied zu Kapitel 1: Diese Gewichtung ist kein fester Parameter, sie wird für jeden Text neu berechnet. Gelernt wird nur, *wie* sie berechnet wird.
+Die Gewichte in der Grafik sind ausgedacht. Anders als die Weights aus Kapitel 1 ist diese Gewichtung kein fester Parameter. Sie wird für jeden Text neu berechnet, gelernt wird nur, *wie* sie berechnet wird.
 
 <details class="vertiefung" markdown="1">
 <summary>Für Neugierige: Zwei Einzelheiten</summary>
@@ -209,12 +209,12 @@ Die Bauweise heutiger Sprachmodelle heißt **Transformer**. Das „T“ in „GP
 
 ![Ein Ablauf von links nach rechts: Text, Tokenizer, Embeddings, dann ein Block aus Attention und Neuronen mit Knick, der viele Male hintereinander kommt, dann die Ausgabe mit einer Punktzahl je Token und Softmax, am Ende das nächste Token, zum Beispiel ␣Be für Becher.](bilder/kapitel-2/08-transformer.png)
 
-Das Herzstück ist der Block, und große Modelle stapeln Dutzende davon. Jeder Block hat zwei Teile:
+Den größten Teil macht der Block in der Mitte aus. Große Modelle stapeln Dutzende davon. Jeder Block hat zwei Teile:
 
 1. **Attention:** Die Tokens tauschen Informationen untereinander aus (Abschnitt 5).
 2. **Neuronen mit Knick:** Jedes Token wird für sich weiterverarbeitet. Das ist die verborgene Schicht aus Kapitel 1, nur mit tausenden Neuronen statt zwei.
 
-Gelernt wird wie in Kapitel 1: Vorhersage berechnen, Fehler messen, mit Backpropagation die Steigungen bestimmen, einen Schritt bergab gehen. Nur geschieht das nicht 30000-mal mit 18 Tagen, sondern für Billionen von Tokens, verteilt auf tausende Spezialchips über Wochen oder Monate.
+Gelernt wird wie in Kapitel 1: Vorhersage berechnen, Fehler messen, mit Backpropagation die Steigungen bestimmen, einen Schritt bergab gehen. Statt 30000 Schritten mit 18 Tagen sind es aber Billionen Tokens, verteilt auf tausende Spezialchips über Wochen oder Monate.
 
 <details class="vertiefung" markdown="1">
 <summary>Für Neugierige: Was sonst noch im Transformer steckt</summary>
@@ -235,9 +235,9 @@ Drei Erkenntnisse aus der Forschung:
 
 - **Der Fehler sinkt vorhersagbar.** Mit mehr Parametern, Daten oder Rechenaufwand sinkt der Fehler sehr regelmäßig. Deshalb kann man an kleinen Modellen ausprobieren und recht zuverlässig vorhersagen, wie gut ein großes wird.
 - **Daten und Parameter gehören zusammen.** Ein großes Modell braucht auch entsprechend viele Daten. Ein kleineres Modell mit mehr Daten kann ein größeres schlagen.
-- **Fähigkeiten kommen nebenbei.** Um Text wirklich gut fortzusetzen, muss ein Modell Grammatik, Fakten, Übersetzungen und Programmcode lernen. Niemand bringt ihm das gezielt bei, es steckt in der Aufgabe „nächstes Token“.
+- **Fähigkeiten ohne eigenes Training.** Um Text gut fortzusetzen, muss ein Modell Grammatik, Fakten, Übersetzungen und Programmcode lernen. Dafür gibt es im Vortraining keine eigenen Aufgaben, es ergibt sich aus der Vorhersage des nächsten Tokens.
 
-**Und das Auswendiglernen aus Kapitel 1?** Dort lernte ein Modell mit vielen Parametern für wenige Tage nur auswendig. Ein großes Sprachmodell hat zwar Milliarden Parameter, sieht aber noch viel mehr Text, das meiste davon nur ein einziges Mal. Ganz verschwindet das Auswendiglernen trotzdem nicht: Sehr häufige Texte kann ein Modell manchmal wörtlich wiedergeben.
+In Kapitel 1 lernte ein Modell mit vielen Parametern für wenige Tage nur auswendig. Ein großes Sprachmodell hat zwar Milliarden Parameter, sieht aber noch viel mehr Text, das meiste davon nur ein einziges Mal. Auswendig gelernt wird trotzdem manches: Sehr häufige Texte kann ein Modell manchmal wörtlich wiedergeben.
 
 <details class="vertiefung" markdown="1">
 <summary>Für Neugierige: Die Studien dahinter</summary>
@@ -248,7 +248,7 @@ Drei Erkenntnisse aus der Forschung:
 
 </details>
 
-> **Merke:** Größer wird besser, wenn Parameter und Daten gemeinsam wachsen, und zwar erstaunlich vorhersagbar.
+> **Merke:** Mit mehr Parametern und mehr Daten sinkt der Fehler, und zwar so regelmäßig, dass man es vorab abschätzen kann.
 
 ## 8. Text erzeugen
 
@@ -258,9 +258,9 @@ Ein Sprachmodell sagt immer nur ein einziges nächstes Token voraus. Längere An
 
 Deshalb erscheinen Antworten im Chat Stück für Stück. Für jedes Token läuft das ganze Modell einmal durch. Das ist die Anwendung aus Kapitel 1: Die Weights bleiben fest, das Modell rechnet nur noch.
 
-**Wie wird ausgewählt?** Nimmt das Modell immer das wahrscheinlichste Token, werden Texte eintönig und wiederholen sich. Deshalb wird meist ausgelost, und zwar so, dass wahrscheinliche Tokens öfter gezogen werden. Darum gibt dasselbe Modell auf dieselbe Frage nicht immer dieselbe Antwort.
+Nimmt das Modell immer das wahrscheinlichste Token, werden Texte eintönig und wiederholen sich. Deshalb wird meist ausgelost, und zwar so, dass wahrscheinliche Tokens öfter gezogen werden. Darum gibt dasselbe Modell auf dieselbe Frage nicht immer dieselbe Antwort.
 
-**Die Temperatur** ist eine Stellschraube beim Auslosen. Mit der Temperatur aus Kapitel 1 hat sie nichts zu tun, auch wenn es beim Eisverkäufer gut passt. Bei niedriger Temperatur gewinnt fast immer der Favorit, bei hoher Temperatur bekommen auch Außenseiter eine Chance. In der Grafik sind die Kandidaten der Einfachheit halber ganze Wörter, die Zahlen sind ausgedacht:
+**Die Temperatur** ist eine Stellschraube beim Auslosen. Mit der Temperatur aus Kapitel 1 hat sie nichts zu tun. Bei niedriger Temperatur gewinnt fast immer der Favorit, bei hoher Temperatur bekommen auch Außenseiter eine Chance. In der Grafik sind die Kandidaten der Einfachheit halber ganze Wörter, die Zahlen sind ausgedacht:
 
 ![Drei Balkendiagramme mit den Wahrscheinlichkeiten für das Wort nach „Zwei Kugeln Schokolade im“. Bei Temperatur 0,5 bekommt Becher 82 Prozent, bei Temperatur 1 sind es 62 Prozent, bei Temperatur 2 nur noch 43 Prozent, und Regen steigt von 0 auf 5 Prozent.](bilder/kapitel-2/11-temperatur.png)
 
@@ -269,7 +269,7 @@ Deshalb erscheinen Antworten im Chat Stück für Stück. Für jedes Token läuft
 | niedrig, nahe 0 | fast immer das wahrscheinlichste Token, vorhersagbar und gleichförmig | Fakten, Code, Zusammenfassungen |
 | hoch | Wahrscheinlichkeiten gleichen sich an, abwechslungsreich, aber fehleranfälliger | Ideen sammeln, kreatives Schreiben |
 
-Bei hoher Temperatur hat plötzlich selbst „Zwei Kugeln Schokolade im Regen“ eine echte Chance.
+Bei hoher Temperatur kommt auch „Zwei Kugeln Schokolade im Regen“ gelegentlich vor.
 
 <details class="vertiefung" markdown="1">
 <summary>Für Neugierige: Was die Temperatur genau macht</summary>
@@ -278,7 +278,7 @@ Vor der Softmax-Funktion (Abschnitt 1) werden alle Punktzahlen durch die Tempera
 
 </details>
 
-> **Merke:** Text entsteht Token für Token. Die Temperatur bestimmt, wie mutig dabei ausgelost wird.
+> **Merke:** Text entsteht Token für Token. Die Temperatur bestimmt, wie stark beim Auslosen das wahrscheinlichste Token bevorzugt wird.
 
 ## 9. Vom Textvervollständiger zum Assistenten
 
@@ -287,7 +287,7 @@ Nach dem **Vortraining** mit riesigen Textmengen kann ein Modell Text fortsetzen
 ![Drei Stufen nebeneinander: Vortraining mit Billionen Tokens Text, Feinabstimmung mit Beispielgesprächen und menschliches Feedback mit Bewertungen von Antworten. Auf die Frage „Wie viel Eis brauche ich bei 25 °C?“ setzt das vortrainierte Modell den Text mit weiteren Fragen fort, nach der Feinabstimmung antwortet es „Bei 25 °C etwa 290 Kugeln“, nach dem Feedback „An einem Werktag etwa 270 Kugeln, am Wochenende etwa 320“.](bilder/kapitel-2/12-assistent.png)
 
 1. **Feinabstimmung:** Das Modell wird mit vielen Beispielgesprächen weitertrainiert, in denen auf eine Anfrage eine gute Antwort folgt. Das Verfahren bleibt gleich, nur die Daten ändern sich.
-2. **Lernen aus menschlichem Feedback:** Menschen vergleichen Antworten des Modells und wählen die bessere. Das Modell wird so weitertrainiert, dass bevorzugte Antworten wahrscheinlicher werden. Das wirkt stark: Ein so trainiertes Modell mit 1,3 Milliarden Parametern wurde dem hundertmal größeren GPT-3 vorgezogen.
+2. **Lernen aus menschlichem Feedback:** Menschen vergleichen Antworten des Modells und wählen die bessere. Das Modell wird so weitertrainiert, dass bevorzugte Antworten wahrscheinlicher werden. In einer Studie von OpenAI wurden die Antworten eines so trainierten Modells mit 1,3 Milliarden Parametern denen des hundertmal größeren GPT-3 vorgezogen.
 
 <div class="frage" markdown="1">
 
@@ -303,34 +303,34 @@ Nicht während des Gesprächs. Die Weights bleiben fest. Der Assistent „erinne
 
 Der Text, den das Modell bei jeder Antwort bekommt, hat eine Obergrenze, das **Kontextfenster**. Auch sie wird in Tokens gemessen. Ist ein Gespräch oder ein Dokument zu lang, fällt etwas heraus.
 
-> **Merke:** Vortraining bringt das Wissen, Feinabstimmung und Feedback bringen das hilfreiche Verhalten. Im Gespräch lernt das Modell nicht dazu, es liest nur mit.
+> **Merke:** Vortraining bringt das Wissen, Feinabstimmung und Feedback bringen das hilfreiche Verhalten. Im Gespräch lernt das Modell nicht dazu.
 
-## 10. Grenzen ehrlich benennen
+## 10. Typische Schwächen
 
 Aus dem, was ein Sprachmodell lernt, folgen auch seine typischen Schwächen:
 
 | Schwäche | Warum | Was hilft |
 | --- | --- | --- |
-| **Plausibel statt wahr** (Halluzination) | Das Modell lernt, welcher Text wahrscheinlich folgt, nicht welcher stimmt. Wo die Daten wenig hergeben, klingt es trotzdem überzeugend. | Wichtige Aussagen prüfen, Quellen verlangen und nachsehen |
+| **Erfundene Fakten** (Halluzination) | Das Modell lernt, welcher Text wahrscheinlich folgt, nicht welcher stimmt. Wo die Daten wenig hergeben, klingt es trotzdem überzeugend. | Wichtige Aussagen prüfen, Quellen verlangen und nachsehen |
 | **Nur, was in den Daten steckt** | Es kennt die Welt nur bis zum Ende seiner Trainingsdaten und übernimmt deren Einseitigkeiten. | Aktuelle Informationen im Gespräch mitgeben |
-| **Die Brille des Tokenizers** | Es sieht Tokens, keine Buchstaben oder Ziffern (Abschnitt 3). | Für Zählen und Rechnen ein Werkzeug nutzen |
+| **Keine Buchstaben, nur Tokens** | Es sieht Tokens, keine Buchstaben oder Ziffern (Abschnitt 3). | Für Zählen und Rechnen ein Werkzeug nutzen |
 | **Zufall beim Erzeugen** | Durch das Auslosen bekommt dieselbe Frage verschiedene Antworten (Abschnitt 8). | Ergebnis prüfen, bei Bedarf mehrmals fragen |
 
-Die Halluzination ist dabei dasselbe Problem wie in Kapitel 1, als die Gerade bei −10 °C selbstbewusst −60 Kugeln vorhersagte: Außerhalb seiner Daten rechnet ein Modell einfach weiter. Es hat keine eingebaute Warnlampe für „Das weiß ich nicht“.
+Halluzinationen haben eine ähnliche Ursache wie die −60 Kugeln, die die Gerade in Kapitel 1 für −10 °C vorhersagte: Außerhalb seiner Daten rechnet ein Modell einfach weiter, ohne von sich aus zu erkennen, dass es unsicher ist.
 
-> **Merke:** Ein Sprachmodell erzeugt plausiblen Text, nicht zwingend wahren.
+> **Merke:** Ein Sprachmodell erzeugt Text, der wahrscheinlich klingt. Ob er stimmt, muss man selbst prüfen.
 
 ## 11. Was das für den Alltag heißt
 
-Aus diesem Kapitel lassen sich einige Faustregeln für die Arbeit mit Chat-Assistenten ableiten:
+Für die Arbeit mit Chat-Assistenten folgt daraus:
 
-- **Kontext mitgeben.** Das Modell weiß nur, was in seinen Trainingsdaten stand und was im Gespräch steht. Wer Zweck, Zielgruppe und nötige Fakten nennt, bekommt passendere Antworten.
-- **Fakten prüfen.** Zahlen, Namen, Zitate und Quellenangaben sind typische Stellen für Halluzinationen. Je wichtiger die Antwort, desto gründlicher der Blick in eine verlässliche Quelle.
+- **Kontext mitgeben.** Das Modell weiß nur, was in seinen Trainingsdaten stand und was im Gespräch steht. Wer Zweck, Zielgruppe und nötige Fakten nennt, bekommt passendere Antworten. „Schreib eine kurze, freundliche Einladung zum Sommerfest am 12. Juli für das ganze Team“ führt zu einem brauchbareren Text als „Schreib eine Einladung“.
+- **Fakten prüfen.** Zahlen, Namen, Zitate und Quellenangaben sind typische Stellen für Halluzinationen. Alles, was du weiterverwendest, in einer verlässlichen Quelle nachsehen.
 - **Für Rechnen und Zählen Werkzeuge nutzen.** Viele Assistenten können dafür ein Rechenprogramm aufrufen. Sonst lieber selbst nachrechnen.
 - **Lange Texte im Blick behalten.** Bei sehr langen Gesprächen oder Dokumenten stößt das Modell an sein Kontextfenster. Ein neues Gespräch mit einer kurzen Zusammenfassung hilft oft.
 - **Bewusst entscheiden, was du eingibst.** Alles, was du eintippst, wird an den Anbieter geschickt. Vertrauliche Daten gehören nur in Dienste, die dafür freigegeben sind.
 
-> **Merke:** Ein Chat-Assistent ist ein starkes Werkzeug zum Formulieren, Zusammenfassen und Ideensammeln. Für Fakten ist er ein guter Ausgangspunkt, aber keine Quelle.
+> **Merke:** Ein Chat-Assistent eignet sich gut zum Formulieren, Zusammenfassen und Ideensammeln. Fakten aus seinen Antworten müssen geprüft werden, bevor man sie weiterverwendet.
 
 ## Das Wichtigste in Kürze
 
@@ -342,7 +342,7 @@ Aus diesem Kapitel lassen sich einige Faustregeln für die Arbeit mit Chat-Assis
 - Größere Modelle mit mehr Daten werden vorhersagbar besser.
 - Antworten entstehen **Token für Token** durch Auslosen. Die **Temperatur** bestimmt, wie vorhersagbar oder abwechslungsreich das Ergebnis wird.
 - Aus einem Textvervollständiger wird durch **Feinabstimmung** und **menschliches Feedback** ein Assistent. Im Gespräch lernt er nicht dazu.
-- Ein Sprachmodell erzeugt plausiblen Text, nicht zwingend wahren.
+- Ein Sprachmodell erzeugt Text, der wahrscheinlich klingt. Ob er stimmt, muss man prüfen.
 
 ## Teste dich
 
@@ -377,13 +377,13 @@ Gar nicht im Modell selbst. Bei jeder Antwort wird ihm das bisherige Gespräch a
 <details class="quiz" markdown="1">
 <summary>Warum kann ein Sprachmodell überzeugend klingen und trotzdem falsch liegen?</summary>
 
-Es wurde darauf trainiert, wahrscheinlichen Text zu erzeugen, nicht wahren. Wo seine Daten wenig hergeben, erzeugt es trotzdem flüssigen, plausiblen Text (Halluzination).
+Es wurde darauf trainiert, wahrscheinlichen Text zu erzeugen. Ob der Text stimmt, spielt dabei keine direkte Rolle. Wo seine Daten wenig hergeben, erzeugt es trotzdem flüssigen, plausiblen Text (Halluzination).
 
 </details>
 
 ## Wie es weitergeht
 
-Zwei Gedanken aus diesem Kapitel lassen sich weiterführen. Wenn Embeddings ähnliche Bedeutung in ähnliche Zahlen übersetzen, kann man damit auch ganze Texte vergleichen und nach Bedeutung suchen statt nach Wörtern. Und wenn ein Sprachmodell nur weiß, was in seinen Trainingsdaten steckt, kann man ihm passende Texte heraussuchen und mitgeben.
+Kapitel 3 baut auf zwei Punkten aus diesem Kapitel auf. Wenn Embeddings ähnliche Bedeutung in ähnliche Zahlen übersetzen, kann man damit auch ganze Texte vergleichen und nach Bedeutung suchen. Und wenn ein Sprachmodell nur weiß, was in seinen Trainingsdaten steckt, kann man ihm passende Texte heraussuchen und mitgeben.
 
 Beides zeigt [Kapitel 3](03-Semantische-Suche-und-RAG.md).
 

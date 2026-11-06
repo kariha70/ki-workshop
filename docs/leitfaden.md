@@ -2,23 +2,23 @@
 
 Dieser Leitfaden hilft dir, den Workshop vor Ort mit einer Gruppe ohne technisches Vorwissen durchzuführen. Er ist für 10 bis 15 Teilnehmende und zwei Sitzungen gedacht. Er schlägt einen Ablauf vor, nennt Fragen an die Gruppe, sammelt typische Rückfragen aus dem Publikum und enthält eine Checkliste für die Technik.
 
-Alle Zeitangaben sind Vorschläge. Pass sie an deine Gruppe an: Lieber ein Abschnitt weniger und dafür eine gute Diskussion als alles im Schnelldurchlauf.
+Alle Zeitangaben sind Vorschläge. Wenn eine Diskussion gut läuft, kannst du dafür einen Abschnitt kürzen oder weglassen, siehe „Wenn die Zeit knapp wird“.
 
 ## Das didaktische Konzept
 
-Der Workshop folgt einigen wenigen Grundsätzen. Wenn du sie kennst, kannst du an jeder Stelle frei improvisieren.
+Der Workshop folgt einigen Grundsätzen. Sie helfen auch bei der Entscheidung, was du kürzen oder ergänzen kannst.
 
-- **Ein Beispiel, das trägt.** Statt vieler kleiner Beispiele gibt es eine Geschichte: den Eisverkäufer. Neues wird immer an Bekanntes angeknüpft, vom ersten Kapitel bis zur Suche im Handbuch der Eisdiele.
+- **Ein durchgehendes Beispiel.** Alle Kapitel arbeiten mit demselben Beispiel, dem Eisverkäufer. Neues wird immer an Bekanntes angeknüpft, vom ersten Kapitel bis zur Suche im Handbuch der Eisdiele.
 - **Erst erleben, dann benennen.** Jeder größere Gedanke beginnt mit einer Frage an die Gruppe („Kurz überlegen“). Fachbegriffe kommen erst, wenn die Idee verstanden ist, und dann nur einmal mit der englischen Entsprechung.
 - **Didaktische Reduktion.** Der Hauptweg jedes Kapitels kommt ohne Formeln aus. Rechnungen, Programmcode und Hintergründe stehen in aufklappbaren Kästen „Für Neugierige“. Öffne sie im Workshop nur, wenn jemand danach fragt.
 - **Selbst ausprobieren.** Zu jedem Kapitel gibt es ein Labor im Browser. Am besten arbeiten zwei Personen an einem Gerät und erklären sich gegenseitig, was sie sehen.
-- **Sichern und wiederholen.** Lernziele am Anfang, ein Merksatz nach jedem Abschnitt, „Das Wichtigste in Kürze“ und ein kleiner Selbsttest am Ende jedes Kapitels. Der Abstand zwischen den beiden Sitzungen ist dabei ein Vorteil: Was zu Beginn der zweiten Sitzung wiederholt wird, bleibt besser hängen.
-- **Transfer in den Alltag.** Kapitel 2 und 3 enden mit Faustregeln für die Arbeit mit Chat-Assistenten. Hier ist Raum für die eigenen Erfahrungen der Teilnehmenden.
+- **Sichern und wiederholen.** Lernziele am Anfang, ein Merksatz nach jedem Abschnitt, „Das Wichtigste in Kürze“ und ein kleiner Selbsttest am Ende jedes Kapitels. Zu Beginn der zweiten Sitzung wird der Stoff der ersten wiederholt.
+- **Transfer in den Alltag.** Kapitel 2 und 3 enden mit Faustregeln für die Arbeit mit Chat-Assistenten. Dort passen die eigenen Erfahrungen der Teilnehmenden gut hinein.
 
 ## Gruppe und Voraussetzungen
 
 - **Vorwissen:** keines. Grundrechenarten genügen. Wer eine Gerade aus der Schule kennt, hat einen kleinen Vorteil, nötig ist es nicht.
-- **Gruppengröße:** 10 bis 15 Personen. Das reicht für lebendige Diskussionen, und eine Person kann alle Paare in den Laborphasen gut betreuen. Ein Blitzlicht, bei dem jede Person einen Satz sagt, dauert etwa fünf Minuten.
+- **Gruppengröße:** 10 bis 15 Personen. In den Laborphasen sind das 5 bis 8 Paare, die eine Person allein betreuen kann. Ein Blitzlicht, bei dem jede Person einen Satz sagt, dauert etwa fünf Minuten.
 - **Geräte:** ein Laptop oder Tablet pro Paar, also 5 bis 8 Geräte. Die Labore funktionieren zur Not auch auf dem Smartphone, sind dort aber eng.
 - **Raum:** Beamer oder großer Bildschirm, Flipchart oder Pinnwand für Fragen und Blitzlichter. Tische, an denen zwei Personen gemeinsam auf einen Bildschirm schauen können.
 
@@ -78,12 +78,12 @@ Die erste Sitzung klärt, **wie** KI funktioniert: wie eine Maschine lernt und w
 
 1. Lernen heißt: Zahlen (Parameter) so einstellen, dass der Fehler möglichst klein wird.
 2. Ein Modell muss an Daten geprüft werden, die es beim Lernen nicht gesehen hat.
-3. Ein neuronales Netz besteht aus einfachen Rechenbausteinen. Erst der Knick macht es mächtig.
+3. Ein neuronales Netz besteht aus einfachen Rechenbausteinen. Erst durch den Knick kann es mehr als Geraden darstellen.
 
 **Ablauf:**
 
-- **Einstieg:** Die Tabelle mit den zehn Tagen zeigen und die Gruppe schätzen lassen, wie viele Kugeln bei 25 °C nötig sind (Abschnitt 1). Die Schätzungen sammeln und fragen, wie sie zustande kamen. Genau das ist die Grundidee des maschinellen Lernens.
-- **Erarbeitung:** Abschnitte 2 bis 5 sind der Kern. Beim Gradientenabstieg die Nebel-Analogie ausspielen: „Was würdet ihr im Nebel tun?“ Danach Abschnitte 6 und 7, mit der Frage zum Wochentag und der Vermutung zu den Zufallszahlen. Die Abschnitte 8 bis 10 zügig als Ausblick: „So sieht es im Inneren jeder KI aus.“
+- **Einstieg:** Die Tabelle mit den zehn Tagen zeigen und die Gruppe schätzen lassen, wie viele Kugeln bei 25 °C nötig sind (Abschnitt 1). Die Schätzungen sammeln und fragen, wie sie zustande kamen. Daran lässt sich die Grundidee des maschinellen Lernens erklären.
+- **Erarbeitung:** Abschnitte 2 bis 5 sind der Kern. Beim Gradientenabstieg die Gruppe fragen: „Was würdet ihr im Nebel tun?“ Danach Abschnitte 6 und 7, mit der Frage zum Wochentag und der Vermutung zu den Zufallszahlen. Die Abschnitte 8 bis 10 kurz als Ausblick, wie ein neuronales Netz aus diesen Bausteinen aufgebaut ist.
 - **Labor 1, Aufträge zur Auswahl:**
     - Im Schritt „Gerade und Fehler“ mit zwei Reglern die beste Gerade suchen. Welches Paar kommt am nächsten an 629,2?
     - Im Schritt „Fehler minimieren“ eine zu große Lernrate wählen und beobachten, was passiert.
@@ -95,7 +95,7 @@ Die erste Sitzung klärt, **wie** KI funktioniert: wie eine Maschine lernt und w
 - *„Denkt ein neuronales Netz wie ein Gehirn?“* Nein. Das Gehirn war nur ein grobes Vorbild für den Namen. Ein künstliches Neuron ist eine Rechenformel aus Malnehmen und Addieren.
 - *„Hat Bias etwas mit Vorurteilen zu tun?“* Nicht in diesem Kapitel, hier ist es nur der Grundwert. Das Wort wird in der KI aber auch für Verzerrungen benutzt, die ein Modell aus einseitigen Daten übernimmt. Beides auseinanderhalten.
 - *„Woher weiß das Modell, dass das Wochenende wichtig ist?“* Gar nicht. Ein Mensch hat entschieden, das Wochenende aufzuschreiben. Das Modell bestimmt nur, wie stark es zählt. Welche Daten man sammelt, bleibt eine menschliche Entscheidung.
-- *„Ist das nicht einfach Statistik?“* Im Kern ja. Neuronale Netze sind eine sehr flexible Form davon, die mit riesigen Datenmengen umgehen kann.
+- *„Ist das nicht einfach Statistik?“* Weitgehend ja. Neuronale Netze sind eine sehr flexible Form statistischer Modelle, die mit großen Datenmengen umgehen kann.
 
 ## Modul 2: Wie ein Computer Texte schreibt
 
@@ -107,11 +107,11 @@ Die erste Sitzung klärt, **wie** KI funktioniert: wie eine Maschine lernt und w
 
 1. Ein Sprachmodell sagt immer nur das nächste Textstück voraus, Wort für Wort.
 2. Es sieht Text als Tokens, nicht als Buchstaben. Das erklärt Kosten und manche seltsamen Fehler.
-3. Es erzeugt plausiblen Text, nicht zwingend wahren. Im Gespräch lernt es nicht dazu.
+3. Es erzeugt Text, der wahrscheinlich klingt. Ob er stimmt, muss man prüfen. Im Gespräch lernt es nicht dazu.
 
 **Teil 1: Wie ein Sprachmodell aufgebaut ist (Abschnitte 1 bis 7)**
 
-- **Einstieg:** „Zwei Kugeln Schokolade im …“ ergänzen lassen (Abschnitt 1). Danach die Wortvorschläge auf dem eigenen Smartphone ansehen: ein kleines Sprachmodell in der Hosentasche.
+- **Einstieg:** „Zwei Kugeln Schokolade im …“ ergänzen lassen (Abschnitt 1). Danach die Wortvorschläge auf dem eigenen Smartphone ansehen. Sie beruhen auf derselben Aufgabe, das nächste Wort vorherzusagen.
 - **Erarbeitung:** Abschnitte 1 bis 3 ausführlich, hier ist das Labor besonders ergiebig. Die Abschnitte 4 bis 7 als Überblick: Bedeutung als Landkarte, Attention mit dem Satz von Kugel und Waffel, der Transformer als Stapel bekannter Bausteine.
 - **Labor 2, Schritt „Tokens“, Aufträge zur Auswahl:**
     - Den eigenen Namen eintippen, einmal mit und einmal ohne Leerzeichen davor.
@@ -128,7 +128,7 @@ Die erste Sitzung klärt, **wie** KI funktioniert: wie eine Maschine lernt und w
 
 **Typische Rückfragen:**
 
-- *„Versteht das Modell, was es schreibt?“* Darüber wird auch in der Forschung gestritten. Sicher ist: Es wurde darauf trainiert, wahrscheinliche Fortsetzungen zu erzeugen, und hat dabei viel über Sprache und die Welt gelernt. Ob man das „Verstehen“ nennt, ist auch eine Frage der Definition. Hier lieber offen diskutieren als eine Antwort vorgeben.
+- *„Versteht das Modell, was es schreibt?“* Darüber wird auch in der Forschung gestritten. Es wurde darauf trainiert, wahrscheinliche Fortsetzungen zu erzeugen, und hat dabei viel über Sprache und die Welt gelernt. Ob man das „Verstehen“ nennt, ist auch eine Frage der Definition. Hier lieber offen diskutieren als eine Antwort vorgeben.
 - *„Lernt der Assistent aus meinen Eingaben?“* Nicht während des Gesprächs, die Weights bleiben fest (Abschnitt 9). Anbieter können Gespräche aber später für das Training verwenden, je nach Vertrag und Einstellungen.
 - *„Ist das ganze Internet darin gespeichert?“* Nein. Gespeichert sind nur die Parameter. Sehr häufige Texte kann ein Modell trotzdem manchmal wörtlich wiedergeben (Abschnitt 7).
 - *„Warum erfindet es Quellen?“* Weil eine Quellenangabe für das Modell auch nur Text ist, der plausibel aussehen soll. Deshalb jede Quelle selbst nachsehen.
@@ -152,8 +152,8 @@ Die erste Sitzung klärt, **wie** KI funktioniert: wie eine Maschine lernt und w
 
 **Kernbotschaften:**
 
-1. Die semantische Suche vergleicht Bedeutungen statt Buchstaben.
-2. RAG gibt dem Sprachmodell vor der Antwort passende Auszüge mit. Das Modell schlägt nach, statt zu raten.
+1. Die semantische Suche vergleicht Bedeutungen, die Stichwortsuche nur Buchstabenfolgen.
+2. RAG gibt dem Sprachmodell vor der Antwort passende Auszüge mit. Die Antwort stützt sich auf diese Auszüge.
 3. Die Antwort ist nur so gut wie die Unterlagen und die Suche. Der Blick in die Quelle bleibt wichtig.
 
 **Ablauf:**
@@ -175,7 +175,7 @@ Die erste Sitzung klärt, **wie** KI funktioniert: wie eine Maschine lernt und w
 ## Abschluss des Workshops
 
 - **Rückblick:** Die Pinnwand aus der ersten Sitzung („Wo ist euch KI begegnet?“) wieder hervorholen. Welche Beispiele lassen sich jetzt besser erklären?
-- **Fragenspeicher:** Die gesammelten Fragen durchgehen. Was offen bleibt, ehrlich als offen benennen.
+- **Fragenspeicher:** Die gesammelten Fragen durchgehen. Was sich nicht klären lässt, als offen festhalten.
 - **Transfer:** „Was macht ihr ab morgen anders, wenn ihr mit einem Chat-Assistenten arbeitet?“ Jede Person nennt einen Punkt.
 - **Rückmeldung:** Kurze Runde oder Zettel mit zwei Fragen: Was war hilfreich? Was hat gefehlt?
 

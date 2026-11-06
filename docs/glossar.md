@@ -20,7 +20,7 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 
 ## D
 
-**Deep Learning**: Lernen mit neuronalen Netzen, die viele Schichten hintereinander haben. Heute die Grundlage fast aller KI-Anwendungen. → [Kapitel 1, Abschnitt 10](01-Neuronale-Netze-Grundlagen.md#10-vom-neuron-zum-netz)
+**Deep Learning**: Lernen mit neuronalen Netzen, die viele Schichten hintereinander haben. Die meisten heutigen KI-Anwendungen beruhen darauf. → [Kapitel 1, Abschnitt 10](01-Neuronale-Netze-Grundlagen.md#10-vom-neuron-zum-netz)
 
 ## E
 
@@ -36,13 +36,13 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 
 **Gradient**: Die Richtung, in der der Fehler am stärksten ansteigt, für alle Parameter zugleich. Der Gradientenabstieg geht in die Gegenrichtung. → [Kapitel 1, Abschnitt 5](01-Neuronale-Netze-Grundlagen.md#5-lernen-heißt-schritt-für-schritt-bergab)
 
-**Gradientenabstieg** (Gradient Descent): Das Lernverfahren fast aller heutigen KI: Steigung des Fehlers messen, ein kleines Stück bergab gehen, wiederholen. Wie ein Abstieg im Nebel. → [Kapitel 1, Abschnitt 5](01-Neuronale-Netze-Grundlagen.md#5-lernen-heißt-schritt-für-schritt-bergab)
+**Gradientenabstieg** (Gradient Descent): Das Lernverfahren fast aller heutigen KI: Steigung des Fehlers messen, ein kleines Stück bergab gehen, wiederholen, ähnlich wie bei einem Abstieg im Nebel. → [Kapitel 1, Abschnitt 5](01-Neuronale-Netze-Grundlagen.md#5-lernen-heißt-schritt-für-schritt-bergab)
 
 ## H
 
-**Halluzination**: Eine Antwort eines Sprachmodells, die plausibel klingt, aber nicht stimmt, etwa eine erfundene Quelle. Sie entsteht, weil das Modell wahrscheinlichen Text erzeugt, nicht geprüften. → [Kapitel 2, Abschnitt 10](02-Tokenizer-und-Sprachmodelle.md#10-grenzen-ehrlich-benennen)
+**Halluzination**: Eine Antwort eines Sprachmodells, die plausibel klingt, aber nicht stimmt, etwa eine erfundene Quelle. Sie entsteht, weil das Modell wahrscheinlichen Text erzeugt, ohne ihn zu prüfen. → [Kapitel 2, Abschnitt 10](02-Tokenizer-und-Sprachmodelle.md#10-typische-schwächen)
 
-**Hybride Suche**: Eine Kombination aus Stichwortsuche und semantischer Suche. Sie findet sowohl Umschreibungen als auch genaue Zahlen und Namen. → [Kapitel 3, Abschnitt 7](03-Semantische-Suche-und-RAG.md#7-grenzen-ehrlich-benennen)
+**Hybride Suche**: Eine Kombination aus Stichwortsuche und semantischer Suche. Sie findet sowohl Umschreibungen als auch genaue Zahlen und Namen. → [Kapitel 3, Abschnitt 7](03-Semantische-Suche-und-RAG.md#7-typische-schwächen)
 
 ## I
 
@@ -56,7 +56,7 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 
 **Kosinus** (Kosinus-Ähnlichkeit): Ein Maß dafür, wie gleich zwei Pfeile ausgerichtet sind. 1 heißt gleiche Richtung, 0 heißt nichts gemeinsam. Damit misst die semantische Suche, wie ähnlich zwei Texte sind. → [Kapitel 3, Abschnitt 3](03-Semantische-Suche-und-RAG.md#3-ähnlichkeit-messen-der-kosinus)
 
-**Kreuzentropie**: Das Fehlermaß beim Training von Sprachmodellen. Es misst, wie überrascht das Modell vom tatsächlich folgenden Wort war. → [Kapitel 2, Abschnitt 1](02-Tokenizer-und-Sprachmodelle.md#1-was-kommt-als-nächstes)
+**Kreuzentropie**: Das Fehlermaß beim Training von Sprachmodellen. Es misst, wie wenig Wahrscheinlichkeit das Modell dem Wort gegeben hat, das tatsächlich folgt. → [Kapitel 2, Abschnitt 1](02-Tokenizer-und-Sprachmodelle.md#1-was-kommt-als-nächstes)
 
 ## L
 
@@ -88,11 +88,11 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 
 **Parameter**: Die Zahlen, die ein Modell beim Training einstellt, also alle Weights und Biases. Die Gerade des Eisverkäufers hat 2, sein kleines Netz 9, große Sprachmodelle viele Milliarden. → [Kapitel 1, Abschnitt 3](01-Neuronale-Netze-Grundlagen.md#3-zwei-stellschrauben-weight-und-bias)
 
-**Prompt**: Der Text, den ein Sprachmodell als Eingabe bekommt: deine Frage, das bisherige Gespräch und gegebenenfalls Anweisungen und mitgeschickte Textauszüge. → [Kapitel 3, Abschnitt 6](03-Semantische-Suche-und-RAG.md#6-rag-nachschlagen-statt-raten)
+**Prompt**: Der Text, den ein Sprachmodell als Eingabe bekommt: deine Frage, das bisherige Gespräch und gegebenenfalls Anweisungen und mitgeschickte Textauszüge. → [Kapitel 3, Abschnitt 6](03-Semantische-Suche-und-RAG.md#6-rag-erst-nachschlagen-dann-antworten)
 
 ## R
 
-**RAG** (Retrieval-Augmented Generation, durch Nachschlagen ergänztes Erzeugen): Vor der Antwort werden passende Textstellen gesucht und dem Sprachmodell im Prompt mitgegeben. Das Modell schlägt nach, statt zu raten, und kann die Quelle nennen. → [Kapitel 3, Abschnitt 6](03-Semantische-Suche-und-RAG.md#6-rag-nachschlagen-statt-raten)
+**RAG** (Retrieval-Augmented Generation, durch Nachschlagen ergänztes Erzeugen): Vor der Antwort werden passende Textstellen gesucht und dem Sprachmodell im Prompt mitgegeben. Das Modell stützt seine Antwort auf diese Textstellen und kann sie als Quelle nennen. → [Kapitel 3, Abschnitt 6](03-Semantische-Suche-und-RAG.md#6-rag-erst-nachschlagen-dann-antworten)
 
 **ReLU**: siehe Aktivierungsfunktion.
 
@@ -102,9 +102,9 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 
 **Selbstüberwachtes Lernen**: Lernen aus Daten, die ihre richtigen Antworten selbst mitbringen. Bei Text ist an jeder Stelle bekannt, wie es weitergeht, niemand muss etwas beschriften. → [Kapitel 2, Abschnitt 1](02-Tokenizer-und-Sprachmodelle.md#1-was-kommt-als-nächstes)
 
-**Semantische Suche**: Eine Suche nach Bedeutung statt nach Wörtern. Sie findet auch Texte, die die Frage mit ganz anderen Worten beantworten. → [Kapitel 3, Abschnitt 1](03-Semantische-Suche-und-RAG.md#1-suchen-nach-bedeutung)
+**Semantische Suche**: Eine Suche, die Texte nach ihrer Bedeutung vergleicht. Sie findet auch Texte, die die Frage mit ganz anderen Worten beantworten. → [Kapitel 3, Abschnitt 1](03-Semantische-Suche-und-RAG.md#1-suchen-nach-bedeutung)
 
-**Skalierung**: Das Vergrößern eines Modells: mehr Parameter, mehr Daten, mehr Rechenaufwand. Der Fehler sinkt dabei erstaunlich vorhersagbar. → [Kapitel 2, Abschnitt 7](02-Tokenizer-und-Sprachmodelle.md#7-skalierung-warum-größer-besser-wird)
+**Skalierung**: Das Vergrößern eines Modells: mehr Parameter, mehr Daten, mehr Rechenaufwand. Der Fehler sinkt dabei so regelmäßig, dass man ihn vorab abschätzen kann. → [Kapitel 2, Abschnitt 7](02-Tokenizer-und-Sprachmodelle.md#7-skalierung-warum-größer-besser-wird)
 
 **Softmax**: Eine Rechenvorschrift, die aus beliebigen Punktzahlen Wahrscheinlichkeiten macht, die zusammen 100 % ergeben. → [Kapitel 2, Abschnitt 1](02-Tokenizer-und-Sprachmodelle.md#1-was-kommt-als-nächstes)
 
@@ -128,7 +128,7 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 
 ## Ü
 
-**Überanpassung** (Overfitting): Ein Modell lernt die Trainingsdaten auswendig, statt den Zusammenhang zu erkennen. Im Training sieht es gut aus, bei neuen Daten versagt es. → [Kapitel 1, Abschnitt 7](01-Neuronale-Netze-Grundlagen.md#7-die-prüfung-funktioniert-es-auch-an-neuen-tagen)
+**Überanpassung** (Overfitting): Ein Modell lernt die Trainingsdaten auswendig, statt den Zusammenhang zu erkennen. Im Training sieht es gut aus, bei neuen Daten liegt es weit daneben. → [Kapitel 1, Abschnitt 7](01-Neuronale-Netze-Grundlagen.md#7-die-prüfung-funktioniert-es-auch-an-neuen-tagen)
 
 ## V
 

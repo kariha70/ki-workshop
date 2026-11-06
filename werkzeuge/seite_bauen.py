@@ -28,7 +28,7 @@ KAPITEL = [
         "ziel": "kapitel-1.html",
         "labor": "app/labor-1.html",
         "bild": "bilder/11-zwei-knicke.png",
-        "teaser": "Wie lernt eine Maschine aus Beispielen? Ein Eisverkäufer, eine Gerade und ein kleines Netz zeigen das Grundprinzip hinter jeder heutigen KI.",
+        "teaser": "Ein Eisverkäufer will wissen, wie viel Eis er morgen braucht. Aus seinen Daten entstehen eine Gerade, ein Neuron und ein kleines Netz, das selbst lernt.",
         "themen": ["Aus Beispielen lernen", "Fehler messen", "Schritt für Schritt bergab", "Auswendiglernen erkennen", "Neuron", "Neuronales Netz"],
         # Nach diesen Abschnitten erscheint ein Hinweis auf das passende Labor
         "labore": {
@@ -44,7 +44,7 @@ KAPITEL = [
         "ziel": "kapitel-2.html",
         "labor": "app/labor-2.html",
         "bild": "bilder/kapitel-2/08-transformer.png",
-        "teaser": "Wie schreibt ein Computer Texte? Was in ChatGPT und Co. steckt, warum es so flüssig formuliert und warum man trotzdem nachprüfen sollte.",
+        "teaser": "Wie aus der Vorhersage des nächsten Wortes ganze Antworten werden, was Tokens sind und warum man Antworten von Chat-Assistenten prüfen sollte.",
         "themen": ["Das nächste Wort", "Tokens", "Bedeutung als Zahlen", "Attention", "Transformer", "Temperatur", "Halluzinationen"],
         "labore": {
             3: ("app/labor-2.html#tokens", "Tokens", "Tipp deinen Namen oder einen eigenen Satz ein und sieh zu, wie der Tokenizer ihn zerlegt."),
@@ -57,7 +57,7 @@ KAPITEL = [
         "ziel": "kapitel-3.html",
         "labor": "app/labor-3.html",
         "bild": "bilder/kapitel-3/04-suche.png",
-        "teaser": "Wie beantwortet eine KI Fragen zu eigenen Unterlagen? Suchen nach Bedeutung statt nach Wörtern, und Nachschlagen statt Raten.",
+        "teaser": "Wie eine Suche nach Bedeutung funktioniert und wie ein Chat-Assistent mit RAG Fragen zu eigenen Unterlagen beantwortet.",
         "themen": ["Suchen nach Bedeutung", "Ähnlichkeit messen", "Embedding-Modell", "RAG", "Grenzen", "Praxistipps"],
         "labore": {
             3: ("app/labor-3.html#kosinus", "Kosinus von Hand", "Zieh zwei Pfeile und beobachte, wie sich Kosinus und Abstand verändern."),
@@ -302,7 +302,7 @@ def startseite(infos):
   <div>
     <p class="augenbraue">KI-Workshop</p>
     <h1>Vom Eisverkäufer zum Sprachmodell</h1>
-    <p class="lead">Wie lernt eine Maschine? Was steckt hinter ChatGPT und Co.? Und wie schlägt eine KI in eigenen Unterlagen nach? Dieser Workshop erklärt es an einem durchgehenden Beispiel, ohne Vorkenntnisse und ohne Programmieren.</p>
+    <p class="lead">Ein Workshop über neuronale Netze, Sprachmodelle wie ChatGPT und die Suche in eigenen Unterlagen. Alles wird an einem durchgehenden Beispiel erklärt, Vorkenntnisse und Programmieren sind nicht nötig.</p>
     <div class="aktionen"><a class="knopf primaer" href="kapitel-1.html">Mit Kapitel 1 beginnen</a><a class="knopf" href="#labore">Direkt ausprobieren</a></div>
   </div>
   {ILLUSTRATION}
@@ -311,18 +311,18 @@ def startseite(infos):
 <div class="huelle">
   <section class="bereich">
     <h2>Die Kapitel</h2>
-    <p class="bereich-sub">Jedes Kapitel beantwortet eine Leitfrage. Die Kapitel bauen aufeinander auf, Vorwissen ist nicht nötig: Grundrechenarten genügen.</p>
+    <p class="bereich-sub">Die Kapitel bauen aufeinander auf. Vorwissen ist nicht nötig, Grundrechenarten genügen.</p>
     <div class="kapitelkarten">{karten}</div>
   </section>
 
   <section class="bereich">
     <h2>So lernst du in diesem Workshop</h2>
-    <p class="bereich-sub">Erst selbst nachdenken und ausprobieren, dann den Fachbegriff kennenlernen. Jedes Kapitel folgt demselben Muster.</p>
+    <p class="bereich-sub">Alle Kapitel sind gleich aufgebaut.</p>
     <div class="merkmale">
-      <div class="merkmal"><div class="symbol">{SYMBOLE["faden"]}</div><h3>Ein Beispiel, das trägt</h3><p>Ein Eisverkäufer will wissen, wie viel Eis er braucht. An seinen Daten entstehen Gerade, Neuron und Netz, und auch Sprachmodell und Suche knüpfen daran an.</p></div>
-      <div class="merkmal"><div class="symbol">{SYMBOLE["frage"]}</div><h3>Mitdenken statt nur zuhören</h3><p>Lernziele am Anfang, Fragen zum Kurz-Überlegen, ein Merksatz nach jedem Abschnitt und ein kleiner Selbsttest am Ende jedes Kapitels.</p></div>
-      <div class="merkmal"><div class="symbol">{SYMBOLE["labor"]}</div><h3>Ausprobieren im Labor</h3><p>Regler verschieben, Texte zerlegen, nach Bedeutung suchen. Die Labore laufen direkt im Browser, ohne Installation.</p></div>
-      <div class="merkmal"><div class="symbol">{SYMBOLE["kasten"]}</div><h3>Mathematik nur für Neugierige</h3><p>Formeln und Rechenwege stehen in aufklappbaren Kästen. Wer sie überspringt, verliert nicht den Faden.</p></div>
+      <div class="merkmal"><div class="symbol">{SYMBOLE["faden"]}</div><h3>Ein durchgehendes Beispiel</h3><p>Ein Eisverkäufer will wissen, wie viel Eis er braucht. An seinen Daten entstehen Gerade, Neuron und Netz. Die Kapitel zu Sprachmodell und Suche greifen das Beispiel wieder auf.</p></div>
+      <div class="merkmal"><div class="symbol">{SYMBOLE["frage"]}</div><h3>Fragen und Merksätze</h3><p>Jedes Kapitel beginnt mit Lernzielen und enthält Fragen zum Nachdenken, einen Merksatz pro Abschnitt und am Ende einen kurzen Selbsttest.</p></div>
+      <div class="merkmal"><div class="symbol">{SYMBOLE["labor"]}</div><h3>Labore im Browser</h3><p>Regler verschieben, Texte zerlegen, nach Bedeutung suchen. Die Labore laufen direkt im Browser, ohne Installation.</p></div>
+      <div class="merkmal"><div class="symbol">{SYMBOLE["kasten"]}</div><h3>Rechnungen zum Aufklappen</h3><p>Formeln und Rechenwege stehen in aufklappbaren Kästen. Für das Verständnis des Haupttexts sind sie nicht nötig.</p></div>
     </div>
   </section>
 

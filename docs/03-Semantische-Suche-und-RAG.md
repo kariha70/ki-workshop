@@ -1,8 +1,8 @@
 # Suchen nach Bedeutung: Wie eine KI in Dokumenten nachschlägt
 
-Viele Organisationen wünschen sich einen Chat-Assistenten, der Fragen zu ihren eigenen Unterlagen beantwortet: zum Handbuch, zu internen Regeln, zu Produktbeschreibungen. Ein Sprachmodell kennt diese Unterlagen aber nicht, und es neu zu trainieren wäre teuer. Wie geht das trotzdem?
+Viele Organisationen möchten einen Chat-Assistenten, der Fragen zu ihren eigenen Unterlagen beantwortet, etwa zu einem Handbuch, zu internen Regeln oder zu Produktbeschreibungen. Ein Sprachmodell kennt diese Unterlagen nicht, und es damit neu zu trainieren wäre teuer.
 
-Die Antwort besteht aus zwei Bausteinen. Erstens eine Suche, die nicht nach Wörtern sucht, sondern nach Bedeutung: die **semantische Suche**. Zweitens ein Verfahren, das dem Sprachmodell die gefundenen Textstellen vor der Antwort mitgibt: **RAG**. Beides baut auf den Embeddings aus Kapitel 2 auf.
+Üblich ist deshalb ein Weg aus zwei Bausteinen: eine Suche nach Bedeutung, die **semantische Suche**, und ein Verfahren namens **RAG**, das dem Sprachmodell die gefundenen Textstellen vor der Antwort mitgibt. Beides baut auf den Embeddings aus Kapitel 2 auf.
 
 <div class="lernziele" markdown="1">
 
@@ -13,7 +13,7 @@ Die Antwort besteht aus zwei Bausteinen. Erstens eine Suche, die nicht nach Wör
 - den Ablauf von RAG skizzieren und sagen, warum Antworten damit überprüfbar werden.
 - typische Schwachstellen nennen und einschätzen, wann du genauer hinschauen solltest.
 
-Kästen „Für Neugierige“ enthalten Rechnungen und Hintergründe. Du kannst sie überspringen, ohne den Faden zu verlieren.
+Kästen „Für Neugierige“ enthalten Rechnungen und Hintergründe. Für den Rest des Kapitels brauchst du sie nicht.
 
 </div>
 
@@ -59,7 +59,7 @@ Die semantische Suche dagegen setzt „Hirnfrost“ mit großem Abstand an die S
 
 ![Zwei Balkendiagramme für die Frage „Mir tut der Kopf weh, wenn ich Eis esse.“ Links die semantische Suche: Hirnfrost liegt mit 0,81 weit vorn, danach folgen Auftauen mit 0,49 und Glutenfrei mit 0,43. Rechts die Stichwortsuche: sechs Abschnitte haben je ein gemeinsames Wort, Hirnfrost steht erst an dritter Stelle.](bilder/kapitel-3/04-suche.png)
 
-So geht es mit vielen Fragen, die Menschen tatsächlich stellen:
+Weitere Beispiele:
 
 | Frage | Im Handbuch steht | Stichwortsuche | Semantische Suche |
 | --- | --- | --- | --- |
@@ -70,7 +70,7 @@ So geht es mit vielen Fragen, die Menschen tatsächlich stellen:
 
 Die Zahlen in Klammern messen die Ähnlichkeit, 1 wäre das Höchste. Wie sie entstehen, zeigen die nächsten beiden Abschnitte.
 
-> **Merke:** Die Stichwortsuche vergleicht Buchstaben. Die semantische Suche vergleicht Bedeutungen.
+> **Merke:** Die Stichwortsuche vergleicht Buchstabenfolgen, die semantische Suche vergleicht Bedeutungen.
 
 ## 2. Ein Text, ein Pfeil
 
@@ -84,23 +84,23 @@ Zum Verstehen genügen zwei Zahlen pro Text. Die erste soll messen, wie sehr es 
 | P | Abschnitt „Preise: Eine Kugel kostet 1,80 Euro …“ | 6 | 2 |
 | H | Abschnitt „Hirnfrost: Wer sehr kaltes Eis …“ | 1 | 3 |
 
-Zwei Zahlen sind ein Punkt in einem Koordinatensystem, wie auf einer Landkarte. Zeichnet man vom Nullpunkt einen Pfeil zu diesem Punkt, erhält man einen **Vektor**:
+Zwei Zahlen sind ein Punkt in einem Koordinatensystem. Zeichnet man vom Nullpunkt einen Pfeil zu diesem Punkt, erhält man einen **Vektor**:
 
 ![Drei Pfeile vom Nullpunkt aus. Der blaue Pfeil F zeigt auf (3, 1), der orange Pfeil P auf (6, 2) in genau dieselbe Richtung, nur doppelt so weit. Der grüne Pfeil H zeigt auf (1, 3), steil nach oben. Zwischen F und H liegt ein Winkel von 53 Grad. Der Abstand von F zu H beträgt 2,83, der von F zu P 3,16.](bilder/kapitel-3/01-pfeile.png)
 
 Der Preise-Abschnitt zeigt in genau dieselbe Richtung wie die Frage, sein Pfeil ist nur länger, weil er mehr über Geld sagt. Der Hirnfrost-Abschnitt zeigt in eine ganz andere Richtung. Für die Suche zählt also die Richtung, nicht die Länge.
 
-**Echte Embeddings** funktionieren genauso, nur mit viel mehr Zahlen. Das Modell aus diesem Kapitel macht aus „Was kostet eine Kugel?“ eine Liste mit 384 Zahlen. Anders als im ausgedachten Beispiel bedeutet keine dieser Zahlen etwas für sich allein. Bedeutung hat nur das Muster aller 384 Zahlen zusammen. Sichtbar wird das, wenn man jede Zahl als Farbstreifen zeichnet:
+Echte Embeddings funktionieren genauso, nur mit viel mehr Zahlen. Das Modell aus diesem Kapitel macht aus „Was kostet eine Kugel?“ eine Liste mit 384 Zahlen. Anders als im ausgedachten Beispiel bedeutet keine dieser Zahlen etwas für sich allein. Bedeutung hat nur das Muster aller 384 Zahlen zusammen. Sichtbar wird das, wenn man jede Zahl als Farbstreifen zeichnet:
 
 ![Drei Farbstreifen mit je 384 schmalen Strichen in Blau und Orange. Die Streifen für die Frage „Was kostet eine Kugel?“ und für den Abschnitt „Preise“ haben ein ähnliches Muster, ihr Kosinus ist 0,85. Der Streifen für „Hirnfrost“ sieht anders aus, sein Kosinus zur Frage ist −0,04.](bilder/kapitel-3/02-zahlenlisten.png)
 
-Einen Pfeil mit 384 Richtungen kann sich niemand vorstellen. Rechnen kann man damit trotzdem genau wie mit zwei Zahlen.
+Vorstellen kann man sich einen Pfeil mit 384 Zahlen nicht, rechnen lässt sich damit aber genauso wie mit zwei.
 
 > **Merke:** Ein Embedding macht aus einem ganzen Text einen Pfeil. Ähnliche Bedeutung heißt: ähnliche Richtung.
 
 ## 3. Ähnlichkeit messen: der Kosinus
 
-Wie ähnlich sind zwei Richtungen? Das misst der **Kosinus** des Winkels zwischen zwei Pfeilen. Den Namen kennen manche noch aus dem Matheunterricht, für das Verständnis genügt aber diese Tabelle:
+Wie ähnlich zwei Richtungen sind, misst der **Kosinus** des Winkels zwischen den Pfeilen. Den Begriff kennen manche aus dem Matheunterricht. Für dieses Kapitel genügt diese Tabelle:
 
 | Kosinus | Winkel | Bedeutung |
 | --- | --- | --- |
@@ -110,7 +110,7 @@ Wie ähnlich sind zwei Richtungen? Das misst der **Kosinus** des Winkels zwische
 
 Für die Frage F und den Preise-Abschnitt P ergibt sich 1,00, denn sie zeigen in exakt dieselbe Richtung. Für die Frage F und den Hirnfrost-Abschnitt H ergibt sich 0,60. Der Preise-Abschnitt gewinnt also, wie es sein soll.
 
-**Warum nicht einfach den Abstand messen?** Die Spitze von H liegt mit 2,83 näher an F als die Spitze von P mit 3,16. Nach dem Abstand wäre der Hirnfrost-Abschnitt die bessere Antwort auf die Preisfrage, und das ist falsch. Der Abstand wird von der Länge der Pfeile gestört, der Kosinus nicht.
+Man könnte auch den Abstand zwischen den Pfeilspitzen messen. Die Spitze von H liegt mit 2,83 aber näher an F als die Spitze von P mit 3,16. Nach dem Abstand wäre der Hirnfrost-Abschnitt die bessere Antwort auf die Preisfrage, und das ist falsch. Der Abstand wird von der Länge der Pfeile gestört, der Kosinus nicht.
 
 <details class="vertiefung" markdown="1">
 <summary>Für Neugierige: Den Kosinus ausrechnen</summary>
@@ -154,7 +154,7 @@ Viele Embedding-Modelle bringen alle Pfeile ohnehin auf die Länge 1, auch das M
 | Vanille | Schokolade | 0,57 |
 | Vanille | Steuererklärung | 0,21 |
 
-Mit echten Embeddings liegen die Werte selten nahe −1, und auch völlig verschiedene Themen landen oft noch über 0. Wichtig ist deshalb nicht der Wert allein, sondern der Vergleich: Welcher Text ist ähnlicher als die anderen? Vanille und Schokolade lagen übrigens schon auf der Karte in Kapitel 2, Abschnitt 4 nah beieinander. Dort waren die Positionen ausgedacht, hier ist die Ähnlichkeit gemessen.
+Mit echten Embeddings liegen die Werte selten nahe −1, und auch völlig verschiedene Themen landen oft noch über 0. Aussagekräftig ist deshalb vor allem der Vergleich: Welcher Text ist ähnlicher als die anderen? Vanille und Schokolade lagen schon auf der Karte in Kapitel 2, Abschnitt 4 nah beieinander. Dort waren die Positionen ausgedacht, hier ist die Ähnlichkeit gemessen.
 
 </details>
 </div>
@@ -165,13 +165,13 @@ Mit echten Embeddings liegen die Werte selten nahe −1, und auch völlig versch
 
 Die Embeddings aus Kapitel 2 gehören zu einzelnen Tokens. Für die Suche braucht man ein Embedding für einen ganzen Text. Das liefert ein eigenes **Embedding-Modell**.
 
-**Der Aufbau ist bekannt.** Ein Embedding-Modell ist ein Transformer wie in Kapitel 2: Tokenizer, Embeddings, ein Stapel aus Blöcken mit Attention und Neuronen mit Knick. Es sagt aber kein nächstes Token voraus, sondern liefert am Ende eine Zahlenliste für den ganzen Text.
+Aufgebaut ist ein Embedding-Modell wie ein Transformer aus Kapitel 2: Tokenizer, Embeddings, ein Stapel aus Blöcken mit Attention und Neuronen mit Knick. Es sagt aber kein nächstes Token voraus, sondern liefert am Ende eine Zahlenliste für den ganzen Text.
 
-**Das Training ist neu.** Ein Embedding-Modell lernt an Paaren von Texten, die zusammengehören, etwa eine Frage und ihre Antwort oder zwei Sätze mit derselben Bedeutung. Das Ziel: Zusammengehörige Texte sollen in dieselbe Richtung zeigen, alle anderen in andere Richtungen. So sieht das bei einem fertig trainierten Modell aus, mit vier Fragen und vier Abschnitten aus dem Handbuch:
+Anders ist das Training. Ein Embedding-Modell lernt an Paaren von Texten, die zusammengehören, etwa eine Frage und ihre Antwort oder zwei Sätze mit derselben Bedeutung. Zusammengehörige Texte sollen dabei in dieselbe Richtung zeigen, alle anderen in andere Richtungen. So sieht das bei einem fertig trainierten Modell aus, mit vier Fragen und vier Abschnitten aus dem Handbuch:
 
 ![Eine Tabelle mit vier Fragen in den Zeilen und vier Abschnitten in den Spalten. Auf der Diagonale, orange umrandet, stehen die passenden Paare mit den höchsten Werten: „Was kostet eine Kugel?“ und Preise 0,85, „Wann habt ihr geöffnet?“ und Öffnungszeiten 0,37, „Darf mein Hund mit?“ und Hunde 0,61, „Ist das Sorbet vegan?“ und Vegane Sorten 0,62. Die übrigen Werte liegen zwischen −0,17 und 0,27.](bilder/kapitel-3/03-training.png)
 
-Die passende Antwort gewinnt in jeder Zeile. Weil das Modell auch an übersetzten Sätzen trainiert wurde, funktioniert die Suche sogar über Sprachgrenzen hinweg:
+Die passende Antwort gewinnt in jeder Zeile. Weil das Modell auch an übersetzten Sätzen trainiert wurde, funktioniert die Suche auch über Sprachgrenzen hinweg:
 
 | Text A | Text B | Kosinus |
 | --- | --- | --- |
@@ -227,15 +227,15 @@ Wie die Stücke zueinander liegen, zeigt eine Karte. Dafür werden die 384 Zahle
 
 Was zusammengehört, liegt meist auch zusammen, besonders deutlich bei den Preisen. Die Karte zeigt aber auch, was beim Verkürzen verloren geht: Auf ihr liegt die Frage näher an „Wetter“ als an „Hirnfrost“. Mit allen 384 Zahlen ist „Hirnfrost“ mit 0,81 klar am nächsten, „Wetter“ kommt nur auf 0,19. Gesucht wird deshalb immer mit allen Zahlen, die Karte dient nur zum Anschauen.
 
-**Und bei Millionen von Texten?** Dann wird es zu langsam, jede Frage mit jedem Stück zu vergleichen. **Vektordatenbanken** ordnen die gespeicherten Pfeile deshalb vorab so, dass sie gute Kandidaten finden, ohne alles durchzugehen. Dafür nehmen sie in Kauf, dass ab und zu ein Treffer fehlt.
+Bei Millionen von Texten wäre es zu langsam, jede Frage mit jedem Stück zu vergleichen. **Vektordatenbanken** ordnen die gespeicherten Pfeile deshalb vorab so, dass sie gute Kandidaten finden, ohne alles durchzugehen. Dafür nehmen sie in Kauf, dass ab und zu ein Treffer fehlt.
 
 > **Merke:** Semantische Suche heißt: alle Texte vorab einbetten, bei jeder Frage nur noch die Frage einbetten und die ähnlichsten Texte nehmen.
 
-## 6. RAG: Nachschlagen statt Raten
+## 6. RAG: Erst nachschlagen, dann antworten
 
-Ein Sprachmodell kennt das Handbuch der Eisdiele nicht. Fragt man es nach Hirnfrost, antwortet es mit Allgemeinwissen. Fragt man nach dem Preis einer Kinderkugel, kann es nur raten, und das klingt nach Kapitel 2 trotzdem überzeugend.
+Ein Sprachmodell kennt das Handbuch der Eisdiele nicht. Fragt man es nach Hirnfrost, antwortet es mit Allgemeinwissen. Fragt man nach dem Preis einer Kinderkugel, kann es nur raten, und wie Kapitel 2 gezeigt hat, klingt auch eine geratene Antwort überzeugend.
 
-**Retrieval-Augmented Generation**, kurz **RAG**, heißt ungefähr: durch Nachschlagen ergänztes Erzeugen. Man kann es mit einer Prüfung mit offenem Buch vergleichen: Das Modell muss nicht alles wissen, es darf vor der Antwort nachschlagen. Vor der Antwort wird gesucht, und die Treffer kommen mit in den Text, den das Sprachmodell bekommt:
+**Retrieval-Augmented Generation**, kurz **RAG**, heißt ungefähr: durch Nachschlagen ergänztes Erzeugen. Vor der Antwort wird im Handbuch gesucht, und die Treffer kommen mit in den Text, den das Sprachmodell bekommt. Das ähnelt einer Prüfung, bei der das Buch auf dem Tisch liegen darf:
 
 ![Ein Ablauf in zwei Zeilen. Oben, vorab und einmal: Das Handbuch mit 24 kurzen Stücken geht durch das Embedding-Modell, gespeichert werden 24 Listen mit je 384 Zahlen. Unten, bei jeder Frage: Die Frage geht durch das Embedding-Modell, dann wird gesucht, also der Kosinus mit allen gespeicherten Listen berechnet und die besten drei genommen. Aus einer Anweisung, den drei Stücken und der Frage entsteht der Prompt. Das Sprachmodell antwortet mit Hilfe der Stücke und nennt die Quelle.](bilder/kapitel-3/06-rag.png)
 
@@ -254,24 +254,24 @@ Frage: Mir tut der Kopf weh, wenn ich Eis esse.
 
 Eine typische Antwort wäre dann: „Das klingt nach Hirnfrost [1]. Iss das Eis langsamer, dann vergehen die Kopfschmerzen meist schnell.“ Die Auszüge 2 und 3 passen nicht, das Sprachmodell kann sie aber selbst als unpassend erkennen. Die Suche muss also nicht perfekt sein, nur die richtige Antwort unter die ersten Treffer bringen.
 
-Am Sprachmodell selbst ändert RAG nichts. Wie in Kapitel 2 bleiben die Weights fest, das Modell lernt nicht dazu. Es liest nur einen längeren Prompt. Damit greift RAG zwei der Grenzen aus Kapitel 2 an:
+Am Sprachmodell selbst ändert RAG nichts. Wie in Kapitel 2 bleiben die Weights fest, das Modell lernt nicht dazu. Es liest nur einen längeren Prompt. Gegen zwei Schwächen aus Kapitel 2 hilft das:
 
-| Grenze aus Kapitel 2 | Was RAG ändert |
+| Schwäche aus Kapitel 2 | Was RAG ändert |
 | --- | --- |
-| **Nur, was in den Daten steckt** | Das Wissen kommt aus dem Handbuch. Ändert sich ein Preis, wird ein einziges Stück neu eingebettet, ganz ohne neues Training. |
-| **Plausibel statt wahr** | Das Modell stützt sich auf Auszüge und nennt sie. Ob die Antwort stimmt, lässt sich am Auszug nachprüfen. |
+| **Nur, was in den Daten steckt** | Das Wissen kommt aus dem Handbuch. Ändert sich ein Preis, wird ein einziges Stück neu eingebettet, ohne neues Training. |
+| **Erfundene Fakten** | Das Modell stützt sich auf Auszüge und nennt sie. Ob die Antwort stimmt, lässt sich am Auszug nachprüfen. |
 
-**Warum nicht gleich das ganze Handbuch mitschicken?** Bei 24 kurzen Abschnitten ginge das tatsächlich, sie passen locker ins Kontextfenster. Bei tausenden Seiten passen sie nicht mehr hinein, und wo sie passen, kostet jede Frage viele Tokens. RAG schickt nur das Nötige mit.
+Bei 24 kurzen Abschnitten könnte man auch gleich das ganze Handbuch mitschicken, es passt ins Kontextfenster. Bei tausenden Seiten geht das nicht mehr, und auch wo es geht, kostet dann jede Frage viele Tokens. RAG schickt nur die passenden Stücke mit.
 
-> **Merke:** RAG sucht passende Texte heraus und gibt sie dem Sprachmodell im Prompt mit. Das Modell schlägt nach, statt zu raten, und seine Antwort wird überprüfbar.
+> **Merke:** RAG sucht passende Texte heraus und gibt sie dem Sprachmodell im Prompt mit. Die Antwort stützt sich auf diese Texte und lässt sich an ihnen überprüfen.
 
-## 7. Grenzen ehrlich benennen
+## 7. Typische Schwächen
 
-Die semantische Suche ist nicht klüger als ihr Training. Mit demselben Handbuch und demselben Modell geht zum Beispiel diese Frage schief:
+Auch die semantische Suche macht Fehler. Mit demselben Handbuch und demselben Modell geht zum Beispiel diese Frage schief:
 
 ![Balkendiagramm für die Frage „Habt ihr etwas ohne Milch?“. Zutaten liegt mit 0,63 vorn, dann Lieferung mit 0,53 und Zucker mit 0,51. Der passende Abschnitt Vegane Sorten folgt erst auf Platz 4 mit 0,45.](bilder/kapitel-3/07-grenze.png)
 
-Typische Schwächen und was dagegen hilft:
+Die häufigsten Fehlerquellen und was dagegen hilft:
 
 | Schwäche | Beispiel | Was hilft |
 | --- | --- | --- |
@@ -282,28 +282,28 @@ Typische Schwächen und was dagegen hilft:
 | **Es gibt immer einen Treffer** | Auf „Wie wird das Wetter morgen?“ liefert die Suche den Abschnitt „Wetter“, obwohl keine Vorhersage im Handbuch steht. | Im Prompt erlauben, dass die Antwort fehlt („Wenn die Antwort nicht in den Auszügen steht, sag das.“) |
 | **Zu lange Stücke** | Das Modell liest höchstens 128 Tokens, der Rest wird abgeschnitten. Und ein Durchschnitt über viele Themen verwässert. | Kurze Stücke mit einem Thema, jeweils mit Überschrift |
 
-Auch mit RAG bleibt ein Sprachmodell ein Sprachmodell. Findet die Suche den falschen Abschnitt, antwortet es überzeugend aus dem falschen Abschnitt.
+Das Sprachmodell kann solche Fehler nicht immer ausgleichen: Findet die Suche den falschen Abschnitt, antwortet es überzeugend aus dem falschen Abschnitt.
 
-> **Merke:** Die semantische Suche findet Ähnliches, nicht zwingend Richtiges. Verneinungen, Zahlen und Namen sind ihre Schwachstellen.
+> **Merke:** Die semantische Suche findet ähnliche Texte. Ob sie die Frage beantworten, ist damit nicht gesagt. Schwachstellen sind Verneinungen, genaue Zahlen und Namen.
 
 ## 8. Was das für den Alltag heißt
 
-RAG begegnet dir öfter, als es aussieht: Chat-Assistenten mit Websuche, Assistenten, denen man eigene Dateien zum Lesen gibt, und Firmen-Chatbots, die im Intranet nachschlagen, arbeiten nach diesem Prinzip. Daraus folgen einige Faustregeln.
+Nach diesem Prinzip arbeiten zum Beispiel Chat-Assistenten mit Websuche, Assistenten, denen man eigene Dateien zum Lesen gibt, und Firmen-Chatbots, die im Intranet nachschlagen.
 
 **Wenn du einen solchen Assistenten nutzt:**
 
-- **Die genannten Quellen ansehen.** Der große Vorteil von RAG ist, dass sich die Antwort am Auszug prüfen lässt. Nutze ihn, besonders bei wichtigen Entscheidungen.
+- **Die genannten Quellen ansehen.** Bei RAG lässt sich die Antwort am Auszug prüfen. Das lohnt sich vor allem bei wichtigen Entscheidungen.
 - **Konkrete Begriffe verwenden.** Bei genauen Zahlen, Produktnamen oder Paragrafen hilft es, sie wörtlich in die Frage zu schreiben.
-- **Fehlende Antworten ernst nehmen.** Sagt der Assistent, dass die Unterlagen dazu nichts enthalten, ist das ein gutes Zeichen und kein Versagen.
+- **Fehlende Antworten ernst nehmen.** Sagt der Assistent, dass die Unterlagen dazu nichts enthalten, nicht so lange nachfragen, bis doch eine Antwort kommt. Sie wäre dann vermutlich nicht durch die Unterlagen gedeckt.
 
 **Wenn du einen solchen Assistenten einführen willst:**
 
 - **Die Unterlagen entscheiden über die Qualität.** Veraltete, widersprüchliche oder schwer verständliche Dokumente führen zu ebensolchen Antworten. Kurze Abschnitte mit klaren Überschriften helfen der Suche.
 - **Zugriffsrechte mitdenken.** Die Suche darf nur Dokumente finden, die die fragende Person auch sehen darf.
 - **Datenschutz klären.** Die gefundenen Auszüge werden zusammen mit der Frage an das Sprachmodell geschickt, unter Umständen an einen externen Anbieter.
-- **Mit echten Fragen testen.** Wie in Kapitel 1 gilt: Erst der Test mit Fragen, die beim Aufbau niemand im Kopf hatte, zeigt, wie gut das System wirklich ist.
+- **Mit echten Fragen testen.** Wie in Kapitel 1 gilt: Erst der Test mit Fragen, die beim Aufbau niemand im Kopf hatte, zeigt, wie gut das System bei neuen Fragen funktioniert.
 
-> **Merke:** RAG macht Antworten überprüfbar, aber nur so gut wie die Unterlagen und die Suche dahinter. Der Blick in die Quelle bleibt deine Aufgabe.
+> **Merke:** Mit RAG lassen sich Antworten an der Quelle prüfen. Wie gut sie sind, hängt von den Unterlagen und von der Suche ab.
 
 ## Das Wichtigste in Kürze
 

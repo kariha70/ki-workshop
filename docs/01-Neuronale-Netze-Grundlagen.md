@@ -1,8 +1,8 @@
 # Neuronale Netze: Wie eine Maschine aus Beispielen lernt
 
-Wie kann ein Computer etwas lernen, das ihm niemand ausdrücklich beigebracht hat? Dieses Kapitel beantwortet die Frage an einem einzigen, alltäglichen Beispiel: einem Eisverkäufer, der wissen möchte, wie viel Eis er morgen braucht.
+Ein Eisverkäufer möchte wissen, wie viel Eis er morgen braucht. An diesem Beispiel zeigt das Kapitel, wie ein Computer aus Beispielen eine Rechenregel lernt, ohne dass jemand sie ihm vorgibt.
 
-Du brauchst dafür weder Programmierkenntnisse noch höhere Mathematik. Aus einer Geraden, wie man sie aus der Schule kennt, entsteht Schritt für Schritt ein kleines neuronales Netz. Und es lernt im Kern genauso wie die großen KI-Modelle, über die heute alle sprechen.
+Du brauchst dafür weder Programmierkenntnisse noch höhere Mathematik. Aus einer Geraden, wie man sie aus der Schule kennt, entsteht Schritt für Schritt ein kleines neuronales Netz. Es lernt mit demselben Verfahren, mit dem auch große Sprachmodelle trainiert werden.
 
 <div class="lernziele" markdown="1">
 
@@ -12,7 +12,7 @@ Du brauchst dafür weder Programmierkenntnisse noch höhere Mathematik. Aus eine
 - begründen, warum man ein Modell immer an Daten prüft, die es beim Lernen nicht gesehen hat.
 - beschreiben, was ein künstliches Neuron rechnet und wie aus vielen Neuronen ein Netz wird.
 
-Kästen „Für Neugierige“ enthalten Rechnungen und Hintergründe. Du kannst sie überspringen, ohne den Faden zu verlieren.
+Kästen „Für Neugierige“ enthalten Rechnungen und Hintergründe. Für den Rest des Kapitels brauchst du sie nicht.
 
 </div>
 
@@ -42,7 +42,7 @@ Er möchte wissen: **Wie viele Kugeln verkaufe ich morgen, wenn es 25 °C warm w
 <details markdown="1">
 <summary>Auflösung</summary>
 
-Wahrscheinlich hast du zuerst den Trend erkannt: Je wärmer es ist, desto mehr Eis wird verkauft. Dann hast du nach Tagen um 25 °C gesucht (23 °C: 293 Kugeln, 26 °C: 272 Kugeln) und einen Wert dazwischen geschätzt, etwa 280 bis 300. Genau das macht auch ein Modell. Nur folgt es dabei einer festen Rechenregel statt dem Bauchgefühl.
+Wahrscheinlich hast du zuerst den Trend erkannt: Je wärmer es ist, desto mehr Eis wird verkauft. Dann hast du nach Tagen um 25 °C gesucht (23 °C: 293 Kugeln, 26 °C: 272 Kugeln) und einen Wert dazwischen geschätzt, etwa 280 bis 300. Ein Modell geht ähnlich vor, nur mit einer festen Rechenregel: Es bekommt die Temperatur und rechnet daraus die Zahl der Kugeln aus.
 
 </details>
 </div>
@@ -71,7 +71,7 @@ Die Gerade trifft die Messpunkte nicht genau. Im Mittel liegt sie um **24 Kugeln
 
 ## 3. Zwei Stellschrauben: Weight und Bias
 
-Die Gerade hat genau zwei Stellschrauben. Man kann sie sich wie zwei Drehknöpfe vorstellen: Der eine bestimmt, wie steil die Gerade ist, der andere, wie hoch sie liegt. In der Welt der neuronalen Netze heißen sie **Weight** (Gewicht) und **Bias**:
+Die Gerade hat zwei Stellschrauben: Die eine bestimmt, wie steil sie ist, die andere, wie hoch sie liegt. Bei neuronalen Netzen heißen sie **Weight** (Gewicht) und **Bias**:
 
 | Begriff          | In der Geraden          | Wert | Bedeutung im Beispiel                                  |
 | ---------------- | ----------------------- | ---- | ------------------------------------------------------ |
@@ -83,15 +83,15 @@ Die Gerade hat genau zwei Stellschrauben. Man kann sie sich wie zwei Drehknöpfe
 - Das **Weight** sagt, wie stark eine Eingabe die Vorhersage beeinflusst. Ein großes Weight bedeutet: Die Temperatur ist sehr wichtig. Ein Weight von 0 würde bedeuten: Die Temperatur spielt keine Rolle.
 - Der **Bias** ist der Grundwert, zu dem alles andere dazukommt. Mit den „Vorurteilen“ (englisch ebenfalls Bias), von denen im Zusammenhang mit KI oft die Rede ist, hat er nichts zu tun.
 
-Mehr als diese beiden Zahlen merkt sich das Modell nicht, die Messwerte selbst speichert es gar nicht. Weight und Bias zusammen heißen die **Parameter** des Modells. Große Sprachmodelle wie ChatGPT haben nicht zwei, sondern viele Milliarden solcher Parameter (Kapitel 2). Das Prinzip ist dasselbe.
+Mehr als diese beiden Zahlen merkt sich das Modell nicht, die Messwerte selbst speichert es gar nicht. Weight und Bias zusammen heißen die **Parameter** des Modells. Große Sprachmodelle wie ChatGPT haben viele Milliarden davon (Kapitel 2).
 
-**Eine Warnung vorab:** Gemessen wurde nur zwischen 13 und 29 °C. Außerhalb dieses Bereichs schreibt die Gerade einfach fort, was sie gelernt hat (in der ersten Grafik heller gezeichnet). Bei −10 °C sagt sie −60 Kugeln voraus, was offensichtlich Unsinn ist. Ein Modell kennt nur das, was in seinen Daten steckt. Auf dieses Problem kommen wir in Abschnitt 9 zurück.
+Gemessen wurde nur zwischen 13 und 29 °C. Außerhalb dieses Bereichs rechnet die Gerade einfach weiter (in der ersten Grafik heller gezeichnet): Bei −10 °C sagt sie −60 Kugeln voraus. Ein Modell kennt nur den Bereich, aus dem seine Daten stammen. Darauf kommt Abschnitt 9 zurück.
 
 > **Merke:** Die Zahlen, die ein Modell beim Lernen einstellt, heißen **Parameter**. Unsere Gerade hat zwei: das Weight (Wie stark wirkt die Temperatur?) und den Bias (der Grundwert). Lernen heißt hier: die beiden Werte finden, die am besten zu den Daten passen.
 
 ## 4. Wie gut passt die Gerade? Fehler messen
 
-Was heißt „am besten“? Um die Gerade gezielt zu verbessern, brauchen wir eine einzige Zahl, die sagt: Ist die Gerade jetzt besser oder schlechter als vorher?
+Um zu entscheiden, welche Gerade am besten passt, brauchen wir eine einzige Zahl, die sagt, ob eine Gerade besser oder schlechter ist als eine andere.
 
 Naheliegend ist, für jeden Tag auszurechnen, wie weit die Vorhersage danebenliegt:
 
@@ -115,15 +115,15 @@ Weil sich Plus und Minus gegenseitig aufheben. Eine Gerade, die mal zu hoch und 
 
 Tatsächlich ist die Summe aller zehn Fehler für unsere Gerade genau 0, obwohl sie an keinem einzigen Tag richtig liegt. Eine waagerechte Linie bei 250 Kugeln, die die Temperatur völlig ignoriert, kommt ebenfalls auf 0. Die Summe sagt also nichts aus.
 
-Die Lösung: Man nimmt jeden Fehler mit sich selbst mal, man **quadriert** ihn. Dann ist jeder Fehler positiv, und nichts hebt sich mehr auf. In der Grafik ist jedes orange Quadrat buchstäblich das Quadrat eines Fehlers. Bei der waagerechten Linie rechts bedecken sie eine viel größere Fläche:
+Deshalb wird jeder Fehler mit sich selbst malgenommen, also **quadriert**. Dann ist jeder Fehler positiv, und nichts hebt sich mehr auf. In der Grafik ist jedes orange Quadrat das Quadrat eines Fehlers, mit dem Fehler als Seitenlänge. Bei der waagerechten Linie rechts bedecken die Quadrate eine viel größere Fläche:
 
 ![Links liegen kleine Fehlerquadrate an der passenden Geraden, rechts große an einer waagerechten Linie. Die Summe der einfachen Fehler ist in beiden Fällen 0.](bilder/03-fehlerquadrate.png)
 
-Den Durchschnitt dieser Quadrate nennt man den **mittleren quadratischen Fehler**. Für unsere Gerade ist er 629,2. Allgemein heißt eine solche Fehlerzahl **Verlustfunktion** (englisch Loss). Wenn in Berichten über KI vom „Loss“ die Rede ist, ist genau das gemeint.
+Den Durchschnitt dieser Quadrate nennt man den **mittleren quadratischen Fehler**. Für unsere Gerade ist er 629,2. Allgemein heißt eine solche Fehlerzahl **Verlustfunktion** (englisch Loss). Wenn in Berichten über KI vom „Loss“ die Rede ist, ist diese Zahl gemeint.
 
-Das Quadrieren hat noch einen zweiten Vorteil: **Große Fehler zählen besonders stark.** Ein Fehler von 20 kostet 400 Punkte, zwei Fehler von je 10 zusammen nur 200. Das Modell vermeidet also lieber einen groben Fehlgriff als mehrere kleine.
+Außerdem zählen große Fehler beim Quadrieren stärker als kleine: Ein Fehler von 20 kostet 400 Punkte, zwei Fehler von je 10 zusammen nur 200. Das Modell vermeidet also lieber einen groben Fehlgriff als mehrere kleine.
 
-Die Einheit des Ergebnisses ist allerdings „Kugeln zum Quadrat“, darunter kann sich niemand etwas vorstellen. Für Menschen nennen wir deshalb weiter die mittlere Abweichung, hier 24 Kugeln. Zum Lernen nimmt das Modell den quadratischen Fehler.
+Die Einheit des Ergebnisses ist allerdings „Kugeln zum Quadrat“ und damit schwer zu deuten. Für Menschen nennen wir deshalb weiter die mittlere Abweichung, hier 24 Kugeln. Zum Lernen nimmt das Modell den quadratischen Fehler.
 
 <details class="vertiefung" markdown="1">
 <summary>Für Neugierige: Die ganze Rechnung</summary>
@@ -146,11 +146,11 @@ Die Einheit des Ergebnisses ist allerdings „Kugeln zum Quadrat“, darunter ka
 Mittlerer quadratischer Fehler = 6292 / 10 = 629,2
 ```
 
-Neben den beiden genannten Vorteilen hat das Quadrieren einen dritten, der für das Lernen der wichtigste ist: **Die Fehlerkurve wird glatt.** Sie zeigt an jeder Stelle, in welche Richtung es bergab geht (Abschnitt 5). Man könnte die Vorzeichen auch einfach weglassen, die Kurve hätte dann aber Knicke, und die Rechnung würde schwieriger. Die Kehrseite des Quadrierens: Ein einzelner Ausreißer kann die Gerade spürbar zu sich ziehen.
+Für das Lernen am wichtigsten ist ein dritter Grund: Die Fehlerkurve wird glatt. Sie zeigt an jeder Stelle, in welche Richtung es bergab geht (Abschnitt 5). Man könnte die Vorzeichen auch einfach weglassen, die Kurve hätte dann aber Knicke, und die Rechnung würde schwieriger. Die Kehrseite des Quadrierens: Ein einzelner Ausreißer kann die Gerade spürbar zu sich ziehen.
 
 </details>
 
-**Eine Landschaft aus Fehlern.** Mit dieser Zahl lassen sich Geraden vergleichen. Dreht man am Weight, wird der Fehler größer, egal in welche Richtung. Trägt man den Fehler für alle möglichen Weights auf, entsteht eine Kurve wie ein Tal:
+Mit dieser Zahl lassen sich Geraden vergleichen. Dreht man am Weight, wird der Fehler größer, egal in welche Richtung. Trägt man den Fehler für alle möglichen Weights auf, entsteht eine Kurve wie ein Tal:
 
 ![Der mittlere quadratische Fehler als Parabel über dem Weight, mit dem tiefsten Punkt bei Weight 10.](bilder/04-fehlerkurve.png)
 
@@ -173,9 +173,9 @@ Der tiefste Punkt des Tals ist die beste Gerade. Links davon muss das Weight gr�
 
 ## 5. Lernen heißt: Schritt für Schritt bergab
 
-Bisher haben wir die beste Gerade einfach angegeben. Wie findet man sie, wenn man sie nicht kennt?
+Bisher haben wir die beste Gerade einfach angegeben. Ein Computer muss sie erst suchen.
 
-Stell dir vor, du stehst im dichten Nebel in einem Tal und willst zum tiefsten Punkt. Du siehst das Ziel nicht, spürst aber unter den Füßen, wohin der Boden abfällt. Also gehst du ein Stück in diese Richtung und prüfst dann erneut. Genau so arbeitet der **Gradientenabstieg** (englisch Gradient Descent):
+Stell dir vor, du stehst im dichten Nebel in einem Tal und willst zum tiefsten Punkt. Du siehst das Ziel nicht, spürst aber unter den Füßen, wohin der Boden abfällt. Also gehst du ein Stück in diese Richtung und prüfst dann erneut. Nach diesem Prinzip arbeitet der **Gradientenabstieg** (englisch Gradient Descent):
 
 1. Mit einem beliebigen Wert starten.
 2. Spüren, wohin es bergab geht: die Steigung der Fehlerkurve an dieser Stelle messen.
@@ -184,7 +184,7 @@ Stell dir vor, du stehst im dichten Nebel in einem Tal und willst zum tiefsten P
 
 Starten wir mit Weight 0, nähert sich das Weight Schritt für Schritt dem besten Wert 10: erst 4,67, dann 7,16, dann 8,49 und so weiter. Die Schritte werden dabei von selbst kleiner, denn je näher man dem Talboden kommt, desto flacher wird das Gelände.
 
-**Die richtige Schrittlänge.** Wie groß jeder Schritt ist, legt die **Lernrate** fest. Sie muss vorab gewählt werden und entscheidet darüber, ob das Lernen funktioniert. Die Grafik zeigt jeweils sechs Schritte vom selben Startpunkt aus (blau):
+Wie groß jeder Schritt ist, legt die **Lernrate** fest. Sie wird vorab gewählt, und von ihr hängt ab, ob das Lernen funktioniert. Die Grafik zeigt jeweils sechs Schritte vom selben Startpunkt aus (blau):
 
 ![Drei Fehlerkurven mit je sechs Schritten: Bei zu kleiner Lernrate kommt das Weight kaum voran, bei passender Lernrate erreicht es den Talboden, bei zu großer springt es hin und her und der Fehler wächst.](bilder/05-fehler-minimieren.png)
 
@@ -192,7 +192,7 @@ Starten wir mit Weight 0, nähert sich das Weight Schritt für Schritt dem beste
 - **Passend:** Nach wenigen Schritten ist der Talboden fast erreicht.
 - **Zu groß:** Jeder Schritt springt über das Tal hinweg und landet höher als der vorige. Der Fehler wächst, statt zu sinken.
 
-Der Gradientenabstieg ist das Herzstück fast jeder heutigen KI. Auch große Sprachmodelle werden so trainiert, nur mit Milliarden von Stellschrauben gleichzeitig.
+Mit diesem Verfahren werden fast alle heutigen KI-Modelle trainiert, auch große Sprachmodelle. Dort werden in jedem Schritt Milliarden Parameter gleichzeitig angepasst.
 
 <details class="vertiefung" markdown="1">
 <summary>Für Neugierige: Wie man die Steigung ausrechnet</summary>
@@ -276,7 +276,7 @@ Warum liegt die Gerade an manchen Tagen so weit daneben? Der Eisverkäufer schau
 <details markdown="1">
 <summary>Auflösung</summary>
 
-Weil das Modell mit den Zahlen rechnet, als wären es Mengen. Für das Modell wäre der Sonntag dann „siebenmal so viel“ wie der Montag, und der Samstag läge näher am Freitag als am Sonntag. Die Nummern würden eine Ordnung behaupten, die es nicht gibt. Wie man Beobachtungen in Zahlen übersetzt, ist eine wichtige Entscheidung, und sie trifft ein Mensch.
+Weil das Modell mit den Zahlen rechnet, als wären es Mengen. Für das Modell wäre der Sonntag dann „siebenmal so viel“ wie der Montag, und der Samstag läge näher am Freitag als am Sonntag. Die Nummern würden eine Ordnung behaupten, die es nicht gibt. Wie Beobachtungen in Zahlen übersetzt werden, entscheidet ein Mensch, und davon hängt ab, was das Modell lernen kann.
 
 </details>
 </div>
@@ -316,18 +316,18 @@ Die eine Gerade hat sich in zwei parallele Geraden aufgeteilt, und die Vorhersag
 | Nur Temperatur          | `10 · Temperatur + 40`                   | 24 Kugeln         |
 | Temperatur + Wochenende | `10 · Temperatur + 50 · Wochenende + 20` | 5 Kugeln          |
 
-Damit kann der Eisverkäufer seine Frage aus Abschnitt 1 endlich richtig beantworten: Bei 25 °C sollte er an einem Werktag 270 Kugeln einplanen, an einem Samstag 320.
+Damit kann der Eisverkäufer seine Frage aus Abschnitt 1 genauer beantworten: Bei 25 °C sollte er an einem Werktag 270 Kugeln einplanen, an einem Samstag 320.
 
 <details class="vertiefung" markdown="1">
 <summary>Für Neugierige: Warum der Bias von 40 auf 20 gesunken ist</summary>
 
 Vier der zehn Tage waren Wochenenden. Im alten Bias steckten deshalb durchschnittlich 0,4 · 50 = 20 Kugeln Wochenend-Effekt. Jetzt hat dieser Effekt ein eigenes Weight. Aus demselben Grund waren die 290 Kugeln aus Abschnitt 2 nur ein Mittelwert: 0,6 · 270 + 0,4 · 320 = 290.
 
-Das Temperatur-Weight bleibt nur deshalb bei 10, weil die Wochenenden in unseren Daten im Schnitt genauso warm waren wie die Werktage. Bei echten Daten verschieben sich meist alle Werte. Der mittlere quadratische Fehler sinkt übrigens von 629,2 auf 29,2.
+Das Temperatur-Weight bleibt nur deshalb bei 10, weil die Wochenenden in unseren Daten im Schnitt genauso warm waren wie die Werktage. Bei echten Daten verschieben sich meist alle Werte. Der mittlere quadratische Fehler sinkt von 629,2 auf 29,2.
 
 </details>
 
-**Training und Anwendung.** Hier zeigen sich auch die zwei Phasen, die jedes Modell durchläuft. Man kann sie mit einem Rezept vergleichen: Beim **Training** wird es ausprobiert und verbessert, die Weights ändern sich. Bei der **Anwendung** (Fachwort: Inferenz) wird es nur noch nachgekocht, die Weights bleiben fest, und das Modell rechnet nur noch Vorhersagen aus. Das gilt auch für Chat-Assistenten, wie Kapitel 2 zeigt.
+An diesem Beispiel lassen sich die zwei Phasen unterscheiden, die jedes Modell durchläuft. Im **Training** werden die Weights aus den Daten bestimmt, hier 10, 50 und 20. In der **Anwendung** (Fachwort: Inferenz) bleiben sie fest, und das Modell rechnet nur noch Vorhersagen aus, etwa 320 Kugeln für einen Samstag mit 25 °C. Ein Chat-Assistent ist während eines Gesprächs immer in der Anwendung (Kapitel 2).
 
 > **Merke:** Jede zusätzliche Beobachtung bekommt ein eigenes Weight. Beim **Training** ändern sich die Parameter, bei der **Anwendung** bleiben sie fest.
 
@@ -339,7 +339,7 @@ Deshalb prüfen wir das Modell an Tagen, die es beim Lernen nicht kannte. Zum Ve
 
 <div class="frage" markdown="1">
 
-**Kurz überlegen:** Was vermutest du: Wird ein Modell besser, wenn man ihm zusätzliche Eingaben gibt, auch wenn diese reiner Zufall sind? Die Tabelle gibt die Antwort.
+**Kurz überlegen:** Was vermutest du: Wird ein Modell besser, wenn man ihm zusätzliche Eingaben gibt, auch wenn diese reiner Zufall sind? Die Tabelle zeigt das Ergebnis.
 
 </div>
 
@@ -351,13 +351,13 @@ Deshalb prüfen wir das Modell an Tagen, die es beim Lernen nicht kannte. Zum Ve
 | Temperatur + Wochenende + 3 Zufallszahlen | 16                           | 127                    |
 | Temperatur + Wochenende + 6 Zufallszahlen | 2                            | 2980                   |
 
-Angegeben ist jeweils der mittlere quadratische Fehler. Die Tabelle zeigt dreierlei:
+Angegeben ist jeweils der mittlere quadratische Fehler. Daraus lässt sich ablesen:
 
 - Auf neuen Tagen ist der Fehler immer größer als auf den Trainingstagen. Nur diese zweite Zahl sagt etwas über morgen.
-- Das Wochenende hilft wirklich, auch auf neuen Tagen sinkt der Fehler deutlich.
-- Sinnlose Eingaben senken den Trainingsfehler ebenfalls, auf neuen Tagen wird das Modell aber immer schlechter. Mit 6 Zufallszahlen sieht es im Training fast perfekt aus und versagt, sobald es ernst wird.
+- Das Wochenende verbessert die Vorhersage auch auf neuen Tagen deutlich.
+- Sinnlose Eingaben senken den Trainingsfehler ebenfalls, auf neuen Tagen wird das Modell aber immer schlechter. Mit 6 Zufallszahlen sieht es im Training fast perfekt aus und liegt auf neuen Tagen weit daneben.
 
-Das nennt man **Überanpassung** (englisch Overfitting): Das Modell lernt die zufälligen Schwankungen der Trainingstage auswendig, statt den Zusammenhang zu erkennen. Wie jemand, der für die Prüfung alte Klausuren auswendig lernt und bei einer neuen Aufgabe scheitert.
+Das nennt man **Überanpassung** (englisch Overfitting): Das Modell lernt die zufälligen Schwankungen der Trainingstage auswendig, statt den Zusammenhang zu erkennen, ähnlich wie jemand, der alte Klausuren auswendig lernt und bei einer neuen Aufgabe nicht weiterkommt.
 
 <details class="vertiefung" markdown="1">
 <summary>Für Neugierige: Wie genau geprüft wurde</summary>
@@ -370,11 +370,11 @@ Mit nur zehn Tagen lassen wir jeden Tag einmal weg, lernen mit den übrigen neun
 
 ## 8. Vom Modell zum Neuron
 
-Jetzt zeichnen wir dieselbe Formel anders auf, und schon haben wir die Grundform eines Neurons:
+Zeichnet man dieselbe Formel als Diagramm, erhält man die Grundform eines künstlichen Neurons:
 
 ![Ein Neuron mit den Inputs Temperatur 25 und Wochenende 1, den Weights 10 und 50 und dem Bias 20. Die Vorhersage ist 320.](bilder/07-neuron.png)
 
-Der Name stammt von den Nervenzellen im Gehirn: Sie empfangen Signale von anderen Zellen, verstärken manche davon und feuern selbst, wenn genug zusammenkommt. Das ist allerdings nur ein grobes Vorbild. Ein künstliches Neuron denkt nicht, es ist eine einfache Rechenformel.
+Der Name stammt von den Nervenzellen im Gehirn: Sie empfangen Signale von anderen Zellen, verstärken manche davon und feuern selbst, wenn genug zusammenkommt. Das ist allerdings nur ein grobes Vorbild. Ein künstliches Neuron ist eine einfache Rechenformel.
 
 Unser Neuron macht bisher drei Dinge:
 
@@ -420,19 +420,19 @@ Gelernt hat das Neuron die Werte 10, 50 und 20 von Weights und Bias 0 aus, in 10
 
 </details>
 
-Bis hierher kann unser Neuron nur Geraden (bei zwei Inputs genau genommen eine Ebene). Für ein vollständiges Neuron fehlt noch ein letzter Baustein.
+Bis hierher kann unser Neuron nur Geraden (bei zwei Inputs genau genommen eine Ebene). Was noch fehlt, ist die Aktivierungsfunktion.
 
 > **Merke:** Ein künstliches **Neuron** ist eine einfache Rechnung: jeden Input mit seinem Weight malnehmen, alles addieren, den Bias dazuzählen.
 
 ## 9. Der Knick: die Aktivierungsfunktion
 
-Erinnern wir uns an die Warnung aus Abschnitt 3: Bei −10 °C an einem Werktag rechnet unser Neuron 10 · (−10) + 50 · 0 + 20 = −80 Kugeln aus. Weniger als 0 Kugeln kann aber niemand verkaufen.
+In Abschnitt 3 sagte die Gerade für −10 °C eine negative Zahl voraus. Das Neuron hat dasselbe Problem: Für einen Werktag mit −10 °C rechnet es 10 · (−10) + 50 · 0 + 20 = −80 Kugeln aus. Weniger als 0 Kugeln kann aber niemand verkaufen.
 
-Die Lösung ist eine kleine Regel, die das Neuron am Ende auf sein Ergebnis anwendet: **Ist das Ergebnis negativ, gib 0 aus, sonst das Ergebnis selbst.** Diese Regel heißt **Aktivierungsfunktion**, und die hier gezeigte ist die gebräuchlichste (Fachname: ReLU). Dadurch bekommt jede der beiden Geraden einen Knick:
+Deshalb wendet das Neuron am Ende eine einfache Regel auf sein Ergebnis an: **Ist das Ergebnis negativ, gib 0 aus, sonst das Ergebnis selbst.** Diese Regel heißt **Aktivierungsfunktion**, und die hier gezeigte ist die gebräuchlichste (Fachname: ReLU). Dadurch bekommt jede der beiden Geraden einen Knick:
 
 ![Die Geraden für Werktag und Wochenende laufen unterhalb von −2 beziehungsweise −7 Grad nicht mehr ins Negative, sondern waagerecht bei 0. Oberhalb bleiben sie unverändert.](bilder/08-knick.png)
 
-Der Name passt: Liegt die Summe unter 0, bleibt das Neuron stumm, darüber ist es aktiv. Im Neuron kommt damit ein vierter Schritt hinzu:
+Daher der Name: Liegt die Summe unter 0, bleibt das Neuron stumm, darüber ist es aktiv. Im Neuron kommt damit ein vierter Schritt hinzu:
 
 1. Es nimmt **Inputs** entgegen.
 2. Es multipliziert jeden Input mit seinem **Weight**.
@@ -473,20 +473,20 @@ Neben ReLU gibt es weitere Aktivierungsfunktionen, etwa die S-förmige Sigmoid-F
 
 </details>
 
-### Warum der Knick unverzichtbar ist
+### Mehrere Neuronen mit Knick
 
-Negative Kugeln zu vermeiden ist nur der kleinere Nutzen. Wirklich wichtig wird der Knick, sobald mehrere Neuronen zusammenarbeiten.
+Wichtiger als das Vermeiden negativer Kugeln ist, was der Knick ermöglicht, wenn mehrere Neuronen zusammenarbeiten.
 
 Der Sommer geht weiter, und der Eisverkäufer notiert acht weitere Tage zwischen 31 und 38 °C. Bei rund 350 Kugeln ist Schluss, mehr schafft er an einem Tag nicht. Unser Neuron merkt davon nichts: Es sagt weiter steigende Verkäufe voraus und liegt im Hochsommer im Mittel um 45 Kugeln daneben, am heißesten Tag (38 °C, Wochenende) sogar um 101.
 
 ![Die zwei Geraden des Neurons laufen im Hochsommer weiter nach oben, während die acht neuen Tage waagerecht bei etwa 350 Kugeln liegen.](bilder/10-hochsommer.png)
 
-Neues Training hilft nicht: Lernt das Neuron mit allen 18 Tagen, passen die Hochsommertage etwas besser, dafür die anderen schlechter. Eine Gerade kann eben nicht erst steigen und dann stehen bleiben.
+Neues Training hilft nicht: Lernt das Neuron mit allen 18 Tagen, passen die Hochsommertage etwas besser, dafür die anderen schlechter. Eine Gerade kann nicht erst steigen und dann waagerecht weiterlaufen.
 
-Versuchen wir es mit zwei Neuronen, deren Ergebnisse wir voneinander abziehen. Neuron A ist unser bekanntes Neuron. Neuron B ist genauso gebaut, nur sein Bias ist viel niedriger (−330 statt 20). Es bleibt deshalb stumm, bis A die 350 erreicht, und zieht danach genau das ab, was A noch dazugewinnt.
+Versuchen wir es mit zwei Neuronen, deren Ergebnisse wir voneinander abziehen. Neuron A ist unser bekanntes Neuron. Neuron B ist genauso gebaut, nur sein Bias ist viel niedriger (−330 statt 20). Es bleibt deshalb stumm, bis A die 350 erreicht, und zieht danach ab, was A noch dazugewinnt.
 
-- **Ohne Knick** passiert etwas Ernüchterndes: Beim Abziehen fallen Temperatur und Wochenende heraus, und es kommt immer 350 heraus, egal wie warm es ist. Zwei Geraden ergeben zusammen wieder nur eine Gerade.
-- **Mit Knick** entsteht genau die gesuchte Form: Erst steigt die Kurve, dann bleibt sie bei 350 stehen.
+- **Ohne Knick** fallen Temperatur und Wochenende beim Abziehen heraus: Das Ergebnis ist immer 350, egal wie warm es ist. Zwei Geraden ergeben zusammen wieder nur eine Gerade.
+- **Mit Knick** entsteht die gesuchte Form: Erst steigt die Kurve, dann bleibt sie bei 350 stehen.
 
 ![Links ergibt die Differenz zweier Geraden an jedem Tag eine waagerechte Gerade bei 350. Rechts ergibt die Differenz zweier geknickter Linien Kurven, die erst bei 0 liegen, dann steigen und bei 350 stehen bleiben, am Wochenende früher als am Werktag.](bilder/11-zwei-knicke.png)
 
@@ -557,7 +557,7 @@ Wie das Limit von 350 entsteht, sieht man im Vergleich mehrerer Tage:
 | Werktag | 20              | 220                | −130, Knick macht 0 | 220     | Nur A arbeitet, die Linie steigt. |
 | Samstag | 35              | 420                | 70                  | 350     | B zieht den Überschuss wieder ab. |
 
-Ein neuronales Netz ist also nichts weiter als viele Neuronen, bei denen die Ergebnisse der einen Schicht die Inputs der nächsten sind:
+Ein neuronales Netz besteht also aus vielen Neuronen, bei denen die Ergebnisse der einen Schicht die Inputs der nächsten sind:
 
 - Die **Eingabe** nimmt die Daten entgegen.
 - Die **verborgenen Schichten** liegen dazwischen. Hier sitzen die Knicke. Von **Deep Learning** spricht man, wenn es viele solcher Schichten sind.
@@ -567,20 +567,20 @@ Jedes Neuron hat ein Weight pro Input und einen eigenen Bias, hier also je drei.
 
 ### Wie lernt ein Netz?
 
-Einen Fehler gibt es nur am Ende des Netzes. Die Neuronen in der Mitte haben keinen eigenen Zielwert. Woher wissen sie, wie sie sich ändern sollen?
+Einen Fehler gibt es nur am Ende des Netzes. Die Neuronen in der Mitte haben keinen eigenen Zielwert, trotzdem müssen auch ihre Weights angepasst werden.
 
-Die Lösung heißt **Backpropagation** (Rückwärtsverteilung des Fehlers). Man kann es sich vorstellen wie die Nachbesprechung in einem Team: Vom Ergebnis aus fragt man rückwärts, wer wie viel dazu beigetragen hat, und jeder justiert seinen Teil ein wenig nach. Ist die Ausgabe zu hoch, erfährt Neuron A, dass es etwas weniger liefern soll, und das abgezogene Neuron B, dass es etwas mehr liefern soll. Danach läuft alles wie gehabt: Gradientenabstieg, Schritt für Schritt bergab.
+Dafür gibt es **Backpropagation** (Rückwärtsverteilung des Fehlers). Man kann es sich vorstellen wie die Nachbesprechung in einem Team: Vom Ergebnis aus fragt man rückwärts, wer wie viel dazu beigetragen hat, und jeder justiert seinen Teil ein wenig nach. Ist die Ausgabe zu hoch, erfährt Neuron A, dass es etwas weniger liefern soll, und das abgezogene Neuron B, dass es etwas mehr liefern soll. Danach läuft alles wie gehabt: Gradientenabstieg, Schritt für Schritt bergab.
 
-**Netze starten mit Zufallswerten.** Bei 0 wären die Neuronen von Anfang an stumm. Und würden alle Neuronen gleich starten, blieben sie für immer Kopien voneinander. Erst der Zufall gibt jedem Neuron seine eigene Aufgabe. Wir haben unser Mini-Netz 20-mal mit verschiedenen Zufallswerten aus den 18 Tagen lernen lassen: 4 Starts fanden eine Lösung, die so gut ist wie die von Hand gesetzten Werte oder besser. Die übrigen 16 blieben bei schlechteren Lösungen hängen, 4 davon mit toten Neuronen. Große Netze kommen damit deutlich besser zurecht, weil sie viel mehr Neuronen haben, als sie streng genommen bräuchten.
+Netze starten mit Zufallswerten. Bei 0 wären die Neuronen von Anfang an stumm. Und würden alle Neuronen gleich starten, blieben sie für immer Kopien voneinander. Durch den Zufall entwickelt sich jedes Neuron anders. Wir haben unser Mini-Netz 20-mal mit verschiedenen Zufallswerten aus den 18 Tagen lernen lassen: 4 Starts fanden eine Lösung, die so gut ist wie die von Hand gesetzten Werte oder besser. Die übrigen 16 blieben bei schlechteren Lösungen hängen, 4 davon mit toten Neuronen. Große Netze kommen damit deutlich besser zurecht, weil sie viel mehr Neuronen haben, als sie streng genommen bräuchten.
 
-**Und der Test an neuen Tagen?** Auch für das Netz gilt die Regel aus Abschnitt 7. Wir haben 6 der 18 Tage beiseitegelegt, mit den übrigen 12 gelernt und dann an den 6 unbekannten geprüft:
+Auch für das Netz gilt die Regel aus Abschnitt 7. Wir haben 6 der 18 Tage beiseitegelegt, mit den übrigen 12 gelernt und dann an den 6 unbekannten geprüft:
 
 | Modell           | Fehler auf den Trainingstagen | Fehler auf neuen Tagen |
 | ---------------- | ----------------------------- | ---------------------- |
 | Einzelnes Neuron | 277                           | 605                    |
 | Netz mit Knick   | 12                            | 74                     |
 
-Das Netz ist also auch an Tagen besser, die es nie gesehen hat. Es hat den Zusammenhang gelernt und die Tage nicht nur auswendig.
+Das Netz ist also auch an Tagen besser, die es nie gesehen hat. Es hat den Zusammenhang gelernt, nicht nur die einzelnen Tage.
 
 <details class="vertiefung" markdown="1">
 <summary>Für Neugierige: Backpropagation mit Zahlen</summary>
@@ -638,7 +638,7 @@ Für den Test wurden die Tage nach Temperatur sortiert und jeder dritte beiseite
 <details class="quiz" markdown="1">
 <summary>Was genau „lernt“ ein Modell eigentlich?</summary>
 
-Seine Parameter, also Weights und Bias. Die Beispieldaten selbst speichert es nicht. Nach dem Training stecken alles Wissen und alle Fehler des Modells in diesen Zahlen.
+Seine Parameter, also Weights und Bias. Die Beispieldaten selbst speichert es nicht. Alles, was das Modell nach dem Training kann, steckt in diesen Zahlen.
 
 </details>
 
@@ -657,9 +657,9 @@ Jeder Schritt springt über das Tal hinweg und landet höher als der vorige. Der
 </details>
 
 <details class="quiz" markdown="1">
-<summary>Ein Modell hat auf seinen Trainingsdaten fast keinen Fehler. Warum ist das noch kein gutes Zeichen?</summary>
+<summary>Ein Modell hat auf seinen Trainingsdaten fast keinen Fehler. Warum reicht das nicht als Nachweis, dass es gut ist?</summary>
 
-Es könnte die Trainingsdaten auswendig gelernt haben (Überanpassung). Ob es den Zusammenhang wirklich erkannt hat, zeigt erst ein Test mit Daten, die es beim Training nicht gesehen hat.
+Es könnte die Trainingsdaten auswendig gelernt haben (Überanpassung). Ob es den Zusammenhang erkannt hat, zeigt erst ein Test mit Daten, die es beim Training nicht gesehen hat.
 
 </details>
 
@@ -672,9 +672,9 @@ Ohne Knick ergeben beliebig viele Neuronen zusammen wieder nur eine Gerade. Erst
 
 ## Wie es weitergeht
 
-Neuronale Netze begegnen dir heute an vielen Stellen: in der Spracherkennung des Smartphones, in Übersetzungsprogrammen, in Spamfiltern, bei der Gesichtserkennung zum Entsperren des Handys. Sie unterscheiden sich von unserem Mini-Netz vor allem in der Größe, nicht im Grundprinzip. Auch dort wird mit Fehler, Gradient und Lernrate gelernt.
+Neuronale Netze stecken zum Beispiel in der Spracherkennung von Smartphones, in Übersetzungsprogrammen und in Spamfiltern. Sie sind viel größer als unser Mini-Netz, werden aber ebenfalls mit Fehler, Gradient und Lernrate trainiert.
 
-Die bekanntesten Vertreter sind große Sprachmodelle wie ChatGPT. Sie haben viele Milliarden Parameter statt unserer neun. Und sie rechnen nicht mit Temperaturen, sondern mit Text. Wie Text zu Zahlen wird und wie daraus ein Sprachmodell entsteht, zeigt [Kapitel 2](02-Tokenizer-und-Sprachmodelle.md).
+Am bekanntesten sind große Sprachmodelle wie ChatGPT. Sie haben viele Milliarden Parameter, und ihre Eingabe ist Text. Wie Text zu Zahlen wird und wie daraus ein Sprachmodell entsteht, zeigt [Kapitel 2](02-Tokenizer-und-Sprachmodelle.md).
 
 ## Selbst ausprobieren
 
