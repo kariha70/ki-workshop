@@ -1,0 +1,1082 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neuronale Netze zum Anfassen</title>
+<style>
+  :root {
+    color-scheme: light;
+    --page: #f9f9f7;
+    --surface: #fcfcfb;
+    --text: #0b0b0b;
+    --text2: #52514e;
+    --muted: #898781;
+    --grid: #e1e0d9;
+    --axis: #c3c2b7;
+    --border: rgba(11, 11, 11, 0.10);
+    --blue: #2a78d6;
+    --orange: #eb6834;
+    --wash: rgba(42, 120, 214, 0.08);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      color-scheme: dark;
+      --page: #0d0d0d;
+      --surface: #1a1a19;
+      --text: #f0efec;
+      --text2: #c3c2b7;
+      --muted: #898781;
+      --grid: #2c2c2a;
+      --axis: #383835;
+      --border: rgba(255, 255, 255, 0.10);
+      --blue: #3987e5;
+      --orange: #d95926;
+      --wash: rgba(57, 135, 229, 0.14);
+    }
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--page);
+    color: var(--text);
+    font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  header, main, footer { max-width: 1240px; margin: 0 auto; padding-left: 16px; padding-right: 16px; }
+  header { padding-top: 28px; }
+  h1 { font-size: 26px; line-height: 1.2; margin: 0 0 6px; }
+  h2 { font-size: 19px; margin: 0 0 2px; }
+  h3 { font-size: 15px; margin: 0 0 8px; }
+  p { margin: 0 0 10px; }
+  code { font: 13.5px ui-monospace, "SF Mono", Menlo, monospace; background: var(--wash); padding: 1px 5px; border-radius: 4px; }
+  .sub { color: var(--text2); margin: 0 0 18px; max-width: 760px; }
+
+  nav.tabs { display: flex; gap: 2px; overflow-x: auto; border-bottom: 1px solid var(--grid); }
+  nav.tabs button {
+    appearance: none; border: 0; background: none; font: inherit; cursor: pointer; white-space: nowrap;
+    padding: 10px 14px; color: var(--text2); border-bottom: 2px solid transparent; margin-bottom: -1px;
+  }
+  nav.tabs button:hover { color: var(--text); }
+  nav.tabs button[aria-selected="true"] { color: var(--text); border-bottom-color: var(--blue); font-weight: 600; }
+  nav.tabs button .nr { color: var(--muted); margin-right: 6px; font-weight: 400; }
+
+  main { padding-top: 18px; padding-bottom: 24px; }
+  .panel { display: grid; grid-template-columns: minmax(280px, 350px) minmax(0, 1fr); gap: 16px; align-items: start; }
+  .panel[hidden] { display: none; }
+  .side, .haupt { display: grid; gap: 16px; min-width: 0; }
+  @media (max-width: 880px) { .panel { grid-template-columns: minmax(0, 1fr); } }
+
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; min-width: 0; }
+  .ref { color: var(--muted); font-size: 13px; margin-bottom: 10px; }
+  .intro p:last-child, .tasks ul { margin-bottom: 0; }
+  .tasks ul { padding-left: 18px; }
+  .tasks li { margin-bottom: 6px; }
+  .tasks li:last-child { margin-bottom: 0; }
+
+  .gruppe + .gruppe { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--grid); }
+  .gruppe-titel { font-size: 13px; font-weight: 600; color: var(--text2); margin-bottom: 6px; }
+  .slider + .slider { margin-top: 10px; }
+  .slider-kopf { display: flex; justify-content: space-between; gap: 8px; font-size: 14px; }
+  .slider-kopf output { font-variant-numeric: tabular-nums; font-weight: 600; }
+  input[type="range"] { width: 100%; margin: 4px 0 0; accent-color: var(--blue); }
+  .schalter { display: flex; align-items: center; gap: 8px; font-size: 14px; cursor: pointer; margin-top: 10px; }
+  .schalter input { width: 16px; height: 16px; accent-color: var(--blue); margin: 0; }
+
+  .knoepfe { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  button.knopf {
+    appearance: none; font: inherit; font-size: 14px; cursor: pointer;
+    padding: 6px 12px; border-radius: 8px; border: 1px solid var(--axis); background: var(--surface); color: var(--text);
+  }
+  button.knopf:hover { background: var(--wash); }
+  button.knopf.primaer { background: var(--blue); border-color: var(--blue); color: #fff; }
+  button.knopf.primaer:hover { filter: brightness(1.08); }
+  button.knopf:disabled { opacity: 0.5; cursor: default; }
+  .segment { display: inline-flex; border: 1px solid var(--axis); border-radius: 8px; overflow: hidden; margin-top: 8px; }
+  .segment button { appearance: none; font: inherit; font-size: 14px; border: 0; background: none; color: var(--text2); padding: 5px 12px; cursor: pointer; }
+  .segment button + button { border-left: 1px solid var(--axis); }
+  .segment button[aria-pressed="true"] { background: var(--wash); color: var(--text); font-weight: 600; }
+  .hinweis { font-size: 13px; color: var(--text2); margin-top: 8px; }
+  .status { font-size: 14px; margin-top: 12px; min-height: 1.5em; }
+  select { font: inherit; font-size: 14px; padding: 3px 6px; border-radius: 6px; border: 1px solid var(--axis); background: var(--surface); color: var(--text); }
+
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+  .stat { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 10px 14px; }
+  .stat .label { font-size: 13px; color: var(--text2); }
+  .stat .wert { font-size: 22px; font-weight: 600; line-height: 1.3; }
+  .stat .zusatz { font-size: 12.5px; color: var(--muted); }
+
+  .diagramm-titel, .grafik-titel { font-size: 15px; font-weight: 600; margin: 0 0 2px; }
+  .grafik-sub { font-size: 13px; color: var(--text2); margin: 0 0 6px; }
+  .legende { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 13px; color: var(--text2); margin: 2px 0 4px; }
+  .legende span { display: inline-flex; align-items: center; gap: 6px; }
+  .legende i { display: inline-block; }
+  .legende .linie { width: 18px; height: 2.5px; border-radius: 2px; }
+  .legende .kreis { width: 10px; height: 10px; border-radius: 50%; }
+  .legende .eckig { width: 10px; height: 10px; }
+  .bg-blue { background: var(--blue); }
+  .bg-orange { background: var(--orange); }
+  .bg-muted { background: var(--muted); }
+  .plot { width: 100%; }
+  .plot svg { display: block; }
+  .diagramm { overflow-x: auto; }
+  .diagramm svg { display: block; width: 100%; min-width: 560px; height: auto; }
+
+  table { border-collapse: collapse; width: 100%; font-size: 13.5px; font-variant-numeric: tabular-nums; }
+  th, td { text-align: right; padding: 4px 8px; border-bottom: 1px solid var(--grid); white-space: nowrap; }
+  th { color: var(--text2); font-weight: 600; }
+  th:first-child, td:first-child { text-align: left; }
+  .tabelle { overflow-x: auto; }
+
+  /* SVG */
+  .gitter { stroke: var(--grid); stroke-width: 1; }
+  .achse { stroke: var(--axis); stroke-width: 1; }
+  .tick { fill: var(--text2); font-size: 12px; }
+  .achsentitel { fill: var(--text2); font-size: 12.5px; }
+  .l-blue, .l-orange, .l-muted, .l-text { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .l-blue { stroke: var(--blue); stroke-width: 2.5; }
+  .l-orange { stroke: var(--orange); stroke-width: 2.5; }
+  .l-muted { stroke: var(--muted); stroke-width: 1.5; }
+  .blass { opacity: 0.3; }
+  .fehler { stroke: var(--orange); stroke-width: 1.5; }
+  .quadrat { fill: var(--orange); opacity: 0.18; }
+  .m-blue { fill: var(--blue); stroke: var(--surface); stroke-width: 2; }
+  .m-orange { fill: var(--orange); stroke: var(--surface); stroke-width: 2; }
+  .m-ring { fill: none; stroke: var(--text); stroke-width: 1.5; }
+  .m-hohl { fill: var(--surface); stroke: var(--orange); stroke-width: 2; }
+  .bereich { fill: var(--axis); opacity: 0.18; }
+  .t { fill: var(--text); font-size: 13px; }
+  .t2 { fill: var(--text2); font-size: 12.5px; }
+  .tb { fill: var(--text); font-size: 15px; font-weight: 700; }
+  .tw { fill: #fff; font-size: 13px; }
+  .twb { fill: #fff; font-size: 16px; font-weight: 700; }
+  .halo { paint-order: stroke; stroke: var(--surface); stroke-width: 6px; stroke-linejoin: round; }
+  .pfeil { stroke: var(--text2); stroke-width: 1.5; }
+  .pfeilspitze { fill: var(--text2); }
+  .k-eingabe { fill: var(--surface); stroke: var(--axis); stroke-width: 1.5; }
+  .k-neuron { fill: var(--blue); }
+  .k-knick { fill: var(--orange); }
+  .k-aus { fill: var(--surface); stroke: var(--axis); stroke-width: 1.5; }
+  .k-ausgabe { fill: var(--surface); stroke: var(--axis); stroke-width: 1.5; }
+  .k-ausgabe-netz { fill: var(--orange); }
+  .knick-symbol { fill: none; stroke: #fff; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+  footer { color: var(--muted); font-size: 13px; padding-bottom: 28px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Neuronale Netze zum Anfassen</h1>
+  <p class="sub">Das Eisverkäufer-Beispiel aus „Neuronale Netze: Grundlagen“ zum Ausprobieren: Weights und Bias verschieben, den Fehler beobachten, bergab lernen und ein kleines Netz trainieren.</p>
+  <nav class="tabs" role="tablist" aria-label="Schritte">
+    <button role="tab" id="t-gerade" aria-controls="p-gerade" data-tab="gerade"><span class="nr">1</span>Gerade und Fehler</button>
+    <button role="tab" id="t-bergab" aria-controls="p-bergab" data-tab="bergab"><span class="nr">2</span>Fehler minimieren</button>
+    <button role="tab" id="t-neuron" aria-controls="p-neuron" data-tab="neuron"><span class="nr">3</span>Neuron mit Knick</button>
+    <button role="tab" id="t-netz" aria-controls="p-netz" data-tab="netz"><span class="nr">4</span>Kleines Netz</button>
+  </nav>
+</header>
+
+<main>
+  <!-- 1. Gerade -->
+  <section class="panel" id="p-gerade" role="tabpanel" aria-labelledby="t-gerade" hidden>
+    <div class="side">
+      <div class="card intro">
+        <h2>Gerade und Fehler</h2>
+        <p class="ref">Abschnitte 2 bis 4 im Text</p>
+        <p>Die Gerade sagt aus der Temperatur die verkauften Kugeln voraus:</p>
+        <p><code>Kugeln = Weight · Temperatur + Bias</code></p>
+        <p>Die orangen Striche sind die Fehler: verkaufte Kugeln minus Vorhersage.</p>
+      </div>
+      <div class="card" id="g-regler"></div>
+      <div class="card tasks">
+        <h3>Ausprobieren</h3>
+        <ul>
+          <li>Die beste Gerade von Hand suchen. Wie nah kommt man an einen Fehler von 629,2?</li>
+          <li>„Waagerechte Linie“ wählen: Die Summe der Fehler ist 0, der quadratische Fehler aber groß.</li>
+          <li>Die Fehlerquadrate einblenden: Welche Tage kosten am meisten?</li>
+        </ul>
+      </div>
+    </div>
+    <div class="haupt">
+      <div class="stats" id="g-stats"></div>
+      <div class="card">
+        <p class="grafik-titel" id="g-titel"></p>
+        <p class="grafik-sub">Zehn Tage, gemessen zwischen 13 und 29 °C</p>
+        <div class="plot" id="g-plot"></div>
+      </div>
+      <div class="card">
+        <p class="grafik-titel">Die Fehlerkurve: der Fehler für jedes mögliche Weight</p>
+        <p class="grafik-sub" id="g-kurve-sub"></p>
+        <div class="plot" id="g-kurve"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Bergab -->
+  <section class="panel" id="p-bergab" role="tabpanel" aria-labelledby="t-bergab" hidden>
+    <div class="side">
+      <div class="card intro">
+        <h2>Fehler minimieren</h2>
+        <p class="ref">Abschnitt 5 im Text</p>
+        <p>Der Gradientenabstieg misst die Steigung der Fehlerkurve und geht ein Stück bergab:</p>
+        <p><code>neues Weight = altes Weight − Lernrate · Steigung</code></p>
+        <p>Die Lernrate legt fest, wie groß jeder Schritt wird.</p>
+      </div>
+      <div class="card" id="b-regler"></div>
+      <div class="card tasks">
+        <h3>Ausprobieren</h3>
+        <ul>
+          <li>Mit 0,0005 Schritt für Schritt bergab gehen und die Tabelle mit dem Text vergleichen.</li>
+          <li>0,0022 wählen: Jeder Schritt springt über das Tal und landet höher.</li>
+          <li>Eine Lernrate knapp unter der Grenze suchen: Das Weight springt hin und her und kommt trotzdem an.</li>
+          <li>„Bias mitlernen“ einschalten: Das Weight schießt erst über 10 hinaus, der Bias wächst nur langsam.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="haupt">
+      <div class="stats" id="b-stats"></div>
+      <div class="card">
+        <p class="grafik-titel">Die Schritte auf der Fehlerkurve</p>
+        <p class="grafik-sub" id="b-kurve-sub"></p>
+        <div class="legende"><span><i class="linie bg-muted"></i>Fehlerkurve</span><span><i class="kreis bg-blue"></i>Start</span><span><i class="kreis bg-orange"></i>Schritte</span></div>
+        <div class="plot" id="b-kurve"></div>
+      </div>
+      <div class="card">
+        <p class="grafik-titel">Die aktuelle Gerade</p>
+        <div class="plot" id="b-plot"></div>
+      </div>
+      <div class="card">
+        <p class="grafik-titel">Die letzten Schritte</p>
+        <div class="tabelle" id="b-tabelle"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Neuron -->
+  <section class="panel" id="p-neuron" role="tabpanel" aria-labelledby="t-neuron" hidden>
+    <div class="side">
+      <div class="card intro">
+        <h2>Neuron mit Knick</h2>
+        <p class="ref">Abschnitte 6 bis 9 im Text</p>
+        <p>Das Wochenende bekommt ein eigenes Weight (1 = Wochenende, 0 = Werktag). Der Knick (ReLU) macht aus negativen Summen 0:</p>
+        <p><code>Vorhersage = max(0, Summe)</code></p>
+      </div>
+      <div class="card" id="n-regler"></div>
+      <div class="card tasks">
+        <h3>Ausprobieren</h3>
+        <ul>
+          <li>Den Beispieltag auf −10 °C stellen und den Knick ein- und ausschalten.</li>
+          <li>Die Hochsommertage einblenden: Ab etwa 31 °C liegt das Neuron weit daneben, egal wie man die Regler stellt.</li>
+          <li>„Alles auf 0“, Knick an, dann „Trainieren“: Das Neuron bleibt stehen. Das ist ein totes Neuron.</li>
+          <li>Ohne Hochsommertage von 0 aus trainieren: Es findet 10, 50 und 20 von selbst.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="haupt">
+      <div class="stats" id="n-stats"></div>
+      <div class="card">
+        <p class="diagramm-titel">Das Neuron rechnet den Beispieltag</p>
+        <div class="diagramm" id="n-diagramm"></div>
+      </div>
+      <div class="card">
+        <p class="grafik-titel">Die Vorhersage für jede Temperatur</p>
+        <div class="legende"><span><i class="kreis bg-blue"></i>Werktag</span><span><i class="eckig bg-orange"></i>Wochenende</span></div>
+        <div class="plot" id="n-plot"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Netz -->
+  <section class="panel" id="p-netz" role="tabpanel" aria-labelledby="t-netz" hidden>
+    <div class="side">
+      <div class="card intro">
+        <h2>Kleines Netz</h2>
+        <p class="ref">Abschnitte 9 und 10 im Text</p>
+        <p>Zwei Neuronen mit Knick in der verborgenen Schicht, dahinter ein Ausgabe-Neuron ohne Knick. Zusammen sind das neun Parameter.</p>
+        <p>Die Grafik zeigt alle 18 Tage, auch den Hochsommer, in dem der Eisverkäufer nicht mehr als etwa 350 Kugeln schafft.</p>
+      </div>
+      <div class="card" id="w-regler"></div>
+      <div class="card tasks">
+        <h3>Ausprobieren</h3>
+        <ul>
+          <li>Den Knick ausschalten: Mit den Werten von Hand kommt immer 350 heraus.</li>
+          <li>Den Bias von Neuron B verschieben: Er legt fest, wo das Limit beginnt.</li>
+          <li>Mehrmals mit Zufallsstart trainieren: Manche Starts finden die Kurve, andere bleiben hängen.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="haupt">
+      <div class="stats" id="w-stats"></div>
+      <div class="card">
+        <p class="diagramm-titel">Das Netz rechnet den Beispieltag</p>
+        <div class="diagramm" id="w-diagramm"></div>
+      </div>
+      <div class="card">
+        <p class="grafik-titel">Die Ausgabe für jede Temperatur</p>
+        <div class="legende"><span><i class="kreis bg-blue"></i>Werktag</span><span><i class="eckig bg-orange"></i>Wochenende</span><span><i class="linie bg-muted"></i>Neuron A und B am Beispieltag</span></div>
+        <div class="plot" id="w-plot"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  Die Daten sind wie im Text erfunden. Alles läuft im Browser, ohne Server und ohne Internetverbindung.
+</footer>
+
+<script>
+"use strict";
+
+// ---------- Daten (wie in docs/beispiele/01_eisverkaeufer.py) ----------
+const TAGE = [[13, 0, 146], [15, 1, 226], [16, 0, 177], [19, 1, 257], [20, 0, 228], [22, 0, 245], [23, 1, 293], [26, 0, 272], [27, 1, 344], [29, 0, 312]];
+const HOCHSOMMER = [[31, 0, 333], [32, 1, 347], [33, 0, 345], [34, 1, 350], [35, 0, 348], [36, 1, 346], [37, 0, 350], [38, 1, 349]];
+const ALLE = TAGE.concat(HOCHSOMMER);
+
+const relu = x => Math.max(0, x);
+const mittel = a => a.reduce((s, x) => s + x, 0) / a.length;
+const $ = s => document.querySelector(s);
+
+// ---------- Zahlen deutsch formatieren ----------
+function fmt(x, stellen = 0, kuerzen = false) {
+  if (!Number.isFinite(x)) return "–";
+  if (Math.abs(x) < 0.5 * 10 ** -stellen) x = 0;
+  return x.toLocaleString("de-DE", {
+    minimumFractionDigits: kuerzen ? 0 : stellen,
+    maximumFractionDigits: stellen,
+    useGrouping: false,
+  }).replace("-", "−");
+}
+const kurz = (x, stellen = 2) => fmt(x, stellen, true);
+const vorzeichen = (x, stellen = 2) => (x < 0 ? "− " : "+ ") + kurz(Math.abs(x), stellen);
+const mitVorzeichen = (x, stellen = 2) => (x > 0 ? "+" : "") + kurz(x, stellen);
+const lernrateText = lr => lr.toLocaleString("de-DE", { maximumSignificantDigits: 2 });
+
+// ---------- Bedienelemente ----------
+function gruppe(parent, titel) {
+  const g = document.createElement("div");
+  g.className = "gruppe";
+  if (titel) g.innerHTML = `<div class="gruppe-titel">${titel}</div>`;
+  parent.append(g);
+  return g;
+}
+
+let idZaehler = 0;
+function regler(parent, o) {
+  const id = "r" + ++idZaehler;
+  const el = document.createElement("div");
+  el.className = "slider";
+  el.innerHTML = `<div class="slider-kopf"><label for="${id}">${o.label}</label><output for="${id}"></output></div>
+    <input type="range" id="${id}" min="${o.min}" max="${o.max}" step="${o.step}">`;
+  parent.append(el);
+  const input = el.querySelector("input");
+  const out = el.querySelector("output");
+  let wert = o.wert;
+  const zeigen = () => {
+    out.textContent = (o.text ? o.text(wert) : fmt(wert, o.stellen ?? 0)) + (o.einheit ?? "");
+    input.value = o.zuRegler ? o.zuRegler(wert) : wert;
+  };
+  input.addEventListener("input", () => {
+    const roh = parseFloat(input.value);
+    wert = o.vonRegler ? o.vonRegler(roh) : roh;
+    zeigen();
+    o.aendern(wert);
+  });
+  zeigen();
+  return { get: () => wert, set: v => { wert = v; zeigen(); } };
+}
+
+function schalter(parent, label, an, aendern) {
+  const el = document.createElement("label");
+  el.className = "schalter";
+  el.innerHTML = `<input type="checkbox"${an ? " checked" : ""}> <span>${label}</span>`;
+  parent.append(el);
+  const input = el.querySelector("input");
+  input.addEventListener("change", () => aendern(input.checked));
+  return { set: v => { input.checked = v; } };
+}
+
+function segment(parent, optionen, aktiv, aendern) {
+  const el = document.createElement("div");
+  el.className = "segment";
+  el.setAttribute("role", "group");
+  parent.append(el);
+  const knoepfe = optionen.map(([wert, text]) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.textContent = text;
+    b.addEventListener("click", () => { setzen(wert); aendern(wert); });
+    el.append(b);
+    return [wert, b];
+  });
+  const setzen = w => knoepfe.forEach(([wert, b]) => b.setAttribute("aria-pressed", String(wert === w)));
+  setzen(aktiv);
+  return { set: setzen };
+}
+
+function knoepfe(parent, liste) {
+  const el = document.createElement("div");
+  el.className = "knoepfe";
+  parent.append(el);
+  return liste.map(([text, aktion, primaer]) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "knopf" + (primaer ? " primaer" : "");
+    b.textContent = text;
+    b.addEventListener("click", aktion);
+    el.append(b);
+    return b;
+  });
+}
+
+function kacheln(el, liste) {
+  el.innerHTML = liste.map(([key, label]) =>
+    `<div class="stat"><div class="label">${label}</div><div class="wert" data-k="${key}">–</div><div class="zusatz" data-z="${key}"></div></div>`).join("");
+  return (key, wert, zusatz = "") => {
+    el.querySelector(`[data-k="${key}"]`).textContent = wert;
+    el.querySelector(`[data-z="${key}"]`).textContent = zusatz;
+  };
+}
+
+// ---------- Diagramme ----------
+function schoeneTicks(min, max, anzahl = 5) {
+  const roh = (max - min) / anzahl;
+  const groesse = 10 ** Math.floor(Math.log10(roh));
+  const r = roh / groesse;
+  const schritt = (r >= 7.5 ? 10 : r >= 3.5 ? 5 : r >= 1.5 ? 2 : 1) * groesse;
+  const ticks = [];
+  for (let v = Math.ceil(min / schritt) * schritt; v <= max + schritt * 1e-9; v += schritt) ticks.push(Math.round(v / schritt) * schritt);
+  return ticks;
+}
+
+const folge = (a, b, schritt) => Array.from({ length: Math.round((b - a) / schritt) + 1 }, (_, i) => a + i * schritt);
+const begrenzt = v => Math.max(-1e5, Math.min(1e5, v));
+
+function pfad(punkte, klasse) {
+  const d = punkte
+    .filter(([x, y]) => Number.isFinite(x) && Number.isFinite(y))
+    .map(([x, y], i) => `${i ? "L" : "M"}${x.toFixed(1)},${begrenzt(y).toFixed(1)}`).join("");
+  return d ? `<path d="${d}" class="${klasse}"/>` : "";
+}
+
+let clipZaehler = 0;
+function grafik(el, cfg, zeichnen) {
+  const B = el.clientWidth;
+  if (!B) return;
+  const H = Math.round(Math.max(250, Math.min(cfg.maxHoehe ?? 400, B * (cfg.verhaeltnis ?? 0.58))));
+  const [x0, x1] = cfg.x, [y0, y1] = cfg.y;
+  const yTicks = schoeneTicks(y0, y1, cfg.yTicks ?? 5);
+  const m = { l: 34 + 7.5 * Math.max(...yTicks.map(t => fmt(t).length)), r: 20, o: 12, u: 46 };
+  const pb = B - m.l - m.r, ph = H - m.o - m.u;
+  const g = {
+    sx: x => m.l + ((x - x0) / (x1 - x0)) * pb,
+    sy: y => begrenzt(m.o + (1 - (y - y0) / (y1 - y0)) * ph),
+    kx: pb / (x1 - x0), ky: ph / (y1 - y0), m, pb, ph, x0, x1, y0, y1,
+  };
+  g.linie = (xs, f, klasse) => pfad(xs.map(x => [g.sx(x), g.sy(f(x))]), klasse);
+  g.punkt = (x, y, wochenende) => {
+    const cx = g.sx(x), cy = g.sy(y);
+    return wochenende
+      ? `<rect x="${(cx - 5).toFixed(1)}" y="${(cy - 5).toFixed(1)}" width="10" height="10" class="m-orange"/>`
+      : `<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="5.5" class="m-blue"/>`;
+  };
+  const id = el.dataset.clip || (el.dataset.clip = "clip" + ++clipZaehler);
+  const teile = [];
+  for (const t of yTicks) {
+    teile.push(`<line x1="${m.l}" x2="${m.l + pb}" y1="${g.sy(t)}" y2="${g.sy(t)}" class="gitter"/>`);
+    teile.push(`<text x="${m.l - 8}" y="${g.sy(t)}" class="tick" text-anchor="end" dominant-baseline="middle">${fmt(t)}</text>`);
+  }
+  for (const t of schoeneTicks(x0, x1, cfg.xTicks ?? Math.max(4, Math.min(8, Math.round(pb / 80))))) {
+    teile.push(`<text x="${g.sx(t)}" y="${m.o + ph + 18}" class="tick" text-anchor="middle">${fmt(t, cfg.xStellen ?? 0)}</text>`);
+  }
+  teile.push(`<line x1="${m.l}" x2="${m.l + pb}" y1="${m.o + ph}" y2="${m.o + ph}" class="achse"/>`);
+  if (y0 < 0 && y1 > 0) teile.push(`<line x1="${m.l}" x2="${m.l + pb}" y1="${g.sy(0)}" y2="${g.sy(0)}" class="achse"/>`);
+  teile.push(`<g clip-path="url(#${id})">${zeichnen(g)}</g>`);
+  teile.push(`<text x="${m.l + pb / 2}" y="${H - 6}" class="achsentitel" text-anchor="middle">${cfg.xTitel}</text>`);
+  teile.push(`<text transform="translate(14 ${m.o + ph / 2}) rotate(-90)" class="achsentitel" text-anchor="middle">${cfg.yTitel}</text>`);
+  el.innerHTML = `<svg width="${B}" height="${H}" viewBox="0 0 ${B} ${H}" role="img" aria-label="${cfg.beschreibung}">
+    <defs><clipPath id="${id}"><rect x="${m.l - 8}" y="${m.o - 8}" width="${pb + 16}" height="${ph + 16}"/></clipPath></defs>${teile.join("")}</svg>`;
+}
+
+// Bausteine für Neuron- und Netzbild
+const spitze = id => `<marker id="${id}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="pfeilspitze"/></marker>`;
+function pfeil([x1, y1], [x2, y2], abstandStart, abstandZiel, id) {
+  const lang = Math.hypot(x2 - x1, y2 - y1), dx = (x2 - x1) / lang, dy = (y2 - y1) / lang;
+  return `<line x1="${x1 + dx * abstandStart}" y1="${y1 + dy * abstandStart}" x2="${x2 - dx * abstandZiel}" y2="${y2 - dy * abstandZiel}" class="pfeil" marker-end="url(#${id})"/>`;
+}
+const text = (x, y, inhalt, klasse = "t", anker = "middle") => `<text x="${x}" y="${y}" class="${klasse}" text-anchor="${anker}" dominant-baseline="middle">${inhalt}</text>`;
+const knickSymbol = (x, y, s = 1) => `<polyline points="${x - 14 * s},${y + 6 * s} ${x},${y + 6 * s} ${x + 14 * s},${y - 8 * s}" class="knick-symbol"/>`;
+function eingabeKasten([x, y], name, wert) {
+  return `<rect x="${x - 62}" y="${y - 34}" width="124" height="68" rx="8" class="k-eingabe"/>`
+    + text(x, y - 11, name) + text(x, y + 13, wert, "tb");
+}
+
+// ---------- Tabs ----------
+const TABS = ["gerade", "bergab", "neuron", "netz"];
+const zeichner = {};
+let aktiverTab = "gerade";
+
+function zeigeTab(name, fokus = false) {
+  if (!TABS.includes(name)) name = "gerade";
+  aktiverTab = name;
+  for (const t of TABS) {
+    const knopf = document.querySelector(`[data-tab="${t}"]`);
+    knopf.setAttribute("aria-selected", String(t === name));
+    knopf.tabIndex = t === name ? 0 : -1;
+    document.getElementById("p-" + t).hidden = t !== name;
+  }
+  if (fokus) document.querySelector(`[data-tab="${name}"]`).focus();
+  if (location.hash !== "#" + name) history.replaceState(null, "", "#" + name);
+  zeichner[name]();
+}
+
+document.querySelectorAll("[data-tab]").forEach(knopf => {
+  knopf.addEventListener("click", () => zeigeTab(knopf.dataset.tab));
+  knopf.addEventListener("keydown", e => {
+    const i = TABS.indexOf(knopf.dataset.tab);
+    if (e.key === "ArrowRight") zeigeTab(TABS[(i + 1) % TABS.length], true);
+    if (e.key === "ArrowLeft") zeigeTab(TABS[(i + TABS.length - 1) % TABS.length], true);
+  });
+});
+window.addEventListener("hashchange", () => zeigeTab(location.hash.slice(1)));
+
+// =====================================================================
+// 1. Gerade und Fehler
+// =====================================================================
+const G = { w: 10, b: 40, quadrate: false };
+{
+  const box = $("#g-regler");
+  const r = gruppe(box);
+  G.rw = regler(r, { label: "Weight (Steigung)", min: 0, max: 20, step: 0.5, wert: G.w, stellen: 1, aendern: v => { G.w = v; zeichneGerade(); } });
+  G.rb = regler(r, { label: "Bias (Grundwert)", min: -100, max: 300, step: 5, wert: G.b, aendern: v => { G.b = v; zeichneGerade(); } });
+  schalter(r, "Fehler als Quadrate zeigen", false, v => { G.quadrate = v; zeichneGerade(); });
+  const setzen = (w, b) => { G.w = w; G.b = b; G.rw.set(w); G.rb.set(b); zeichneGerade(); };
+  knoepfe(r, [["Beste Gerade (10 / 40)", () => setzen(10, 40), true], ["Waagerechte Linie (0 / 250)", () => setzen(0, 250)]]);
+}
+const gStats = kacheln($("#g-stats"), [["mse", "Mittlerer quadratischer Fehler"], ["mae", "Im Mittel daneben"], ["summe", "Summe der Fehler"], ["v25", "Vorhersage bei 25 °C"]]);
+
+function mseGerade(w, b) { return mittel(TAGE.map(([t, , k]) => (k - (w * t + b)) ** 2)); }
+
+function zeichneGerade() {
+  const { w, b } = G;
+  const fehler = TAGE.map(([t, , k]) => k - (w * t + b));
+  const mse = mittel(fehler.map(e => e * e));
+  gStats("mse", fmt(mse, 1), "Bestwert: 629,2");
+  gStats("mae", fmt(mittel(fehler.map(Math.abs)), 1) + " Kugeln", "ohne Vorzeichen");
+  gStats("summe", fmt(fehler.reduce((s, e) => s + e, 0)), "Plus und Minus heben sich auf");
+  gStats("v25", fmt(w * 25 + b) + " Kugeln", `${kurz(w, 1)} · 25 ${vorzeichen(b, 0)}`);
+  $("#g-titel").textContent = `Kugeln = ${kurz(w, 1)} · Temperatur ${vorzeichen(b, 0)}`;
+
+  grafik($("#g-plot"), { x: [0, 35], y: [0, 420], xTitel: "Temperatur (°C)", yTitel: "Verkaufte Kugeln", beschreibung: "Messpunkte mit der eingestellten Geraden" }, g => {
+    let s = "";
+    if (G.quadrate) {
+      TAGE.forEach(([t, , k], i) => {
+        const seite = Math.abs(fehler[i]) * g.ky;
+        s += `<rect x="${g.sx(t)}" y="${g.sy(Math.max(k, k - fehler[i]))}" width="${seite}" height="${seite}" class="quadrat"/>`;
+      });
+    }
+    TAGE.forEach(([t, , k]) => { s += `<line x1="${g.sx(t)}" x2="${g.sx(t)}" y1="${g.sy(k)}" y2="${g.sy(w * t + b)}" class="fehler"/>`; });
+    s += g.linie([0, 35], x => w * x + b, "l-blue blass");
+    s += g.linie([13, 29], x => w * x + b, "l-blue");
+    TAGE.forEach(([t, , k]) => { s += g.punkt(t, k, false); });
+    return s;
+  });
+
+  // Fehlerkurve für den eingestellten Bias
+  const bestesW = mittel(TAGE.map(([t, , k]) => (k - b) * t)) / mittel(TAGE.map(([t]) => t * t));
+  $("#g-kurve-sub").textContent = `Bias fest bei ${fmt(b)}. Der tiefste Punkt liegt dann bei Weight ${fmt(bestesW, 1)}.`;
+  grafik($("#g-kurve"), { x: [0, 20], y: [0, 60000], xTitel: "Weight", yTitel: "Quadratischer Fehler", beschreibung: "Fehlerkurve über dem Weight", verhaeltnis: 0.45, maxHoehe: 320 }, g => {
+    let s = g.linie(folge(0, 20, 0.1), x => mseGerade(x, b), "l-blue");
+    s += `<circle cx="${g.sx(bestesW)}" cy="${g.sy(mseGerade(bestesW, b))}" r="5.5" class="m-hohl"/>`;
+    s += `<circle cx="${g.sx(w)}" cy="${g.sy(mse)}" r="6.5" class="m-orange"/>`;
+    const rechts = w > 14;
+    s += text(g.sx(w) + (rechts ? -12 : 12), Math.max(g.sy(mse) - 14, g.m.o + 10), `Weight ${kurz(w, 1)}: Fehler ${fmt(mse)}`, "t halo", rechts ? "end" : "start");
+    return s;
+  });
+}
+zeichner.gerade = zeichneGerade;
+
+// =====================================================================
+// 2. Fehler minimieren
+// =====================================================================
+const LR_MIN = -5, LR_MAX = Math.log10(0.003);
+const B = { lr: 0.0005, startW: 0, mitBias: false, proKlick: 1, w: 0, b: 40, schritt: 0, verlauf: [], laeuft: null };
+const temp = TAGE.map(([t]) => t);
+
+function steigungen(w, b) {
+  const fehler = TAGE.map(([t, , k]) => k - (w * t + b));
+  return [-2 * mittel(fehler.map((e, i) => e * temp[i])), -2 * mittel(fehler)];
+}
+
+function grenzeLernrate() {
+  // Ab dieser Lernrate wächst der Fehler: 1 / größter Eigenwert von Durchschnitt(x · xᵀ)
+  const tt = mittel(temp.map(t => t * t)), t1 = mittel(temp);
+  if (!B.mitBias) return 1 / tt;
+  const spur = tt + 1, det = tt - t1 * t1;
+  return 1 / ((spur + Math.sqrt(spur * spur - 4 * det)) / 2);
+}
+
+function merken() {
+  const [gw] = steigungen(B.w, B.b);
+  B.verlauf.push({ schritt: B.schritt, w: B.w, b: B.b, steigung: gw, aenderung: -B.lr * gw, mse: mseGerade(B.w, B.b) });
+}
+
+function zuruecksetzen() {
+  stoppen();
+  B.w = B.startW;
+  B.b = B.mitBias ? 0 : 40;
+  B.schritt = 0;
+  B.verlauf = [];
+  merken();
+  $("#b-status").textContent = "";
+  zeichneBergab();
+}
+
+function schritte(anzahl) {
+  for (let i = 0; i < anzahl; i++) {
+    const [gw, gb] = steigungen(B.w, B.b);
+    B.w -= B.lr * gw;
+    if (B.mitBias) B.b -= B.lr * gb;
+    B.schritt++;
+  }
+  merken();
+  const mse = mseGerade(B.w, B.b);
+  if (!Number.isFinite(mse) || mse > 1e9) {
+    stoppen();
+    $("#b-status").textContent = "Der Fehler wächst immer weiter: Die Lernrate ist zu groß.";
+  }
+  zeichneBergab();
+}
+
+function stoppen() {
+  if (B.laeuft) clearInterval(B.laeuft);
+  B.laeuft = null;
+  if (B.abspielKnopf) B.abspielKnopf.textContent = "Abspielen";
+}
+
+function abspielen() {
+  if (B.laeuft) return stoppen();
+  B.abspielKnopf.textContent = "Anhalten";
+  B.laeuft = setInterval(() => schritte(B.proKlick), 450);
+}
+
+{
+  const box = $("#b-regler");
+  const r = gruppe(box);
+  B.rlr = regler(r, {
+    label: "Lernrate", min: 0, max: 1000, step: 1, wert: B.lr,
+    text: lernrateText,
+    zuRegler: lr => ((Math.log10(lr) - LR_MIN) / (LR_MAX - LR_MIN)) * 1000,
+    vonRegler: v => Number((10 ** (LR_MIN + (v / 1000) * (LR_MAX - LR_MIN))).toPrecision(2)),
+    aendern: v => { B.lr = v; zeichneBergab(); },
+  });
+  const presets = document.createElement("div");
+  presets.className = "knoepfe";
+  r.append(presets);
+  for (const [lr, name] of [[0.0001, "zu klein"], [0.0005, "passend"], [0.0022, "zu groß"]]) {
+    const k = document.createElement("button");
+    k.type = "button";
+    k.className = "knopf";
+    k.textContent = `${lernrateText(lr)} ${name}`;
+    k.addEventListener("click", () => { B.lr = lr; B.rlr.set(lr); zuruecksetzen(); });
+    presets.append(k);
+  }
+  const hinweis = document.createElement("p");
+  hinweis.className = "hinweis";
+  hinweis.id = "b-grenze";
+  r.append(hinweis);
+
+  const s = gruppe(box, "Start und Schritte");
+  B.rs = regler(s, { label: "Start-Weight", min: -5, max: 25, step: 1, wert: 0, aendern: v => { B.startW = v; zuruecksetzen(); } });
+  schalter(s, "Bias mitlernen (sonst fest bei 40)", false, v => {
+    B.mitBias = v;
+    if (v) { B.lr = 0.001; B.rlr.set(0.001); B.proKlick = 100; B.auswahl.value = "100"; }
+    zuruecksetzen();
+  });
+  const zeile = document.createElement("label");
+  zeile.className = "schalter";
+  zeile.innerHTML = `Schritte pro Klick <select><option>1</option><option>10</option><option>100</option><option>1000</option></select>`;
+  s.append(zeile);
+  B.auswahl = zeile.querySelector("select");
+  B.auswahl.addEventListener("change", () => { B.proKlick = Number(B.auswahl.value); });
+  const k = knoepfe(s, [["Schritt bergab", () => { stoppen(); schritte(B.proKlick); }, true], ["Abspielen", abspielen], ["Zurücksetzen", zuruecksetzen]]);
+  B.abspielKnopf = k[1];
+  const status = document.createElement("p");
+  status.className = "status";
+  status.id = "b-status";
+  status.setAttribute("aria-live", "polite");
+  s.append(status);
+}
+const bStats = kacheln($("#b-stats"), [["schritt", "Schritte"], ["w", "Weight"], ["b", "Bias"], ["mse", "Quadratischer Fehler"]]);
+
+function zeichneBergab() {
+  const grenze = grenzeLernrate();
+  $("#b-grenze").textContent = `Bis ${lernrateText(grenze / 2)} geht es gleichmäßig bergab, bis ${lernrateText(grenze)} springt das Weight hin und her und kommt trotzdem an, darüber wächst der Fehler.`;
+  const mse = mseGerade(B.w, B.b);
+  bStats("schritt", fmt(B.schritt));
+  bStats("w", fmt(B.w, 2), "Ziel: 10");
+  bStats("b", fmt(B.b, 2), B.mitBias ? "Ziel: 40" : "fest");
+  bStats("mse", fmt(mse, 1), "Bestwert: 629,2");
+  $("#b-kurve-sub").textContent = B.mitBias ? `Die Kurve gilt für den aktuellen Bias ${fmt(B.b, 1)} und verschiebt sich, während er mitlernt.` : "Bias fest bei 40, so wie im Text.";
+
+  const sichtbar = B.verlauf.slice(-40);
+  grafik($("#b-kurve"), { x: [-6, 26], y: [0, 90000], xTitel: "Weight", yTitel: "Quadratischer Fehler", beschreibung: "Die Schritte des Gradientenabstiegs auf der Fehlerkurve" }, g => {
+    let s = g.linie(folge(-6, 26, 0.1), x => mseGerade(x, B.b), "l-muted");
+    s += pfad(sichtbar.map(p => [g.sx(p.w), g.sy(p.mse)]), "l-orange");
+    sichtbar.forEach((p, i) => {
+      s += `<circle cx="${g.sx(p.w)}" cy="${g.sy(p.mse)}" r="${i === 0 && p.schritt === 0 ? 7 : 5}" class="${p.schritt === 0 ? "m-blue" : "m-orange"}"/>`;
+    });
+    return s;
+  });
+
+  grafik($("#b-plot"), { x: [0, 35], y: [0, 420], xTitel: "Temperatur (°C)", yTitel: "Verkaufte Kugeln", beschreibung: "Messpunkte mit der aktuellen Geraden", verhaeltnis: 0.45, maxHoehe: 320 }, g => {
+    let s = g.linie([0, 35], x => B.w * x + B.b, "l-blue");
+    TAGE.forEach(([t, , k]) => { s += g.punkt(t, k, false); });
+    return s;
+  });
+
+  const zeilen = B.verlauf.slice(-10);
+  $("#b-tabelle").innerHTML = `<table><thead><tr><th>Schritt</th><th>Weight</th>${B.mitBias ? "<th>Bias</th>" : ""}<th>Steigung</th><th>Änderung</th><th>Fehler</th></tr></thead><tbody>${
+    zeilen.map(z => `<tr><td>${fmt(z.schritt)}</td><td>${fmt(z.w, 2)}</td>${B.mitBias ? `<td>${fmt(z.b, 2)}</td>` : ""}<td>${fmt(z.steigung, 1)}</td><td>${z.aenderung >= 0 ? "+" : ""}${fmt(z.aenderung, 2)}</td><td>${fmt(z.mse, 1)}</td></tr>`).join("")
+  }</tbody></table>`;
+}
+zeichner.bergab = zeichneBergab;
+
+// =====================================================================
+// 3. Neuron mit Knick
+// =====================================================================
+const N = { wT: 10, wW: 50, b: 20, knick: true, hochsommer: false, t: 25, we: 1, training: null };
+
+function neuronSumme(t, we) { return N.wT * t + N.wW * we + N.b; }
+function neuronAusgabe(t, we) { const s = neuronSumme(t, we); return N.knick ? relu(s) : s; }
+
+{
+  const box = $("#n-regler");
+  const r = gruppe(box, "Weights und Bias");
+  const neu = () => { stoppeNeuronTraining(); zeichneNeuron(); };
+  N.rT = regler(r, { label: "Weight Temperatur", min: -5, max: 20, step: 0.5, wert: N.wT, stellen: 1, aendern: v => { N.wT = v; neu(); } });
+  N.rW = regler(r, { label: "Weight Wochenende", min: -50, max: 100, step: 5, wert: N.wW, aendern: v => { N.wW = v; neu(); } });
+  N.rB = regler(r, { label: "Bias", min: -200, max: 200, step: 5, wert: N.b, aendern: v => { N.b = v; neu(); } });
+  schalter(r, "Knick (ReLU) einschalten", true, v => { N.knick = v; neu(); });
+  schalter(r, "Hochsommertage zeigen (31 bis 38 °C)", false, v => { N.hochsommer = v; neu(); });
+  const setzen = (wT, wW, b) => { stoppeNeuronTraining(); Object.assign(N, { wT, wW, b }); N.rT.set(wT); N.rW.set(wW); N.rB.set(b); zeichneNeuron(); };
+  knoepfe(r, [["Trainieren", trainiereNeuron, true], ["Werte aus dem Text (10 / 50 / 20)", () => setzen(10, 50, 20)], ["Alles auf 0", () => setzen(0, 0, 0)]]);
+  const status = document.createElement("p");
+  status.className = "status";
+  status.id = "n-status";
+  status.setAttribute("aria-live", "polite");
+  r.append(status);
+
+  const tag = gruppe(box, "Beispieltag");
+  N.rt = regler(tag, { label: "Temperatur", min: -15, max: 40, step: 1, wert: N.t, einheit: " °C", aendern: v => { N.t = v; zeichneNeuron(); } });
+  segment(tag, [[0, "Werktag"], [1, "Wochenende"]], N.we, v => { N.we = v; zeichneNeuron(); });
+}
+const nStats = kacheln($("#n-stats"), [["v", "Vorhersage am Beispieltag"], ["mse", "Quadratischer Fehler"], ["mae", "Im Mittel daneben"]]);
+
+function stoppeNeuronTraining() {
+  if (N.training) cancelAnimationFrame(N.training);
+  N.training = null;
+}
+
+function trainiereNeuron() {
+  stoppeNeuronTraining();
+  const tage = N.hochsommer ? ALLE : TAGE;
+  const lernrate = 0.001, ziel = 100000, proBild = 2500;
+  let schritt = 0;
+  const bild = () => {
+    for (let i = 0; i < proBild; i++) {
+      let gT = 0, gW = 0, gB = 0;
+      for (const [t, we, k] of tage) {
+        const summe = N.wT * t + N.wW * we + N.b;
+        const aktiv = !N.knick || summe > 0;
+        if (!aktiv) continue;
+        const fehler = k - summe;
+        gT += fehler * t; gW += fehler * we; gB += fehler;
+      }
+      N.wT += lernrate * 2 * gT / tage.length;
+      N.wW += lernrate * 2 * gW / tage.length;
+      N.b += lernrate * 2 * gB / tage.length;
+    }
+    schritt += proBild;
+    N.rT.set(N.wT); N.rW.set(N.wW); N.rB.set(N.b);
+    const aktiveTage = tage.filter(([t, we]) => neuronSumme(t, we) > 0).length;
+    let meldung = `Schritt ${fmt(schritt)} von ${fmt(ziel)} (Lernrate 0,001, ${tage.length} Tage)`;
+    if (schritt >= ziel) {
+      N.training = null;
+      meldung = N.knick && aktiveTage === 0
+        ? "Fertig, aber nichts hat sich bewegt: Bei keinem Tag ist die Summe positiv, also ist jede Steigung 0. Das ist ein totes Neuron."
+        : `Fertig nach ${fmt(ziel)} Schritten: ${kurz(N.wT, 1)} · Temperatur ${vorzeichen(N.wW, 1)} · Wochenende ${vorzeichen(N.b, 1)}`;
+    } else {
+      N.training = requestAnimationFrame(bild);
+    }
+    $("#n-status").textContent = meldung;
+    zeichneNeuron();
+  };
+  N.training = requestAnimationFrame(bild);
+}
+
+function neuronBild() {
+  const summe = neuronSumme(N.t, N.we);
+  const aus = N.knick ? relu(summe) : summe;
+  const T = [80, 70], W = [80, 200], S = [345, 135], K = [520, 135], A = [680, 135];
+  let s = `<svg viewBox="0 0 760 290" role="img" aria-label="Neuron mit zwei Inputs, Bias und Aktivierungsfunktion"><defs>${spitze("pf-n")}</defs>`;
+  s += eingabeKasten(T, "Temperatur", `${fmt(N.t)} °C`);
+  s += eingabeKasten(W, "Wochenende", String(N.we));
+  s += pfeil([T[0] + 62, T[1]], S, 0, 50, "pf-n") + pfeil([W[0] + 62, W[1]], S, 0, 50, "pf-n");
+  s += text(232, 92, `Weight ${kurz(N.wT, 1)}`, "t halo") + text(232, 180, `Weight ${kurz(N.wW, 1)}`, "t halo");
+  s += pfeil([S[0], 22], S, 0, 50, "pf-n") + text(S[0] + 10, 40, `Bias ${kurz(N.b, 1)}`, "t", "start");
+  s += `<circle cx="${S[0]}" cy="${S[1]}" r="46" class="k-neuron"/>` + text(S[0], S[1] - 13, "addieren", "tw") + text(S[0], S[1] + 13, "Σ", "twb");
+  s += pfeil(S, K, 46, 40, "pf-n") + text((S[0] + K[0]) / 2 + 3, S[1] - 14, kurz(summe, 1), "tb halo");
+  if (N.knick) {
+    s += `<circle cx="${K[0]}" cy="${K[1]}" r="40" class="k-knick"/>` + text(K[0], K[1] - 14, "Knick", "tw") + knickSymbol(K[0], K[1] + 8);
+  } else {
+    s += `<circle cx="${K[0]}" cy="${K[1]}" r="40" class="k-aus"/>` + text(K[0], K[1] - 8, "kein", "t2") + text(K[0], K[1] + 10, "Knick", "t2");
+  }
+  s += pfeil(K, A, 40, 46, "pf-n");
+  s += `<circle cx="${A[0]}" cy="${A[1]}" r="46" class="k-ausgabe"/>` + text(A[0], A[1] - 13, "Vorhersage") + text(A[0], A[1] + 13, kurz(aus, 1), "tb");
+  let rechnung = `${fmt(N.t)} · ${kurz(N.wT, 1)}  +  ${N.we} · ${kurz(N.wW, 1)}  ${vorzeichen(N.b, 1)}  =  ${kurz(summe, 1)}`;
+  if (N.knick) rechnung += summe < 0 ? `,   Knick: aus ${kurz(summe, 1)} wird 0` : ",   Knick: bleibt gleich";
+  s += text(380, 268, rechnung, "t2");
+  return s + "</svg>";
+}
+
+function zeichneNeuron() {
+  const tage = N.hochsommer ? ALLE : TAGE;
+  const fehler = tage.map(([t, we, k]) => k - neuronAusgabe(t, we));
+  nStats("v", fmt(neuronAusgabe(N.t, N.we), 1) + " Kugeln", `${fmt(N.t)} °C, ${N.we ? "Wochenende" : "Werktag"}`);
+  nStats("mse", fmt(mittel(fehler.map(e => e * e)), 1), `auf ${tage.length} Tagen`);
+  nStats("mae", fmt(mittel(fehler.map(Math.abs)), 1) + " Kugeln", `auf ${tage.length} Tagen`);
+  $("#n-diagramm").innerHTML = neuronBild();
+
+  grafik($("#n-plot"), { x: [-15, 40], y: [-150, 480], xTitel: "Temperatur (°C)", yTitel: "Kugeln", beschreibung: "Vorhersage des Neurons für Werktag und Wochenende" }, g => {
+    let s = "";
+    if (N.hochsommer) s += `<rect x="${g.sx(30)}" y="${g.m.o}" width="${g.sx(40) - g.sx(30)}" height="${g.ph}" class="bereich"/>` + text(g.sx(30) + 6, g.m.o + 14, "Hochsommer", "t2", "start");
+    const xs = folge(-15, 40, 0.25);
+    for (const [we, klasse] of [[0, "l-blue"], [1, "l-orange"]]) {
+      if (N.knick) s += g.linie(xs, x => neuronSumme(x, we), klasse + " blass");
+      s += g.linie(xs, x => neuronAusgabe(x, we), klasse);
+    }
+    tage.forEach(([t, we, k]) => { s += g.punkt(t, k, we); });
+    s += `<circle cx="${g.sx(N.t)}" cy="${g.sy(neuronAusgabe(N.t, N.we))}" r="9" class="m-ring"/>`;
+    return s;
+  });
+}
+zeichner.neuron = zeichneNeuron;
+
+// =====================================================================
+// 4. Kleines Netz
+// =====================================================================
+const VON_HAND = { a: [10, 50, 20], b: [10, 50, -330], v: [1, -1], c: 0 };
+const W = { a: [...VON_HAND.a], b: [...VON_HAND.b], v: [...VON_HAND.v], c: 0, knick: true, t: 35, we: 1, start: 0, training: null };
+const VARIANZ = mittel(ALLE.map(([, , k]) => (k - mittel(ALLE.map(d => d[2]))) ** 2));
+
+function netz(t, we) {
+  const sa = W.a[0] * t + W.a[1] * we + W.a[2];
+  const sb = W.b[0] * t + W.b[1] * we + W.b[2];
+  const ha = W.knick ? relu(sa) : sa, hb = W.knick ? relu(sb) : sb;
+  return { sa, sb, ha, hb, aus: W.v[0] * ha + W.v[1] * hb + W.c };
+}
+
+{
+  const box = $("#w-regler");
+  const neu = () => { stoppeNetzTraining(); zeichneNetz(); };
+  W.regler = {};
+  for (const [key, titel] of [["a", "Neuron A"], ["b", "Neuron B"]]) {
+    const r = gruppe(box, titel);
+    W.regler[key] = [
+      regler(r, { label: "Weight Temperatur", min: -30, max: 30, step: 0.5, wert: W[key][0], stellen: 1, aendern: v => { W[key][0] = v; neu(); } }),
+      regler(r, { label: "Weight Wochenende", min: -200, max: 200, step: 5, wert: W[key][1], aendern: v => { W[key][1] = v; neu(); } }),
+      regler(r, { label: "Bias", min: -800, max: 800, step: 5, wert: W[key][2], aendern: v => { W[key][2] = v; neu(); } }),
+    ];
+  }
+  const r = gruppe(box, "Ausgabe (ohne Knick)");
+  W.regler.v = [
+    regler(r, { label: "Weight von A", min: -2, max: 2, step: 0.05, wert: W.v[0], stellen: 2, aendern: v => { W.v[0] = v; neu(); } }),
+    regler(r, { label: "Weight von B", min: -2, max: 2, step: 0.05, wert: W.v[1], stellen: 2, aendern: v => { W.v[1] = v; neu(); } }),
+  ];
+  W.regler.c = regler(r, { label: "Bias", min: -400, max: 400, step: 5, wert: W.c, aendern: v => { W.c = v; neu(); } });
+
+  const s = gruppe(box, "Knick und Training");
+  W.knickSchalter = schalter(s, "Knick (ReLU) in der verborgenen Schicht", true, v => { W.knick = v; neu(); });
+  knoepfe(s, [["Mit Zufallsstart trainieren", trainiereNetz, true], ["Werte von Hand (Abschnitt 9)", () => {
+    stoppeNetzTraining();
+    W.a = [...VON_HAND.a]; W.b = [...VON_HAND.b]; W.v = [...VON_HAND.v]; W.c = VON_HAND.c;
+    reglerAktualisieren();
+    $("#w-status").textContent = "";
+    zeichneNetz();
+  }]]);
+  const status = document.createElement("p");
+  status.className = "status";
+  status.id = "w-status";
+  status.setAttribute("aria-live", "polite");
+  s.append(status);
+
+  const tag = gruppe(box, "Beispieltag");
+  regler(tag, { label: "Temperatur", min: -15, max: 40, step: 1, wert: W.t, einheit: " °C", aendern: v => { W.t = v; zeichneNetz(); } });
+  segment(tag, [[0, "Werktag"], [1, "Wochenende"]], W.we, v => { W.we = v; zeichneNetz(); });
+}
+const wStats = kacheln($("#w-stats"), [["v", "Ausgabe am Beispieltag"], ["mse", "Quadratischer Fehler"], ["mae", "Im Mittel daneben"]]);
+
+function reglerAktualisieren() {
+  for (const key of ["a", "b"]) W.regler[key].forEach((r, i) => r.set(W[key][i]));
+  W.regler.v.forEach((r, i) => r.set(W.v[i]));
+  W.regler.c.set(W.c);
+}
+
+function stoppeNetzTraining() {
+  if (W.training) cancelAnimationFrame(W.training);
+  W.training = null;
+}
+
+// Zufallszahlen mit festem Startwert, damit "Zufallsstart 3" immer gleich ausgeht
+function normalverteilt(seed) {
+  let a = seed * 2654435761 >>> 0;
+  const gleich = () => {
+    a = (a + 0x6d2b79f5) >>> 0;
+    let t = a;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+  return () => Math.sqrt(-2 * Math.log(1 - gleich())) * Math.cos(2 * Math.PI * gleich());
+}
+
+function trainiereNetz() {
+  stoppeNetzTraining();
+  W.start++;
+  W.knick = true;
+  W.knickSchalter.set(true);
+  // Wie im Skript: Inputs und Verkaufszahlen skaliert, Lernrate 0,05, 30000 Schritte
+  const x = ALLE.map(([t, we]) => [(t - 25) / 12, we]);
+  const y = ALLE.map(([, , k]) => k / 350);
+  const n = x.length;
+  const zufall = normalverteilt(W.start);
+  const w = [[zufall(), zufall()], [zufall(), zufall()]], b = [zufall(), zufall()], v = [zufall(), zufall()];
+  let c = 0;
+  const lernrate = 0.05, ziel = 30000, proBild = 600;
+  let schritt = 0;
+
+  // Zurück in Grad und Kugeln. Weil max(0, k · x) = k · max(0, x) für k > 0,
+  // lässt sich die Größe des Ausgabe-Weights in das Neuron schieben: Danach ist es +1 oder −1.
+  const uebernehmen = () => {
+    const neuronen = [0, 1].map(j => {
+      const k = Math.abs(v[j]) > 1e-9 ? 350 * Math.abs(v[j]) : 350;
+      return [k * w[j][0] / 12, k * w[j][1], k * (b[j] - 25 * w[j][0] / 12)];
+    });
+    W.a = neuronen[0];
+    W.b = neuronen[1];
+    W.v = v.map(vj => (Math.abs(vj) > 1e-9 ? Math.sign(vj) : 0));
+    W.c = 350 * c;
+    reglerAktualisieren();
+  };
+
+  const bild = () => {
+    for (let s = 0; s < proBild; s++) {
+      const gw = [[0, 0], [0, 0]], gb = [0, 0], gv = [0, 0];
+      let gc = 0;
+      for (let i = 0; i < n; i++) {
+        const summe = [0, 1].map(j => w[j][0] * x[i][0] + w[j][1] * x[i][1] + b[j]);
+        const h = summe.map(relu);
+        const fehler = y[i] - (v[0] * h[0] + v[1] * h[1] + c);
+        for (let j = 0; j < 2; j++) {
+          gv[j] += -2 * fehler * h[j] / n;
+          if (summe[j] > 0) {
+            gw[j][0] += -2 * fehler * v[j] * x[i][0] / n;
+            gw[j][1] += -2 * fehler * v[j] * x[i][1] / n;
+            gb[j] += -2 * fehler * v[j] / n;
+          }
+        }
+        gc += -2 * fehler / n;
+      }
+      for (let j = 0; j < 2; j++) {
+        w[j][0] -= lernrate * gw[j][0];
+        w[j][1] -= lernrate * gw[j][1];
+        b[j] -= lernrate * gb[j];
+        v[j] -= lernrate * gv[j];
+      }
+      c -= lernrate * gc;
+    }
+    schritt += proBild;
+    uebernehmen();
+    const mse = mittel(ALLE.map(([t, we, k]) => (k - netz(t, we).aus) ** 2));
+    let meldung = `Zufallsstart ${W.start}: Schritt ${fmt(schritt)} von ${fmt(ziel)}, Fehler ${fmt(mse, 1)}`;
+    if (schritt >= ziel) {
+      W.training = null;
+      const urteil = mse < 25 ? "so gut wie die Werte von Hand oder besser."
+        : mse < 300 ? "eine Zwischenlösung."
+        : Math.abs(mse - VARIANZ) < 5 ? "tote Neuronen, übrig bleibt nur eine waagerechte Linie."
+        : "kaum besser als ein einzelnes Neuron (382,8) oder schlechter.";
+      meldung = `Zufallsstart ${W.start} fertig, Fehler ${fmt(mse, 1)}: ${urteil}`;
+    } else {
+      W.training = requestAnimationFrame(bild);
+    }
+    $("#w-status").textContent = meldung;
+    zeichneNetz();
+  };
+  W.training = requestAnimationFrame(bild);
+}
+
+function netzBild() {
+  const r = netz(W.t, W.we);
+  const T = [90, 165], WE = [90, 335], A = [420, 165], Bp = [420, 335], O = [710, 250];
+  let s = `<svg viewBox="0 0 820 480" role="img" aria-label="Netz mit zwei verborgenen Neuronen und einer Ausgabe"><defs>${spitze("pf-w")}</defs>`;
+  s += text(90, 18, "Eingabe", "t2") + text(420, 18, "Verborgene Schicht", "t2") + text(710, 18, "Ausgabe", "t2");
+  s += eingabeKasten(T, "Temperatur", `${fmt(W.t)} °C`);
+  s += eingabeKasten(WE, "Wochenende", String(W.we));
+  const kanten = [[T, A, 0.42, W.a[0]], [T, Bp, 0.27, W.b[0]], [WE, A, 0.27, W.a[1]], [WE, Bp, 0.42, W.b[1]]];
+  for (const [start, ziel] of kanten) s += pfeil([start[0] + 62, start[1]], ziel, 0, 50, "pf-w");
+  for (const [start, ziel, anteil, gewicht] of kanten) {
+    const x = start[0] + 62 + anteil * (ziel[0] - start[0] - 62), y = start[1] + anteil * (ziel[1] - start[1]);
+    s += text(x, y, kurz(gewicht, 1), "t halo");
+  }
+  for (const [pos, name, neuronWerte, summe, h, oben] of [[A, "Neuron A", W.a, r.sa, r.ha, true], [Bp, "Neuron B", W.b, r.sb, r.hb, false]]) {
+    const [x, y] = pos;
+    s += `<circle cx="${x}" cy="${y}" r="48" class="k-neuron"/>` + text(x, y - 24, name, "tw") + text(x, y + 2, kurz(h, 1), "twb");
+    if (W.knick) s += knickSymbol(x, y + 26, 0.9);
+    const by = oben ? y - 112 : y + 112;
+    s += pfeil([x, by], pos, 0, 50, "pf-w") + text(x + 10, (by + y + (oben ? -48 : 48)) / 2, `Bias ${kurz(neuronWerte[2], 1)}`, "t", "start");
+    let rechnung = `${kurz(neuronWerte[0], 1)} · ${fmt(W.t)} + ${kurz(neuronWerte[1], 1)} · ${W.we} ${vorzeichen(neuronWerte[2], 1)} = ${kurz(summe, 1)}`;
+    if (W.knick && summe < 0) rechnung += ", Knick macht 0";
+    s += text(x, oben ? by - 14 : by + 16, rechnung, "t2");
+  }
+  s += pfeil(A, O, 48, 48, "pf-w") + pfeil(Bp, O, 48, 48, "pf-w");
+  s += text(565, 192, `Weight ${mitVorzeichen(W.v[0])}`, "t halo") + text(565, 308, `Weight ${mitVorzeichen(W.v[1])}`, "t halo");
+  s += `<circle cx="${O[0]}" cy="${O[1]}" r="48" class="k-ausgabe-netz"/>` + text(O[0], O[1] - 13, "Ausgabe", "tw") + text(O[0], O[1] + 13, kurz(r.aus, 1), "twb");
+  s += pfeil([O[0], O[1] + 125], O, 0, 50, "pf-w") + text(O[0] + 10, O[1] + 95, `Bias ${kurz(W.c, 1)}`, "t", "start");
+  s += text(O[0], O[1] - 82, `${kurz(W.v[0], 2)} · ${kurz(r.ha, 1)} ${vorzeichen(W.v[1], 2)} · ${kurz(r.hb, 1)}`, "t2");
+  s += text(O[0], O[1] - 64, `${vorzeichen(W.c, 1)} = ${kurz(r.aus, 1)}`, "t2");
+  return s + "</svg>";
+}
+
+function zeichneNetz() {
+  const fehler = ALLE.map(([t, we, k]) => k - netz(t, we).aus);
+  wStats("v", fmt(netz(W.t, W.we).aus, 1) + " Kugeln", `${fmt(W.t)} °C, ${W.we ? "Wochenende" : "Werktag"}`);
+  wStats("mse", fmt(mittel(fehler.map(e => e * e)), 1), "18 Tage, ein Neuron schafft 382,8");
+  wStats("mae", fmt(mittel(fehler.map(Math.abs)), 1) + " Kugeln", "auf 18 Tagen");
+  $("#w-diagramm").innerHTML = netzBild();
+
+  grafik($("#w-plot"), { x: [-15, 40], y: [-150, 480], xTitel: "Temperatur (°C)", yTitel: "Kugeln", beschreibung: "Ausgabe des Netzes für Werktag und Wochenende" }, g => {
+    const xs = folge(-15, 40, 0.25);
+    let s = `<rect x="${g.sx(30)}" y="${g.m.o}" width="${g.sx(40) - g.sx(30)}" height="${g.ph}" class="bereich"/>` + text(g.sx(30) + 6, g.m.o + 14, "Hochsommer", "t2", "start");
+    s += g.linie(xs, x => netz(x, W.we).ha, "l-muted") + g.linie(xs, x => netz(x, W.we).hb, "l-muted");
+    s += g.linie(xs, x => netz(x, 1).aus, "l-orange") + g.linie(xs, x => netz(x, 0).aus, "l-blue");
+    const ende = netz(40, W.we);
+    const marke = y => (g.sy(y) < g.m.o + 24 ? g.sy(y) + 16 : g.sy(y) - 10);
+    s += text(g.sx(40) - 4, marke(ende.ha), "A", "t2 halo", "end") + text(g.sx(40) - 4, marke(ende.hb), "B", "t2 halo", "end");
+    ALLE.forEach(([t, we, k]) => { s += g.punkt(t, k, we); });
+    s += `<circle cx="${g.sx(W.t)}" cy="${g.sy(netz(W.t, W.we).aus)}" r="9" class="m-ring"/>`;
+    return s;
+  });
+}
+zeichner.netz = zeichneNetz;
+
+// ---------- Start ----------
+merken();
+let groesse = 0;
+new ResizeObserver(() => {
+  const neu = document.querySelector("main").clientWidth;
+  if (neu !== groesse) { groesse = neu; zeichner[aktiverTab](); }
+}).observe(document.querySelector("main"));
+zeigeTab(location.hash.slice(1));
+</script>
+</body>
+</html>
