@@ -517,9 +517,11 @@ Große Modelle unterscheiden sich von unserem Mini-Netz vor allem in der Größe
 - **Klassifikation:** Statt einer Zahl sagt das Netz eine Wahrscheinlichkeit voraus, zum Beispiel „Regnet es morgen?“. Dafür nutzt man am Ausgang etwa die Sigmoid-Funktion und eine andere Verlustfunktion.
 - **Texte und Bilder:** Netze rechnen nur mit Zahlen. Wie beim Wochenende muss deshalb auch alles andere zuerst in Zahlen übersetzt werden.
 
+Wie das bei Text funktioniert und wie daraus ein großes Sprachmodell wird, zeigt [Kapitel 2: Tokenizer und große Sprachmodelle](02-Tokenizer-und-Sprachmodelle.md).
+
 ## Selbst ausprobieren
 
-Zum Spielen mit Weights und Bias gibt es eine interaktive Seite: [`app/index.html`](app/index.html). Sie ist eine einzelne Datei ohne Abhängigkeiten, läuft auch ohne Internet und lässt sich direkt im Browser öffnen oder auf jedem Webserver ablegen, etwa mit `python3 -m http.server --directory docs/app`. In vier Schritten lassen sich dort die Gerade verschieben, der Gradientenabstieg mit verschiedenen Lernraten beobachten, das Neuron mit Knick einstellen und das kleine Netz von Hand setzen oder mit Zufallsstarts trainieren.
+Zum Spielen mit Weights und Bias gibt es eine interaktive Seite: [Labor 1](app/labor-1.html). Sie braucht keine Bibliotheken, läuft auch ohne Internet und lässt sich direkt im Browser öffnen. Die ganze Webseite des Workshops mit beiden Kapiteln und Laboren lässt sich auch lokal starten, etwa mit `python3 -m http.server --directory docs`. In vier Schritten lassen sich dort die Gerade verschieben, der Gradientenabstieg mit verschiedenen Lernraten beobachten, das Neuron mit Knick einstellen und das kleine Netz von Hand setzen oder mit Zufallsstarts trainieren.
 
 Das Skript rechnet das gesamte Beispiel nach und erzeugt alle Grafiken neu. Der Lauf dauert etwa eine halbe Minute. Dafür wird [uv](https://docs.astral.sh/uv/) benötigt:
 

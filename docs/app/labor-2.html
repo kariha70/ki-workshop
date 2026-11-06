@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tokens zum Anfassen</title>
+<style>
+  :root {
+    color-scheme: light;
+    --page: #f9f9f7;
+    --surface: #fcfcfb;
+    --text: #0b0b0b;
+    --text2: #52514e;
+    --muted: #898781;
+    --grid: #e1e0d9;
+    --axis: #c3c2b7;
+    --border: rgba(11, 11, 11, 0.10);
+    --blue: #2a78d6;
+    --orange: #eb6834;
+    --wash: rgba(42, 120, 214, 0.08);
+    --chip-a: rgba(42, 120, 214, 0.16);
+    --chip-b: rgba(235, 104, 52, 0.18);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      color-scheme: dark;
+      --page: #0d0d0d;
+      --surface: #1a1a19;
+      --text: #f0efec;
+      --text2: #c3c2b7;
+      --muted: #898781;
+      --grid: #2c2c2a;
+      --axis: #383835;
+      --border: rgba(255, 255, 255, 0.10);
+      --blue: #3987e5;
+      --orange: #d95926;
+      --wash: rgba(57, 135, 229, 0.14);
+      --chip-a: rgba(57, 135, 229, 0.30);
+      --chip-b: rgba(217, 89, 38, 0.32);
+    }
+  }
+
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--page); color: var(--text); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  header, main, footer { max-width: 1240px; margin: 0 auto; padding-left: 16px; padding-right: 16px; }
+  header { padding-top: 20px; }
+  h1 { font-size: 26px; line-height: 1.2; margin: 0 0 6px; }
+  h2 { font-size: 19px; margin: 0 0 2px; }
+  h3 { font-size: 15px; margin: 0 0 8px; }
+  p { margin: 0 0 10px; }
+  code { font: 13.5px ui-monospace, "SF Mono", Menlo, monospace; background: var(--wash); padding: 1px 5px; border-radius: 4px; }
+  .sub { color: var(--text2); margin: 0 0 18px; max-width: 760px; }
+
+  nav.tabs { display: flex; gap: 2px; overflow-x: auto; border-bottom: 1px solid var(--grid); }
+  nav.tabs button { appearance: none; border: 0; background: none; font: inherit; cursor: pointer; white-space: nowrap; padding: 10px 14px; color: var(--text2); border-bottom: 2px solid transparent; margin-bottom: -1px; }
+  nav.tabs button:hover { color: var(--text); }
+  nav.tabs button[aria-selected="true"] { color: var(--text); border-bottom-color: var(--blue); font-weight: 600; }
+  nav.tabs button .nr { color: var(--muted); margin-right: 6px; font-weight: 400; }
+
+  main { padding-top: 18px; padding-bottom: 24px; }
+  .panel { display: grid; grid-template-columns: minmax(280px, 350px) minmax(0, 1fr); gap: 16px; align-items: start; }
+  .panel[hidden] { display: none; }
+  .side, .haupt { display: grid; gap: 16px; min-width: 0; }
+  @media (max-width: 880px) { .panel { grid-template-columns: minmax(0, 1fr); } }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; min-width: 0; }
+  .ref { color: var(--muted); font-size: 13px; margin-bottom: 10px; }
+  .intro p:last-child, .tasks ul { margin-bottom: 0; }
+  .tasks ul { padding-left: 18px; }
+  .tasks li { margin-bottom: 6px; }
+  .tasks li:last-child { margin-bottom: 0; }
+  .gruppe + .gruppe { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--grid); }
+  .gruppe-titel { font-size: 13px; font-weight: 600; color: var(--text2); margin-bottom: 6px; }
+
+  .liste { display: grid; gap: 4px; }
+  .liste button { appearance: none; font: inherit; font-size: 14px; text-align: left; cursor: pointer; padding: 6px 10px; border-radius: 8px; border: 1px solid transparent; background: none; color: var(--text); }
+  .liste button:hover { background: var(--wash); }
+  .liste button[aria-pressed="true"] { background: var(--wash); border-color: var(--axis); font-weight: 600; }
+  .segment { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--axis); border-radius: 8px; overflow: hidden; }
+  .segment button { appearance: none; font: inherit; font-size: 14px; border: 0; background: none; color: var(--text2); padding: 5px 12px; cursor: pointer; }
+  .segment button + button { border-left: 1px solid var(--axis); }
+  .segment button[aria-pressed="true"] { background: var(--wash); color: var(--text); font-weight: 600; }
+  .schalter { display: flex; align-items: center; gap: 8px; font-size: 14px; cursor: pointer; margin-top: 10px; }
+  .schalter input { width: 16px; height: 16px; accent-color: var(--blue); margin: 0; }
+  .hinweis { font-size: 13px; color: var(--text2); margin-top: 8px; margin-bottom: 0; }
+
+  .slider-kopf { display: flex; justify-content: space-between; gap: 8px; font-size: 14px; }
+  .slider-kopf output { font-variant-numeric: tabular-nums; font-weight: 600; }
+  input[type="range"] { width: 100%; margin: 4px 0 0; accent-color: var(--blue); }
+  .knoepfe { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  button.knopf { appearance: none; font: inherit; font-size: 14px; cursor: pointer; padding: 6px 12px; border-radius: 8px; border: 1px solid var(--axis); background: var(--surface); color: var(--text); }
+  button.knopf:hover { background: var(--wash); }
+  button.knopf.primaer { background: var(--blue); border-color: var(--blue); color: #fff; }
+
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+  .stat { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 10px 14px; }
+  .stat .label { font-size: 13px; color: var(--text2); }
+  .stat .wert { font-size: 22px; font-weight: 600; line-height: 1.3; }
+  .stat .zusatz { font-size: 12.5px; color: var(--muted); }
+
+  .titel { font-size: 15px; font-weight: 600; margin: 0 0 2px; }
+  .titel-sub { font-size: 13px; color: var(--text2); margin: 0 0 12px; }
+  .originaltext { font-size: 17px; margin: 0 0 14px; overflow-wrap: anywhere; }
+  .tokens { display: flex; flex-wrap: wrap; gap: 6px 4px; }
+  .token { display: inline-flex; flex-direction: column; align-items: center; border-radius: 6px; padding: 3px 6px 2px; background: var(--chip-a); }
+  .token:nth-child(even) { background: var(--chip-b); }
+  .token .stueck { font-size: 17px; white-space: pre; }
+  .token .leer { color: var(--muted); }
+  .token .bytes { font: 13px ui-monospace, "SF Mono", Menlo, monospace; color: var(--text2); }
+  .token .id { font-size: 11px; color: var(--text2); font-variant-numeric: tabular-nums; }
+  .ohne-ids .token .id { display: none; }
+
+  table { border-collapse: collapse; width: 100%; font-size: 13.5px; font-variant-numeric: tabular-nums; }
+  th, td { text-align: right; padding: 5px 8px; border-bottom: 1px solid var(--grid); }
+  th { color: var(--text2); font-weight: 600; }
+  th:first-child, td:first-child { text-align: left; }
+  .tabelle { overflow-x: auto; }
+
+  .satz { font-size: 19px; margin: 0 0 14px; }
+  .satz .luecke { display: inline-block; min-width: 90px; border-bottom: 2px solid var(--blue); color: var(--blue); font-weight: 600; text-align: center; }
+  .balken { display: grid; grid-template-columns: max-content minmax(0, 1fr) 56px; gap: 8px 12px; align-items: center; }
+  .balken .name { font-size: 15px; white-space: pre; }
+  .balken .name .leer { color: var(--muted); }
+  .balken .spur { height: 22px; }
+  .balken .fuellung { height: 100%; background: var(--blue); border-radius: 0 4px 4px 0; min-width: 1px; transition: width 0.15s; }
+  .balken .prozent { font-variant-numeric: tabular-nums; text-align: right; font-size: 14px; }
+  .balken .punkte { grid-column: 1 / -1; }
+  .gezogen { display: flex; flex-wrap: wrap; gap: 6px; }
+  .gezogen span { background: var(--wash); border-radius: 6px; padding: 2px 8px; font-size: 14px; }
+
+  footer { color: var(--muted); font-size: 13px; padding-bottom: 28px; }
+</style>
+<link rel="stylesheet" href="../assets/leiste.css">
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+</head>
+<body>
+<div class="leiste"><div class="leiste-innen">
+  <a class="marke" href="../index.html" aria-label="KI-Workshop, zur Startseite"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.5 11.5h11L12 23z" fill="#eb6834"/><circle cx="12" cy="8" r="6.2" fill="#2a78d6"/><path d="M8.6 9.3 12 5.4l3.4 3.9M8.6 9.3h6.8" stroke="#fff" stroke-width="0.9" fill="none" stroke-linejoin="round"/><circle cx="12" cy="5.4" r="1.35" fill="#fff"/><circle cx="8.6" cy="9.3" r="1.35" fill="#fff"/><circle cx="15.4" cy="9.3" r="1.35" fill="#fff"/></svg><span>KI-Workshop</span></a>
+  <nav aria-label="Workshop"><a href="../kapitel-1.html">Kapitel 1</a><a href="../kapitel-2.html">Kapitel 2</a><span class="trenner"></span><a href="labor-1.html">Labor 1</a><a href="labor-2.html" aria-current="page">Labor 2</a></nav>
+</div></div>
+<header>
+  <h1>Tokens zum Anfassen</h1>
+  <p class="sub">Die Beispiele aus „Tokenizer und große Sprachmodelle“: wie ein echter Tokenizer Text zerlegt und wie die Temperatur die Wahl des nächsten Tokens verändert.</p>
+  <nav class="tabs" role="tablist" aria-label="Themen">
+    <button role="tab" id="t-tokens" aria-controls="p-tokens" data-tab="tokens"><span class="nr">1</span>Tokens</button>
+    <button role="tab" id="t-temperatur" aria-controls="p-temperatur" data-tab="temperatur"><span class="nr">2</span>Temperatur</button>
+  </nav>
+</header>
+
+<main>
+  <section class="panel" id="p-tokens" role="tabpanel" aria-labelledby="t-tokens" hidden>
+    <div class="side">
+      <div class="card intro">
+        <h2>Tokens</h2>
+        <p class="ref">Abschnitte 2 und 3 im Text</p>
+        <p>Der Tokenizer zerlegt Text in Stücke und gibt jedem eine Nummer. Die Zerlegungen stammen von tiktoken, dem Tokenizer von OpenAI. Das Zeichen ␣ steht für ein Leerzeichen.</p>
+      </div>
+      <div class="card">
+        <div class="gruppe">
+          <div class="gruppe-titel">Tokenizer</div>
+          <div class="segment" id="k-wahl"></div>
+          <p class="hinweis" id="k-info"></p>
+          <label class="schalter"><input type="checkbox" id="k-ids" checked> <span>Nummern der Tokens zeigen</span></label>
+        </div>
+        <div class="gruppe">
+          <div class="gruppe-titel">Beispiel</div>
+          <div class="liste" id="k-liste"></div>
+        </div>
+      </div>
+      <div class="card tasks">
+        <h3>Ausprobieren</h3>
+        <ul>
+          <li>Die deutsche und die englische Bestellung vergleichen, mit beiden Tokenizern.</li>
+          <li>Bei „Leerzeichen und Großschreibung“ nachsehen: Warum ist dasselbe Wort viermal anders zerlegt?</li>
+          <li>Bei „Buchstaben zählen“ überlegen, was das Modell von „Erdbeere“ eigentlich sieht.</li>
+          <li>Eigene Sätze zerlegt das Skript: <code>uv run docs/beispiele/02_tokenizer.py "…"</code></li>
+        </ul>
+      </div>
+    </div>
+    <div class="haupt">
+      <div class="stats" id="k-stats"></div>
+      <div class="card">
+        <p class="titel" id="k-titel"></p>
+        <p class="titel-sub" id="k-hinweis"></p>
+        <p class="originaltext" id="k-text"></p>
+        <div class="tokens" id="k-tokens"></div>
+      </div>
+      <div class="card">
+        <p class="titel">Alle Beispiele im Vergleich</p>
+        <p class="titel-sub">Anzahl der Tokens mit beiden Tokenizern</p>
+        <div class="tabelle" id="k-vergleich"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="p-temperatur" role="tabpanel" aria-labelledby="t-temperatur" hidden>
+    <div class="side">
+      <div class="card intro">
+        <h2>Temperatur</h2>
+        <p class="ref">Abschnitt 8 im Text</p>
+        <p>Das Modell gibt jedem möglichen nächsten Token eine Punktzahl. Vor der Softmax-Funktion werden alle Punktzahlen durch die Temperatur geteilt, dann wird zufällig gezogen.</p>
+        <p>Die Punktzahlen hier sind ausgedacht, die Rechnung ist echt.</p>
+      </div>
+      <div class="card">
+        <div class="slider">
+          <div class="slider-kopf"><label for="t-regler">Temperatur</label><output for="t-regler" id="t-wert"></output></div>
+          <input type="range" id="t-regler" min="0.05" max="3" step="0.05" value="1">
+        </div>
+        <div class="knoepfe" id="t-presets"></div>
+        <div class="knoepfe">
+          <button type="button" class="knopf primaer" id="t-ziehen">20-mal ziehen</button>
+          <button type="button" class="knopf" id="t-leeren">Leeren</button>
+        </div>
+      </div>
+      <div class="card tasks">
+        <h3>Ausprobieren</h3>
+        <ul>
+          <li>Die Temperatur ganz nach links schieben und mehrmals ziehen: Es kommt fast nur noch „Becher“.</li>
+          <li>Bei Temperatur 3 ziehen: Wie oft landet die Schokolade im Regen?</li>
+          <li>Überlegen, wofür man eher eine niedrige und wofür eine hohe Temperatur wählen würde.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="haupt">
+      <div class="card">
+        <p class="satz">Zwei Kugeln Schokolade im <span class="luecke" id="t-luecke">…</span></p>
+        <div class="balken" id="t-balken"></div>
+      </div>
+      <div class="card">
+        <p class="titel">Gezogene Fortsetzungen</p>
+        <p class="titel-sub" id="t-zaehlung">Noch nichts gezogen.</p>
+        <div class="gezogen" id="t-gezogen"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  Die Zerlegungen hat das Skript <code>docs/beispiele/02_tokenizer.py</code> mit tiktoken berechnet. Die Seite läuft ohne Server und ohne Internetverbindung.
+</footer>
+
+<script src="token-beispiele.js"></script>
+<script>
+"use strict";
+
+const DATEN = window.TOKEN_BEISPIELE;
+const $ = s => document.querySelector(s);
+const prozent = p => (p * 100).toLocaleString("de-DE", { maximumFractionDigits: p < 0.1 ? 1 : 0 }) + " %";
+const zahl = (x, stellen = 0) => x.toLocaleString("de-DE", { maximumFractionDigits: stellen });
+const esc = s => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+// Leerzeichen als ␣ zeigen, angebrochene Bytes wie <F0 9F 8D> eigens kennzeichnen
+function tokenHtml(stueck) {
+  return esc(stueck)
+    .replace(/ /g, "\u0000")
+    .replace(/&lt;([0-9A-F]{2}(?: [0-9A-F]{2})*)&gt;/g, '<span class="bytes">&lt;$1&gt;</span>')
+    .replace(/\u0000/g, '<span class="leer">␣</span>');
+}
+
+// ---------- Tabs ----------
+const TABS = ["tokens", "temperatur"];
+function zeigeTab(name, fokus = false) {
+  if (!TABS.includes(name)) name = "tokens";
+  for (const t of TABS) {
+    const knopf = document.querySelector(`[data-tab="${t}"]`);
+    knopf.setAttribute("aria-selected", String(t === name));
+    knopf.tabIndex = t === name ? 0 : -1;
+    document.getElementById("p-" + t).hidden = t !== name;
+  }
+  if (fokus) document.querySelector(`[data-tab="${name}"]`).focus();
+  if (location.hash !== "#" + name) history.replaceState(null, "", "#" + name);
+}
+document.querySelectorAll("[data-tab]").forEach(knopf => {
+  knopf.addEventListener("click", () => zeigeTab(knopf.dataset.tab));
+  knopf.addEventListener("keydown", e => {
+    const i = TABS.indexOf(knopf.dataset.tab);
+    if (e.key === "ArrowRight") zeigeTab(TABS[(i + 1) % TABS.length], true);
+    if (e.key === "ArrowLeft") zeigeTab(TABS[(i + TABS.length - 1) % TABS.length], true);
+  });
+});
+window.addEventListener("hashchange", () => zeigeTab(location.hash.slice(1)));
+
+// ---------- 1. Tokens ----------
+const NAMEN = Object.keys(DATEN.tokenizer);
+const K = { tokenizer: NAMEN[0], beispiel: 0 };
+
+function segment(el, optionen, aktiv, aendern) {
+  const knoepfe = optionen.map(([wert, text]) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.textContent = text;
+    b.addEventListener("click", () => { setzen(wert); aendern(wert); });
+    el.append(b);
+    return [wert, b];
+  });
+  const setzen = w => knoepfe.forEach(([wert, b]) => b.setAttribute("aria-pressed", String(wert === w)));
+  setzen(aktiv);
+}
+
+segment($("#k-wahl"), NAMEN.map(n => [n, n]), K.tokenizer, v => { K.tokenizer = v; zeichneTokens(); });
+const listenKnoepfe = DATEN.beispiele.map((b, i) => {
+  const k = document.createElement("button");
+  k.type = "button";
+  k.textContent = b.titel;
+  k.addEventListener("click", () => { K.beispiel = i; zeichneTokens(); });
+  $("#k-liste").append(k);
+  return k;
+});
+$("#k-ids").addEventListener("change", e => $("#k-tokens").classList.toggle("ohne-ids", !e.target.checked));
+
+$("#k-stats").innerHTML = ["tokens", "zeichen", "proToken"].map(k =>
+  `<div class="stat"><div class="label">${{ tokens: "Tokens", zeichen: "Zeichen", proToken: "Zeichen pro Token" }[k]}</div><div class="wert" data-k="${k}"></div><div class="zusatz" data-z="${k}"></div></div>`).join("");
+const stat = (k, wert, zusatz = "") => { $(`[data-k="${k}"]`).textContent = wert; $(`[data-z="${k}"]`).textContent = zusatz; };
+
+$("#k-vergleich").innerHTML = `<table><thead><tr><th>Beispiel</th>${NAMEN.map(n => `<th>${n}</th>`).join("")}</tr></thead><tbody>${
+  DATEN.beispiele.map(b => `<tr><td>${esc(b.titel)}</td>${NAMEN.map(n => `<td>${b[n].length}</td>`).join("")}</tr>`).join("")
+}</tbody></table>`;
+
+function zeichneTokens() {
+  const b = DATEN.beispiele[K.beispiel];
+  const teile = b[K.tokenizer];
+  const info = DATEN.tokenizer[K.tokenizer];
+  const zeichen = [...b.text].length;
+  listenKnoepfe.forEach((k, i) => k.setAttribute("aria-pressed", String(i === K.beispiel)));
+  $("#k-info").textContent = `${zahl(info.vokabular)} Tokens im Vokabular, verwendet unter anderem für ${info.modell === "gpt-4o" ? "GPT-4o" : "GPT-4 und GPT-3.5"}.`;
+  $("#k-titel").textContent = b.titel;
+  $("#k-hinweis").textContent = b.hinweis;
+  $("#k-text").textContent = `„${b.text}“`;
+  const andere = NAMEN.filter(n => n !== K.tokenizer).map(n => `${n}: ${b[n].length}`).join(", ");
+  stat("tokens", String(teile.length), andere);
+  stat("zeichen", String(zeichen));
+  stat("proToken", zahl(zeichen / teile.length, 1));
+  $("#k-tokens").innerHTML = teile.map(([id, stueck]) =>
+    `<span class="token"><span class="stueck">${tokenHtml(stueck)}</span><span class="id">${id}</span></span>`).join("");
+}
+
+// ---------- 2. Temperatur ----------
+const PUNKTE = Object.entries(DATEN.punktzahlen);
+const T = { temperatur: 1, gezogen: [] };
+
+function wahrscheinlichkeiten(temperatur) {
+  const werte = PUNKTE.map(([, p]) => p / temperatur);
+  const max = Math.max(...werte);
+  const e = werte.map(w => Math.exp(w - max));
+  const summe = e.reduce((s, x) => s + x, 0);
+  return e.map(x => x / summe);
+}
+
+$("#t-balken").innerHTML = PUNKTE.map(([token, punkte], i) =>
+  `<div class="name">${tokenHtml(token)}</div><div class="spur" title="Punktzahl ${zahl(punkte, 1)}"><div class="fuellung" data-i="${i}"></div></div><div class="prozent" data-p="${i}"></div>`).join("");
+
+for (const [wert, text] of [[0.05, "fast 0"], [0.5, "0,5"], [1, "1"], [2, "2"], [3, "3"]]) {
+  const k = document.createElement("button");
+  k.type = "button";
+  k.className = "knopf";
+  k.textContent = text;
+  k.addEventListener("click", () => { T.temperatur = wert; $("#t-regler").value = wert; zeichneTemperatur(); });
+  $("#t-presets").append(k);
+}
+$("#t-regler").addEventListener("input", e => { T.temperatur = parseFloat(e.target.value); zeichneTemperatur(); });
+
+function ziehen(anteile) {
+  let r = Math.random();
+  for (let i = 0; i < anteile.length; i++) {
+    r -= anteile[i];
+    if (r < 0) return i;
+  }
+  return anteile.length - 1;
+}
+
+$("#t-ziehen").addEventListener("click", () => {
+  const anteile = wahrscheinlichkeiten(T.temperatur);
+  for (let n = 0; n < 20; n++) T.gezogen.push(ziehen(anteile));
+  $("#t-luecke").textContent = PUNKTE[T.gezogen[T.gezogen.length - 1]][0].trim();
+  zeichneGezogen();
+});
+$("#t-leeren").addEventListener("click", () => { T.gezogen = []; $("#t-luecke").textContent = "…"; zeichneGezogen(); });
+
+function zeichneTemperatur() {
+  $("#t-wert").textContent = zahl(T.temperatur, 2);
+  wahrscheinlichkeiten(T.temperatur).forEach((p, i) => {
+    $(`[data-i="${i}"]`).style.width = (p * 100).toFixed(2) + "%";
+    $(`[data-p="${i}"]`).textContent = prozent(p);
+  });
+}
+
+function zeichneGezogen() {
+  if (!T.gezogen.length) {
+    $("#t-zaehlung").textContent = "Noch nichts gezogen.";
+    $("#t-gezogen").innerHTML = "";
+    return;
+  }
+  const zaehler = PUNKTE.map((_, i) => T.gezogen.filter(g => g === i).length);
+  $("#t-zaehlung").textContent = `${T.gezogen.length} Züge: ` + PUNKTE.map(([t], i) => `${t.trim()} ${zaehler[i]}`).join(", ");
+  $("#t-gezogen").innerHTML = T.gezogen.slice(-40).map(i => `<span>${esc(PUNKTE[i][0].trim())}</span>`).join("");
+}
+
+// ---------- Start ----------
+zeichneTokens();
+zeichneTemperatur();
+zeigeTab(location.hash.slice(1));
+</script>
+</body>
+</html>

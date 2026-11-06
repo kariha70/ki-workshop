@@ -44,7 +44,7 @@
     font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
   }
   header, main, footer { max-width: 1240px; margin: 0 auto; padding-left: 16px; padding-right: 16px; }
-  header { padding-top: 28px; }
+  header { padding-top: 20px; }
   h1 { font-size: 26px; line-height: 1.2; margin: 0 0 6px; }
   h2 { font-size: 19px; margin: 0 0 2px; }
   h3 { font-size: 15px; margin: 0 0 8px; }
@@ -163,8 +163,14 @@
 
   footer { color: var(--muted); font-size: 13px; padding-bottom: 28px; }
 </style>
+<link rel="stylesheet" href="../assets/leiste.css">
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
 </head>
 <body>
+<div class="leiste"><div class="leiste-innen">
+  <a class="marke" href="../index.html" aria-label="KI-Workshop, zur Startseite"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.5 11.5h11L12 23z" fill="#eb6834"/><circle cx="12" cy="8" r="6.2" fill="#2a78d6"/><path d="M8.6 9.3 12 5.4l3.4 3.9M8.6 9.3h6.8" stroke="#fff" stroke-width="0.9" fill="none" stroke-linejoin="round"/><circle cx="12" cy="5.4" r="1.35" fill="#fff"/><circle cx="8.6" cy="9.3" r="1.35" fill="#fff"/><circle cx="15.4" cy="9.3" r="1.35" fill="#fff"/></svg><span>KI-Workshop</span></a>
+  <nav aria-label="Workshop"><a href="../kapitel-1.html">Kapitel 1</a><a href="../kapitel-2.html">Kapitel 2</a><span class="trenner"></span><a href="labor-1.html" aria-current="page">Labor 1</a><a href="labor-2.html">Labor 2</a></nav>
+</div></div>
 <header>
   <h1>Neuronale Netze zum Anfassen</h1>
   <p class="sub">Das Eisverkäufer-Beispiel aus „Neuronale Netze: Grundlagen“ zum Ausprobieren: Weights und Bias verschieben, den Fehler beobachten, bergab lernen und ein kleines Netz trainieren.</p>

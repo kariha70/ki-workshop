@@ -1,0 +1,1076 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kapitel 1: Neuronale Netze: Grundlagen</title>
+<meta name="description" content="Von der Geraden durch die Verkaufszahlen über Fehler, Gradientenabstieg und den Knick bis zum kleinen Netz, das selbst lernt.">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/leiste.css">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<!-- Erzeugt von werkzeuge/seite_bauen.py, bitte nicht von Hand ändern. -->
+<div class="fortschritt" aria-hidden="true"><div></div></div>
+<header class="leiste"><div class="leiste-innen">
+  <a class="marke" href="index.html" aria-label="KI-Workshop, zur Startseite"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.5 11.5h11L12 23z" fill="#eb6834"/><circle cx="12" cy="8" r="6.2" fill="#2a78d6"/><path d="M8.6 9.3 12 5.4l3.4 3.9M8.6 9.3h6.8" stroke="#fff" stroke-width="0.9" fill="none" stroke-linejoin="round"/><circle cx="12" cy="5.4" r="1.35" fill="#fff"/><circle cx="8.6" cy="9.3" r="1.35" fill="#fff"/><circle cx="15.4" cy="9.3" r="1.35" fill="#fff"/></svg><span>KI-Workshop</span></a>
+  <nav aria-label="Workshop"><a href="kapitel-1.html" aria-current="page">Kapitel 1</a><a href="kapitel-2.html">Kapitel 2</a><span class="trenner"></span><a href="app/labor-1.html">Labor 1</a><a href="app/labor-2.html">Labor 2</a></nav>
+</div></header>
+<main>
+<div class="kapitel-kopf"><div class="huelle">
+  <p class="augenbraue">Kapitel 1 · etwa 25 Minuten Lesezeit</p>
+  <h1>Neuronale Netze: Grundlagen</h1>
+  <div class="einleitung"><p>Ein neuronales Netz klingt kompliziert, ist im Kern aber aus einem sehr einfachen Baustein zusammengesetzt: dem Neuron. Und ein Neuron rechnet im Grunde nichts anderes als eine lineare Regression, wie sie viele aus dem Matheunterricht als Gerade kennen, mit einem kleinen Knick am Ende.</p>
+<p>Dieses Beispiel führt in zehn Schritten von der Geraden über das Neuron bis zum kleinen neuronalen Netz.</p></div>
+  <div class="aktionen">
+    <a class="knopf primaer" href="#1-der-eisverkäufer">Lesen</a>
+    <a class="knopf" href="app/labor-1.html">Im Labor ausprobieren</a>
+  </div>
+</div></div>
+<div class="huelle raster">
+  <aside class="verzeichnis" aria-label="Inhalt">
+    <details open><summary>Inhalt</summary><ol><li><a href="#1-der-eisverkäufer">1. Der Eisverkäufer</a></li><li><a href="#2-lineare-regression-eine-gerade-durch-die-punkte">2. Lineare Regression: Eine Gerade durch die Punkte</a></li><li><a href="#3-weight-und-bias">3. Weight und Bias</a></li><li><a href="#4-fehler-messen-warum-quadrate">4. Fehler messen: Warum Quadrate?</a></li><li><a href="#5-den-fehler-minimieren-schritt-für-schritt-bergab">5. Den Fehler minimieren: Schritt für Schritt bergab</a></li><li><a href="#6-eine-zweite-beobachtung-das-wochenende">6. Eine zweite Beobachtung: das Wochenende</a></li><li><a href="#7-funktioniert-es-auch-an-neuen-tagen">7. Funktioniert es auch an neuen Tagen?</a></li><li><a href="#8-vom-modell-zum-neuron">8. Vom Modell zum Neuron</a></li><li><a href="#9-der-knick-die-aktivierungsfunktion">9. Der Knick: die Aktivierungsfunktion</a></li><li><a href="#10-vom-neuron-zum-netz">10. Vom Neuron zum Netz</a></li><li><a href="#das-wichtigste-in-kürze">Das Wichtigste in Kürze</a></li><li><a href="#wie-es-weitergeht">Wie es weitergeht</a></li><li><a href="#selbst-ausprobieren">Selbst ausprobieren</a></li></ol></details>
+    <a class="zum-labor" href="app/labor-1.html">Labor 1<small>Alles aus diesem Kapitel zum Ausprobieren</small></a>
+  </aside>
+  <article class="text">
+    
+
+    <section id="1-der-eisverkäufer"><h2>1. Der Eisverkäufer</h2>
+<p>Ein Eisverkäufer notiert an zehn Tagen die Temperatur und die Zahl der verkauften Kugeln (die Zahlen sind für dieses Beispiel erfunden):</p>
+<div class="tabelle"><table>
+<thead>
+<tr>
+<th>Temperatur (°C)</th>
+<th>Verkaufte Kugeln</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>13</td>
+<td>146</td>
+</tr>
+<tr>
+<td>15</td>
+<td>226</td>
+</tr>
+<tr>
+<td>16</td>
+<td>177</td>
+</tr>
+<tr>
+<td>19</td>
+<td>257</td>
+</tr>
+<tr>
+<td>20</td>
+<td>228</td>
+</tr>
+<tr>
+<td>22</td>
+<td>245</td>
+</tr>
+<tr>
+<td>23</td>
+<td>293</td>
+</tr>
+<tr>
+<td>26</td>
+<td>272</td>
+</tr>
+<tr>
+<td>27</td>
+<td>344</td>
+</tr>
+<tr>
+<td>29</td>
+<td>312</td>
+</tr>
+</tbody>
+</table></div>
+<p>Der Eisverkäufer möchte wissen: <strong>Wie viele Kugeln verkaufe ich morgen, wenn es 25 °C warm wird?</strong> Dann kann er genau so viel Eis vorbereiten, wie er braucht.</p>
+<p>Die Tabelle zeigt schon einen Trend: Je wärmer es ist, desto mehr Eis wird verkauft.</p>
+</section><section id="2-lineare-regression-eine-gerade-durch-die-punkte"><h2>2. Lineare Regression: Eine Gerade durch die Punkte</h2>
+<p>Die lineare Regression legt eine Gerade so durch die Messpunkte, dass sie insgesamt möglichst wenig danebenliegt. Für unsere Daten ist das diese Gerade:</p>
+<pre><code class="language-text">Kugeln = 10 · Temperatur + 40
+</code></pre>
+<figure><img alt="Die Messpunkte mit der Regressionsgeraden. Sie schneidet die y-Achse bei 40 und steigt pro 5 Grad um 50 Kugeln." src="bilder/01-gerade.png" loading="lazy"></figure>
+<p>Damit lässt sich die Frage beantworten:</p>
+<pre><code class="language-text">Kugeln = 10 · 25 + 40 = 290
+</code></pre>
+<p>Die Gerade trifft die Messpunkte nicht genau. Im Mittel liegt sie um <strong>24 Kugeln</strong> daneben. Das ist die Zahl, die wir später verbessern wollen.</p>
+</section><section id="3-weight-und-bias"><h2>3. Weight und Bias</h2>
+<p>Die Gerade hat genau zwei Stellschrauben. Sie heißen in der Welt der neuronalen Netze <strong>Weight</strong> und <strong>Bias</strong>:</p>
+<div class="tabelle"><table>
+<thead>
+<tr>
+<th>Begriff</th>
+<th>In der Geraden</th>
+<th>Wert</th>
+<th>Bedeutung im Beispiel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Weight (Gewicht)</td>
+<td>Steigung</td>
+<td>10</td>
+<td>Jedes Grad mehr bringt 10 Kugeln mehr.</td>
+</tr>
+<tr>
+<td>Bias</td>
+<td>Schnitt mit der y-Achse</td>
+<td>40</td>
+<td>Das ist der Verkauf, wenn die Temperatur 0 °C beträgt.</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Das <strong>Weight</strong> sagt, wie stark ein Input die Vorhersage beeinflusst. Ein großes Weight bedeutet: Die Temperatur ist sehr wichtig. Ein Weight von 0 würde bedeuten: Die Temperatur spielt keine Rolle.</li>
+<li>Der <strong>Bias</strong> ist der Grundwert, zu dem alles andere dazukommt. Er hat nichts mit „Vorurteilen“ zu tun, von denen im Zusammenhang mit KI oft die Rede ist.</li>
+</ul>
+<figure><img alt="Links dreht sich die Gerade, wenn das Weight sich ändert. Rechts verschiebt sie sich parallel, wenn der Bias sich ändert." src="bilder/02-weight-und-bias.png" loading="lazy"></figure>
+<p>Gemessen wurde nur zwischen 13 und 29 °C, außerhalb dieses Bereichs ist die Gerade deshalb reine Fortschreibung (in der ersten Grafik heller gezeichnet). Bei −10 °C würde sie sogar −60 Kugeln vorhersagen. Ein Modell kennt nur das, was in seinen Daten steckt. (Auf dieses Problem kommen wir in Abschnitt 9 zurück.)</p>
+<p>Mehr als diese beiden Zahlen merkt sich das Modell nicht, die Messwerte selbst speichert es gar nicht. Weights und Bias zusammen heißen die <strong>Parameter</strong> des Modells. <strong>Lernen heißt hier: die beiden Werte finden, die am besten zu den Daten passen.</strong> Aber was heißt „am besten“?</p>
+</section><section id="4-fehler-messen-warum-quadrate"><h2>4. Fehler messen: Warum Quadrate?</h2>
+<p>Um die Linie gezielt zu verändern, brauchen wir eine einzige Zahl, die sagt: Ist die Linie jetzt besser oder schlechter als vorher? Diese Zahl entsteht in drei Schritten.</p>
+<p><strong>Schritt 1: Für jeden Tag den Fehler berechnen.</strong> Der Fehler ist der Abstand zwischen Messwert und Vorhersage:</p>
+<pre><code class="language-text">Fehler = verkaufte Kugeln − Vorhersage
+</code></pre>
+<div class="tabelle"><table>
+<thead>
+<tr>
+<th>Temperatur (°C)</th>
+<th>Verkaufte Kugeln</th>
+<th>Vorhersage</th>
+<th>Fehler</th>
+<th>Fehler zum Quadrat</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>13</td>
+<td>146</td>
+<td>170</td>
+<td>−24</td>
+<td>576</td>
+</tr>
+<tr>
+<td>15</td>
+<td>226</td>
+<td>190</td>
+<td>+36</td>
+<td>1296</td>
+</tr>
+<tr>
+<td>16</td>
+<td>177</td>
+<td>200</td>
+<td>−23</td>
+<td>529</td>
+</tr>
+<tr>
+<td>19</td>
+<td>257</td>
+<td>230</td>
+<td>+27</td>
+<td>729</td>
+</tr>
+<tr>
+<td>20</td>
+<td>228</td>
+<td>240</td>
+<td>−12</td>
+<td>144</td>
+</tr>
+<tr>
+<td>22</td>
+<td>245</td>
+<td>260</td>
+<td>−15</td>
+<td>225</td>
+</tr>
+<tr>
+<td>23</td>
+<td>293</td>
+<td>270</td>
+<td>+23</td>
+<td>529</td>
+</tr>
+<tr>
+<td>26</td>
+<td>272</td>
+<td>300</td>
+<td>−28</td>
+<td>784</td>
+</tr>
+<tr>
+<td>27</td>
+<td>344</td>
+<td>310</td>
+<td>+34</td>
+<td>1156</td>
+</tr>
+<tr>
+<td>29</td>
+<td>312</td>
+<td>330</td>
+<td>−18</td>
+<td>324</td>
+</tr>
+<tr>
+<td><strong>Summe</strong></td>
+<td></td>
+<td></td>
+<td><strong>0</strong></td>
+<td><strong>6292</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Schritt 2: Die Fehler quadrieren.</strong> Die Summe der einfachen Fehler ist genau 0, obwohl die Linie an keinem Tag richtig liegt. Plus und Minus heben sich gegenseitig auf, die Summe sagt also nichts aus. Noch deutlicher zeigt das eine waagerechte Linie bei 250 Kugeln: Sie ignoriert die Temperatur völlig, ihre Fehlersumme ist aber ebenfalls 0. Erst die Quadrate zeigen den Unterschied. In der Grafik ist jedes orange Quadrat buchstäblich das Quadrat eines Fehlers, und rechts bedecken sie eine viel größere Fläche:</p>
+<figure><img alt="Links liegen kleine Fehlerquadrate an der passenden Geraden, rechts große an einer waagerechten Linie. Die Summe der einfachen Fehler ist in beiden Fällen 0." src="bilder/03-fehlerquadrate.png" loading="lazy"></figure>
+<p><strong>Schritt 3: Den Durchschnitt bilden.</strong> Das Ergebnis heißt <strong>mittlerer quadratischer Fehler</strong> (englisch Mean Squared Error, kurz MSE):</p>
+<pre><code class="language-text">Mittlerer quadratischer Fehler = 6292 / 10 = 629,2
+</code></pre>
+<p>Allgemein heißt eine solche Fehlerzahl <strong>Verlustfunktion</strong> (englisch Loss). Wenn in KI-Artikeln vom „Loss“ die Rede ist, ist genau das gemeint.</p>
+<p>Das Quadrieren hat drei Vorteile:</p>
+<ol>
+<li><strong>Das Vorzeichen verschwindet.</strong> Zu viel und zu wenig Vorhersage zählen beide als Fehler und können sich nicht mehr aufheben.</li>
+<li><strong>Große Fehler zählen besonders stark.</strong> Ein Fehler von 20 kostet 400 Punkte, zwei Fehler von je 10 nur zusammen 200. Die Linie vermeidet also lieber einen groben Fehlgriff als mehrere kleine. Die Kehrseite: Ein einzelner Ausreißer kann die Linie spürbar zu sich ziehen.</li>
+<li><strong>Die Fehlerkurve ist glatt.</strong> Sie zeigt an jeder Stelle, in welche Richtung es bergab geht. Das ist der wichtigste Grund, und er erklärt auch, warum man nicht einfach die Vorzeichen weglässt: Das funktioniert zwar auch, die Kurve hat dann aber Knicke, und die Rechnung wird schwieriger.</li>
+</ol>
+<p>Die Einheit des Ergebnisses ist allerdings „Kugeln zum Quadrat“, und darunter kann sich niemand etwas vorstellen. Für Menschen nennen wir deshalb weiter die mittlere Abweichung ohne Vorzeichen, hier 24 Kugeln. Zum Lernen nimmt das Modell den quadratischen Fehler.</p>
+<h3 id="die-linie-verändern">Die Linie verändern</h3>
+<p>Mit dieser Zahl können wir Linien vergleichen. Ändern wir Weight oder Bias, wird der Fehler größer:</p>
+<div class="tabelle"><table>
+<thead>
+<tr>
+<th>Weight</th>
+<th>Bias</th>
+<th>Mittlerer quadratischer Fehler</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>8</td>
+<td>40</td>
+<td>2497,2</td>
+</tr>
+<tr>
+<td><strong>10</strong></td>
+<td><strong>40</strong></td>
+<td><strong>629,2</strong></td>
+</tr>
+<tr>
+<td>12</td>
+<td>40</td>
+<td>2497,2</td>
+</tr>
+<tr>
+<td>10</td>
+<td>20</td>
+<td>1029,2</td>
+</tr>
+<tr>
+<td>10</td>
+<td>60</td>
+<td>1029,2</td>
+</tr>
+</tbody>
+</table></div>
+<p>Trägt man den Fehler für alle möglichen Weights auf, entsteht eine Kurve wie ein Tal:</p>
+<figure><img alt="Der mittlere quadratische Fehler als Parabel über dem Weight, mit dem tiefsten Punkt bei Weight 10." src="bilder/04-fehlerkurve.png" loading="lazy"></figure>
+<p>Das Modell sucht den tiefsten Punkt dieses Tals. Links davon muss das Weight größer werden, rechts davon kleiner. Für Weight und Bias zusammen wird aus der Kurve eine Schüssel, und ihr tiefster Punkt ergibt die beste Linie. <strong>Lernen heißt also: den Fehler so klein wie möglich machen.</strong></p>
+<aside class="labor-hinweis">
+  <span class="symbol"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h10M4 17h6M18 7h2M14 17h6"/><circle cx="16" cy="7" r="2"/><circle cx="12" cy="17" r="2"/></svg></span>
+  <div><strong>Ausprobieren: Gerade und Fehler</strong><span>Weight und Bias mit Reglern verschieben und zusehen, wie sich Fehler und Fehlerkurve verändern.</span></div>
+  <a class="knopf primaer" href="app/labor-1.html#gerade">Zum Labor</a>
+</aside></section><section id="5-den-fehler-minimieren-schritt-für-schritt-bergab"><h2>5. Den Fehler minimieren: Schritt für Schritt bergab</h2>
+<p>Bisher haben wir die beste Linie einfach angegeben. Wie findet man sie, wenn man sie nicht kennt?</p>
+<p>Stellen wir uns vor, wir stehen im dichten Nebel in einem Tal und wollen zum tiefsten Punkt. Wir sehen das Ziel nicht, spüren aber unter den Füßen, wohin der Boden abfällt. Also gehen wir ein Stück in diese Richtung und prüfen dann erneut. Genau so arbeitet der <strong>Gradientenabstieg</strong> (englisch Gradient Descent):</p>
+<ol>
+<li>Mit einem beliebigen Wert starten.</li>
+<li>Die Steigung der Fehlerkurve an dieser Stelle messen.</li>
+<li>Ein kleines Stück bergab gehen.</li>
+<li>Die Schritte 2 und 3 wiederholen, bis der Fehler nicht mehr sinkt.</li>
+</ol>
+<h3 id="die-steigung-messen">Die Steigung messen</h3>
+<p>Zum Ausprobieren lernen wir zuerst nur das Weight und lassen den Bias bei 40. Wir starten mit Weight 0, also mit einem Fehler von 47329,2. Erhöhen wir das Weight probeweise auf 0,01, sinkt der Fehler auf 47235,8. Das sind 93,4 weniger auf nur 0,01 Weight, also eine Steigung von rund −9340. Das Minus sagt uns: Nach rechts geht es bergab, das Weight muss größer werden.</p>
+<p>Das Ausprobieren können wir uns sparen. Die Mathematik (die Ableitung des quadratischen Fehlers) liefert die Steigung direkt:</p>
+<pre><code class="language-text">Steigung für das Weight = −2 · Durchschnitt(Fehler · Input)
+Steigung für den Bias   = −2 · Durchschnitt(Fehler)
+</code></pre>
+<p>Alle Steigungen zusammen heißen <strong>Gradient</strong>, daher der Name des Verfahrens.</p>
+<p>Auch das lässt sich anschaulich lesen: Liegen die Vorhersagen zu niedrig, sind die Fehler positiv, die Steigung wird negativ, und das Weight wächst. Tage mit großem Input haben dabei mehr Einfluss, weil sich das Weight dort stärker auswirkt.</p>
+<h3 id="der-schritt-bergab">Der Schritt bergab</h3>
+<pre><code class="language-text">neues Weight = altes Weight − Lernrate · Steigung
+</code></pre>
+<p>Das Minus sorgt dafür, dass wir gegen die Steigung gehen, also bergab. Die <strong>Lernrate</strong> legt fest, wie groß der Schritt wird. Mit einer Lernrate von 0,0005 lautet der erste Schritt:</p>
+<pre><code class="language-text">neues Weight = 0 − 0,0005 · (−9340) = 4,67
+</code></pre>
+<p>Wiederholen wir das, nähert sich das Weight dem besten Wert 10:</p>
+<div class="tabelle"><table>
+<thead>
+<tr>
+<th>Schritt</th>
+<th>Weight</th>
+<th>Steigung</th>
+<th>Änderung</th>
+<th>Mittlerer quadratischer Fehler</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0,00</td>
+<td>−9340,0</td>
+<td>+4,67</td>
+<td>47329,2</td>
+</tr>
+<tr>
+<td>1</td>
+<td>4,67</td>
+<td>−4978,2</td>
+<td>+2,49</td>
+<td>13896,2</td>
+</tr>
+<tr>
+<td>2</td>
+<td>7,16</td>
+<td>−2653,4</td>
+<td>+1,33</td>
+<td>4398,2</td>
+</tr>
+<tr>
+<td>3</td>
+<td>8,49</td>
+<td>−1414,3</td>
+<td>+0,71</td>
+<td>1699,9</td>
+</tr>
+<tr>
+<td>4</td>
+<td>9,19</td>
+<td>−753,8</td>
+<td>+0,38</td>
+<td>933,4</td>
+</tr>
+<tr>
+<td>5</td>
+<td>9,57</td>
+<td>−401,8</td>
+<td>+0,20</td>
+<td>715,6</td>
+</tr>
+<tr>
+<td>6</td>
+<td>9,77</td>
+<td>−214,1</td>
+<td>+0,11</td>
+<td>653,7</td>
+</tr>
+<tr>
+<td>7</td>
+<td>9,88</td>
+<td>−114,1</td>
+<td>+0,06</td>
+<td>636,2</td>
+</tr>
+<tr>
+<td>8</td>
+<td>9,93</td>
+<td>−60,8</td>
+<td>+0,03</td>
+<td>631,2</td>
+</tr>
+</tbody>
+</table></div>
+<p>Die Schritte werden von selbst kleiner, denn je näher wir dem Talboden kommen, desto flacher wird die Kurve. Ganz auf 0 fällt der Fehler nicht: Unter 629,2 kommt diese Linie nicht, weil die Punkte nicht exakt auf einer Geraden liegen.</p>
+<h3 id="die-richtige-lernrate">Die richtige Lernrate</h3>
+<p>Die Lernrate muss man selbst wählen, und sie entscheidet darüber, ob das Lernen funktioniert. Die Grafik zeigt jeweils sechs Schritte vom selben Startpunkt aus (blau):</p>
+<figure><img alt="Drei Fehlerkurven mit je sechs Schritten: Bei zu kleiner Lernrate kommt das Weight kaum voran, bei passender Lernrate erreicht es den Talboden, bei zu großer springt es hin und her und der Fehler wächst." src="bilder/05-fehler-minimieren.png" loading="lazy"></figure>
+<ul>
+<li><strong>Zu klein:</strong> Das Verfahren funktioniert, braucht aber sehr viele Schritte.</li>
+<li><strong>Passend:</strong> Nach wenigen Schritten ist der Talboden fast erreicht.</li>
+<li><strong>Zu groß:</strong> Jeder Schritt springt über das Tal hinweg und landet höher als der vorige. Der Fehler wächst, statt zu sinken.</li>
+</ul>
+<h3 id="weight-und-bias-zusammen-lernen">Weight und Bias zusammen lernen</h3>
+<p><em>Dieser Teil vertieft das Verfahren und kann im Workshop bei knapper Zeit übersprungen werden.</em></p>
+<p>In Wirklichkeit lernt das Modell alle Werte gleichzeitig. Jeder bekommt in jedem Schritt seine eigene Steigung:</p>
+<pre><code class="language-python">for schritt in range(100_000):
+    fehler = kugeln - (weight * temperatur + bias)
+    weight += lernrate * 2 * np.mean(fehler * temperatur)
+    bias += lernrate * 2 * np.mean(fehler)
+</code></pre>
+<p>Mit Start bei Weight 0 und Bias 0 und einer Lernrate von 0,001 ergibt sich:</p>
+<div class="tabelle"><table>
+<thead>
+<tr>
+<th>Schritte</th>
+<th>Weight</th>
+<th>Bias</th>
+<th>Mittlerer quadratischer Fehler</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0,00</td>
+<td>0,00</td>
+<td>65729,2</td>
+</tr>
+<tr>
+<td>1</td>
+<td>11,02</td>
+<td>0,50</td>
+<td>983,1</td>
+</tr>
+<tr>
+<td>10</td>
+<td>11,77</td>
+<td>0,57</td>
+<td>715,7</td>
+</tr>
+<tr>
+<td>100</td>
+<td>11,76</td>
+<td>0,97</td>
+<td>714,0</td>
+</tr>
+<tr>
+<td>1000</td>
+<td>11,59</td>
+<td>4,68</td>
+<td>698,7</td>
+</tr>
+<tr>
+<td>10000</td>
+<td>10,58</td>
+<td>27,01</td>
+<td>638,6</td>
+</tr>
+<tr>
+<td>50000</td>
+<td>10,01</td>
+<td>39,85</td>
+<td>629,2</td>
+</tr>
+<tr>
+<td>100000</td>
+<td>10,00</td>
+<td>40,00</td>
+<td>629,2</td>
+</tr>
+</tbody>
+</table></div>
+<p>Das Modell findet die Linie aus Abschnitt 2 also von selbst. Auffällig ist: Das Weight schießt zunächst über 10 hinaus, weil es den fehlenden Bias ausgleicht. Danach wächst der Bias nur langsam, denn in der Steigung zählt jeder Fehler beim Weight mit dem Faktor Temperatur (bis 29), beim Bias aber nur einfach. Das Weight bestimmt deshalb die Richtung. In der Praxis rechnet man die Inputs deshalb vorher auf eine ähnliche Größenordnung um (Skalieren). In unserem Beispiel reichen dann 36 statt rund 40800 Schritte.</p>
+<p>Für eine einzelne Gerade gibt es sogar eine fertige Formel, die das Ergebnis direkt ausrechnet. Der Gradientenabstieg ist hier also ein Umweg. Er ist aber der Weg, der auch bei neuronalen Netzen mit Millionen von Weights funktioniert, wo es keine solche Formel gibt.</p>
+<aside class="labor-hinweis">
+  <span class="symbol"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h10M4 17h6M18 7h2M14 17h6"/><circle cx="16" cy="7" r="2"/><circle cx="12" cy="17" r="2"/></svg></span>
+  <div><strong>Ausprobieren: Fehler minimieren</strong><span>Den Gradientenabstieg Schritt für Schritt ausführen und verschiedene Lernraten vergleichen.</span></div>
+  <a class="knopf primaer" href="app/labor-1.html#bergab">Zum Labor</a>
+</aside></section><section id="6-eine-zweite-beobachtung-das-wochenende"><h2>6. Eine zweite Beobachtung: das Wochenende</h2>
+<p>Warum liegt die Gerade an manchen Tagen so weit daneben? Der Eisverkäufer schaut in seine Notizen: Die Ausreißer nach oben waren Wochenenden. Also notiert er eine zweite Beobachtung.</p>
+<p>Der Computer rechnet nur mit Zahlen, deshalb wird daraus: <strong>1 = Wochenende, 0 = Werktag</strong>. Die Nummer des Wochentags (Montag = 1 bis Sonntag = 7) wäre keine gute Wahl, denn sie würde behaupten, dass der Sonntag „siebenmal so viel“ zählt wie der Montag.</p>
+<div class="tabelle"><table>
+<thead>
+<tr>
+<th>Temperatur (°C)</th>
+<th>Wochenende</th>
+<th>Verkaufte Kugeln</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>13</td>
+<td>0</td>
+<td>146</td>
+</tr>
+<tr>
+<td>15</td>
+<td>1</td>
+<td>226</td>
+</tr>
+<tr>
+<td>16</td>
+<td>0</td>
+<td>177</td>
+</tr>
+<tr>
+<td>19</td>
+<td>1</td>
+<td>257</td>
+</tr>
+<tr>
+<td>20</td>
+<td>0</td>
+<td>228</td>
+</tr>
+<tr>
+<td>22</td>
+<td>0</td>
+<td>245</td>
+</tr>
+<tr>
+<td>23</td>
+<td>1</td>
+<td>293</td>
+</tr>
+<tr>
+<td>26</td>
+<td>0</td>
+<td>272</td>
+</tr>
+<tr>
+<td>27</td>
+<td>1</td>
+<td>344</td>
+</tr>
+<tr>
+<td>29</td>
+<td>0</td>
+<td>312</td>
+</tr>
+</tbody>
+</table></div>
+<p>Die Formel bekommt dafür ein zweites Weight:</p>
+<pre><code class="language-text">Kugeln = 10 · Temperatur + 50 · Wochenende + 20
+</code></pre>
+<p>Für einen Tag mit 25 °C heißt das:</p>
+<pre><code class="language-text">Werktag:  10 · 25 + 50 · 0 + 20 = 270
+Samstag:  10 · 25 + 50 · 1 + 20 = 320
+</code></pre>
+<figure><img alt="Werktage und Wochenenden liegen jeweils auf einer eigenen Geraden. Beide Geraden sind parallel und haben einen Abstand von 50 Kugeln." src="bilder/06-wochenende.png" loading="lazy"></figure>
+<p>Die eine Gerade hat sich in zwei parallele Geraden aufgeteilt, und die Vorhersage wird deutlich besser:</p>
+<div class="tabelle"><table>
+<thead>
+<tr>
+<th>Modell</th>
+<th>Formel</th>
+<th>Im Mittel daneben</th>
+<th>Mittlerer quadratischer Fehler</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nur Temperatur</td>
+<td><code>10 · Temperatur + 40</code></td>
+<td>24 Kugeln</td>
+<td>629,2</td>
+</tr>
+<tr>
+<td>Temperatur + Wochenende</td>
+<td><code>10 · Temperatur + 50 · Wochenende + 20</code></td>
+<td>5 Kugeln</td>
+<td>29,2</td>
+</tr>
+</tbody>
+</table></div>
+<p>Der Bias ist dabei von 40 auf 20 gesunken. Vier der zehn Tage waren Wochenenden, also steckten im alten Bias durchschnittlich 0,4 · 50 = 20 Kugeln Wochenend-Effekt. Jetzt hat dieser Effekt ein eigenes Weight. Das Temperatur-Weight bleibt nur deshalb bei 10, weil die Wochenenden in unseren Daten im Schnitt genauso warm waren wie die Werktage. Bei echten Daten verschieben sich meist alle Werte.</p>
+<p>Damit kann der Eisverkäufer seine Frage aus Abschnitt 1 endlich richtig beantworten: Bei 25 °C sollte er an einem Werktag 270 Kugeln einplanen, an einem Samstag 320. Die 290 aus Abschnitt 2 waren nur ein Mittelwert, denn 6 von 10 Tagen waren Werktage und 4 Wochenendtage: 0,6 · 270 + 0,4 · 320 = 290.</p>
+<p>Hier zeigen sich auch die zwei Phasen, die jedes Modell durchläuft: Beim <strong>Training</strong> ändern sich die Weights, und aus den Daten entstehen die Parameter. Bei der <strong>Anwendung</strong> (auch Inferenz genannt) bleiben die Weights fest, und das Modell rechnet nur noch Vorhersagen aus.</p>
+</section><section id="7-funktioniert-es-auch-an-neuen-tagen"><h2>7. Funktioniert es auch an neuen Tagen?</h2>
+<p>Bisher haben wir den Fehler nur an den Tagen gemessen, mit denen das Modell gelernt hat. Der Eisverkäufer will aber wissen, was <em>morgen</em> passiert. Das ist wie eine Prüfung, in der nur Aufgaben vorkommen, deren Lösungen man schon gesehen hat.</p>
+<p>Deshalb prüfen wir das Modell an Tagen, die es beim Lernen nicht kannte: Wir lassen jeden der zehn Tage einmal weg, lernen mit den übrigen neun und sagen den ausgelassenen Tag vorher. Zum Vergleich geben wir dem Modell außerdem Zufallszahlen als zusätzliche, völlig sinnlose Inputs:</p>
+<div class="tabelle"><table>
+<thead>
+<tr>
+<th>Modell</th>
+<th>Fehler auf den Trainingstagen</th>
+<th>Fehler auf neuen Tagen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nur Temperatur</td>
+<td>629</td>
+<td>1043</td>
+</tr>
+<tr>
+<td>Temperatur + Wochenende</td>
+<td>29</td>
+<td>57</td>
+</tr>
+<tr>
+<td>Temperatur + Wochenende + 1 Zufallszahl</td>
+<td>27</td>
+<td>72</td>
+</tr>
+<tr>
+<td>Temperatur + Wochenende + 3 Zufallszahlen</td>
+<td>16</td>
+<td>127</td>
+</tr>
+<tr>
+<td>Temperatur + Wochenende + 6 Zufallszahlen</td>
+<td>2</td>
+<td>2980</td>
+</tr>
+</tbody>
+</table></div>
+<p>Angegeben ist jeweils der mittlere quadratische Fehler, bei den Zufallszahlen der Median aus 200 Durchläufen.</p>
+<p>Die Tabelle zeigt dreierlei:</p>
+<ul>
+<li>Auf neuen Tagen ist der Fehler immer größer als auf den Trainingstagen. Nur diese zweite Zahl sagt etwas über morgen.</li>
+<li>Das Wochenende hilft wirklich, auch auf neuen Tagen sinkt der Fehler deutlich.</li>
+<li>Sinnlose Inputs senken den Trainingsfehler ebenfalls, auf neuen Tagen wird das Modell aber immer schlechter. Mit 6 Zufallszahlen sieht es im Training fast perfekt aus und versagt, sobald es ernst wird.</li>
+</ul>
+<p>Das nennt man <strong>Überanpassung</strong> (englisch Overfitting): Das Modell lernt die zufälligen Schwankungen der Trainingstage auswendig, statt den Zusammenhang zu erkennen. Im Extremfall hat es 10 Parameter für 10 Tage und damit einen Trainingsfehler von genau 0.</p>
+<p>Die Regel daraus: <strong>Ein Modell wird immer an Daten geprüft, die es beim Training nicht gesehen hat.</strong> Üblicherweise legt man dafür vor dem Training einen Teil der Daten als Testdaten beiseite. Und mehr Inputs oder Parameter sind nicht automatisch besser.</p>
+</section><section id="8-vom-modell-zum-neuron"><h2>8. Vom Modell zum Neuron</h2>
+<p>Jetzt zeichnen wir dieselbe Formel anders auf, und schon haben wir die Grundform eines Neurons:</p>
+<figure><img alt="Ein Neuron mit den Inputs Temperatur 25 und Wochenende 1, den Weights 10 und 50 und dem Bias 20. Die Vorhersage ist 320." src="bilder/07-neuron.png" loading="lazy"></figure>
+<p>Der Name stammt von den Nervenzellen im Gehirn: Sie empfangen Signale von anderen Zellen, verstärken manche davon und feuern selbst, wenn genug zusammenkommt. Das ist allerdings nur ein grobes Vorbild, ein künstliches Neuron ist eine einfache Rechenformel.</p>
+<p>Unser Neuron macht bisher drei Dinge:</p>
+<ol>
+<li>Es nimmt <strong>Inputs</strong> entgegen (Temperatur und Wochenende).</li>
+<li>Es multipliziert jeden Input mit seinem <strong>Weight</strong>.</li>
+<li>Es addiert alles und zählt den <strong>Bias</strong> dazu. Das Ergebnis ist die <strong>Vorhersage</strong>.</li>
+</ol>
+<p>Als Code ist das nur eine Zeile:</p>
+<pre><code class="language-python">def neuron(inputs, weights, bias):
+    return sum(x * w for x, w in zip(inputs, weights)) + bias
+
+
+neuron([25, 1], [10, 50], 20)  # 320
+</code></pre>
+<div class="tabelle"><table>
+<thead>
+<tr>
+<th>Lineare Regression</th>
+<th>Neuron</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Beobachtungen</td>
+<td>Inputs</td>
+</tr>
+<tr>
+<td>Steigungen</td>
+<td>Weights</td>
+</tr>
+<tr>
+<td>Schnitt mit der y-Achse</td>
+<td>Bias</td>
+</tr>
+<tr>
+<td>Ergebnis der Formel</td>
+<td>Vorhersage</td>
+</tr>
+</tbody>
+</table></div>
+<p>Auch das Training ist dasselbe: Mit den Schritten aus Abschnitt 5 lernt das Neuron von Weights und Bias 0 aus die Werte 10, 50 und 20 (nach 100000 Schritten mit einer Lernrate von 0,001).</p>
+<p><strong>Zum Mitrechnen:</strong> Was sagt das Neuron für einen Sonntag mit 18 °C voraus? Lösung: 18 · 10 + 1 · 50 + 20 = 250 Kugeln.</p>
+<p>Bis hierher kann unser Neuron nur Geraden (bei zwei Inputs genau genommen eine Ebene). Für ein vollständiges Neuron fehlt noch ein letzter Baustein.</p>
+</section><section id="9-der-knick-die-aktivierungsfunktion"><h2>9. Der Knick: die Aktivierungsfunktion</h2>
+<p>Erinnern wir uns an das Problem aus Abschnitt 3: Bei −10 °C an einem Werktag rechnet unser Neuron 10 · (−10) + 50 · 0 + 20 = −80 Kugeln aus. Das ist Unsinn, denn weniger als 0 Kugeln kann niemand verkaufen.</p>
+<p>Die Lösung ist eine kleine Regel, die das Neuron am Ende auf sein Ergebnis anwendet: <strong>Ist das Ergebnis negativ, gib 0 aus, sonst das Ergebnis selbst.</strong> Diese Regel heißt <strong>Aktivierungsfunktion</strong>, und die hier gezeigte ist die gebräuchlichste. Sie heißt ReLU (Rectified Linear Unit). Dadurch bekommt jede der beiden Geraden aus Abschnitt 6 einen Knick, am Werktag bei −2 °C und am Wochenende bei −7 °C:</p>
+<figure><img alt="Die Geraden für Werktag und Wochenende laufen unterhalb von −2 beziehungsweise −7 Grad nicht mehr ins Negative, sondern waagerecht bei 0. Oberhalb bleiben sie unverändert." src="bilder/08-knick.png" loading="lazy"></figure>
+<p>Der Name passt: Liegt die Summe unter 0, bleibt das Neuron stumm, darüber ist es aktiv. Im Neuron kommt damit ein vierter Schritt hinzu:</p>
+<ol>
+<li>Es nimmt <strong>Inputs</strong> entgegen.</li>
+<li>Es multipliziert jeden Input mit seinem <strong>Weight</strong>.</li>
+<li>Es addiert alles und zählt den <strong>Bias</strong> dazu.</li>
+<li>Es gibt die Summe durch die <strong>Aktivierungsfunktion</strong>. Das Ergebnis ist die <strong>Vorhersage</strong>.</li>
+</ol>
+<figure><img alt="Das Neuron mit Aktivierungsfunktion: Bei −10 Grad an einem Werktag ist die Summe −80, der Knick macht daraus die Vorhersage 0." src="bilder/09-neuron-mit-knick.png" loading="lazy"></figure>
+<pre><code class="language-python">def aktivierung(wert):
+    return max(0, wert)
+
+
+def neuron_mit_knick(inputs, weights, bias):
+    return aktivierung(neuron(inputs, weights, bias))
+
+
+neuron_mit_knick([-10, 0], [10, 50], 20)  # 0, statt −80
+neuron_mit_knick([25, 1], [10, 50], 20)  # 320, wie bisher
+</code></pre>
+<p>Für unsere zehn Beobachtungstage ändert sich an den besten Werten nichts, weil dort alle Vorhersagen positiv sind. Weights, Bias und Fehler bleiben also gleich.</p>
+<p>Für das Training hat der Knick aber eine Folge: Im abgeschnittenen Bereich bleibt die Ausgabe 0, egal wie wir die Weights ein wenig verändern. Die Steigung ist dort also 0, und das Neuron lernt an solchen Tagen nichts. Sind alle Tage betroffen, bleibt es für immer stehen:</p>
+<div class="tabelle"><table>
+<thead>
+<tr>
+<th>Start (Weights, Bias)</th>
+<th>Ergebnis nach 100000 Schritten</th>
+<th>Mittlerer quadratischer Fehler</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0, 0, 0</td>
+<td>bleibt bei 0, 0, 0</td>
+<td>65729,2</td>
+</tr>
+<tr>
+<td>−1, 0, 0</td>
+<td>bleibt bei −1, 0, 0</td>
+<td>65729,2</td>
+</tr>
+<tr>
+<td>1, 1, 1</td>
+<td>findet 10, 50, 20</td>
+<td>29,2</td>
+</tr>
+</tbody>
+</table></div>
+<p>Das nennt man ein <strong>totes Neuron</strong>. Der Startwert 0 aus Abschnitt 5 wäre hier also keine gute Wahl. In Abschnitt 10 sehen wir, wie man damit umgeht.</p>
+<p>Dieser Knick ist übrigens ein anderer als die Knicke der Fehlerkurve aus Abschnitt 4: Er sitzt in der Vorhersage, nicht im Fehlermaß. Solange nicht alle Tage abgeschnitten werden, kommt das Training gut damit zurecht.</p>
+<h3 id="warum-der-knick-unverzichtbar-ist">Warum der Knick unverzichtbar ist</h3>
+<p>Negative Kugeln zu vermeiden ist nur der kleinere Nutzen. Wirklich wichtig wird der Knick, sobald mehrere Neuronen zusammenarbeiten.</p>
+<p>Der Sommer geht weiter, und der Eisverkäufer notiert acht weitere Tage. Daneben steht, was unser Neuron aus Abschnitt 8 dafür vorhergesagt hätte:</p>
+<div class="tabelle"><table>
+<thead>
+<tr>
+<th>Temperatur (°C)</th>
+<th>Wochenende</th>
+<th>Verkaufte Kugeln</th>
+<th>Vorhersage</th>
+<th>Fehler</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>31</td>
+<td>0</td>
+<td>333</td>
+<td>330</td>
+<td>+3</td>
+</tr>
+<tr>
+<td>32</td>
+<td>1</td>
+<td>347</td>
+<td>390</td>
+<td>−43</td>
+</tr>
+<tr>
+<td>33</td>
+<td>0</td>
+<td>345</td>
+<td>350</td>
+<td>−5</td>
+</tr>
+<tr>
+<td>34</td>
+<td>1</td>
+<td>350</td>
+<td>410</td>
+<td>−60</td>
+</tr>
+<tr>
+<td>35</td>
+<td>0</td>
+<td>348</td>
+<td>370</td>
+<td>−22</td>
+</tr>
+<tr>
+<td>36</td>
+<td>1</td>
+<td>346</td>
+<td>430</td>
+<td>−84</td>
+</tr>
+<tr>
+<td>37</td>
+<td>0</td>
+<td>350</td>
+<td>390</td>
+<td>−40</td>
+</tr>
+<tr>
+<td>38</td>
+<td>1</td>
+<td>349</td>
+<td>450</td>
+<td>−101</td>
+</tr>
+</tbody>
+</table></div>
+<figure><img alt="Die zwei Geraden des Neurons laufen im Hochsommer weiter nach oben, während die acht neuen Tage waagerecht bei etwa 350 Kugeln liegen." src="bilder/10-hochsommer.png" loading="lazy"></figure>
+<p>Bei rund 350 Kugeln ist Schluss, mehr schafft der Eisverkäufer an einem Tag nicht. Unser Neuron merkt davon nichts: Es sagt weiter steigende Verkäufe voraus und liegt auf den neuen Tagen im Mittel um 45 Kugeln daneben, am heißesten Tag (38 °C, Wochenende) sogar um 101.</p>
+<p>Vielleicht fehlt nur neues Training? Lernt das Neuron noch einmal mit allen 18 Tagen, ergibt sich etwa <code>7,4 · Temperatur + 25,1 · Wochenende + 81,9</code>. Die Hochsommertage passen dann besser, dafür passen die anderen schlechter. Das Problem bleibt, denn eine Gerade kann nicht erst steigen und dann stehen bleiben.</p>
+<p>Versuchen wir es mit zwei Neuronen, deren Ausgaben wir voneinander abziehen. Beide bekommen Temperatur und Wochenende als Inputs, die Werte setzen wir vorerst von Hand:</p>
+<pre><code class="language-text">Neuron A = 10 · Temperatur + 50 · Wochenende + 20
+Neuron B = 10 · Temperatur + 50 · Wochenende − 330
+Ergebnis = A − B
+</code></pre>
+<p>Ohne Knick passiert etwas Ernüchterndes: Temperatur und Wochenende fallen beim Abziehen heraus, und es bleibt immer dieselbe Zahl übrig. Zwei Geraden ergeben zusammen wieder nur eine Gerade, egal wie viele Neuronen wir verwenden. Mit Knick entsteht dagegen genau die gesuchte Form:</p>
+<div class="tabelle"><table>
+<thead>
+<tr>
+<th>Tag</th>
+<th>Temperatur (°C)</th>
+<th>Ohne Knick: A</th>
+<th>Ohne Knick: B</th>
+<th>Ohne Knick: A − B</th>
+<th>Mit Knick: A</th>
+<th>Mit Knick: B</th>
+<th>Mit Knick: A − B</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Werktag</td>
+<td>−10</td>
+<td>−80</td>
+<td>−430</td>
+<td>350</td>
+<td>0</td>
+<td>0</td>
+<td><strong>0</strong></td>
+</tr>
+<tr>
+<td>Werktag</td>
+<td>20</td>
+<td>220</td>
+<td>−130</td>
+<td>350</td>
+<td>220</td>
+<td>0</td>
+<td><strong>220</strong></td>
+</tr>
+<tr>
+<td>Werktag</td>
+<td>33</td>
+<td>350</td>
+<td>0</td>
+<td>350</td>
+<td>350</td>
+<td>0</td>
+<td><strong>350</strong></td>
+</tr>
+<tr>
+<td>Werktag</td>
+<td>35</td>
+<td>370</td>
+<td>20</td>
+<td>350</td>
+<td>370</td>
+<td>20</td>
+<td><strong>350</strong></td>
+</tr>
+<tr>
+<td>Samstag</td>
+<td>28</td>
+<td>350</td>
+<td>0</td>
+<td>350</td>
+<td>350</td>
+<td>0</td>
+<td><strong>350</strong></td>
+</tr>
+<tr>
+<td>Samstag</td>
+<td>35</td>
+<td>420</td>
+<td>70</td>
+<td>350</td>
+<td>420</td>
+<td>70</td>
+<td><strong>350</strong></td>
+</tr>
+</tbody>
+</table></div>
+<figure><img alt="Links ergibt die Differenz zweier Geraden an jedem Tag eine waagerechte Gerade bei 350. Rechts ergibt die Differenz zweier geknickter Linien Kurven, die erst bei 0 liegen, dann steigen und bei 350 stehen bleiben, am Wochenende früher als am Werktag." src="bilder/11-zwei-knicke.png" loading="lazy"></figure>
+<p>Die Kurven treffen jetzt die beobachteten Tage, und das Wochenende verschiebt sie dabei nach links: Am Wochenende ist das Limit schon bei 28 °C erreicht, am Werktag erst bei 33 °C. Auf allen 18 Tagen zeigt sich der Unterschied deutlich:</p>
+<div class="tabelle"><table>
+<thead>
+<tr>
+<th>Modell</th>
+<th>Im Mittel daneben</th>
+<th>Davon Hochsommertage</th>
+<th>Mittlerer quadratischer Fehler</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Neuron aus Abschnitt 8</td>
+<td>22,7 Kugeln</td>
+<td>44,8 Kugeln</td>
+<td>1395,3</td>
+</tr>
+<tr>
+<td>Neuron, mit 18 Tagen neu gelernt</td>
+<td>15,4 Kugeln</td>
+<td>16,5 Kugeln</td>
+<td>382,8</td>
+</tr>
+<tr>
+<td>Zwei Neuronen mit Knick, von Hand gesetzt</td>
+<td>3,8 Kugeln</td>
+<td>2,2 Kugeln</td>
+<td>19,8</td>
+</tr>
+</tbody>
+</table></div>
+<p>Jedes Neuron bringt seinen eigenen Knick an einer anderen Stelle mit. Mit genügend Knicken lässt sich fast jede Kurve annähern, so wie man einen Kreis aus vielen kurzen Geraden zeichnen kann. <strong>Erst der Knick macht aus vielen Neuronen mehr als eine einzige Gerade.</strong></p>
+<p>Neben ReLU gibt es weitere Aktivierungsfunktionen, etwa die S-förmige Sigmoid-Funktion, die Werte sanft zwischen 0 und 1 begrenzt. Die Aufgabe ist immer dieselbe: Sie bringt etwas Nichtlineares ins Neuron.</p>
+<aside class="labor-hinweis">
+  <span class="symbol"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h10M4 17h6M18 7h2M14 17h6"/><circle cx="16" cy="7" r="2"/><circle cx="12" cy="17" r="2"/></svg></span>
+  <div><strong>Ausprobieren: Neuron mit Knick</strong><span>Den Knick ein- und ausschalten, die Hochsommertage einblenden und ein totes Neuron erzeugen.</span></div>
+  <a class="knopf primaer" href="app/labor-1.html#neuron">Zum Labor</a>
+</aside></section><section id="10-vom-neuron-zum-netz"><h2>10. Vom Neuron zum Netz</h2>
+<p>Eigentlich haben wir in Abschnitt 9 schon ein neuronales Netz gebaut. Das Abziehen ist nämlich selbst ein Neuron: Es hat die Ausgaben von A und B als Inputs, die Weights +1 und −1 und den Bias 0. Zusammen sind das drei Neuronen in zwei Schichten. Die Eingabe davor zählt nicht als Schicht mit Neuronen, sie reicht nur die Werte weiter.</p>
+<p>Die Abbildung zeigt die Rechnung für einen Samstag mit 35 °C. Man liest sie von links nach rechts:</p>
+<figure><img alt="Ein kleines Netz in drei Spalten. Links die Eingaben Temperatur 35 und Wochenende 1. In der Mitte Neuron A mit Bias 20 und dem Ergebnis 420 sowie Neuron B mit Bias minus 330 und dem Ergebnis 70. Rechts die Ausgabe mit Bias 0 und plus 1 mal 420 minus 1 mal 70 plus 0 gleich 350." src="bilder/12-netz.png" loading="lazy"></figure>
+<ol>
+<li><strong>Eingabe:</strong> Temperatur und Wochenende gehen beide an jedes der zwei Neuronen, deshalb die vier Pfeile.</li>
+<li><strong>Verborgene Schicht:</strong> Jedes Neuron rechnet für sich: jeden Input mal sein Weight, alles addieren, seinen eigenen Bias dazu, danach kommt der Knick (das kleine Symbol im Kreis). Hier sind beide Summen positiv, der Knick ändert also nichts.</li>
+<li><strong>Ausgabe:</strong> Sie nimmt 420 von A und zieht wegen des Weights −1 die 70 von B ab. Ihr Bias ist 0, es kommt also nichts dazu. Übrig bleiben 350.</li>
+</ol>
+<p>Wie das Limit von 350 entsteht, sieht man erst im Vergleich mehrerer Temperaturen. Neuron A rechnet die bekannte Vorhersage aus Abschnitt 6. Neuron B bleibt stumm, bis diese Vorhersage 350 erreicht, und zieht danach genau das ab, was A noch dazugewinnt:</p>
+<div class="tabelle"><table>
+<thead>
+<tr>
+<th>Tag</th>
+<th>Temperatur (°C)</th>
+<th>Neuron A</th>
+<th>Neuron B</th>
+<th>Ausgabe</th>
+<th>Was passiert</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Werktag</td>
+<td>−10</td>
+<td>−80, Knick macht 0</td>
+<td>−430, Knick macht 0</td>
+<td>0</td>
+<td>Beide Neuronen sind stumm.</td>
+</tr>
+<tr>
+<td>Werktag</td>
+<td>20</td>
+<td>220</td>
+<td>−130, Knick macht 0</td>
+<td>220</td>
+<td>Nur A arbeitet, die Linie steigt.</td>
+</tr>
+<tr>
+<td>Samstag</td>
+<td>35</td>
+<td>420</td>
+<td>70</td>
+<td>350</td>
+<td>B zieht den Überschuss wieder ab.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Ein neuronales Netz ist also nichts weiter als viele Neuronen, bei denen die Ausgaben der einen Schicht die Inputs der nächsten sind:</p>
+<ul>
+<li>Die <strong>Eingabe</strong> nimmt die Daten entgegen.</li>
+<li>Die <strong>verborgenen Schichten</strong> (englisch Hidden Layers) liegen dazwischen. Hier sitzen die Knicke, und von „Deep Learning“ spricht man, wenn es viele solcher Schichten sind.</li>
+<li>Die <strong>Ausgabe</strong> liefert die Vorhersage. Soll sie eine Zahl sein, bekommt sie meist keinen Knick, damit sie jeden Wert ausgeben kann. Das Neuron mit Knick am Ausgang aus Abschnitt 9 diente nur der Anschauung.</li>
+</ul>
+<h3 id="wie-lernt-ein-netz-backpropagation">Wie lernt ein Netz? Backpropagation</h3>
+<p>Einen Fehler gibt es nur am Ende des Netzes, die Neuronen in der Mitte haben keinen eigenen Zielwert. Trotzdem brauchen wir auch für ihre Weights eine Steigung. Die Lösung heißt <strong>Backpropagation</strong>: Das Netz reicht den Fehler von hinten nach vorne durch. Die Formel aus Abschnitt 5 bekommt dafür nur einen zusätzlichen Faktor, nämlich das Weight auf dem Weg zur Ausgabe (hier für einen einzelnen Tag):</p>
+<pre><code class="language-text">Steigung für ein inneres Weight = −2 · Fehler · Ausgabe-Weight · Input
+</code></pre>
+<p>Ein Beispiel: An einem Samstag mit 35 °C wäre 350 richtig, das Temperatur-Weight von Neuron B steht aber fälschlich auf 9 statt 10. Dann ist A = 420, B = 35, die Ausgabe 385 und der Fehler −35. Für die beiden Temperatur-Weights (Input 35) folgt daraus:</p>
+<pre><code class="language-text">Steigung für das Weight von A = −2 · (−35) · (+1) · 35 = +2450, das Weight wird kleiner
+Steigung für das Weight von B = −2 · (−35) · (−1) · 35 = −2450, das Weight wird größer
+</code></pre>
+<p>Das passt: Die Ausgabe ist zu hoch, also soll weniger von A und mehr vom abgezogenen B ankommen. Das Vorzeichen des Ausgabe-Weights sorgt dafür, dass jedes Neuron die richtige Richtung erfährt. Bei einem abgeschnittenen Neuron ist die Steigung wie gesehen 0, und bei mehr Schichten kommt je Schicht ein weiterer Faktor hinzu (die Kettenregel aus der Mathematik). Danach läuft alles wie gehabt: Gradientenabstieg, Schritt für Schritt bergab.</p>
+<h3 id="warum-netze-mit-zufallswerten-starten">Warum Netze mit Zufallswerten starten</h3>
+<p>Ein Netz startet nicht bei 0, sondern mit Zufallswerten, und zwar aus zwei Gründen. Bei 0 wären die Neuronen von Anfang an tot, wie in Abschnitt 9 gesehen. Und würden alle Neuronen gleich starten, bekämen sie immer dieselben Steigungen und blieben für immer Kopien voneinander. Erst der Zufall gibt jedem Neuron seine eigene Aufgabe.</p>
+<p>Bisher haben wir die Werte des Netzes von Hand gesetzt. Jetzt soll es sie aus den 18 Tagen selbst lernen. Wir probieren das mit 20 verschiedenen Zufallsstarts und je 30000 Schritten, Inputs und Verkaufszahlen sind dafür wie in Abschnitt 5 auf eine ähnliche Größenordnung umgerechnet:</p>
+<div class="tabelle"><table>
+<thead>
+<tr>
+<th>Ergebnis nach dem Training</th>
+<th>Starts</th>
+<th>Mittlerer quadratischer Fehler</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>So gut wie von Hand oder besser</td>
+<td>4</td>
+<td>18 bis 19</td>
+</tr>
+<tr>
+<td>Zwischenlösung</td>
+<td>5</td>
+<td>56 bis 197</td>
+</tr>
+<tr>
+<td>Kaum besser als ein einzelnes Neuron oder schlechter</td>
+<td>7</td>
+<td>378 bis 1096</td>
+</tr>
+<tr>
+<td>Tote Neuronen, nur eine waagerechte Linie</td>
+<td>4</td>
+<td>4082</td>
+</tr>
+</tbody>
+</table></div>
+<p>Zum Vergleich: Die von Hand gesetzten Werte kommen auf 19,8, ein einzelnes Neuron auf 382,8. Das Netz kann die Kurve also tatsächlich selbst aus den Daten lernen, allerdings nicht bei jedem Start. Anders als bei der Geraden aus Abschnitt 4 gibt es hier nicht mehr nur ein Tal, und welches das Netz erreicht, hängt vom Start ab. Große Netze kommen damit deutlich besser zurecht als unser Mini-Netz, weil sie viel mehr Neuronen haben, als sie streng genommen bräuchten, und mit verbesserten Varianten des Gradientenabstiegs trainiert werden.</p>
+<h3 id="der-test-an-neuen-tagen">Der Test an neuen Tagen</h3>
+<p>Auch für das Netz gilt die Regel aus Abschnitt 7. Deshalb sortieren wir die Tage nach Temperatur und legen jeden dritten beiseite, damit auch Hochsommertage dabei sind. Wir lernen nur mit den übrigen 12 Tagen und prüfen danach an den 6 unbekannten. Vom Netz nehmen wir den besten von 20 Starts, ausgewählt nur nach dem Trainingsfehler:</p>
+<div class="tabelle"><table>
+<thead>
+<tr>
+<th>Modell</th>
+<th>Fehler auf den Trainingstagen</th>
+<th>Fehler auf neuen Tagen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Einzelnes Neuron</td>
+<td>277</td>
+<td>605</td>
+</tr>
+<tr>
+<td>Netz mit Knick</td>
+<td>12</td>
+<td>74</td>
+</tr>
+</tbody>
+</table></div>
+<p>Das Netz ist also auch an Tagen besser, die es nie gesehen hat. Es hat den Zusammenhang gelernt und die Tage nicht nur auswendig. Der Abstand zwischen 12 und 74 zeigt aber auch, warum man nie nur den Trainingsfehler ansieht. Mit nur 6 Testtagen ist das außerdem eine grobe Prüfung, bei echten Daten nimmt man deutlich mehr.</p>
+<aside class="labor-hinweis">
+  <span class="symbol"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h10M4 17h6M18 7h2M14 17h6"/><circle cx="16" cy="7" r="2"/><circle cx="12" cy="17" r="2"/></svg></span>
+  <div><strong>Ausprobieren: Kleines Netz</strong><span>Alle neun Parameter einstellen oder das Netz mit Zufallsstarts selbst lernen lassen.</span></div>
+  <a class="knopf primaer" href="app/labor-1.html#netz">Zum Labor</a>
+</aside></section><section id="das-wichtigste-in-kürze" class="kurz"><h2>Das Wichtigste in Kürze</h2>
+<ul>
+<li>Eine lineare Regression sagt mit einer Geraden aus einer Beobachtung eine Zahl voraus.</li>
+<li>Das <strong>Weight</strong> ist die Steigung, der <strong>Bias</strong> der Grundwert.</li>
+<li>Der <strong>mittlere quadratische Fehler</strong> misst, wie gut die Linie passt. Lernen heißt, ihn so klein wie möglich zu machen.</li>
+<li>Quadrate verhindern, dass sich Fehler aufheben, bestrafen grobe Fehler stärker und liefern eine glatte Kurve mit klarer Richtung.</li>
+<li>Der <strong>Gradientenabstieg</strong> minimiert den Fehler: Steigung messen, mit der <strong>Lernrate</strong> ein Stück bergab gehen, wiederholen.</li>
+<li>Jede weitere Beobachtung bekommt ein eigenes Weight.</li>
+<li>Beim <strong>Training</strong> ändern sich die Parameter, bei der <strong>Anwendung</strong> bleiben sie fest.</li>
+<li>Ein Modell wird an Daten geprüft, die es nicht kennt. Sonst bleibt <strong>Überanpassung</strong> unentdeckt.</li>
+<li>Ein <strong>Neuron</strong> ist genau diese Rechnung: Inputs gewichten, addieren, Bias dazuzählen, durch die Aktivierungsfunktion geben.</li>
+<li>Die <strong>Aktivierungsfunktion</strong> ist der Knick: Ohne sie ergeben auch viele Neuronen zusammen nur eine Gerade (bei mehreren Inputs eine Ebene).</li>
+<li>Ein <strong>neuronales Netz</strong> besteht aus Schichten von Neuronen. <strong>Backpropagation</strong> reicht den Fehler von hinten nach vorne durch, damit auch innere Weights lernen.</li>
+</ul>
+</section><section id="wie-es-weitergeht"><h2>Wie es weitergeht</h2>
+<p>Große Modelle unterscheiden sich von unserem Mini-Netz vor allem in der Größe, nicht im Grundprinzip. Große Sprachmodelle haben viele Milliarden Parameter statt unserer neun, gelernt wird aber auch dort mit Fehler, Gradient und Lernrate. Zwei Dinge kommen noch dazu:</p>
+<ul>
+<li><strong>Klassifikation:</strong> Statt einer Zahl sagt das Netz eine Wahrscheinlichkeit voraus, zum Beispiel „Regnet es morgen?“. Dafür nutzt man am Ausgang etwa die Sigmoid-Funktion und eine andere Verlustfunktion.</li>
+<li><strong>Texte und Bilder:</strong> Netze rechnen nur mit Zahlen. Wie beim Wochenende muss deshalb auch alles andere zuerst in Zahlen übersetzt werden.</li>
+</ul>
+<p>Wie das bei Text funktioniert und wie daraus ein großes Sprachmodell wird, zeigt <a href="kapitel-2.html">Kapitel 2: Tokenizer und große Sprachmodelle</a>.</p>
+</section><section id="selbst-ausprobieren"><h2>Selbst ausprobieren</h2>
+<p>Zum Spielen mit Weights und Bias gibt es eine interaktive Seite: <a href="app/labor-1.html">Labor 1</a>. Sie braucht keine Bibliotheken, läuft auch ohne Internet und lässt sich direkt im Browser öffnen. Die ganze Webseite des Workshops mit beiden Kapiteln und Laboren lässt sich auch lokal starten, etwa mit <code>python3 -m http.server --directory docs</code>. In vier Schritten lassen sich dort die Gerade verschieben, der Gradientenabstieg mit verschiedenen Lernraten beobachten, das Neuron mit Knick einstellen und das kleine Netz von Hand setzen oder mit Zufallsstarts trainieren.</p>
+<p>Das Skript rechnet das gesamte Beispiel nach und erzeugt alle Grafiken neu. Der Lauf dauert etwa eine halbe Minute. Dafür wird <a href="https://docs.astral.sh/uv/">uv</a> benötigt:</p>
+<pre><code class="language-bash">uv run docs/beispiele/01_eisverkaeufer.py
+</code></pre>
+<p>Die Daten stehen am Anfang von <a href="beispiele/01_eisverkaeufer.py"><code>beispiele/01_eisverkaeufer.py</code></a> und können dort geändert werden. Die Weights und der Bias werden dann neu berechnet. Fest eingetragen sind die Beispielrechnung im Neuron-Bild, die von Hand gesetzten Werte der Neuronen A und B, die Lernraten sowie einige Titel, Beschriftungen und Achsenbereiche der Grafiken. Sie müssen dann eventuell mit angepasst werden.</p></section>
+    <nav class="blaettern" aria-label="Weitere Kapitel"><a class="weiter" href="kapitel-2.html"><small>Kapitel 2 →</small>Tokenizer und große Sprachmodelle</a></nav>
+  </article>
+</div>
+</main>
+<footer class="fuss"><div class="huelle">
+  <span>KI-Workshop: vom Eisverkäufer zum Sprachmodell. Alle Daten im Beispiel sind erfunden.</span>
+  <span><a href="index.html">Startseite</a> · <a href="kapitel-1.html">Kapitel 1</a> · <a href="kapitel-2.html">Kapitel 2</a> · <a href="app/labor-1.html">Labor 1</a> · <a href="app/labor-2.html">Labor 2</a></span>
+</div></footer>
+<script src="assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KI-Workshop: Vom Eisverkäufer zum Sprachmodell</title>
+<meta name="description" content="Neuronale Netze und große Sprachmodelle an einem durchgehenden Beispiel erklärt, mit Laboren zum Ausprobieren.">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/leiste.css">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<!-- Erzeugt von werkzeuge/seite_bauen.py, bitte nicht von Hand ändern. -->
+<div class="fortschritt" aria-hidden="true"><div></div></div>
+<header class="leiste"><div class="leiste-innen">
+  <a class="marke" href="index.html" aria-label="KI-Workshop, zur Startseite"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.5 11.5h11L12 23z" fill="#eb6834"/><circle cx="12" cy="8" r="6.2" fill="#2a78d6"/><path d="M8.6 9.3 12 5.4l3.4 3.9M8.6 9.3h6.8" stroke="#fff" stroke-width="0.9" fill="none" stroke-linejoin="round"/><circle cx="12" cy="5.4" r="1.35" fill="#fff"/><circle cx="8.6" cy="9.3" r="1.35" fill="#fff"/><circle cx="15.4" cy="9.3" r="1.35" fill="#fff"/></svg><span>KI-Workshop</span></a>
+  <nav aria-label="Workshop"><a href="kapitel-1.html">Kapitel 1</a><a href="kapitel-2.html">Kapitel 2</a><span class="trenner"></span><a href="app/labor-1.html">Labor 1</a><a href="app/labor-2.html">Labor 2</a></nav>
+</div></header>
+<main>
+<section class="held"><div class="huelle">
+  <div>
+    <p class="augenbraue">KI-Workshop</p>
+    <h1>Vom Eisverkäufer zum Sprachmodell</h1>
+    <p class="lead">Wie neuronale Netze und große Sprachmodelle funktionieren: an einem durchgehenden Beispiel erklärt, mit Zahlen zum Nachrechnen und Laboren zum Ausprobieren.</p>
+    <div class="aktionen"><a class="knopf primaer" href="kapitel-1.html">Mit Kapitel 1 beginnen</a><a class="knopf" href="#labore">Direkt ausprobieren</a></div>
+  </div>
+  <svg viewBox="0 0 320 360" role="img" aria-label="Eine Eiswaffel, deren Kugeln als kleines neuronales Netz verbunden sind">
+  <defs><linearGradient id="waffel" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#f2b27a"/><stop offset="1" stop-color="#e08a4a"/></linearGradient></defs>
+  <path d="M92 196 H228 L160 346 Z" fill="url(#waffel)"/>
+  <path d="M110 196 L178 306 M146 196 L196 266 M182 196 L212 230 M210 196 L142 306 M174 196 L124 266 M138 196 L108 230" stroke="#c8733a" stroke-width="2" opacity="0.6"/>
+  <g style="stroke:var(--text2)" stroke-width="2" opacity="0.55">
+    <line x1="24" y1="96" x2="112" y2="158"/><line x1="24" y1="96" x2="208" y2="158"/>
+    <line x1="24" y1="214" x2="112" y2="158"/><line x1="24" y1="214" x2="208" y2="158"/>
+    <line x1="112" y1="158" x2="160" y2="78"/><line x1="208" y1="158" x2="160" y2="78"/>
+    <line x1="160" y1="78" x2="296" y2="78"/>
+  </g>
+  <rect x="6" y="78" width="36" height="36" rx="8" style="fill:var(--surface);stroke:var(--axis)" stroke-width="2"/>
+  <rect x="6" y="196" width="36" height="36" rx="8" style="fill:var(--surface);stroke:var(--axis)" stroke-width="2"/>
+  <circle cx="112" cy="158" r="50" fill="#2a78d6"/>
+  <circle cx="208" cy="158" r="50" fill="#5598e7"/>
+  <circle cx="160" cy="78" r="52" fill="#eb6834"/>
+  <polyline points="94,170 112,170 130,148" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="190,170 208,170 226,148" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="160" y="86" text-anchor="middle" fill="#fff" font-size="26" font-weight="700" font-family="system-ui, sans-serif">350</text>
+  <circle cx="296" cy="78" r="10" style="fill:var(--surface);stroke:var(--axis)" stroke-width="2"/>
+</svg>
+</div></section>
+
+<div class="huelle">
+  <section class="bereich">
+    <h2>Die Kapitel</h2>
+    <p class="bereich-sub">Beide Kapitel bauen aufeinander auf. Kapitel 1 kommt ohne Vorwissen aus, Kapitel 2 nutzt die Begriffe aus Kapitel 1.</p>
+    <div class="kapitelkarten"><article class="karte">
+  <div class="karte-bild"><img src="bilder/11-zwei-knicke.png" alt="" loading="lazy"></div>
+  <div class="karte-text">
+    <p class="augenbraue">Kapitel 1</p>
+    <h3>Neuronale Netze: Grundlagen</h3>
+    <p>Von der Geraden durch die Verkaufszahlen über Fehler, Gradientenabstieg und den Knick bis zum kleinen Netz, das selbst lernt.</p>
+    <ul class="chips"><li>Lineare Regression</li><li>Weight und Bias</li><li>Quadratischer Fehler</li><li>Gradientenabstieg</li><li>Überanpassung</li><li>Aktivierungsfunktion</li><li>Backpropagation</li></ul>
+    <p class="meta">etwa 25 Minuten Lesezeit</p>
+    <div class="aktionen"><a class="knopf primaer" href="kapitel-1.html">Kapitel lesen</a><a class="knopf" href="app/labor-1.html">Labor 1</a></div>
+  </div>
+</article><article class="karte">
+  <div class="karte-bild"><img src="bilder/kapitel-2/01-tokens.png" alt="" loading="lazy"></div>
+  <div class="karte-text">
+    <p class="augenbraue">Kapitel 2</p>
+    <h3>Tokenizer und große Sprachmodelle</h3>
+    <p>Wie Text zu Zahlen wird, was Embeddings und Attention leisten, warum größere Modelle besser werden und wo ihre Grenzen liegen.</p>
+    <ul class="chips"><li>Nächstes Token</li><li>Kreuzentropie</li><li>Tokenizer</li><li>tiktoken</li><li>Embeddings</li><li>Attention</li><li>Transformer</li><li>Skalierung</li><li>Temperatur</li></ul>
+    <p class="meta">etwa 15 Minuten Lesezeit</p>
+    <div class="aktionen"><a class="knopf primaer" href="kapitel-2.html">Kapitel lesen</a><a class="knopf" href="app/labor-2.html">Labor 2</a></div>
+  </div>
+</article></div>
+  </section>
+
+  <section class="bereich">
+    <h2>So ist der Workshop aufgebaut</h2>
+    <p class="bereich-sub">Statt vieler kleiner Beispiele gibt es eine Geschichte, die von der ersten Geraden bis zum Sprachmodell trägt.</p>
+    <div class="merkmale">
+      <div class="merkmal"><div class="symbol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--blue)"><path d="M7 10h10L12 22z"/><circle cx="12" cy="7" r="5"/></svg></div><h3>Ein Beispiel, das trägt</h3><p>Ein Eisverkäufer will wissen, wie viel Eis er braucht. An seinen Daten entstehen Gerade, Neuron und Netz, und auch das Sprachmodell knüpft daran an.</p></div>
+      <div class="merkmal"><div class="symbol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--blue)"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 12h2M14 12h2M8 16h2M14 16h2"/></svg></div><h3>Jede Zahl nachrechenbar</h3><p>Zu jedem Kapitel gibt es ein Python-Skript, das alle Zahlen und Grafiken erzeugt. Nichts ist geschätzt oder von Hand eingetragen.</p></div>
+      <div class="merkmal"><div class="symbol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--blue)"><path d="M4 7h10M4 17h6M18 7h2M14 17h6"/><circle cx="16" cy="7" r="2"/><circle cx="12" cy="17" r="2"/></svg></div><h3>Labore zum Anfassen</h3><p>Regler verschieben, Schritte bergab gehen, Tokens ansehen. Die Labore laufen im Browser, auch ohne Internetverbindung.</p></div>
+    </div>
+  </section>
+
+  <section class="bereich" id="labore">
+    <h2>Die Labore</h2>
+    <p class="bereich-sub">Interaktive Seiten zu den Kapiteln, gedacht zum gemeinsamen Ausprobieren im Workshop.</p>
+    <div class="laborkarten"><a class="laborkarte" href="app/labor-1.html"><img src="bilder/labor-1.png" alt="" loading="lazy"><div><h3>Labor 1: Neuronale Netze</h3><p>Gerade verschieben, bergab lernen, den Knick einschalten und ein kleines Netz trainieren.</p></div></a><a class="laborkarte" href="app/labor-2.html"><img src="bilder/labor-2.png" alt="" loading="lazy"><div><h3>Labor 2: Tokens und Temperatur</h3><p>Echte Zerlegungen von tiktoken ansehen und die Temperatur beim Ziehen des nächsten Tokens verstellen.</p></div></a></div>
+  </section>
+
+  <section class="start-anleitung">
+    <h2>Selbst nachrechnen</h2>
+    <p>Die Skripte brauchen nur <a href="https://docs.astral.sh/uv/">uv</a>, die Abhängigkeiten installiert uv selbst:</p>
+    <div class="text"><pre><code>uv run docs/beispiele/01_eisverkaeufer.py
+uv run docs/beispiele/02_tokenizer.py "Drei Kugeln Vanille, bitte."</code></pre></div>
+  </section>
+</div>
+</main>
+<footer class="fuss"><div class="huelle">
+  <span>KI-Workshop: vom Eisverkäufer zum Sprachmodell. Alle Daten im Beispiel sind erfunden.</span>
+  <span><a href="index.html">Startseite</a> · <a href="kapitel-1.html">Kapitel 1</a> · <a href="kapitel-2.html">Kapitel 2</a> · <a href="app/labor-1.html">Labor 1</a> · <a href="app/labor-2.html">Labor 2</a></span>
+</div></footer>
+<script src="assets/site.js"></script>
+</body>
+</html>

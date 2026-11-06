@@ -1,0 +1,55 @@
+/* Gemeinsame Kopfzeile für Kapitel und Labore */
+.leiste {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  backdrop-filter: saturate(1.4) blur(10px);
+  -webkit-backdrop-filter: saturate(1.4) blur(10px);
+  border-bottom: 1px solid var(--grid);
+}
+.leiste-innen {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 16px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.marke {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-weight: 700;
+  font-size: 15.5px;
+  color: var(--text);
+  text-decoration: none;
+  white-space: nowrap;
+  flex: none;
+}
+.marke svg { width: 24px; height: 24px; display: block; }
+.leiste nav {
+  display: flex;
+  gap: 2px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  margin-left: auto;
+}
+.leiste nav::-webkit-scrollbar { display: none; }
+.leiste nav a {
+  color: var(--text2);
+  text-decoration: none;
+  font-size: 14px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+.leiste nav a:hover { color: var(--text); background: var(--wash); }
+.leiste nav a[aria-current="page"] { color: var(--text); background: var(--wash); font-weight: 600; }
+.leiste nav .trenner { width: 1px; background: var(--grid); margin: 6px 6px; flex: none; }
+@media (max-width: 640px) {
+  .leiste-innen { gap: 10px; }
+  .marke span { display: none; }
+  .leiste nav { margin-left: 0; }
+}
