@@ -247,9 +247,9 @@ Aus dem, was ein Sprachmodell lernt, folgen auch seine typischen Schwächen.
 
 ## Selbst ausprobieren
 
-Die interaktive Seite [Labor 2](app/labor-2.html) zeigt alle Beispiele aus Abschnitt 3 mit beiden Tokenizern und lässt die Temperatur aus Abschnitt 8 frei einstellen. Wie die Seite zu Kapitel 1 läuft sie ohne Internet und ohne Server.
+In [Labor 2](app/labor-2.html) lässt sich beliebiger Text eintippen und sofort mit beiden Tokenizern zerlegen. Dort arbeitet js-tiktoken, eine Umsetzung von tiktoken für den Browser, die exakt dieselben Tokens liefert. Außerdem enthält das Labor alle Beispiele aus Abschnitt 3 und die Temperatur aus Abschnitt 8 zum freien Einstellen. Wie die Seite zu Kapitel 1 läuft es ohne Internet und ohne Server.
 
-Das Skript zerlegt auch eigene Texte. Dafür wird wieder [uv](https://docs.astral.sh/uv/) benötigt. Beim ersten Start lädt tiktoken die Vokabulare aus dem Internet und speichert sie, danach geht es auch offline. Für einen Workshop sollte man es deshalb vorher einmal starten.
+Auch das Skript zerlegt eigene Texte. Dafür wird wieder [uv](https://docs.astral.sh/uv/) benötigt. Beim ersten Start lädt tiktoken die Vokabulare aus dem Internet und speichert sie, danach geht es auch offline. Für einen Workshop sollte man es deshalb vorher einmal starten.
 
 ```bash
 uv run docs/beispiele/02_tokenizer.py "Drei Kugeln Vanille, bitte."

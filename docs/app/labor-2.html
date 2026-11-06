@@ -99,7 +99,13 @@
 
   .titel { font-size: 15px; font-weight: 600; margin: 0 0 2px; }
   .titel-sub { font-size: 13px; color: var(--text2); margin: 0 0 12px; }
-  .originaltext { font-size: 17px; margin: 0 0 14px; overflow-wrap: anywhere; }
+  textarea { display: block; width: 100%; min-height: 84px; resize: vertical; font: 17px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; color: var(--text); background: var(--page); border: 1px solid var(--axis); border-radius: 10px; padding: 10px 12px; margin: 0 0 12px; }
+  textarea:focus { outline: 2px solid var(--blue); outline-offset: 1px; border-color: transparent; }
+  .beispiel-hinweis { font-size: 14px; color: var(--text2); margin: 0 0 14px; min-height: 0; }
+  .beispiel-hinweis:empty { display: none; }
+  .status-live { color: var(--text2); }
+  .status-live::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--muted); margin-right: 7px; vertical-align: 1px; }
+  .status-live.an::before { background: #0ca30c; }
   .tokens { display: flex; flex-wrap: wrap; gap: 6px 4px; }
   .token { display: inline-flex; flex-direction: column; align-items: center; border-radius: 6px; padding: 3px 6px 2px; background: var(--chip-a); }
   .token:nth-child(even) { background: var(--chip-b); }
@@ -139,7 +145,7 @@
 </div></div>
 <header>
   <h1>Tokens zum Anfassen</h1>
-  <p class="sub">Die Beispiele aus „Tokenizer und große Sprachmodelle“: wie ein echter Tokenizer Text zerlegt und wie die Temperatur die Wahl des nächsten Tokens verändert.</p>
+  <p class="sub">Zu „Tokenizer und große Sprachmodelle“: eigenen Text mit einem echten Tokenizer zerlegen und ausprobieren, wie die Temperatur die Wahl des nächsten Tokens verändert.</p>
   <nav class="tabs" role="tablist" aria-label="Themen">
     <button role="tab" id="t-tokens" aria-controls="p-tokens" data-tab="tokens"><span class="nr">1</span>Tokens</button>
     <button role="tab" id="t-temperatur" aria-controls="p-temperatur" data-tab="temperatur"><span class="nr">2</span>Temperatur</button>
@@ -152,7 +158,8 @@
       <div class="card intro">
         <h2>Tokens</h2>
         <p class="ref">Abschnitte 2 und 3 im Text</p>
-        <p>Der Tokenizer zerlegt Text in Stücke und gibt jedem eine Nummer. Die Zerlegungen stammen von tiktoken, dem Tokenizer von OpenAI. Das Zeichen ␣ steht für ein Leerzeichen.</p>
+        <p>Der Tokenizer zerlegt Text in Stücke und gibt jedem eine Nummer. Hier arbeitet derselbe Tokenizer wie in tiktoken von OpenAI, direkt im Browser. Eigener Text lässt sich einfach eintippen.</p>
+        <p>␣ steht für ein Leerzeichen, ↵ für einen Zeilenumbruch.</p>
       </div>
       <div class="card">
         <div class="gruppe">
@@ -162,7 +169,7 @@
           <label class="schalter"><input type="checkbox" id="k-ids" checked> <span>Nummern der Tokens zeigen</span></label>
         </div>
         <div class="gruppe">
-          <div class="gruppe-titel">Beispiel</div>
+          <div class="gruppe-titel">Beispiele</div>
           <div class="liste" id="k-liste"></div>
         </div>
       </div>
@@ -172,16 +179,18 @@
           <li>Die deutsche und die englische Bestellung vergleichen, mit beiden Tokenizern.</li>
           <li>Bei „Leerzeichen und Großschreibung“ nachsehen: Warum ist dasselbe Wort viermal anders zerlegt?</li>
           <li>Bei „Buchstaben zählen“ überlegen, was das Modell von „Erdbeere“ eigentlich sieht.</li>
-          <li>Eigene Sätze zerlegt das Skript: <code>uv run docs/beispiele/02_tokenizer.py "…"</code></li>
+          <li>Den eigenen Namen eintippen, einmal mit und einmal ohne Leerzeichen davor.</li>
+          <li>Einen Satz auf Deutsch und auf Englisch schreiben und die Tokens vergleichen.</li>
         </ul>
       </div>
     </div>
     <div class="haupt">
       <div class="stats" id="k-stats"></div>
       <div class="card">
-        <p class="titel" id="k-titel"></p>
-        <p class="titel-sub" id="k-hinweis"></p>
-        <p class="originaltext" id="k-text"></p>
+        <label class="titel" for="k-eingabe">Text</label>
+        <p class="titel-sub status-live" id="k-status" aria-live="polite">Der Tokenizer wird geladen …</p>
+        <textarea id="k-eingabe" rows="3" spellcheck="false"></textarea>
+        <p class="beispiel-hinweis" id="k-hinweis"></p>
         <div class="tokens" id="k-tokens"></div>
       </div>
       <div class="card">
@@ -235,7 +244,7 @@
 </main>
 
 <footer>
-  Die Zerlegungen hat das Skript <code>docs/beispiele/02_tokenizer.py</code> mit tiktoken berechnet. Die Seite läuft ohne Server und ohne Internetverbindung.
+  Eigene Texte zerlegt js-tiktoken direkt im Browser (MIT-Lizenz, siehe <a href="vendor/LIZENZ.txt">vendor/LIZENZ.txt</a>). Die Beispiele hat das Skript <code>docs/beispiele/02_tokenizer.py</code> vorab berechnet. Die Seite läuft ohne Server und ohne Internetverbindung.
 </footer>
 
 <script src="token-beispiele.js"></script>
@@ -253,7 +262,9 @@ function tokenHtml(stueck) {
   return esc(stueck)
     .replace(/ /g, "\u0000")
     .replace(/&lt;([0-9A-F]{2}(?: [0-9A-F]{2})*)&gt;/g, '<span class="bytes">&lt;$1&gt;</span>')
-    .replace(/\u0000/g, '<span class="leer">␣</span>');
+    .replace(/\u0000/g, '<span class="leer">␣</span>')
+    .replace(/\n/g, '<span class="leer">↵</span>')
+    .replace(/\t/g, '<span class="leer">⇥</span>');
 }
 
 // ---------- Tabs ----------
@@ -281,7 +292,10 @@ window.addEventListener("hashchange", () => zeigeTab(location.hash.slice(1)));
 
 // ---------- 1. Tokens ----------
 const NAMEN = Object.keys(DATEN.tokenizer);
-const K = { tokenizer: NAMEN[0], beispiel: 0 };
+const K = { tokenizer: NAMEN[0], text: DATEN.beispiele[0].text, live: null, fehler: false };
+const eingabe = $("#k-eingabe");
+eingabe.value = K.text;
+eingabe.addEventListener("input", () => { K.text = eingabe.value; zeichneTokens(); });
 
 function segment(el, optionen, aktiv, aendern) {
   const knoepfe = optionen.map(([wert, text]) => {
@@ -297,11 +311,11 @@ function segment(el, optionen, aktiv, aendern) {
 }
 
 segment($("#k-wahl"), NAMEN.map(n => [n, n]), K.tokenizer, v => { K.tokenizer = v; zeichneTokens(); });
-const listenKnoepfe = DATEN.beispiele.map((b, i) => {
+const listenKnoepfe = DATEN.beispiele.map(b => {
   const k = document.createElement("button");
   k.type = "button";
   k.textContent = b.titel;
-  k.addEventListener("click", () => { K.beispiel = i; zeichneTokens(); });
+  k.addEventListener("click", () => { K.text = b.text; eingabe.value = b.text; zeichneTokens(); });
   $("#k-liste").append(k);
   return k;
 });
@@ -315,22 +329,65 @@ $("#k-vergleich").innerHTML = `<table><thead><tr><th>Beispiel</th>${NAMEN.map(n 
   DATEN.beispiele.map(b => `<tr><td>${esc(b.titel)}</td>${NAMEN.map(n => `<td>${b[n].length}</td>`).join("")}</tr>`).join("")
 }</tbody></table>`;
 
+// Der echte Tokenizer (js-tiktoken) ist groß und wird deshalb erst nach dem ersten Bild geladen
+function tokenizerLaden() {
+  const skript = document.createElement("script");
+  skript.src = "vendor/tiktoken.js";
+  skript.onload = () => { K.live = window.TIKTOKEN; zeichneTokens(); };
+  skript.onerror = () => { K.fehler = true; zeichneTokens(); };
+  document.head.append(skript);
+}
+
+// Bytes eines Tokens wie im Python-Skript zeigen: gültige Zeichen als Text, angebrochene als <F0 9F 8D>
+const dekoder = new TextDecoder("utf-8", { fatal: true });
+function anzeige(bytes) {
+  for (let k = bytes.length; k >= 0; k--) {
+    try {
+      const vorne = dekoder.decode(bytes.slice(0, k));
+      if (k === bytes.length) return vorne;
+      return vorne + "<" + [...bytes.slice(k)].map(b => b.toString(16).toUpperCase().padStart(2, "0")).join(" ") + ">";
+    } catch (e) { /* kürzeres Stück versuchen */ }
+  }
+  return "";
+}
+
+function zerlegen(name, text) {
+  if (K.live) {
+    const enc = K.live.laden(name);
+    return enc.encode(text, [], []).map(id => [id, anzeige(enc.textMap.get(id))]);
+  }
+  const beispiel = DATEN.beispiele.find(b => b.text === text);
+  return beispiel ? beispiel[name] : null;
+}
+
+const MAX_ANZEIGE = 2000;
 function zeichneTokens() {
-  const b = DATEN.beispiele[K.beispiel];
-  const teile = b[K.tokenizer];
   const info = DATEN.tokenizer[K.tokenizer];
-  const zeichen = [...b.text].length;
-  listenKnoepfe.forEach((k, i) => k.setAttribute("aria-pressed", String(i === K.beispiel)));
+  const nummer = DATEN.beispiele.findIndex(b => b.text === K.text);
+  listenKnoepfe.forEach((k, i) => k.setAttribute("aria-pressed", String(i === nummer)));
   $("#k-info").textContent = `${zahl(info.vokabular)} Tokens im Vokabular, verwendet unter anderem für ${info.modell === "gpt-4o" ? "GPT-4o" : "GPT-4 und GPT-3.5"}.`;
-  $("#k-titel").textContent = b.titel;
-  $("#k-hinweis").textContent = b.hinweis;
-  $("#k-text").textContent = `„${b.text}“`;
-  const andere = NAMEN.filter(n => n !== K.tokenizer).map(n => `${n}: ${b[n].length}`).join(", ");
-  stat("tokens", String(teile.length), andere);
+  $("#k-hinweis").textContent = nummer >= 0 ? DATEN.beispiele[nummer].hinweis : "";
+  const status = $("#k-status");
+  status.classList.toggle("an", Boolean(K.live));
+  status.textContent = K.live ? "Live zerlegt mit js-tiktoken, direkt im Browser. Einfach tippen."
+    : K.fehler ? "Der Tokenizer konnte nicht geladen werden. Die Beispiele funktionieren trotzdem."
+    : "Der Tokenizer wird geladen … Die Beispiele funktionieren schon.";
+
+  const teile = zerlegen(K.tokenizer, K.text);
+  const zeichen = [...K.text].length;
   stat("zeichen", String(zeichen));
-  stat("proToken", zahl(zeichen / teile.length, 1));
-  $("#k-tokens").innerHTML = teile.map(([id, stueck]) =>
-    `<span class="token"><span class="stueck">${tokenHtml(stueck)}</span><span class="id">${id}</span></span>`).join("");
+  if (!teile) {
+    stat("tokens", "…", "sobald der Tokenizer geladen ist");
+    stat("proToken", "–");
+    $("#k-tokens").innerHTML = "";
+    return;
+  }
+  const andere = NAMEN.filter(n => n !== K.tokenizer).map(n => `${n}: ${zerlegen(n, K.text).length}`).join(", ");
+  stat("tokens", String(teile.length), andere);
+  stat("proToken", teile.length ? zahl(zeichen / teile.length, 1) : "–");
+  $("#k-tokens").innerHTML = teile.slice(0, MAX_ANZEIGE).map(([id, stueck]) =>
+    `<span class="token"><span class="stueck">${tokenHtml(stueck)}</span><span class="id">${id}</span></span>`).join("")
+    + (teile.length > MAX_ANZEIGE ? `<span class="hinweis">… und ${teile.length - MAX_ANZEIGE} weitere Tokens</span>` : "");
 }
 
 // ---------- 2. Temperatur ----------
@@ -396,6 +453,7 @@ function zeichneGezogen() {
 
 // ---------- Start ----------
 zeichneTokens();
+setTimeout(tokenizerLaden, 0);
 zeichneTemperatur();
 zeigeTab(location.hash.slice(1));
 </script>

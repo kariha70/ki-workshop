@@ -91,7 +91,7 @@ def tokens(enc, text):
     Tokens, die für sich kein vollständiges Zeichen sind, erscheinen als Bytes, etwa <F0 9F 8D>.
     """
     ergebnis = []
-    for token_id in enc.encode(text):
+    for token_id in enc.encode(text, disallowed_special=()):
         roh = enc.decode_single_token_bytes(token_id)
         try:
             anzeige = roh.decode("utf-8")
@@ -228,7 +228,7 @@ def main():
     print("\n   Deutsch gegen Englisch")
     for de, en in ((BEISPIELE[0][1], BEISPIELE[1][1]), (BEISPIELE[2][1], BEISPIELE[3][1])):
         for name, enc in kodierungen.items():
-            print(f"   {name}: Deutsch {len(enc.encode(de))} ({len(de)} Zeichen), Englisch {len(enc.encode(en))} ({len(en)} Zeichen)")
+            print(f"   {name}: Deutsch {len(tokens(enc, de))} ({len(de)} Zeichen), Englisch {len(tokens(enc, en))} ({len(en)} Zeichen)")
 
     print("\nAbschnitt 8: Temperatur (ausgedachte Punktzahlen nach „Zwei Kugeln Schokolade im“)")
     print("   Token          Punkte    " + "  ".join(f"T = {t:<4g}" for t in (0.5, 1, 2)))

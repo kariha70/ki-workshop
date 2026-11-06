@@ -1,0 +1,12 @@
+{
+  "name": "ki-workshop-tiktoken",
+  "private": true,
+  "description": "Baut docs/app/vendor/tiktoken.js: js-tiktoken mit den Vokabularen o200k_base und cl100k_base für Labor 2",
+  "scripts": {
+    "bauen": "esbuild eintrag.js --bundle --minify --format=iife --target=es2020 --legal-comments=inline \"--banner:js=/* js-tiktoken 1.0.21 mit o200k_base und cl100k_base, MIT-Lizenz: siehe LIZENZ.txt */\" --outfile=../../docs/app/vendor/tiktoken.js"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.8",
+    "js-tiktoken": "1.0.21"
+  }
+}

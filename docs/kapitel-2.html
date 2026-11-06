@@ -270,7 +270,7 @@
 <p><strong>Die Nummern bedeuten nichts.</strong> <code>␣Kug</code> hat die Nummer 110582, <code>␣bitte</code> die 49309. Diese Nummern sind nur Plätze in einer Liste, so wie die Wochentag-Nummern 1 bis 7 aus Kapitel 1. Dass 110582 größer ist als 49309, sagt nichts aus. Wie das Modell trotzdem mit Bedeutung rechnen kann, zeigt der nächste Abschnitt.</p>
 <aside class="labor-hinweis">
   <span class="symbol"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h10M4 17h6M18 7h2M14 17h6"/><circle cx="16" cy="7" r="2"/><circle cx="12" cy="17" r="2"/></svg></span>
-  <div><strong>Ausprobieren: Tokens</strong><span>Alle Beispiele mit beiden Tokenizern ansehen, Token für Token mit Nummer.</span></div>
+  <div><strong>Ausprobieren: Tokens</strong><span>Eigenen Text eintippen und live sehen, wie die Tokenizer von GPT-4o und GPT-4 ihn zerlegen.</span></div>
   <a class="knopf primaer" href="app/labor-2.html#tokens">Zum Labor</a>
 </aside></section><section id="4-bedeutung-als-zahlenliste-embeddings"><h2>4. Bedeutung als Zahlenliste: Embeddings</h2>
 <p>Beim Wochenende war die Lösung eine 0 oder 1. Für 200.000 Tokens hieße das: eine Liste mit 200.000 Stellen, von denen genau eine 1 ist. Das funktioniert, sagt aber nichts darüber aus, welche Tokens einander ähnlich sind. „Vanille“ wäre von „Schokolade“ genauso weit entfernt wie von „Steuererklärung“.</p>
@@ -401,8 +401,8 @@
 <li>Ein Sprachmodell erzeugt plausiblen Text, nicht zwingend wahren.</li>
 </ul>
 </section><section id="selbst-ausprobieren"><h2>Selbst ausprobieren</h2>
-<p>Die interaktive Seite <a href="app/labor-2.html">Labor 2</a> zeigt alle Beispiele aus Abschnitt 3 mit beiden Tokenizern und lässt die Temperatur aus Abschnitt 8 frei einstellen. Wie die Seite zu Kapitel 1 läuft sie ohne Internet und ohne Server.</p>
-<p>Das Skript zerlegt auch eigene Texte. Dafür wird wieder <a href="https://docs.astral.sh/uv/">uv</a> benötigt. Beim ersten Start lädt tiktoken die Vokabulare aus dem Internet und speichert sie, danach geht es auch offline. Für einen Workshop sollte man es deshalb vorher einmal starten.</p>
+<p>In <a href="app/labor-2.html">Labor 2</a> lässt sich beliebiger Text eintippen und sofort mit beiden Tokenizern zerlegen. Dort arbeitet js-tiktoken, eine Umsetzung von tiktoken für den Browser, die exakt dieselben Tokens liefert. Außerdem enthält das Labor alle Beispiele aus Abschnitt 3 und die Temperatur aus Abschnitt 8 zum freien Einstellen. Wie die Seite zu Kapitel 1 läuft es ohne Internet und ohne Server.</p>
+<p>Auch das Skript zerlegt eigene Texte. Dafür wird wieder <a href="https://docs.astral.sh/uv/">uv</a> benötigt. Beim ersten Start lädt tiktoken die Vokabulare aus dem Internet und speichert sie, danach geht es auch offline. Für einen Workshop sollte man es deshalb vorher einmal starten.</p>
 <pre><code class="language-bash">uv run docs/beispiele/02_tokenizer.py &quot;Drei Kugeln Vanille, bitte.&quot;
 </code></pre>
 <p>Ohne eigenen Text rechnet das Skript alle Beispiele dieses Kapitels nach und erzeugt die Grafiken sowie die Daten für die interaktive Seite neu.</p>

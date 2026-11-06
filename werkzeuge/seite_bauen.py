@@ -46,7 +46,7 @@ KAPITEL = [
         "teaser": "Wie Text zu Zahlen wird, was Embeddings und Attention leisten, warum größere Modelle besser werden und wo ihre Grenzen liegen.",
         "themen": ["Nächstes Token", "Kreuzentropie", "Tokenizer", "tiktoken", "Embeddings", "Attention", "Transformer", "Skalierung", "Temperatur"],
         "labore": {
-            3: ("app/labor-2.html#tokens", "Tokens", "Alle Beispiele mit beiden Tokenizern ansehen, Token für Token mit Nummer."),
+            3: ("app/labor-2.html#tokens", "Tokens", "Eigenen Text eintippen und live sehen, wie die Tokenizer von GPT-4o und GPT-4 ihn zerlegen."),
             8: ("app/labor-2.html#temperatur", "Temperatur", "Die Temperatur verstellen und zufällig ziehen lassen."),
         },
     },
@@ -54,7 +54,7 @@ KAPITEL = [
 
 LABORE = [
     ("app/labor-1.html", "Labor 1: Neuronale Netze", "Gerade verschieben, bergab lernen, den Knick einschalten und ein kleines Netz trainieren.", "bilder/labor-1.png"),
-    ("app/labor-2.html", "Labor 2: Tokens und Temperatur", "Echte Zerlegungen von tiktoken ansehen und die Temperatur beim Ziehen des nächsten Tokens verstellen.", "bilder/labor-2.png"),
+    ("app/labor-2.html", "Labor 2: Tokens und Temperatur", "Eigenen Text mit echten Tokenizern zerlegen, Deutsch und Englisch vergleichen und die Temperatur beim Ziehen des nächsten Tokens verstellen.", "bilder/labor-2.png"),
 ]
 
 LOGO = (DOCS / "assets" / "logo.svg").read_text().strip()
