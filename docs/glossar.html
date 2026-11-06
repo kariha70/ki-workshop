@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try{var t=localStorage.getItem("ki-workshop-thema");if(t==="dark"||t==="light")document.documentElement.dataset.theme=t}catch(e){}</script>
+<title>Glossar: Fachbegriffe in Alltagssprache</title>
+<meta name="description" content="Alle Fachbegriffe aus dem KI-Workshop in Alltagssprache erklärt, mit Verweis auf das passende Kapitel.">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/leiste.css">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<!-- Erzeugt von werkzeuge/seite_bauen.py, bitte nicht von Hand ändern. -->
+<div class="fortschritt" aria-hidden="true"><div></div></div>
+<header class="leiste"><div class="leiste-innen">
+  <a class="marke" href="index.html" aria-label="KI-Workshop, zur Startseite"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.5 11.5h11L12 23z" fill="#eb6834"/><circle cx="12" cy="8" r="6.2" fill="#2a78d6"/><path d="M8.6 9.3 12 5.4l3.4 3.9M8.6 9.3h6.8" stroke="#fff" stroke-width="0.9" fill="none" stroke-linejoin="round"/><circle cx="12" cy="5.4" r="1.35" fill="#fff"/><circle cx="8.6" cy="9.3" r="1.35" fill="#fff"/><circle cx="15.4" cy="9.3" r="1.35" fill="#fff"/></svg><span>KI-Workshop</span></a>
+  <nav aria-label="Workshop"><a href="kapitel-1.html">Kapitel 1</a><a href="kapitel-2.html">Kapitel 2</a><a href="kapitel-3.html">Kapitel 3</a><span class="trenner"></span><a href="app/labor-1.html">Labor 1</a><a href="app/labor-2.html">Labor 2</a><a href="app/labor-3.html">Labor 3</a><span class="trenner"></span><a href="glossar.html" aria-current="page">Glossar</a></nav>
+  <button class="thema-knopf" type="button" aria-label="Design wechseln"><svg class="mond" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><svg class="sonne" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+</div></header>
+<main>
+<div class="kapitel-kopf"><div class="huelle">
+  <p class="augenbraue">Zum Nachschlagen</p>
+  <h1>Glossar: Fachbegriffe in Alltagssprache</h1>
+  <div class="einleitung"><p>Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Viele stammen aus dem Englischen, weil die Forschung zu KI überwiegend auf Englisch stattfindet. Der Verweis führt jeweils zu dem Abschnitt, in dem der Begriff ausführlich erklärt wird.</p></div>
+</div></div>
+<div class="huelle raster">
+  <aside class="verzeichnis" aria-label="Inhalt">
+    <details open><summary>Inhalt</summary><ol><li><a href="#a">A</a></li><li><a href="#b">B</a></li><li><a href="#d">D</a></li><li><a href="#e">E</a></li><li><a href="#f">F</a></li><li><a href="#g">G</a></li><li><a href="#h">H</a></li><li><a href="#i">I</a></li><li><a href="#k">K</a></li><li><a href="#l">L</a></li><li><a href="#m">M</a></li><li><a href="#n">N</a></li><li><a href="#p">P</a></li><li><a href="#r">R</a></li><li><a href="#s">S</a></li><li><a href="#t">T</a></li><li><a href="#ü">Ü</a></li><li><a href="#v">V</a></li><li><a href="#w">W</a></li></ol></details>
+  </aside>
+  <article class="text">
+    
+
+    <section id="a"><h2>A</h2>
+<p><strong>Aktivierungsfunktion</strong> (auch „der Knick“, häufigste Form: ReLU): Eine kleine Regel, die ein Neuron am Ende auf sein Ergebnis anwendet, etwa „Negative Werte werden zu 0“. Ohne sie ergeben auch viele Neuronen zusammen nur eine Gerade. → <a href="kapitel-1.html#9-der-knick-die-aktivierungsfunktion">Kapitel 1, Abschnitt 9</a></p>
+<p><strong>Anwendung</strong> (auch Inferenz): Die Phase nach dem Training, in der ein Modell nur noch Vorhersagen ausrechnet. Seine Parameter bleiben dabei fest. Wenn du mit einem Chat-Assistenten schreibst, ist das Anwendung. → <a href="kapitel-1.html#6-eine-zweite-beobachtung-das-wochenende">Kapitel 1, Abschnitt 6</a></p>
+<p><strong>Attention</strong> (Aufmerksamkeit): Der Baustein im Sprachmodell, mit dem jedes Wort auf die Wörter davor schaut und entscheidet, welche gerade wichtig sind. So erfasst das Modell Zusammenhänge über viele Wörter hinweg. → <a href="kapitel-2.html#5-ein-wort-reicht-nicht-attention">Kapitel 2, Abschnitt 5</a></p>
+</section><section id="b"><h2>B</h2>
+<p><strong>Backpropagation</strong> (Rückwärtsverteilung des Fehlers): Das Verfahren, mit dem ein neuronales Netz herausfindet, welches Neuron wie viel zu einem Fehler beigetragen hat. Der Fehler wird vom Ende des Netzes rückwärts durchgereicht. → <a href="kapitel-1.html#10-vom-neuron-zum-netz">Kapitel 1, Abschnitt 10</a></p>
+<p><strong>Bias</strong>: Der Grundwert eines Neurons, zu dem alles andere dazukommt. Bei der Geraden ist es der Schnittpunkt mit der y-Achse. Nicht zu verwechseln mit „Bias“ im Sinne von Verzerrung oder Vorurteil, etwa wenn ein Modell Einseitigkeiten aus seinen Trainingsdaten übernimmt. → <a href="kapitel-1.html#3-zwei-stellschrauben-weight-und-bias">Kapitel 1, Abschnitt 3</a></p>
+<p><strong>Byte-Pair-Encoding</strong>: Das verbreitete Verfahren, mit dem ein Tokenizer sein Vokabular lernt: Häufig nebeneinander stehende Zeichen werden Schritt für Schritt zu größeren Stücken zusammengefasst. → <a href="kapitel-2.html#2-text-in-zahlen-der-tokenizer">Kapitel 2, Abschnitt 2</a></p>
+</section><section id="d"><h2>D</h2>
+<p><strong>Deep Learning</strong>: Lernen mit neuronalen Netzen, die viele Schichten hintereinander haben. Heute die Grundlage fast aller KI-Anwendungen. → <a href="kapitel-1.html#10-vom-neuron-zum-netz">Kapitel 1, Abschnitt 10</a></p>
+</section><section id="e"><h2>E</h2>
+<p><strong>Embedding</strong>: Eine Liste von Zahlen, die die Bedeutung eines Wortes oder Textes darstellt. Ähnliche Bedeutungen bekommen ähnliche Zahlenlisten. Man kann sich ein Embedding als Pfeil vorstellen. → <a href="kapitel-2.html#4-bedeutung-als-zahlenliste-embeddings">Kapitel 2, Abschnitt 4</a> und <a href="kapitel-3.html#2-ein-text-ein-pfeil">Kapitel 3, Abschnitt 2</a></p>
+<p><strong>Embedding-Modell</strong>: Ein Modell, das aus einem ganzen Text ein Embedding macht. Es ist ähnlich gebaut wie ein Sprachmodell, erzeugt aber keinen Text. Grundlage der semantischen Suche. → <a href="kapitel-3.html#4-woher-die-zahlen-kommen-embedding-modelle">Kapitel 3, Abschnitt 4</a></p>
+</section><section id="f"><h2>F</h2>
+<p><strong>Feinabstimmung</strong> (Fine-Tuning): Ein zusätzliches Training nach dem Vortraining, mit ausgewählten Beispielen. Bei Chat-Assistenten sind das Beispielgespräche mit guten Antworten. → <a href="kapitel-2.html#9-vom-textvervollständiger-zum-assistenten">Kapitel 2, Abschnitt 9</a></p>
+</section><section id="g"><h2>G</h2>
+<p><strong>Gradient</strong>: Die Richtung, in der der Fehler am stärksten ansteigt, für alle Parameter zugleich. Der Gradientenabstieg geht in die Gegenrichtung. → <a href="kapitel-1.html#5-lernen-heißt-schritt-für-schritt-bergab">Kapitel 1, Abschnitt 5</a></p>
+<p><strong>Gradientenabstieg</strong> (Gradient Descent): Das Lernverfahren fast aller heutigen KI: Steigung des Fehlers messen, ein kleines Stück bergab gehen, wiederholen. Wie ein Abstieg im Nebel. → <a href="kapitel-1.html#5-lernen-heißt-schritt-für-schritt-bergab">Kapitel 1, Abschnitt 5</a></p>
+</section><section id="h"><h2>H</h2>
+<p><strong>Halluzination</strong>: Eine Antwort eines Sprachmodells, die plausibel klingt, aber nicht stimmt, etwa eine erfundene Quelle. Sie entsteht, weil das Modell wahrscheinlichen Text erzeugt, nicht geprüften. → <a href="kapitel-2.html#10-grenzen-ehrlich-benennen">Kapitel 2, Abschnitt 10</a></p>
+<p><strong>Hybride Suche</strong>: Eine Kombination aus Stichwortsuche und semantischer Suche. Sie findet sowohl Umschreibungen als auch genaue Zahlen und Namen. → <a href="kapitel-3.html#7-grenzen-ehrlich-benennen">Kapitel 3, Abschnitt 7</a></p>
+</section><section id="i"><h2>I</h2>
+<p><strong>Inferenz</strong>: siehe Anwendung.</p>
+</section><section id="k"><h2>K</h2>
+<p><strong>Künstliche Intelligenz</strong> (KI): Sammelbegriff für Computerprogramme, die Aufgaben lösen, für die man bisher menschliche Intelligenz brauchte, etwa Sprache verstehen oder Bilder erkennen. Fast alle heutigen KI-Anwendungen beruhen auf neuronalen Netzen, die aus Beispielen lernen. → <a href="kapitel-1.html">Kapitel 1</a></p>
+<p><strong>Kontextfenster</strong>: Die Obergrenze dafür, wie viel Text ein Sprachmodell auf einmal berücksichtigen kann, gemessen in Tokens. Dazu gehören das bisherige Gespräch und alle mitgeschickten Dokumente. → <a href="kapitel-2.html#9-vom-textvervollständiger-zum-assistenten">Kapitel 2, Abschnitt 9</a></p>
+<p><strong>Kosinus</strong> (Kosinus-Ähnlichkeit): Ein Maß dafür, wie gleich zwei Pfeile ausgerichtet sind. 1 heißt gleiche Richtung, 0 heißt nichts gemeinsam. Damit misst die semantische Suche, wie ähnlich zwei Texte sind. → <a href="kapitel-3.html#3-ähnlichkeit-messen-der-kosinus">Kapitel 3, Abschnitt 3</a></p>
+<p><strong>Kreuzentropie</strong>: Das Fehlermaß beim Training von Sprachmodellen. Es misst, wie überrascht das Modell vom tatsächlich folgenden Wort war. → <a href="kapitel-2.html#1-was-kommt-als-nächstes">Kapitel 2, Abschnitt 1</a></p>
+</section><section id="l"><h2>L</h2>
+<p><strong>Lernen aus menschlichem Feedback</strong> (englisch Reinforcement Learning from Human Feedback, RLHF): Ein Trainingsschritt, bei dem Menschen Antworten des Modells vergleichen und das Modell so weitertrainiert wird, dass bevorzugte Antworten wahrscheinlicher werden. → <a href="kapitel-2.html#9-vom-textvervollständiger-zum-assistenten">Kapitel 2, Abschnitt 9</a></p>
+<p><strong>Lernrate</strong>: Die Schrittlänge beim Gradientenabstieg. Ist sie zu klein, dauert das Lernen sehr lange. Ist sie zu groß, springt das Modell über das Ziel hinaus und lernt gar nicht. → <a href="kapitel-1.html#5-lernen-heißt-schritt-für-schritt-bergab">Kapitel 1, Abschnitt 5</a></p>
+<p><strong>Lineare Regression</strong>: Ein Verfahren, das eine Gerade so durch Messpunkte legt, dass sie insgesamt möglichst wenig danebenliegt. Der einfachste Fall eines lernenden Modells. → <a href="kapitel-1.html#2-eine-gerade-durch-die-punkte">Kapitel 1, Abschnitt 2</a></p>
+<p><strong>LLM</strong> (Large Language Model): siehe Sprachmodell.</p>
+<p><strong>Loss</strong> (Verlustfunktion): Allgemeiner Name für die Zahl, die misst, wie falsch ein Modell liegt. Lernen heißt, diese Zahl möglichst klein zu machen. → <a href="kapitel-1.html#4-wie-gut-passt-die-gerade-fehler-messen">Kapitel 1, Abschnitt 4</a></p>
+</section><section id="m"><h2>M</h2>
+<p><strong>Maschinelles Lernen</strong>: Aus Beispielen mit bekannter Antwort eine Regel gewinnen, die auch für neue Fälle eine Antwort liefert, statt die Regel von Hand zu programmieren. → <a href="kapitel-1.html#1-der-eisverkäufer">Kapitel 1, Abschnitt 1</a></p>
+<p><strong>Mittlerer quadratischer Fehler</strong> (Mean Squared Error, MSE): Ein Fehlermaß: alle Fehler quadrieren und den Durchschnitt bilden. So heben sich Fehler nach oben und unten nicht auf, und große Fehler zählen besonders stark. → <a href="kapitel-1.html#4-wie-gut-passt-die-gerade-fehler-messen">Kapitel 1, Abschnitt 4</a></p>
+<p><strong>Modell</strong>: Eine Rechenregel, die aus Eingaben eine Vorhersage macht und deren Zahlen (Parameter) aus Daten gelernt wurden. → <a href="kapitel-1.html#2-eine-gerade-durch-die-punkte">Kapitel 1, Abschnitt 2</a></p>
+</section><section id="n"><h2>N</h2>
+<p><strong>Neuron</strong> (künstliches Neuron): Der Grundbaustein neuronaler Netze. Es nimmt Eingaben, multipliziert jede mit ihrem Weight, addiert alles, zählt den Bias dazu und gibt das Ergebnis durch die Aktivierungsfunktion. Das Gehirn ist nur ein grobes Vorbild. → <a href="kapitel-1.html#8-vom-modell-zum-neuron">Kapitel 1, Abschnitt 8</a></p>
+<p><strong>Neuronales Netz</strong>: Viele Neuronen in Schichten, bei denen die Ergebnisse der einen Schicht die Eingaben der nächsten sind. → <a href="kapitel-1.html#10-vom-neuron-zum-netz">Kapitel 1, Abschnitt 10</a></p>
+</section><section id="p"><h2>P</h2>
+<p><strong>Parameter</strong>: Die Zahlen, die ein Modell beim Training einstellt, also alle Weights und Biases. Die Gerade des Eisverkäufers hat 2, sein kleines Netz 9, große Sprachmodelle viele Milliarden. → <a href="kapitel-1.html#3-zwei-stellschrauben-weight-und-bias">Kapitel 1, Abschnitt 3</a></p>
+<p><strong>Prompt</strong>: Der Text, den ein Sprachmodell als Eingabe bekommt: deine Frage, das bisherige Gespräch und gegebenenfalls Anweisungen und mitgeschickte Textauszüge. → <a href="kapitel-3.html#6-rag-nachschlagen-statt-raten">Kapitel 3, Abschnitt 6</a></p>
+</section><section id="r"><h2>R</h2>
+<p><strong>RAG</strong> (Retrieval-Augmented Generation, durch Nachschlagen ergänztes Erzeugen): Vor der Antwort werden passende Textstellen gesucht und dem Sprachmodell im Prompt mitgegeben. Das Modell schlägt nach, statt zu raten, und kann die Quelle nennen. → <a href="kapitel-3.html#6-rag-nachschlagen-statt-raten">Kapitel 3, Abschnitt 6</a></p>
+<p><strong>ReLU</strong>: siehe Aktivierungsfunktion.</p>
+</section><section id="s"><h2>S</h2>
+<p><strong>Schicht</strong>: Eine Gruppe von Neuronen, die gleichzeitig rechnen. Die Schichten zwischen Eingabe und Ausgabe heißen verborgene Schichten (Hidden Layers). → <a href="kapitel-1.html#10-vom-neuron-zum-netz">Kapitel 1, Abschnitt 10</a></p>
+<p><strong>Selbstüberwachtes Lernen</strong>: Lernen aus Daten, die ihre richtigen Antworten selbst mitbringen. Bei Text ist an jeder Stelle bekannt, wie es weitergeht, niemand muss etwas beschriften. → <a href="kapitel-2.html#1-was-kommt-als-nächstes">Kapitel 2, Abschnitt 1</a></p>
+<p><strong>Semantische Suche</strong>: Eine Suche nach Bedeutung statt nach Wörtern. Sie findet auch Texte, die die Frage mit ganz anderen Worten beantworten. → <a href="kapitel-3.html#1-suchen-nach-bedeutung">Kapitel 3, Abschnitt 1</a></p>
+<p><strong>Skalierung</strong>: Das Vergrößern eines Modells: mehr Parameter, mehr Daten, mehr Rechenaufwand. Der Fehler sinkt dabei erstaunlich vorhersagbar. → <a href="kapitel-2.html#7-skalierung-warum-größer-besser-wird">Kapitel 2, Abschnitt 7</a></p>
+<p><strong>Softmax</strong>: Eine Rechenvorschrift, die aus beliebigen Punktzahlen Wahrscheinlichkeiten macht, die zusammen 100 % ergeben. → <a href="kapitel-2.html#1-was-kommt-als-nächstes">Kapitel 2, Abschnitt 1</a></p>
+<p><strong>Sprachmodell</strong> (großes Sprachmodell, englisch Large Language Model, LLM): Ein neuronales Netz, das darauf trainiert ist, das nächste Stück Text vorherzusagen. Chat-Assistenten wie ChatGPT, Claude oder Gemini beruhen darauf. → <a href="kapitel-2.html">Kapitel 2</a></p>
+<p><strong>Stichwortsuche</strong>: Eine Suche, die zählt, wie viele Wörter der Frage in einem Text vorkommen. Sie scheitert an Umschreibungen und anderen Wortformen, findet aber genaue Zahlen und Namen zuverlässig. → <a href="kapitel-3.html#1-suchen-nach-bedeutung">Kapitel 3, Abschnitt 1</a></p>
+</section><section id="t"><h2>T</h2>
+<p><strong>Temperatur</strong>: Eine Stellschraube beim Erzeugen von Text. Bei niedriger Temperatur wählt das Modell fast immer das wahrscheinlichste Wort, bei hoher Temperatur wird es abwechslungsreicher, aber auch fehleranfälliger. → <a href="kapitel-2.html#8-text-erzeugen">Kapitel 2, Abschnitt 8</a></p>
+<p><strong>Testdaten</strong>: Daten, die vor dem Training beiseitegelegt werden, um das fertige Modell zu prüfen. Nur an ihnen sieht man, ob es auch mit Neuem zurechtkommt. → <a href="kapitel-1.html#7-die-prüfung-funktioniert-es-auch-an-neuen-tagen">Kapitel 1, Abschnitt 7</a></p>
+<p><strong>Token</strong>: Ein Textstück, mit dem ein Sprachmodell arbeitet, meist ein Wort oder ein Wortteil. Preis, Geschwindigkeit und Textlänge werden bei Sprachmodellen in Tokens gemessen. → <a href="kapitel-2.html#2-text-in-zahlen-der-tokenizer">Kapitel 2, Abschnitt 2</a></p>
+<p><strong>Tokenizer</strong>: Das Programm, das Text in Tokens zerlegt und jedem eine Nummer gibt. Es wird vorab gelernt und bleibt danach fest. → <a href="kapitel-2.html#2-text-in-zahlen-der-tokenizer">Kapitel 2, Abschnitt 2</a></p>
+<p><strong>Training</strong>: Die Phase, in der ein Modell aus Daten lernt, also seine Parameter einstellt. → <a href="kapitel-1.html#6-eine-zweite-beobachtung-das-wochenende">Kapitel 1, Abschnitt 6</a></p>
+<p><strong>Transformer</strong>: Die Bauweise heutiger Sprachmodelle: ein Stapel aus Blöcken mit Attention und Neuronen mit Knick. Das „T“ in GPT steht dafür. → <a href="kapitel-2.html#6-der-transformer">Kapitel 2, Abschnitt 6</a></p>
+</section><section id="ü"><h2>Ü</h2>
+<p><strong>Überanpassung</strong> (Overfitting): Ein Modell lernt die Trainingsdaten auswendig, statt den Zusammenhang zu erkennen. Im Training sieht es gut aus, bei neuen Daten versagt es. → <a href="kapitel-1.html#7-die-prüfung-funktioniert-es-auch-an-neuen-tagen">Kapitel 1, Abschnitt 7</a></p>
+</section><section id="v"><h2>V</h2>
+<p><strong>Vektor</strong>: Ein Pfeil, beschrieben durch eine Liste von Zahlen. Embeddings sind Vektoren. → <a href="kapitel-3.html#2-ein-text-ein-pfeil">Kapitel 3, Abschnitt 2</a></p>
+<p><strong>Vektordatenbank</strong>: Ein Speicher für sehr viele Embeddings, der ähnliche Einträge schnell findet, ohne jeden einzeln zu vergleichen. → <a href="kapitel-3.html#5-suchen-in-einer-textsammlung">Kapitel 3, Abschnitt 5</a></p>
+<p><strong>Vortraining</strong> (Pretraining): Die erste und aufwendigste Trainingsphase eines Sprachmodells, mit riesigen Textmengen. Danach kann es Text fortsetzen, ist aber noch kein Assistent. → <a href="kapitel-2.html#9-vom-textvervollständiger-zum-assistenten">Kapitel 2, Abschnitt 9</a></p>
+</section><section id="w"><h2>W</h2>
+<p><strong>Weight</strong> (Gewicht): Die Zahl, mit der ein Neuron eine Eingabe malnimmt. Sie sagt, wie stark diese Eingabe die Vorhersage beeinflusst. Bei der Geraden ist es die Steigung. → <a href="kapitel-1.html#3-zwei-stellschrauben-weight-und-bias">Kapitel 1, Abschnitt 3</a></p></section>
+  </article>
+</div>
+</main>
+<footer class="fuss"><div class="huelle">
+  <span>KI-Workshop: vom Eisverkäufer zum Sprachmodell. Alle Daten im Beispiel sind erfunden.<br>Texte und Grafiken: <a href="https://creativecommons.org/licenses/by/4.0/deed.de">CC BY 4.0</a> · Code: <a href="https://github.com/kariha70/ki-workshop/blob/main/LICENSE">MIT</a> · <a href="https://github.com/kariha70/ki-workshop">Quellcode auf GitHub</a></span>
+  <span><a href="index.html">Startseite</a> · <a href="kapitel-1.html">Kapitel 1</a> · <a href="kapitel-2.html">Kapitel 2</a> · <a href="kapitel-3.html">Kapitel 3</a> · <a href="app/labor-1.html">Labor 1</a> · <a href="app/labor-2.html">Labor 2</a> · <a href="app/labor-3.html">Labor 3</a> · <a href="glossar.html">Glossar</a> · <a href="leitfaden.html">Leitfaden</a></span>
+</div></footer>
+<script src="assets/thema.js"></script>
+<script src="assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try{var t=localStorage.getItem("ki-workshop-thema");if(t==="dark"||t==="light")document.documentElement.dataset.theme=t}catch(e){}</script>
+<title>Leitfaden für Moderierende</title>
+<meta name="description" content="Ablauf, Methoden, Fragen an die Gruppe und Technik-Checkliste für den KI-Workshop vor Ort.">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/leiste.css">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<!-- Erzeugt von werkzeuge/seite_bauen.py, bitte nicht von Hand ändern. -->
+<div class="fortschritt" aria-hidden="true"><div></div></div>
+<header class="leiste"><div class="leiste-innen">
+  <a class="marke" href="index.html" aria-label="KI-Workshop, zur Startseite"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.5 11.5h11L12 23z" fill="#eb6834"/><circle cx="12" cy="8" r="6.2" fill="#2a78d6"/><path d="M8.6 9.3 12 5.4l3.4 3.9M8.6 9.3h6.8" stroke="#fff" stroke-width="0.9" fill="none" stroke-linejoin="round"/><circle cx="12" cy="5.4" r="1.35" fill="#fff"/><circle cx="8.6" cy="9.3" r="1.35" fill="#fff"/><circle cx="15.4" cy="9.3" r="1.35" fill="#fff"/></svg><span>KI-Workshop</span></a>
+  <nav aria-label="Workshop"><a href="kapitel-1.html">Kapitel 1</a><a href="kapitel-2.html">Kapitel 2</a><a href="kapitel-3.html">Kapitel 3</a><span class="trenner"></span><a href="app/labor-1.html">Labor 1</a><a href="app/labor-2.html">Labor 2</a><a href="app/labor-3.html">Labor 3</a><span class="trenner"></span><a href="glossar.html">Glossar</a></nav>
+  <button class="thema-knopf" type="button" aria-label="Design wechseln"><svg class="mond" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><svg class="sonne" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+</div></header>
+<main>
+<div class="kapitel-kopf"><div class="huelle">
+  <p class="augenbraue">Für Moderierende</p>
+  <h1>Leitfaden für Moderierende</h1>
+  <div class="einleitung"><p>Dieser Leitfaden hilft dir, den Workshop vor Ort mit einer Gruppe ohne technisches Vorwissen durchzuführen. Er ist für 10 bis 15 Teilnehmende und zwei Sitzungen gedacht. Er schlägt einen Ablauf vor, nennt Fragen an die Gruppe, sammelt typische Rückfragen aus dem Publikum und enthält eine Checkliste für die Technik.</p>
+<p>Alle Zeitangaben sind Vorschläge. Pass sie an deine Gruppe an: Lieber ein Abschnitt weniger und dafür eine gute Diskussion als alles im Schnelldurchlauf.</p></div>
+</div></div>
+<div class="huelle raster">
+  <aside class="verzeichnis" aria-label="Inhalt">
+    <details open><summary>Inhalt</summary><ol><li><a href="#das-didaktische-konzept">Das didaktische Konzept</a></li><li><a href="#gruppe-und-voraussetzungen">Gruppe und Voraussetzungen</a></li><li><a href="#zeitplan-für-zwei-sitzungen">Zeitplan für zwei Sitzungen</a></li><li><a href="#einstieg-in-die-erste-sitzung">Einstieg in die erste Sitzung</a></li><li><a href="#modul-1-wie-eine-maschine-aus-beispielen-lernt">Modul 1: Wie eine Maschine aus Beispielen lernt</a></li><li><a href="#modul-2-wie-ein-computer-texte-schreibt">Modul 2: Wie ein Computer Texte schreibt</a></li><li><a href="#abschluss-der-ersten-sitzung">Abschluss der ersten Sitzung</a></li><li><a href="#einstieg-in-die-zweite-sitzung">Einstieg in die zweite Sitzung</a></li><li><a href="#modul-3-wie-eine-ki-in-dokumenten-nachschlägt">Modul 3: Wie eine KI in Dokumenten nachschlägt</a></li><li><a href="#abschluss-des-workshops">Abschluss des Workshops</a></li><li><a href="#vorbereitung-und-technik">Vorbereitung und Technik</a></li></ol></details>
+  </aside>
+  <article class="text">
+    
+
+    <section id="das-didaktische-konzept"><h2>Das didaktische Konzept</h2>
+<p>Der Workshop folgt einigen wenigen Grundsätzen. Wenn du sie kennst, kannst du an jeder Stelle frei improvisieren.</p>
+<ul>
+<li><strong>Ein Beispiel, das trägt.</strong> Statt vieler kleiner Beispiele gibt es eine Geschichte: den Eisverkäufer. Neues wird immer an Bekanntes angeknüpft, vom ersten Kapitel bis zur Suche im Handbuch der Eisdiele.</li>
+<li><strong>Erst erleben, dann benennen.</strong> Jeder größere Gedanke beginnt mit einer Frage an die Gruppe („Kurz überlegen“). Fachbegriffe kommen erst, wenn die Idee verstanden ist, und dann nur einmal mit der englischen Entsprechung.</li>
+<li><strong>Didaktische Reduktion.</strong> Der Hauptweg jedes Kapitels kommt ohne Formeln aus. Rechnungen, Programmcode und Hintergründe stehen in aufklappbaren Kästen „Für Neugierige“. Öffne sie im Workshop nur, wenn jemand danach fragt.</li>
+<li><strong>Selbst ausprobieren.</strong> Zu jedem Kapitel gibt es ein Labor im Browser. Am besten arbeiten zwei Personen an einem Gerät und erklären sich gegenseitig, was sie sehen.</li>
+<li><strong>Sichern und wiederholen.</strong> Lernziele am Anfang, ein Merksatz nach jedem Abschnitt, „Das Wichtigste in Kürze“ und ein kleiner Selbsttest am Ende jedes Kapitels. Der Abstand zwischen den beiden Sitzungen ist dabei ein Vorteil: Was zu Beginn der zweiten Sitzung wiederholt wird, bleibt besser hängen.</li>
+<li><strong>Transfer in den Alltag.</strong> Kapitel 2 und 3 enden mit Faustregeln für die Arbeit mit Chat-Assistenten. Hier ist Raum für die eigenen Erfahrungen der Teilnehmenden.</li>
+</ul>
+</section><section id="gruppe-und-voraussetzungen"><h2>Gruppe und Voraussetzungen</h2>
+<ul>
+<li><strong>Vorwissen:</strong> keines. Grundrechenarten genügen. Wer eine Gerade aus der Schule kennt, hat einen kleinen Vorteil, nötig ist es nicht.</li>
+<li><strong>Gruppengröße:</strong> 10 bis 15 Personen. Das reicht für lebendige Diskussionen, und eine Person kann alle Paare in den Laborphasen gut betreuen. Ein Blitzlicht, bei dem jede Person einen Satz sagt, dauert etwa fünf Minuten.</li>
+<li><strong>Geräte:</strong> ein Laptop oder Tablet pro Paar, also 5 bis 8 Geräte. Die Labore funktionieren zur Not auch auf dem Smartphone, sind dort aber eng.</li>
+<li><strong>Raum:</strong> Beamer oder großer Bildschirm, Flipchart oder Pinnwand für Fragen und Blitzlichter. Tische, an denen zwei Personen gemeinsam auf einen Bildschirm schauen können.</li>
+</ul>
+</section><section id="zeitplan-für-zwei-sitzungen"><h2>Zeitplan für zwei Sitzungen</h2>
+<p>Jede Sitzung dauert etwa dreieinhalb Stunden mit einer Pause. Die Uhrzeiten sind ein Beispiel. Zwischen den Sitzungen sollten ein paar Tage bis höchstens zwei Wochen liegen.</p>
+<p>Die erste Sitzung klärt, <strong>wie</strong> KI funktioniert: wie eine Maschine lernt und wie ein Sprachmodell aufgebaut ist. Die zweite Sitzung dreht sich um den <strong>Umgang</strong> damit: wie Antworten entstehen, wo die Grenzen liegen und wie eine KI in Dokumenten nachschlägt.</p>
+<p><strong>Sitzung 1: Wie KI lernt</strong></p>
+<div class="tabelle"><table>
+<thead>
+<tr>
+<th>Zeit</th>
+<th>Inhalt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>9:00</td>
+<td>Ankommen, Vorstellung, Erwartungen sammeln</td>
+</tr>
+<tr>
+<td>9:20</td>
+<td><strong>Modul 1:</strong> Wie eine Maschine aus Beispielen lernt (Kapitel 1, Labor 1)</td>
+</tr>
+<tr>
+<td>11:00</td>
+<td>Pause</td>
+</tr>
+<tr>
+<td>11:15</td>
+<td><strong>Modul 2, Teil 1:</strong> Wie ein Sprachmodell aufgebaut ist (Kapitel 2, Abschnitte 1 bis 7, Labor 2: Tokens)</td>
+</tr>
+<tr>
+<td>12:15</td>
+<td>Rückblick, Fragenspeicher, Auftrag bis zur nächsten Sitzung</td>
+</tr>
+<tr>
+<td>12:30</td>
+<td>Ende</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Sitzung 2: Wie man KI sinnvoll nutzt</strong></p>
+<div class="tabelle"><table>
+<thead>
+<tr>
+<th>Zeit</th>
+<th>Inhalt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>9:00</td>
+<td>Wiederholung: Selbsttest aus Kapitel 1 als Quiz, Erfahrungen aus dem Auftrag</td>
+</tr>
+<tr>
+<td>9:20</td>
+<td><strong>Modul 2, Teil 2:</strong> Wie Antworten entstehen und wo die Grenzen liegen (Kapitel 2, Abschnitte 8 bis 11, Labor 2: Temperatur)</td>
+</tr>
+<tr>
+<td>10:20</td>
+<td>Pause</td>
+</tr>
+<tr>
+<td>10:35</td>
+<td><strong>Modul 3:</strong> Wie eine KI in Dokumenten nachschlägt (Kapitel 3, Labor 3)</td>
+</tr>
+<tr>
+<td>12:05</td>
+<td>Abschluss: offene Fragen, Transfer, Rückmeldung</td>
+</tr>
+<tr>
+<td>12:30</td>
+<td>Ende</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Jedes Modul folgt demselben Ablauf:</strong></p>
+<div class="tabelle"><table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Was passiert</th>
+<th>Methode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Einstieg</td>
+<td>Leitfrage stellen, Vorwissen und Erfahrungen sammeln</td>
+<td>Plenum, Blitzlicht</td>
+</tr>
+<tr>
+<td>Erarbeitung</td>
+<td>Hauptweg des Kapitels gemeinsam durchgehen, an den Kästen „Kurz überlegen“ innehalten</td>
+<td>Vortrag mit Fragen an die Gruppe</td>
+</tr>
+<tr>
+<td>Ausprobieren</td>
+<td>Aufträge im Labor bearbeiten</td>
+<td>Partnerarbeit</td>
+</tr>
+<tr>
+<td>Austausch</td>
+<td>Beobachtungen aus dem Labor zusammentragen</td>
+<td>Plenum</td>
+</tr>
+<tr>
+<td>Sicherung</td>
+<td>Merksätze wiederholen, Selbsttest gemeinsam lösen</td>
+<td>Plenum, Quiz</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Wenn die Zeit knapp wird:</strong> In Modul 1 die Abschnitte 8 bis 10 nur als kurzen Ausblick zeigen. In Modul 2 die Abschnitte 4 bis 7 auf je einen Satz und ein Bild kürzen. In Modul 3 die Abschnitte 3 bis 5 zusammenfassen und mehr Zeit für RAG und die Praxis lassen.</p>
+</section><section id="einstieg-in-die-erste-sitzung"><h2>Einstieg in die erste Sitzung</h2>
+<ul>
+<li><strong>Blitzlicht:</strong> „Wo ist euch KI zuletzt begegnet?“ Jede Person nennt ein Beispiel. Die Antworten auf einer Pinnwand sammeln und am Ende der zweiten Sitzung wieder aufgreifen. Die Pinnwand dafür fotografieren oder aufbewahren.</li>
+<li><strong>Erwartungen:</strong> „Was möchtet ihr in diesem Workshop verstehen?“ auf Karten schreiben lassen. Fragen, die im Workshop nicht vorkommen, offen benennen.</li>
+<li><strong>Fragenspeicher:</strong> Ein Plakat für Fragen, die gerade nicht passen. Es wird am Ende jeder Sitzung abgearbeitet.</li>
+</ul>
+</section><section id="modul-1-wie-eine-maschine-aus-beispielen-lernt"><h2>Modul 1: Wie eine Maschine aus Beispielen lernt</h2>
+<p><em>Sitzung 1, etwa 100 Minuten</em></p>
+<p><strong>Leitfrage:</strong> Wie kann ein Computer etwas lernen, das ihm niemand ausdrücklich beigebracht hat?</p>
+<p><strong>Kernbotschaften:</strong></p>
+<ol>
+<li>Lernen heißt: Zahlen (Parameter) so einstellen, dass der Fehler möglichst klein wird.</li>
+<li>Ein Modell muss an Daten geprüft werden, die es beim Lernen nicht gesehen hat.</li>
+<li>Ein neuronales Netz besteht aus einfachen Rechenbausteinen. Erst der Knick macht es mächtig.</li>
+</ol>
+<p><strong>Ablauf:</strong></p>
+<ul>
+<li><strong>Einstieg:</strong> Die Tabelle mit den zehn Tagen zeigen und die Gruppe schätzen lassen, wie viele Kugeln bei 25 °C nötig sind (Abschnitt 1). Die Schätzungen sammeln und fragen, wie sie zustande kamen. Genau das ist die Grundidee des maschinellen Lernens.</li>
+<li><strong>Erarbeitung:</strong> Abschnitte 2 bis 5 sind der Kern. Beim Gradientenabstieg die Nebel-Analogie ausspielen: „Was würdet ihr im Nebel tun?“ Danach Abschnitte 6 und 7, mit der Frage zum Wochentag und der Vermutung zu den Zufallszahlen. Die Abschnitte 8 bis 10 zügig als Ausblick: „So sieht es im Inneren jeder KI aus.“</li>
+<li><strong>Labor 1, Aufträge zur Auswahl:</strong><ul>
+<li>Im Schritt „Gerade und Fehler“ mit zwei Reglern die beste Gerade suchen. Welches Paar kommt am nächsten an 629,2?</li>
+<li>Im Schritt „Fehler minimieren“ eine zu große Lernrate wählen und beobachten, was passiert.</li>
+<li>Im Schritt „Kleines Netz“ mehrmals mit Zufallsstart trainieren. Klappt es jedes Mal?</li>
+</ul>
+</li>
+<li><strong>Diskussion:</strong> „Der Eisverkäufer hat entschieden, das Wochenende aufzuschreiben. Was hätte er noch notieren können? Und was hätte das Modell nie herausfinden können?“</li>
+</ul>
+<p><strong>Typische Rückfragen:</strong></p>
+<ul>
+<li><em>„Denkt ein neuronales Netz wie ein Gehirn?“</em> Nein. Das Gehirn war nur ein grobes Vorbild für den Namen. Ein künstliches Neuron ist eine Rechenformel aus Malnehmen und Addieren.</li>
+<li><em>„Hat Bias etwas mit Vorurteilen zu tun?“</em> Nicht in diesem Kapitel, hier ist es nur der Grundwert. Das Wort wird in der KI aber auch für Verzerrungen benutzt, die ein Modell aus einseitigen Daten übernimmt. Beides auseinanderhalten.</li>
+<li><em>„Woher weiß das Modell, dass das Wochenende wichtig ist?“</em> Gar nicht. Ein Mensch hat entschieden, das Wochenende aufzuschreiben. Das Modell bestimmt nur, wie stark es zählt. Welche Daten man sammelt, bleibt eine menschliche Entscheidung.</li>
+<li><em>„Ist das nicht einfach Statistik?“</em> Im Kern ja. Neuronale Netze sind eine sehr flexible Form davon, die mit riesigen Datenmengen umgehen kann.</li>
+</ul>
+</section><section id="modul-2-wie-ein-computer-texte-schreibt"><h2>Modul 2: Wie ein Computer Texte schreibt</h2>
+<p><em>Teil 1 in Sitzung 1, etwa 60 Minuten. Teil 2 in Sitzung 2, etwa 60 Minuten.</em></p>
+<p><strong>Leitfrage:</strong> Wie kann ein Chat-Assistent so flüssig formulieren und sich trotzdem so überzeugend irren?</p>
+<p><strong>Kernbotschaften:</strong></p>
+<ol>
+<li>Ein Sprachmodell sagt immer nur das nächste Textstück voraus, Wort für Wort.</li>
+<li>Es sieht Text als Tokens, nicht als Buchstaben. Das erklärt Kosten und manche seltsamen Fehler.</li>
+<li>Es erzeugt plausiblen Text, nicht zwingend wahren. Im Gespräch lernt es nicht dazu.</li>
+</ol>
+<p><strong>Teil 1: Wie ein Sprachmodell aufgebaut ist (Abschnitte 1 bis 7)</strong></p>
+<ul>
+<li><strong>Einstieg:</strong> „Zwei Kugeln Schokolade im …“ ergänzen lassen (Abschnitt 1). Danach die Wortvorschläge auf dem eigenen Smartphone ansehen: ein kleines Sprachmodell in der Hosentasche.</li>
+<li><strong>Erarbeitung:</strong> Abschnitte 1 bis 3 ausführlich, hier ist das Labor besonders ergiebig. Die Abschnitte 4 bis 7 als Überblick: Bedeutung als Landkarte, Attention mit dem Satz von Kugel und Waffel, der Transformer als Stapel bekannter Bausteine.</li>
+<li><strong>Labor 2, Schritt „Tokens“, Aufträge zur Auswahl:</strong><ul>
+<li>Den eigenen Namen eintippen, einmal mit und einmal ohne Leerzeichen davor.</li>
+<li>Einen Satz auf Deutsch und auf Englisch schreiben und die Tokens zählen.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Auftrag bis zur nächsten Sitzung:</strong> „Achtet bis zum nächsten Mal darauf, wo euch Chat-Assistenten begegnen. Bringt eine Antwort mit, die euch überrascht hat, weil sie besonders gut oder besonders falsch war.“ So beginnt die zweite Sitzung mit eigenen Beispielen, und das Gelernte wird zwischen den Terminen wach gehalten.</p>
+<p><strong>Teil 2: Wie Antworten entstehen und wo die Grenzen liegen (Abschnitte 8 bis 11)</strong></p>
+<ul>
+<li><strong>Einstieg:</strong> Zwei oder drei mitgebrachte Beispiele aus dem Auftrag vorstellen lassen. Sie werden im Lauf des Moduls erklärt.</li>
+<li><strong>Erarbeitung:</strong> Abschnitte 8 bis 11 ausführlich, weil sie die Alltagserfahrung erklären. An Abschnitt 9 die Frage stellen: „Lernt der Assistent aus eurem Gespräch dazu?“</li>
+<li><strong>Labor 2, Schritt „Temperatur“:</strong> Die Temperatur ganz nach links und ganz nach rechts schieben und jeweils 20-mal ziehen lassen. Wofür würdet ihr welche Einstellung wählen?</li>
+<li><strong>Diskussion:</strong> Die mitgebrachten Beispiele noch einmal aufgreifen: „Lässt sich die falsche Antwort jetzt erklären?“ Danach gemeinsam die Faustregeln aus Abschnitt 11 durchgehen und um eigene ergänzen.</li>
+</ul>
+<p><strong>Typische Rückfragen:</strong></p>
+<ul>
+<li><em>„Versteht das Modell, was es schreibt?“</em> Darüber wird auch in der Forschung gestritten. Sicher ist: Es wurde darauf trainiert, wahrscheinliche Fortsetzungen zu erzeugen, und hat dabei viel über Sprache und die Welt gelernt. Ob man das „Verstehen“ nennt, ist auch eine Frage der Definition. Hier lieber offen diskutieren als eine Antwort vorgeben.</li>
+<li><em>„Lernt der Assistent aus meinen Eingaben?“</em> Nicht während des Gesprächs, die Weights bleiben fest (Abschnitt 9). Anbieter können Gespräche aber später für das Training verwenden, je nach Vertrag und Einstellungen.</li>
+<li><em>„Ist das ganze Internet darin gespeichert?“</em> Nein. Gespeichert sind nur die Parameter. Sehr häufige Texte kann ein Modell trotzdem manchmal wörtlich wiedergeben (Abschnitt 7).</li>
+<li><em>„Warum erfindet es Quellen?“</em> Weil eine Quellenangabe für das Modell auch nur Text ist, der plausibel aussehen soll. Deshalb jede Quelle selbst nachsehen.</li>
+</ul>
+</section><section id="abschluss-der-ersten-sitzung"><h2>Abschluss der ersten Sitzung</h2>
+<ul>
+<li><strong>Rückblick:</strong> Die drei Merksätze aus Kapitel 1, die am wichtigsten waren, gemeinsam sammeln.</li>
+<li><strong>Fragenspeicher:</strong> Offene Fragen durchgehen. Was in Sitzung 2 drankommt, als solches markieren.</li>
+<li><strong>Auftrag:</strong> Den Auftrag bis zur nächsten Sitzung (siehe Modul 2, Teil 1) erklären. Die Kapitel 1 und 2 eignen sich zum Nachlesen, sind aber keine Pflicht.</li>
+</ul>
+</section><section id="einstieg-in-die-zweite-sitzung"><h2>Einstieg in die zweite Sitzung</h2>
+<ul>
+<li><strong>Wiederholung als Quiz:</strong> Die Fragen aus „Teste dich“ in Kapitel 1 vorlesen und von der Gruppe beantworten lassen, gern in Paaren mit kurzer Bedenkzeit. Das frischt die Grundbegriffe auf, die Kapitel 2 und 3 brauchen: Parameter, Training und Anwendung, Testen an neuen Daten.</li>
+<li><strong>Mitgebrachte Beispiele:</strong> Kurz sammeln, wer etwas mitgebracht hat. Ausführlich besprochen werden sie in Modul 2, Teil 2.</li>
+</ul>
+</section><section id="modul-3-wie-eine-ki-in-dokumenten-nachschlägt"><h2>Modul 3: Wie eine KI in Dokumenten nachschlägt</h2>
+<p><em>Sitzung 2, etwa 90 Minuten</em></p>
+<p><strong>Leitfrage:</strong> Wie beantwortet ein Chat-Assistent Fragen zu Unterlagen, die er beim Training nie gesehen hat?</p>
+<p><strong>Kernbotschaften:</strong></p>
+<ol>
+<li>Die semantische Suche vergleicht Bedeutungen statt Buchstaben.</li>
+<li>RAG gibt dem Sprachmodell vor der Antwort passende Auszüge mit. Das Modell schlägt nach, statt zu raten.</li>
+<li>Die Antwort ist nur so gut wie die Unterlagen und die Suche. Der Blick in die Quelle bleibt wichtig.</li>
+</ol>
+<p><strong>Ablauf:</strong></p>
+<ul>
+<li><strong>Einstieg:</strong> Die Kopfschmerz-Frage zeigen und fragen, welche Suchbegriffe die Gruppe eintippen würde (Abschnitt 1). Erst dann „Hirnfrost“ auflösen.</li>
+<li><strong>Erarbeitung:</strong> Abschnitte 1 und 2 ausführlich. Abschnitt 3 nur mit der Tabelle und der Schätzfrage zu Vanille und Steuererklärung. Abschnitt 4 kurz, Abschnitt 5 mit dem Vergleich zur Bibliothek. Abschnitte 6 bis 8 ausführlich, hier liegt der Praxisnutzen.</li>
+<li><strong>Labor 3, Aufträge zur Auswahl:</strong><ul>
+<li>Im Schritt „Suche“ eine Frage so umformulieren, dass kein Wort aus dem Handbuch vorkommt.</li>
+<li>Eine Frage auf Englisch oder in einer anderen Sprache stellen.</li>
+<li>Im Schritt „RAG“ den Prompt zu „Wie wird das Wetter morgen?“ in einen Chat-Assistenten kopieren. Gibt er zu, dass die Antwort fehlt?</li>
+</ul>
+</li>
+<li><strong>Diskussion:</strong> „Welche Unterlagen in eurer Organisation würden sich für einen solchen Assistenten eignen? Was müsste vorher geklärt werden?“ Die Punkte aus Abschnitt 8 (Qualität der Unterlagen, Zugriffsrechte, Datenschutz) dabei aufgreifen.</li>
+</ul>
+<p><strong>Typische Rückfragen:</strong></p>
+<ul>
+<li><em>„Ist RAG dasselbe wie das Modell mit eigenen Daten trainieren?“</em> Nein. Bei RAG bleibt das Modell unverändert, es bekommt die Auszüge nur im Prompt mitgeliefert. Deshalb lassen sich Unterlagen jederzeit aktualisieren.</li>
+<li><em>„Sind meine Dokumente dann im Modell gespeichert?“</em> Nicht in seinen Parametern. Die gefundenen Auszüge werden aber zusammen mit der Frage an das Sprachmodell geschickt, unter Umständen an einen externen Anbieter.</li>
+<li><em>„Warum nicht einfach eine normale Volltextsuche?“</em> Die findet keine Umschreibungen. Umgekehrt ist sie bei genauen Zahlen und Namen besser. Gute Systeme kombinieren beides (hybride Suche).</li>
+</ul>
+</section><section id="abschluss-des-workshops"><h2>Abschluss des Workshops</h2>
+<ul>
+<li><strong>Rückblick:</strong> Die Pinnwand aus der ersten Sitzung („Wo ist euch KI begegnet?“) wieder hervorholen. Welche Beispiele lassen sich jetzt besser erklären?</li>
+<li><strong>Fragenspeicher:</strong> Die gesammelten Fragen durchgehen. Was offen bleibt, ehrlich als offen benennen.</li>
+<li><strong>Transfer:</strong> „Was macht ihr ab morgen anders, wenn ihr mit einem Chat-Assistenten arbeitet?“ Jede Person nennt einen Punkt.</li>
+<li><strong>Rückmeldung:</strong> Kurze Runde oder Zettel mit zwei Fragen: Was war hilfreich? Was hat gefehlt?</li>
+</ul>
+</section><section id="vorbereitung-und-technik"><h2>Vorbereitung und Technik</h2>
+<p><strong>Ein paar Tage vorher:</strong></p>
+<ul>
+<li>Die Webseite des Workshops auf dem Präsentationsrechner öffnen und alle drei Labore einmal durchklicken.</li>
+<li>Labor 1 und Labor 2 laufen vollständig ohne Internetverbindung.</li>
+<li>Labor 3: Die Beispiele aus dem Text funktionieren sofort. Für eigene Eingaben lädt das Labor einmalig ein Modell von etwa 118 MB aus dem Internet. Erledige das vorab auf dem Präsentationsrechner, dann ist es im Browser gespeichert. Für die Geräte der Teilnehmenden ein stabiles WLAN einplanen oder bei den Beispielen bleiben.</li>
+<li>Für die RAG-Übung in Labor 3 einen Chat-Assistenten bereithalten, den die Teilnehmenden nutzen dürfen. Die Prompts enthalten nur das erfundene Handbuch der Eisdiele.</li>
+</ul>
+<p><strong>Am Tag selbst:</strong></p>
+<ul>
+<li>Im Browser die Schrift vergrößern (Strg und Plus, auf dem Mac Cmd und Plus), damit Tabellen und Grafiken auch hinten im Raum lesbar sind.</li>
+<li>Oben rechts lässt sich zwischen hellem und dunklem Design umschalten. Für Beamer ist das helle Design meist besser.</li>
+<li>In Sitzung 1 die Tabelle mit den zehn Tagen aus Kapitel 1 für die Schätzaufgabe groß zeigen oder ausdrucken.</li>
+</ul>
+<p><strong>Handouts:</strong> Jedes Kapitel lässt sich über die Druckfunktion des Browsers ausdrucken oder als PDF speichern. Navigation und Schaltflächen werden dabei ausgeblendet, alle aufklappbaren Kästen automatisch geöffnet. Am Ende der ersten Sitzung bieten sich Kapitel 1 und 2 an, am Ende der zweiten Kapitel 3 und das Glossar.</p>
+<p><strong>Ohne Internet im Raum:</strong> Die ganze Webseite lässt sich lokal starten, wenn Python installiert ist: <code>python3 -m http.server --directory docs</code> im Ordner des Workshops ausführen und dann <code>http://localhost:8000</code> im Browser öffnen.</p></section>
+  </article>
+</div>
+</main>
+<footer class="fuss"><div class="huelle">
+  <span>KI-Workshop: vom Eisverkäufer zum Sprachmodell. Alle Daten im Beispiel sind erfunden.<br>Texte und Grafiken: <a href="https://creativecommons.org/licenses/by/4.0/deed.de">CC BY 4.0</a> · Code: <a href="https://github.com/kariha70/ki-workshop/blob/main/LICENSE">MIT</a> · <a href="https://github.com/kariha70/ki-workshop">Quellcode auf GitHub</a></span>
+  <span><a href="index.html">Startseite</a> · <a href="kapitel-1.html">Kapitel 1</a> · <a href="kapitel-2.html">Kapitel 2</a> · <a href="kapitel-3.html">Kapitel 3</a> · <a href="app/labor-1.html">Labor 1</a> · <a href="app/labor-2.html">Labor 2</a> · <a href="app/labor-3.html">Labor 3</a> · <a href="glossar.html">Glossar</a> · <a href="leitfaden.html">Leitfaden</a></span>
+</div></footer>
+<script src="assets/thema.js"></script>
+<script src="assets/site.js"></script>
+</body>
+</html>

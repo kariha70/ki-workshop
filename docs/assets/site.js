@@ -1,4 +1,4 @@
-// Lesefortschritt, aktiver Abschnitt im Inhaltsverzeichnis und vergrößerte Bilder
+// Lesefortschritt, aktiver Abschnitt im Inhaltsverzeichnis, vergrößerte Bilder und Ausdruck
 (() => {
   const balken = document.querySelector(".fortschritt div");
   const text = document.querySelector(".text");
@@ -45,4 +45,7 @@
       document.body.append(ebene);
     });
   });
+
+  // Beim Drucken alle aufklappbaren Kästen öffnen, damit das Handout vollständig ist
+  addEventListener("beforeprint", () => document.querySelectorAll(".text details").forEach(d => { d.open = true; }));
 })();

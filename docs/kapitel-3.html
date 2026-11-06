@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>try{var t=localStorage.getItem("ki-workshop-thema");if(t==="dark"||t==="light")document.documentElement.dataset.theme=t}catch(e){}</script>
-<title>Kapitel 3: Semantische Suche und RAG</title>
-<meta name="description" content="Wie Embeddings ganze Texte vergleichbar machen, wie man damit nach Bedeutung sucht und wie RAG einem Sprachmodell neues Wissen mitgibt.">
+<title>Kapitel 3: Suchen nach Bedeutung: Wie eine KI in Dokumenten nachschlägt</title>
+<meta name="description" content="Wie beantwortet eine KI Fragen zu eigenen Unterlagen? Suchen nach Bedeutung statt nach Wörtern, und Nachschlagen statt Raten.">
 <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/leiste.css">
 <link rel="stylesheet" href="assets/site.css">
@@ -15,15 +15,15 @@
 <div class="fortschritt" aria-hidden="true"><div></div></div>
 <header class="leiste"><div class="leiste-innen">
   <a class="marke" href="index.html" aria-label="KI-Workshop, zur Startseite"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.5 11.5h11L12 23z" fill="#eb6834"/><circle cx="12" cy="8" r="6.2" fill="#2a78d6"/><path d="M8.6 9.3 12 5.4l3.4 3.9M8.6 9.3h6.8" stroke="#fff" stroke-width="0.9" fill="none" stroke-linejoin="round"/><circle cx="12" cy="5.4" r="1.35" fill="#fff"/><circle cx="8.6" cy="9.3" r="1.35" fill="#fff"/><circle cx="15.4" cy="9.3" r="1.35" fill="#fff"/></svg><span>KI-Workshop</span></a>
-  <nav aria-label="Workshop"><a href="kapitel-1.html">Kapitel 1</a><a href="kapitel-2.html">Kapitel 2</a><a href="kapitel-3.html" aria-current="page">Kapitel 3</a><span class="trenner"></span><a href="app/labor-1.html">Labor 1</a><a href="app/labor-2.html">Labor 2</a><a href="app/labor-3.html">Labor 3</a></nav>
+  <nav aria-label="Workshop"><a href="kapitel-1.html">Kapitel 1</a><a href="kapitel-2.html">Kapitel 2</a><a href="kapitel-3.html" aria-current="page">Kapitel 3</a><span class="trenner"></span><a href="app/labor-1.html">Labor 1</a><a href="app/labor-2.html">Labor 2</a><a href="app/labor-3.html">Labor 3</a><span class="trenner"></span><a href="glossar.html">Glossar</a></nav>
   <button class="thema-knopf" type="button" aria-label="Design wechseln"><svg class="mond" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><svg class="sonne" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
 </div></header>
 <main>
 <div class="kapitel-kopf"><div class="huelle">
   <p class="augenbraue">Kapitel 3 · etwa 15 Minuten Lesezeit</p>
-  <h1>Semantische Suche und RAG</h1>
-  <div class="einleitung"><p>In Kapitel 2 waren Embeddings ein Nebenprodukt: Zahlenlisten, die ein Sprachmodell lernt, um das nächste Token vorherzusagen. Dieses Kapitel macht sie selbst zum Werkzeug. Wenn ähnliche Bedeutung zu ähnlichen Zahlen führt, kann man nach Bedeutung suchen statt nach Wörtern. Das heißt <strong>semantische Suche</strong>.</p>
-<p>Damit lässt sich auch eine Schwäche aus Kapitel 2 angehen: Ein Sprachmodell weiß nur, was in seinen Trainingsdaten steckt. Sucht man passende Texte heraus und gibt sie ihm mit, kann es mit Wissen antworten, das es nie gelernt hat. Dieses Verfahren heißt <strong>RAG</strong>.</p></div>
+  <h1>Suchen nach Bedeutung: Wie eine KI in Dokumenten nachschlägt</h1>
+  <div class="einleitung"><p>Viele Organisationen wünschen sich einen Chat-Assistenten, der Fragen zu ihren eigenen Unterlagen beantwortet: zum Handbuch, zu internen Regeln, zu Produktbeschreibungen. Ein Sprachmodell kennt diese Unterlagen aber nicht, und es neu zu trainieren wäre teuer. Wie geht das trotzdem?</p>
+<p>Die Antwort besteht aus zwei Bausteinen. Erstens eine Suche, die nicht nach Wörtern sucht, sondern nach Bedeutung: die <strong>semantische Suche</strong>. Zweitens ein Verfahren, das dem Sprachmodell die gefundenen Textstellen vor der Antwort mitgibt: <strong>RAG</strong>. Beides baut auf den Embeddings aus Kapitel 2 auf.</p></div>
   <div class="aktionen">
     <a class="knopf primaer" href="#1-suchen-nach-bedeutung">Lesen</a>
     <a class="knopf" href="app/labor-3.html">Im Labor ausprobieren</a>
@@ -31,22 +31,33 @@
 </div></div>
 <div class="huelle raster">
   <aside class="verzeichnis" aria-label="Inhalt">
-    <details open><summary>Inhalt</summary><ol><li><a href="#1-suchen-nach-bedeutung">1. Suchen nach Bedeutung</a></li><li><a href="#2-ein-text-ein-pfeil">2. Ein Text, ein Pfeil</a></li><li><a href="#3-ähnlichkeit-messen-der-kosinus">3. Ähnlichkeit messen: der Kosinus</a></li><li><a href="#4-woher-die-zahlen-kommen-embedding-modelle">4. Woher die Zahlen kommen: Embedding-Modelle</a></li><li><a href="#5-suchen-in-einer-textsammlung">5. Suchen in einer Textsammlung</a></li><li><a href="#6-rag-nachschlagen-statt-raten">6. RAG: Nachschlagen statt Raten</a></li><li><a href="#7-grenzen-ehrlich-benennen">7. Grenzen ehrlich benennen</a></li><li><a href="#das-wichtigste-in-kürze">Das Wichtigste in Kürze</a></li><li><a href="#selbst-ausprobieren">Selbst ausprobieren</a></li><li><a href="#quellen">Quellen</a></li></ol></details>
+    <details open><summary>Inhalt</summary><ol><li><a href="#1-suchen-nach-bedeutung">1. Suchen nach Bedeutung</a></li><li><a href="#2-ein-text-ein-pfeil">2. Ein Text, ein Pfeil</a></li><li><a href="#3-ähnlichkeit-messen-der-kosinus">3. Ähnlichkeit messen: der Kosinus</a></li><li><a href="#4-woher-die-zahlen-kommen-embedding-modelle">4. Woher die Zahlen kommen: Embedding-Modelle</a></li><li><a href="#5-suchen-in-einer-textsammlung">5. Suchen in einer Textsammlung</a></li><li><a href="#6-rag-nachschlagen-statt-raten">6. RAG: Nachschlagen statt Raten</a></li><li><a href="#7-grenzen-ehrlich-benennen">7. Grenzen ehrlich benennen</a></li><li><a href="#8-was-das-für-den-alltag-heißt">8. Was das für den Alltag heißt</a></li><li><a href="#das-wichtigste-in-kürze">Das Wichtigste in Kürze</a></li><li><a href="#teste-dich">Teste dich</a></li><li><a href="#selbst-ausprobieren">Selbst ausprobieren</a></li><li><a href="#quellen">Quellen</a></li></ol></details>
     <a class="zum-labor" href="app/labor-3.html">Labor 3<small>Alles aus diesem Kapitel zum Ausprobieren</small></a>
   </aside>
   <article class="text">
     
+<div class="lernziele">
+<p><strong>Nach diesem Kapitel kannst du …</strong></p>
+<ul>
+<li>erklären, warum eine Suche nach Bedeutung mehr findet als eine Suche nach Stichwörtern.</li>
+<li>in eigenen Worten beschreiben, wie ein Computer die Ähnlichkeit zweier Texte misst.</li>
+<li>den Ablauf von RAG skizzieren und sagen, warum Antworten damit überprüfbar werden.</li>
+<li>typische Schwachstellen nennen und einschätzen, wann du genauer hinschauen solltest.</li>
+</ul>
+<p>Kästen „Für Neugierige“ enthalten Rechnungen und Hintergründe. Du kannst sie überspringen, ohne den Faden zu verlieren.</p>
+</div>
+<p>Zwei Arten von Modellen, die in diesem Kapitel zusammenarbeiten:</p>
 <div class="tabelle"><table>
 <thead>
 <tr>
 <th></th>
-<th>Kapitel 2: Sprachmodell</th>
-<th>Kapitel 3: Embedding-Modell</th>
+<th>Sprachmodell (Kapitel 2)</th>
+<th>Embedding-Modell (dieses Kapitel)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Input</td>
+<td>Eingabe</td>
 <td>der bisherige Text</td>
 <td>ein kurzer Text, etwa eine Frage oder ein Absatz</td>
 </tr>
@@ -60,23 +71,25 @@
 <td>Text erzeugen</td>
 <td>Texte vergleichen, suchen, sortieren</td>
 </tr>
-<tr>
-<td>Im Beispiel</td>
-<td>Llama 3, GPT-3 und andere</td>
-<td>paraphrase-multilingual-MiniLM-L12-v2, 118 Millionen Parameter</td>
-</tr>
 </tbody>
 </table></div>
-<p>Alle Zahlen in diesem Kapitel sind echt. Das Skript zum Kapitel rechnet sie mit dem Modell aus der Tabelle nach, und Labor 3 lädt dasselbe Modell in den Browser.</p>
+<p>Alle Ähnlichkeitswerte in diesem Kapitel sind echt. Sie wurden mit einem frei verfügbaren Embedding-Modell berechnet, das auch Labor 3 verwendet.</p>
 
     <section id="1-suchen-nach-bedeutung"><h2>1. Suchen nach Bedeutung</h2>
 <p>Der Eisverkäufer hat ein Handbuch für seinen Stand geschrieben: 24 kurze Abschnitte über Sorten, Preise, Öffnungszeiten und Allergien. Es ist wie alle Daten im Workshop erfunden. Ein Kunde fragt:</p>
 <pre><code class="language-text">Mir tut der Kopf weh, wenn ich Eis esse.
 </code></pre>
+<div class="frage">
+<p><strong>Kurz überlegen:</strong> Du sollst die Antwort im Handbuch finden. Welche Wörter würdest du in eine Suchmaske eintippen?</p>
+<details>
+<summary>Auflösung</summary>
 <p>Im Handbuch steht die Antwort unter „Hirnfrost“:</p>
 <pre><code class="language-text">Hirnfrost: Wer sehr kaltes Eis zu schnell isst, bekommt manchmal kurz stechende Kopfschmerzen. Langsam essen hilft.
 </code></pre>
-<p>Eine <strong>Stichwortsuche</strong> zählt, wie viele Wörter der Frage in einem Abschnitt vorkommen. Füllwörter wie „der“ oder „ich“ lässt sie weg. Übrig bleiben „mir“, „tut“, „kopf“, „weh“, „eis“ und „esse“. Im Hirnfrost-Abschnitt kommt davon nur „eis“ vor. „Kopf“ ist nicht „Kopfschmerzen“, und „esse“ ist nicht „isst“. Das Wort „Eis“ steht aber in sieben Abschnitten, und alle sieben liegen gleichauf.</p>
+<p>Wer das Wort „Hirnfrost“ nicht kennt, sucht vermutlich nach „Kopfschmerzen“ oder „Kopf“ und hofft auf einen Treffer. Ein Mensch weiß sofort, dass „Kopf tut weh“ und „Kopfschmerzen“ dasselbe meinen. Eine Stichwortsuche weiß das nicht.</p>
+</details>
+</div>
+<p>Eine <strong>Stichwortsuche</strong> zählt, wie viele Wörter der Frage in einem Abschnitt vorkommen. Füllwörter wie „der“ oder „ich“ lässt sie weg. Im Hirnfrost-Abschnitt findet sie nur „Eis“, denn „Kopf“ ist nicht „Kopfschmerzen“, und „esse“ ist nicht „isst“. Das Wort „Eis“ steht aber in sieben Abschnitten, und alle liegen gleichauf.</p>
 <p>Die semantische Suche dagegen setzt „Hirnfrost“ mit großem Abstand an die Spitze:</p>
 <figure><img alt="Zwei Balkendiagramme für die Frage „Mir tut der Kopf weh, wenn ich Eis esse.“ Links die semantische Suche: Hirnfrost liegt mit 0,81 weit vorn, danach folgen Auftauen mit 0,49 und Glutenfrei mit 0,43. Rechts die Stichwortsuche: sechs Abschnitte haben je ein gemeinsames Wort, Hirnfrost steht erst an dritter Stelle." src="bilder/kapitel-3/04-suche.png" loading="lazy"></figure>
 <p>So geht es mit vielen Fragen, die Menschen tatsächlich stellen:</p>
@@ -116,13 +129,13 @@
 </tr>
 </tbody>
 </table></div>
-<p>Die Zahlen in Klammern messen die Ähnlichkeit. Wie sie entstehen, zeigen die nächsten beiden Abschnitte.</p>
+<p>Die Zahlen in Klammern messen die Ähnlichkeit, 1 wäre das Höchste. Wie sie entstehen, zeigen die nächsten beiden Abschnitte.</p>
 <blockquote>
 <p><strong>Merke:</strong> Die Stichwortsuche vergleicht Buchstaben. Die semantische Suche vergleicht Bedeutungen.</p>
 </blockquote>
 </section><section id="2-ein-text-ein-pfeil"><h2>2. Ein Text, ein Pfeil</h2>
-<p>Die Idee aus Kapitel 2 lässt sich auf ganze Texte übertragen: Jeder Text bekommt eine Liste von Zahlen, sein Embedding. Texte mit ähnlicher Bedeutung sollen ähnliche Listen bekommen.</p>
-<p>Zum Nachrechnen genügen zwei Zahlen pro Text. Die erste soll messen, wie sehr es um Geld geht, die zweite, wie sehr um Gesundheit. Diese Werte sind ausgedacht:</p>
+<p>Die Idee aus Kapitel 2 lässt sich auf ganze Texte übertragen: Jeder Text bekommt eine Liste von Zahlen, sein <strong>Embedding</strong>. Texte mit ähnlicher Bedeutung sollen ähnliche Listen bekommen.</p>
+<p>Zum Verstehen genügen zwei Zahlen pro Text. Die erste soll messen, wie sehr es um Geld geht, die zweite, wie sehr um Gesundheit. Diese Werte sind ausgedacht:</p>
 <div class="tabelle"><table>
 <thead>
 <tr>
@@ -153,37 +166,17 @@
 </tr>
 </tbody>
 </table></div>
-<p>Zwei Zahlen sind ein Punkt in einem Koordinatensystem. Zeichnet man vom Nullpunkt einen Pfeil zu diesem Punkt, erhält man einen <strong>Vektor</strong>:</p>
+<p>Zwei Zahlen sind ein Punkt in einem Koordinatensystem, wie auf einer Landkarte. Zeichnet man vom Nullpunkt einen Pfeil zu diesem Punkt, erhält man einen <strong>Vektor</strong>:</p>
 <figure><img alt="Drei Pfeile vom Nullpunkt aus. Der blaue Pfeil F zeigt auf (3, 1), der orange Pfeil P auf (6, 2) in genau dieselbe Richtung, nur doppelt so weit. Der grüne Pfeil H zeigt auf (1, 3), steil nach oben. Zwischen F und H liegt ein Winkel von 53 Grad. Der Abstand von F zu H beträgt 2,83, der von F zu P 3,16." src="bilder/kapitel-3/01-pfeile.png" loading="lazy"></figure>
-<p>Der Preise-Abschnitt zeigt in genau dieselbe Richtung wie die Frage, sein Pfeil ist nur länger, weil er mehr über Geld sagt. Der Hirnfrost-Abschnitt zeigt in eine ganz andere Richtung. Für die Suche zählt also die Richtung.</p>
-<p><strong>Echte Embeddings</strong> funktionieren genauso, nur mit viel mehr Zahlen. Das Modell aus diesem Kapitel macht aus „Was kostet eine Kugel?“ eine Liste mit 384 Zahlen. Sie beginnt so:</p>
-<pre><code class="language-text">0,053   0,088   −0,050   0,001   0,034   −0,033   …
-</code></pre>
-<p>Anders als im Spielzeugbeispiel bedeutet keine dieser Zahlen etwas für sich allein, so wie die Weights eines Neurons in Kapitel 1. Bedeutung hat nur das Muster aller 384 Zahlen zusammen. Sichtbar wird das, wenn man jede Zahl als Farbstreifen zeichnet:</p>
+<p>Der Preise-Abschnitt zeigt in genau dieselbe Richtung wie die Frage, sein Pfeil ist nur länger, weil er mehr über Geld sagt. Der Hirnfrost-Abschnitt zeigt in eine ganz andere Richtung. Für die Suche zählt also die Richtung, nicht die Länge.</p>
+<p><strong>Echte Embeddings</strong> funktionieren genauso, nur mit viel mehr Zahlen. Das Modell aus diesem Kapitel macht aus „Was kostet eine Kugel?“ eine Liste mit 384 Zahlen. Anders als im ausgedachten Beispiel bedeutet keine dieser Zahlen etwas für sich allein. Bedeutung hat nur das Muster aller 384 Zahlen zusammen. Sichtbar wird das, wenn man jede Zahl als Farbstreifen zeichnet:</p>
 <figure><img alt="Drei Farbstreifen mit je 384 schmalen Strichen in Blau und Orange. Die Streifen für die Frage „Was kostet eine Kugel?“ und für den Abschnitt „Preise“ haben ein ähnliches Muster, ihr Kosinus ist 0,85. Der Streifen für „Hirnfrost“ sieht anders aus, sein Kosinus zur Frage ist −0,04." src="bilder/kapitel-3/02-zahlenlisten.png" loading="lazy"></figure>
-<p>Einen Pfeil in 384 Dimensionen kann sich niemand vorstellen. Rechnen kann man damit trotzdem genau wie mit zwei Zahlen.</p>
+<p>Einen Pfeil mit 384 Richtungen kann sich niemand vorstellen. Rechnen kann man damit trotzdem genau wie mit zwei Zahlen.</p>
 <blockquote>
 <p><strong>Merke:</strong> Ein Embedding macht aus einem ganzen Text einen Pfeil. Ähnliche Bedeutung heißt: ähnliche Richtung.</p>
 </blockquote>
 </section><section id="3-ähnlichkeit-messen-der-kosinus"><h2>3. Ähnlichkeit messen: der Kosinus</h2>
-<p>Wie ähnlich sind zwei Richtungen? Das misst der <strong>Kosinus</strong> des Winkels zwischen zwei Pfeilen. Ausrechnen lässt er sich in drei Schritten, ganz ohne Winkelmesser:</p>
-<ol>
-<li><strong>Skalarprodukt:</strong> Die Zahlen an gleicher Stelle multiplizieren und alles addieren.</li>
-<li><strong>Längen:</strong> Für jeden Pfeil die Zahlen quadrieren, addieren und die Wurzel ziehen (der Satz des Pythagoras).</li>
-<li><strong>Teilen:</strong> Skalarprodukt geteilt durch das Produkt der beiden Längen.</li>
-</ol>
-<p>Für die Frage F und den Preise-Abschnitt P:</p>
-<pre><code class="language-text">Skalarprodukt:  3 · 6 + 1 · 2           = 20
-Längen:         |F| = √(3² + 1²) = √10  = 3,16
-                |P| = √(6² + 2²) = √40  = 6,32
-Kosinus:        20 / (3,16 · 6,32)      = 1,00
-</code></pre>
-<p>Und für die Frage F und den Hirnfrost-Abschnitt H:</p>
-<pre><code class="language-text">Skalarprodukt:  3 · 1 + 1 · 3           = 6
-Längen:         |F| = 3,16,  |H| = √10  = 3,16
-Kosinus:        6 / (3,16 · 3,16)       = 0,60
-</code></pre>
-<p>Der Preise-Abschnitt gewinnt mit 1,00, das ist der größtmögliche Wert. Was die Werte bedeuten:</p>
+<p>Wie ähnlich sind zwei Richtungen? Das misst der <strong>Kosinus</strong> des Winkels zwischen zwei Pfeilen. Den Namen kennen manche noch aus dem Matheunterricht, für das Verständnis genügt aber diese Tabelle:</p>
 <div class="tabelle"><table>
 <thead>
 <tr>
@@ -210,9 +203,33 @@ Kosinus:        6 / (3,16 · 3,16)       = 0,60
 </tr>
 </tbody>
 </table></div>
+<p>Für die Frage F und den Preise-Abschnitt P ergibt sich 1,00, denn sie zeigen in exakt dieselbe Richtung. Für die Frage F und den Hirnfrost-Abschnitt H ergibt sich 0,60. Der Preise-Abschnitt gewinnt also, wie es sein soll.</p>
 <p><strong>Warum nicht einfach den Abstand messen?</strong> Die Spitze von H liegt mit 2,83 näher an F als die Spitze von P mit 3,16. Nach dem Abstand wäre der Hirnfrost-Abschnitt die bessere Antwort auf die Preisfrage, und das ist falsch. Der Abstand wird von der Länge der Pfeile gestört, der Kosinus nicht.</p>
+<details class="vertiefung">
+<summary>Für Neugierige: Den Kosinus ausrechnen</summary>
+<p>Der Kosinus lässt sich in drei Schritten ausrechnen, ganz ohne Winkelmesser:</p>
+<ol>
+<li><strong>Skalarprodukt:</strong> Die Zahlen an gleicher Stelle multiplizieren und alles addieren.</li>
+<li><strong>Längen:</strong> Für jeden Pfeil die Zahlen quadrieren, addieren und die Wurzel ziehen (der Satz des Pythagoras).</li>
+<li><strong>Teilen:</strong> Skalarprodukt geteilt durch das Produkt der beiden Längen.</li>
+</ol>
+<p>Für die Frage F und den Preise-Abschnitt P:</p>
+<pre><code class="language-text">Skalarprodukt:  3 · 6 + 1 · 2           = 20
+Längen:         |F| = √(3² + 1²) = √10  = 3,16
+                |P| = √(6² + 2²) = √40  = 6,32
+Kosinus:        20 / (3,16 · 6,32)      = 1,00
+</code></pre>
+<p>Und für die Frage F und den Hirnfrost-Abschnitt H:</p>
+<pre><code class="language-text">Skalarprodukt:  3 · 1 + 1 · 3           = 6
+Längen:         |F| = 3,16,  |H| = √10  = 3,16
+Kosinus:        6 / (3,16 · 3,16)       = 0,60
+</code></pre>
 <p>Viele Embedding-Modelle bringen alle Pfeile ohnehin auf die Länge 1, auch das Modell in diesem Kapitel. Dann fällt Schritt 2 weg, der Kosinus ist einfach das Skalarprodukt. Für 384 Zahlen sind das 384 Multiplikationen und eine Summe, das schafft jeder Computer millionenfach pro Sekunde.</p>
-<p>Mit echten Embeddings liegen die Werte selten nahe −1. Zwei Beispiele:</p>
+</details>
+<div class="frage">
+<p><strong>Kurz überlegen:</strong> Schätz mal: Wie ähnlich sind sich „Vanille“ und „Schokolade“ für das Modell? Und „Vanille“ und „Steuererklärung“?</p>
+<details>
+<summary>Auflösung</summary>
 <div class="tabelle"><table>
 <thead>
 <tr>
@@ -234,21 +251,49 @@ Kosinus:        6 / (3,16 · 3,16)       = 0,60
 </tr>
 </tbody>
 </table></div>
-<p>Vanille und Schokolade lagen schon auf der Karte in Kapitel 2, Abschnitt 4 nah beieinander. Dort waren die Positionen ausgedacht, hier ist die Ähnlichkeit gemessen.</p>
+<p>Mit echten Embeddings liegen die Werte selten nahe −1, und auch völlig verschiedene Themen landen oft noch über 0. Wichtig ist deshalb nicht der Wert allein, sondern der Vergleich: Welcher Text ist ähnlicher als die anderen? Vanille und Schokolade lagen übrigens schon auf der Karte in Kapitel 2, Abschnitt 4 nah beieinander. Dort waren die Positionen ausgedacht, hier ist die Ähnlichkeit gemessen.</p>
+</details>
+</div>
 <blockquote>
-<p><strong>Merke:</strong> Der Kosinus misst, wie gleich zwei Pfeile ausgerichtet sind: 1 heißt gleiche Richtung, 0 heißt nichts gemeinsam.</p>
+<p><strong>Merke:</strong> Der Kosinus misst, wie gleich zwei Pfeile ausgerichtet sind: 1 heißt gleiche Richtung, 0 heißt nichts gemeinsam. Die Länge der Pfeile spielt keine Rolle.</p>
 </blockquote>
 <aside class="labor-hinweis">
   <span class="symbol"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h10M4 17h6M18 7h2M14 17h6"/><circle cx="16" cy="7" r="2"/><circle cx="12" cy="17" r="2"/></svg></span>
-  <div><strong>Ausprobieren: Kosinus von Hand</strong><span>Zwei Pfeile ziehen und zusehen, wie sich Kosinus, Winkel und Abstand verändern.</span></div>
+  <div><strong>Ausprobieren: Kosinus von Hand</strong><span>Zieh zwei Pfeile und beobachte, wie sich Kosinus und Abstand verändern.</span></div>
   <a class="knopf primaer" href="app/labor-3.html#kosinus">Zum Labor</a>
 </aside></section><section id="4-woher-die-zahlen-kommen-embedding-modelle"><h2>4. Woher die Zahlen kommen: Embedding-Modelle</h2>
 <p>Die Embeddings aus Kapitel 2 gehören zu einzelnen Tokens. Für die Suche braucht man ein Embedding für einen ganzen Text. Das liefert ein eigenes <strong>Embedding-Modell</strong>.</p>
-<p><strong>Der Aufbau ist bekannt.</strong> Ein Embedding-Modell ist ein Transformer wie in Kapitel 2, Abschnitt 6: Tokenizer, Embeddings, ein Stapel aus Blöcken mit Attention und Neuronen mit Knick. Nur die Ausgabe fehlt, es sagt kein nächstes Token voraus. Stattdessen nimmt man am Ende die Zahlenlisten aller Tokens und bildet den Durchschnitt, Stelle für Stelle. Weil jedes Token durch Attention die anderen gesehen hat, steckt in diesem Durchschnitt der ganze Satz. Anders als im Sprachmodell darf dabei jedes Token auch auf spätere Tokens schauen, denn es muss nichts vorhergesagt werden.</p>
-<p><strong>Das Training ist neu.</strong> Ein Embedding-Modell lernt an Paaren von Texten, die zusammengehören, etwa eine Frage und ihre Antwort oder zwei Sätze mit derselben Bedeutung. Beim Training bekommt es einen Stapel solcher Paare. Für jede Frage soll die passende Antwort den höchsten Kosinus haben, alle anderen Antworten im Stapel einen niedrigeren. So sieht das bei einem fertig trainierten Modell aus, mit vier Fragen und vier Abschnitten aus dem Handbuch:</p>
+<p><strong>Der Aufbau ist bekannt.</strong> Ein Embedding-Modell ist ein Transformer wie in Kapitel 2: Tokenizer, Embeddings, ein Stapel aus Blöcken mit Attention und Neuronen mit Knick. Es sagt aber kein nächstes Token voraus, sondern liefert am Ende eine Zahlenliste für den ganzen Text.</p>
+<p><strong>Das Training ist neu.</strong> Ein Embedding-Modell lernt an Paaren von Texten, die zusammengehören, etwa eine Frage und ihre Antwort oder zwei Sätze mit derselben Bedeutung. Das Ziel: Zusammengehörige Texte sollen in dieselbe Richtung zeigen, alle anderen in andere Richtungen. So sieht das bei einem fertig trainierten Modell aus, mit vier Fragen und vier Abschnitten aus dem Handbuch:</p>
 <figure><img alt="Eine Tabelle mit vier Fragen in den Zeilen und vier Abschnitten in den Spalten. Auf der Diagonale, orange umrandet, stehen die passenden Paare mit den höchsten Werten: „Was kostet eine Kugel?“ und Preise 0,85, „Wann habt ihr geöffnet?“ und Öffnungszeiten 0,37, „Darf mein Hund mit?“ und Hunde 0,61, „Ist das Sorbet vegan?“ und Vegane Sorten 0,62. Die übrigen Werte liegen zwischen −0,17 und 0,27." src="bilder/kapitel-3/03-training.png" loading="lazy"></figure>
-<p>Die passende Antwort gewinnt in jeder Zeile. Gemessen wird beim Training wieder mit der Kreuzentropie aus Kapitel 2: Die Kosinuswerte einer Zeile werden mit der Softmax-Funktion zu Wahrscheinlichkeiten, und die richtige Antwort soll eine möglichst hohe bekommen. Danach geht es wie immer mit Backpropagation und Gradientenabstieg bergab.</p>
-<p><strong>Das Modell in diesem Kapitel</strong> heißt paraphrase-multilingual-MiniLM-L12-v2 und ist frei verfügbar:</p>
+<p>Die passende Antwort gewinnt in jeder Zeile. Weil das Modell auch an übersetzten Sätzen trainiert wurde, funktioniert die Suche sogar über Sprachgrenzen hinweg:</p>
+<div class="tabelle"><table>
+<thead>
+<tr>
+<th>Text A</th>
+<th>Text B</th>
+<th>Kosinus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mir tut der Kopf weh.</td>
+<td>Ich habe Kopfschmerzen.</td>
+<td>0,92</td>
+</tr>
+<tr>
+<td>Zwei Kugeln Schokolade im Becher, bitte.</td>
+<td>Two scoops of chocolate in a cup, please.</td>
+<td>0,88</td>
+</tr>
+</tbody>
+</table></div>
+<p>Die Bestellung aus Kapitel 2 braucht auf Deutsch und Englisch ganz verschiedene Tokens, ihre Pfeile zeigen trotzdem fast in dieselbe Richtung.</p>
+<details class="vertiefung">
+<summary>Für Neugierige: Wie das Modell aufgebaut ist und trainiert wurde</summary>
+<p>Am Ende des Transformers nimmt man die Zahlenlisten aller Tokens und bildet den Durchschnitt, Stelle für Stelle. Weil jedes Token durch Attention die anderen gesehen hat, steckt in diesem Durchschnitt der ganze Satz. Anders als im Sprachmodell darf dabei jedes Token auch auf spätere Tokens schauen, denn es muss nichts vorhergesagt werden.</p>
+<p>Beim Training bekommt das Modell einen Stapel von Paaren. Die Kosinuswerte jeder Zeile werden mit der Softmax-Funktion zu Wahrscheinlichkeiten, und die richtige Antwort soll eine möglichst hohe bekommen. Gemessen wird wieder mit der Kreuzentropie aus Kapitel 2, danach geht es wie immer mit Backpropagation und Gradientenabstieg bergab.</p>
+<p>Das Modell in diesem Kapitel heißt paraphrase-multilingual-MiniLM-L12-v2 und ist frei verfügbar:</p>
 <div class="tabelle"><table>
 <thead>
 <tr>
@@ -279,43 +324,22 @@ Kosinus:        6 / (3,16 · 3,16)       = 0,60
 </tr>
 </tbody>
 </table></div>
-<p>Gelernt hat es in zwei Stufen. Zuerst wurde ein englisches Modell an Paaren von Sätzen mit gleicher Bedeutung trainiert. Danach hat das mehrsprachige Modell gelernt, für einen übersetzten Satz denselben Pfeil zu liefern wie das englische Modell für das Original. Deshalb funktioniert die Suche über Sprachgrenzen hinweg:</p>
-<div class="tabelle"><table>
-<thead>
-<tr>
-<th>Text A</th>
-<th>Text B</th>
-<th>Kosinus</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Mir tut der Kopf weh.</td>
-<td>Ich habe Kopfschmerzen.</td>
-<td>0,92</td>
-</tr>
-<tr>
-<td>Zwei Kugeln Schokolade im Becher, bitte.</td>
-<td>Two scoops of chocolate in a cup, please.</td>
-<td>0,88</td>
-</tr>
-</tbody>
-</table></div>
-<p>Die Bestellung aus Kapitel 2 braucht auf Deutsch und Englisch verschiedene Tokens, ihre Pfeile zeigen trotzdem fast in dieselbe Richtung.</p>
+<p>Gelernt hat es in zwei Stufen. Zuerst wurde ein englisches Modell an Paaren von Sätzen mit gleicher Bedeutung trainiert. Danach hat das mehrsprachige Modell gelernt, für einen übersetzten Satz denselben Pfeil zu liefern wie das englische Modell für das Original.</p>
+</details>
 <blockquote>
-<p><strong>Merke:</strong> Ein Embedding-Modell ist ein Transformer, der darauf trainiert wurde, zusammengehörige Texte nah beieinander abzulegen.</p>
+<p><strong>Merke:</strong> Ein Embedding-Modell ist ein Transformer, der darauf trainiert wurde, zusammengehörige Texte in dieselbe Richtung zeigen zu lassen, auch über Sprachgrenzen hinweg.</p>
 </blockquote>
 <aside class="labor-hinweis">
   <span class="symbol"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h10M4 17h6M18 7h2M14 17h6"/><circle cx="16" cy="7" r="2"/><circle cx="12" cy="17" r="2"/></svg></span>
-  <div><strong>Ausprobieren: Sätze vergleichen</strong><span>Zwei eigene Sätze eingeben und ihren Kosinus mit dem echten Embedding-Modell berechnen.</span></div>
+  <div><strong>Ausprobieren: Sätze vergleichen</strong><span>Vergleich einen Satz mit seiner Übersetzung, oder „Eis mit Nüssen“ mit „Eis ohne Nüsse“.</span></div>
   <a class="knopf primaer" href="app/labor-3.html#vergleich">Zum Labor</a>
 </aside></section><section id="5-suchen-in-einer-textsammlung"><h2>5. Suchen in einer Textsammlung</h2>
-<p>Mit Embeddings und Kosinus lässt sich nun eine Suchmaschine bauen. Sie arbeitet in zwei Phasen.</p>
+<p>Mit Embeddings und Kosinus lässt sich nun eine Suchmaschine bauen. Sie arbeitet in zwei Phasen, ähnlich wie eine Bibliothek: Der Katalog wird einmal angelegt, danach geht jede Suche schnell.</p>
 <p><strong>Vorab, einmal:</strong></p>
 <ol>
-<li><strong>Zerlegen:</strong> Die Textsammlung wird in kurze Stücke geteilt. Das Handbuch besteht schon aus 24 Abschnitten mit je 16 bis 35 Tokens. Jedes Stück bekommt seine Überschrift mit, damit es auch allein verständlich bleibt.</li>
+<li><strong>Zerlegen:</strong> Die Textsammlung wird in kurze Stücke geteilt. Das Handbuch besteht schon aus 24 kurzen Abschnitten. Jedes Stück bekommt seine Überschrift mit, damit es auch allein verständlich bleibt.</li>
 <li><strong>Einbetten:</strong> Das Modell berechnet für jedes Stück ein Embedding.</li>
-<li><strong>Speichern:</strong> 24 Listen mit je 384 Zahlen, zusammen gut 9.000 Zahlen.</li>
+<li><strong>Speichern:</strong> 24 Listen mit je 384 Zahlen.</li>
 </ol>
 <p><strong>Bei jeder Frage:</strong></p>
 <ol>
@@ -323,21 +347,21 @@ Kosinus:        6 / (3,16 · 3,16)       = 0,60
 <li>Der Kosinus mit jedem gespeicherten Embedding wird berechnet.</li>
 <li>Die Stücke mit den höchsten Werten sind die Treffer.</li>
 </ol>
-<p>Das teure Modell läuft bei einer Frage also nur ein einziges Mal. Alles andere sind Multiplikationen und Summen.</p>
-<p>Wie die Stücke zueinander liegen, zeigt eine Karte. Dafür werden die 384 Zahlen auf die zwei Richtungen verkürzt, in denen sich die Stücke am stärksten unterscheiden:</p>
+<p>Das aufwendige Modell läuft bei einer Frage also nur ein einziges Mal. Alles andere sind einfache Multiplikationen und Summen.</p>
+<p>Wie die Stücke zueinander liegen, zeigt eine Karte. Dafür werden die 384 Zahlen auf zwei verkürzt:</p>
 <figure><img alt="Eine Karte mit 24 farbigen Punkten, einem pro Abschnitt des Handbuchs. Preise, Bezahlen, Kinder und Stempelkarte bilden unten eine Gruppe. Rechts oben liegen Zucker, Nüsse, Zutaten und Vegane Sorten beieinander. Links oben liegen Hirnfrost, Auftauen, Lagerung, Winterpause und Wetter. Die Frage „Mir tut der Kopf weh, wenn ich Eis esse.“ ist als Stern eingezeichnet und liegt in dieser Gruppe zwischen Wetter und Herstellung." src="bilder/kapitel-3/05-karte.png" loading="lazy"></figure>
-<p>Was zusammengehört, liegt meist auch zusammen, besonders deutlich bei den Preisen. Die Karte zeigt aber auch, was beim Verkürzen verloren geht: Auf ihr liegt die Frage näher an „Wetter“ als an „Hirnfrost“. In allen 384 Dimensionen ist „Hirnfrost“ mit 0,81 klar am nächsten, „Wetter“ kommt nur auf 0,19. Für die Suche wird deshalb immer mit allen Zahlen gerechnet. Die Karte dient nur zum Anschauen.</p>
+<p>Was zusammengehört, liegt meist auch zusammen, besonders deutlich bei den Preisen. Die Karte zeigt aber auch, was beim Verkürzen verloren geht: Auf ihr liegt die Frage näher an „Wetter“ als an „Hirnfrost“. Mit allen 384 Zahlen ist „Hirnfrost“ mit 0,81 klar am nächsten, „Wetter“ kommt nur auf 0,19. Gesucht wird deshalb immer mit allen Zahlen, die Karte dient nur zum Anschauen.</p>
 <p><strong>Und bei Millionen von Texten?</strong> Dann wird es zu langsam, jede Frage mit jedem Stück zu vergleichen. <strong>Vektordatenbanken</strong> ordnen die gespeicherten Pfeile deshalb vorab so, dass sie gute Kandidaten finden, ohne alles durchzugehen. Dafür nehmen sie in Kauf, dass ab und zu ein Treffer fehlt.</p>
 <blockquote>
-<p><strong>Merke:</strong> Semantische Suche heißt: alles vorab einbetten, bei jeder Frage nur noch die Frage einbetten und die höchsten Kosinuswerte nehmen.</p>
+<p><strong>Merke:</strong> Semantische Suche heißt: alle Texte vorab einbetten, bei jeder Frage nur noch die Frage einbetten und die ähnlichsten Texte nehmen.</p>
 </blockquote>
 <aside class="labor-hinweis">
   <span class="symbol"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h10M4 17h6M18 7h2M14 17h6"/><circle cx="16" cy="7" r="2"/><circle cx="12" cy="17" r="2"/></svg></span>
-  <div><strong>Ausprobieren: Suche im Handbuch</strong><span>Eigene Fragen stellen und semantische Suche und Stichwortsuche nebeneinander vergleichen.</span></div>
+  <div><strong>Ausprobieren: Suche im Handbuch</strong><span>Stell eigene Fragen und vergleich semantische Suche und Stichwortsuche nebeneinander.</span></div>
   <a class="knopf primaer" href="app/labor-3.html#suche">Zum Labor</a>
 </aside></section><section id="6-rag-nachschlagen-statt-raten"><h2>6. RAG: Nachschlagen statt Raten</h2>
-<p>Ein Sprachmodell kennt das Handbuch der Eisdiele nicht. Fragt man es nach Hirnfrost, antwortet es mit Allgemeinwissen. Fragt man nach dem Preis einer Kinderkugel, kann es nur raten, und das klingt nach Kapitel 2, Abschnitt 10 trotzdem überzeugend.</p>
-<p><strong>Retrieval-Augmented Generation</strong>, kurz <strong>RAG</strong>, heißt ungefähr: durch Nachschlagen ergänztes Erzeugen. Vor der Antwort wird gesucht, und die Treffer kommen mit in den Text, den das Sprachmodell bekommt:</p>
+<p>Ein Sprachmodell kennt das Handbuch der Eisdiele nicht. Fragt man es nach Hirnfrost, antwortet es mit Allgemeinwissen. Fragt man nach dem Preis einer Kinderkugel, kann es nur raten, und das klingt nach Kapitel 2 trotzdem überzeugend.</p>
+<p><strong>Retrieval-Augmented Generation</strong>, kurz <strong>RAG</strong>, heißt ungefähr: durch Nachschlagen ergänztes Erzeugen. Man kann es mit einer Prüfung mit offenem Buch vergleichen: Das Modell muss nicht alles wissen, es darf vor der Antwort nachschlagen. Vor der Antwort wird gesucht, und die Treffer kommen mit in den Text, den das Sprachmodell bekommt:</p>
 <figure><img alt="Ein Ablauf in zwei Zeilen. Oben, vorab und einmal: Das Handbuch mit 24 kurzen Stücken geht durch das Embedding-Modell, gespeichert werden 24 Listen mit je 384 Zahlen. Unten, bei jeder Frage: Die Frage geht durch das Embedding-Modell, dann wird gesucht, also der Kosinus mit allen gespeicherten Listen berechnet und die besten drei genommen. Aus einer Anweisung, den drei Stücken und der Frage entsteht der Prompt. Das Sprachmodell antwortet mit Hilfe der Stücke und nennt die Quelle." src="bilder/kapitel-3/06-rag.png" loading="lazy"></figure>
 <p>Der Text, den das Sprachmodell bekommt, heißt <strong>Prompt</strong>. Für die Kopfschmerz-Frage sieht er so aus:</p>
 <pre><code class="language-text">Beantworte die Frage nur mit Hilfe der Auszüge aus dem Handbuch der Eisdiele.
@@ -350,7 +374,7 @@ Wenn die Antwort nicht in den Auszügen steht, sag das. Nenne die Nummer des Aus
 Frage: Mir tut der Kopf weh, wenn ich Eis esse.
 </code></pre>
 <p>Eine typische Antwort wäre dann: „Das klingt nach Hirnfrost [1]. Iss das Eis langsamer, dann vergehen die Kopfschmerzen meist schnell.“ Die Auszüge 2 und 3 passen nicht, das Sprachmodell kann sie aber selbst als unpassend erkennen. Die Suche muss also nicht perfekt sein, nur die richtige Antwort unter die ersten Treffer bringen.</p>
-<p>Am Sprachmodell selbst ändert RAG nichts. Wie in Kapitel 2, Abschnitt 9 bleiben die Weights fest, das Modell lernt nicht dazu. Es liest nur einen längeren Prompt. Damit greift RAG zwei der Grenzen aus Kapitel 2 an:</p>
+<p>Am Sprachmodell selbst ändert RAG nichts. Wie in Kapitel 2 bleiben die Weights fest, das Modell lernt nicht dazu. Es liest nur einen längeren Prompt. Damit greift RAG zwei der Grenzen aus Kapitel 2 an:</p>
 <div class="tabelle"><table>
 <thead>
 <tr>
@@ -371,15 +395,16 @@ Frage: Mir tut der Kopf weh, wenn ich Eis esse.
 </table></div>
 <p><strong>Warum nicht gleich das ganze Handbuch mitschicken?</strong> Bei 24 kurzen Abschnitten ginge das tatsächlich, sie passen locker ins Kontextfenster. Bei tausenden Seiten passen sie nicht mehr hinein, und wo sie passen, kostet jede Frage viele Tokens. RAG schickt nur das Nötige mit.</p>
 <blockquote>
-<p><strong>Merke:</strong> RAG sucht passende Texte heraus und gibt sie dem Sprachmodell im Prompt mit. Das Modell schlägt nach, statt zu raten.</p>
+<p><strong>Merke:</strong> RAG sucht passende Texte heraus und gibt sie dem Sprachmodell im Prompt mit. Das Modell schlägt nach, statt zu raten, und seine Antwort wird überprüfbar.</p>
 </blockquote>
 <aside class="labor-hinweis">
   <span class="symbol"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h10M4 17h6M18 7h2M14 17h6"/><circle cx="16" cy="7" r="2"/><circle cx="12" cy="17" r="2"/></svg></span>
-  <div><strong>Ausprobieren: Prompt für RAG</strong><span>Den Prompt aus Anweisung, Treffern und Frage zusammenstellen und in einen Chat-Assistenten kopieren.</span></div>
+  <div><strong>Ausprobieren: Prompt für RAG</strong><span>Stell den Prompt zusammen und gib ihn einem Chat-Assistenten. Nennt er die Quelle?</span></div>
   <a class="knopf primaer" href="app/labor-3.html#rag">Zum Labor</a>
 </aside></section><section id="7-grenzen-ehrlich-benennen"><h2>7. Grenzen ehrlich benennen</h2>
-<p>Die semantische Suche ist nicht klüger als ihr Training. Mit demselben Handbuch und demselben Modell gehen diese Fragen schief:</p>
+<p>Die semantische Suche ist nicht klüger als ihr Training. Mit demselben Handbuch und demselben Modell geht zum Beispiel diese Frage schief:</p>
 <figure><img alt="Balkendiagramm für die Frage „Habt ihr etwas ohne Milch?“. Zutaten liegt mit 0,63 vorn, dann Lieferung mit 0,53 und Zucker mit 0,51. Der passende Abschnitt Vegane Sorten folgt erst auf Platz 4 mit 0,45." src="bilder/kapitel-3/07-grenze.png" loading="lazy"></figure>
+<p>Typische Schwächen und was dagegen hilft:</p>
 <div class="tabelle"><table>
 <thead>
 <tr>
@@ -402,7 +427,7 @@ Frage: Mir tut der Kopf weh, wenn ich Eis esse.
 <tr>
 <td><strong>Ähnlich ist nicht gleich passend</strong></td>
 <td>„Liefert ihr auch?“ findet „Lieferung“, dort geht es um Milch für den Stand. Gemeint war „Feiern“: „… liefern wir Eis ab 50 Kugeln“.</td>
-<td>Die Stücke so schreiben, dass sie für sich verständlich sind.</td>
+<td>Die Abschnitte so schreiben, dass sie für sich verständlich sind.</td>
 </tr>
 <tr>
 <td><strong>Genaue Zahlen und Namen</strong></td>
@@ -416,32 +441,73 @@ Frage: Mir tut der Kopf weh, wenn ich Eis esse.
 </tr>
 <tr>
 <td><strong>Zu lange Stücke</strong></td>
-<td>Das Modell liest höchstens 128 Tokens, der Rest wird abgeschnitten. Auch innerhalb dieser Grenze verwässert ein Durchschnitt über viele Themen.</td>
+<td>Das Modell liest höchstens 128 Tokens, der Rest wird abgeschnitten. Und ein Durchschnitt über viele Themen verwässert.</td>
 <td>Kurze Stücke mit einem Thema, jeweils mit Überschrift</td>
 </tr>
 </tbody>
 </table></div>
-<p>Auch mit RAG bleibt ein Sprachmodell ein Sprachmodell. Findet die Suche den falschen Abschnitt, antwortet es überzeugend aus dem falschen Abschnitt. Bei wichtigen Antworten lohnt deshalb der Blick in die genannte Quelle.</p>
+<p>Auch mit RAG bleibt ein Sprachmodell ein Sprachmodell. Findet die Suche den falschen Abschnitt, antwortet es überzeugend aus dem falschen Abschnitt.</p>
 <blockquote>
 <p><strong>Merke:</strong> Die semantische Suche findet Ähnliches, nicht zwingend Richtiges. Verneinungen, Zahlen und Namen sind ihre Schwachstellen.</p>
 </blockquote>
+</section><section id="8-was-das-für-den-alltag-heißt"><h2>8. Was das für den Alltag heißt</h2>
+<p>RAG begegnet dir öfter, als es aussieht: Chat-Assistenten mit Websuche, Assistenten, denen man eigene Dateien zum Lesen gibt, und Firmen-Chatbots, die im Intranet nachschlagen, arbeiten nach diesem Prinzip. Daraus folgen einige Faustregeln.</p>
+<p><strong>Wenn du einen solchen Assistenten nutzt:</strong></p>
+<ul>
+<li><strong>Die genannten Quellen ansehen.</strong> Der große Vorteil von RAG ist, dass sich die Antwort am Auszug prüfen lässt. Nutze ihn, besonders bei wichtigen Entscheidungen.</li>
+<li><strong>Konkrete Begriffe verwenden.</strong> Bei genauen Zahlen, Produktnamen oder Paragrafen hilft es, sie wörtlich in die Frage zu schreiben.</li>
+<li><strong>Fehlende Antworten ernst nehmen.</strong> Sagt der Assistent, dass die Unterlagen dazu nichts enthalten, ist das ein gutes Zeichen und kein Versagen.</li>
+</ul>
+<p><strong>Wenn du einen solchen Assistenten einführen willst:</strong></p>
+<ul>
+<li><strong>Die Unterlagen entscheiden über die Qualität.</strong> Veraltete, widersprüchliche oder schwer verständliche Dokumente führen zu ebensolchen Antworten. Kurze Abschnitte mit klaren Überschriften helfen der Suche.</li>
+<li><strong>Zugriffsrechte mitdenken.</strong> Die Suche darf nur Dokumente finden, die die fragende Person auch sehen darf.</li>
+<li><strong>Datenschutz klären.</strong> Die gefundenen Auszüge werden zusammen mit der Frage an das Sprachmodell geschickt, unter Umständen an einen externen Anbieter.</li>
+<li><strong>Mit echten Fragen testen.</strong> Wie in Kapitel 1 gilt: Erst der Test mit Fragen, die beim Aufbau niemand im Kopf hatte, zeigt, wie gut das System wirklich ist.</li>
+</ul>
+<blockquote>
+<p><strong>Merke:</strong> RAG macht Antworten überprüfbar, aber nur so gut wie die Unterlagen und die Suche dahinter. Der Blick in die Quelle bleibt deine Aufgabe.</p>
+</blockquote>
 </section><section id="das-wichtigste-in-kürze" class="kurz"><h2>Das Wichtigste in Kürze</h2>
 <ul>
-<li>Die <strong>Stichwortsuche</strong> vergleicht Wörter und scheitert an Umschreibungen, Synonymen und zusammengesetzten Wörtern.</li>
+<li>Die <strong>Stichwortsuche</strong> vergleicht Wörter und scheitert an Umschreibungen, Synonymen und anderen Wortformen.</li>
 <li>Ein <strong>Embedding</strong> macht aus einem ganzen Text eine Zahlenliste, einen Pfeil. Ähnliche Bedeutung heißt ähnliche Richtung.</li>
-<li>Der <strong>Kosinus</strong> misst, wie gleich zwei Pfeile ausgerichtet sind: Skalarprodukt geteilt durch das Produkt der Längen. Bei Pfeilen der Länge 1 ist er einfach das Skalarprodukt.</li>
-<li>Ein <strong>Embedding-Modell</strong> ist ein Transformer ohne Vorhersage des nächsten Tokens. Den Durchschnitt über alle Tokens nimmt man als Embedding des Textes.</li>
-<li>Trainiert wird es an <strong>Paaren</strong>, die zusammengehören: Die passende Antwort soll unter allen im Stapel den höchsten Kosinus bekommen. Gemessen wird wieder mit der Kreuzentropie.</li>
-<li><strong>Semantische Suche:</strong> Alle Stücke einmal vorab einbetten, bei jeder Frage nur die Frage einbetten und die höchsten Kosinuswerte nehmen.</li>
+<li>Der <strong>Kosinus</strong> misst, wie gleich zwei Pfeile ausgerichtet sind. 1 heißt gleiche Richtung, 0 nichts gemeinsam.</li>
+<li>Ein <strong>Embedding-Modell</strong> ist ein Transformer, der an zusammengehörigen Textpaaren trainiert wurde, auch über Sprachgrenzen hinweg.</li>
+<li><strong>Semantische Suche:</strong> Alle Texte einmal vorab einbetten, bei jeder Frage nur die Frage einbetten und die ähnlichsten Texte nehmen.</li>
 <li><strong>RAG</strong> gibt die Treffer dem Sprachmodell im Prompt mit. Es antwortet mit Wissen, das nicht in seinen Weights steckt, und kann die Quelle nennen.</li>
 <li>Verneinungen, genaue Zahlen und Namen sind Schwachstellen. Dagegen helfen mehrere Treffer, eine <strong>hybride Suche</strong> und eine Anweisung, fehlende Antworten zuzugeben.</li>
 </ul>
+</section><section id="teste-dich"><h2>Teste dich</h2>
+<details class="quiz">
+<summary>Warum findet die semantische Suche „Hirnfrost“ auf die Frage „Mir tut der Kopf weh“, die Stichwortsuche aber nicht?</summary>
+<p>Die Stichwortsuche vergleicht nur Buchstabenfolgen, und „Kopf“ ist für sie nicht „Kopfschmerzen“. Die semantische Suche vergleicht Embeddings, und die Frage und der Hirnfrost-Abschnitt zeigen in eine ähnliche Richtung, weil sie Ähnliches bedeuten.</p>
+</details>
+<details class="quiz">
+<summary>Ein langer Text über Preise und eine kurze Frage nach dem Preis: Warum stört der Längenunterschied beim Kosinus nicht?</summary>
+<p>Der Kosinus vergleicht nur die Richtung der Pfeile, nicht ihre Länge. Ein Text, der „mehr“ über dasselbe Thema sagt, zeigt in dieselbe Richtung, nur weiter.</p>
+</details>
+<details class="quiz">
+<summary>Lernt ein Sprachmodell durch RAG das Handbuch kennen?</summary>
+<p>Nein. Seine Weights bleiben unverändert. Es bekommt bei jeder Frage nur die passenden Auszüge im Prompt mitgeliefert und vergisst sie danach wieder.</p>
+</details>
+<details class="quiz">
+<summary>Warum sollte der Prompt erlauben, dass die Antwort fehlt?</summary>
+<p>Weil die Suche immer irgendetwas findet, auch wenn nichts Passendes im Handbuch steht. Ohne diese Erlaubnis würde das Sprachmodell aus einem unpassenden Auszug eine überzeugend klingende Antwort bauen.</p>
+</details>
+<details class="quiz">
+<summary>Welche Art von Frage bringt die semantische Suche am ehesten durcheinander?</summary>
+<p>Fragen mit Verneinungen („ohne Milch“), mit genauen Zahlen oder Namen und Fragen, deren Antwort gar nicht in den Unterlagen steht.</p>
+</details>
 </section><section id="selbst-ausprobieren"><h2>Selbst ausprobieren</h2>
-<p>In <a href="app/labor-3.html">Labor 3</a> lässt sich der Kosinus mit zwei Pfeilen von Hand nachrechnen. Außerdem kann man eigene Sätze vergleichen, im Handbuch der Eisdiele suchen und den Prompt für RAG zusammenstellen. Die Beispiele aus diesem Kapitel funktionieren sofort. Für eigene Eingaben lädt das Labor das Embedding-Modell einmalig in den Browser, etwa 118 MB. Danach rechnet es ohne Server direkt auf dem eigenen Rechner. Diese verkleinerte Fassung des Modells liefert Werte, die um ein bis zwei Hundertstel von denen im Text abweichen können.</p>
-<p>Das Skript rechnet alle Zahlen dieses Kapitels nach und erzeugt die Grafiken und die Daten für das Labor neu. Beim ersten Start lädt es das Modell in voller Genauigkeit herunter, etwa 470 MB. Mit einer eigenen Frage durchsucht es das Handbuch:</p>
+<p>In <a href="app/labor-3.html">Labor 3</a> lässt sich der Kosinus mit zwei Pfeilen von Hand ausprobieren. Außerdem kann man eigene Sätze vergleichen, im Handbuch der Eisdiele suchen und den Prompt für RAG zusammenstellen, um ihn in einen Chat-Assistenten zu kopieren. Die Beispiele aus diesem Kapitel funktionieren sofort. Für eigene Eingaben lädt das Labor das Embedding-Modell einmalig in den Browser, etwa 118 MB. Danach rechnet es ohne Server direkt auf dem eigenen Rechner. Diese verkleinerte Fassung des Modells liefert Werte, die um ein bis zwei Hundertstel von denen im Text abweichen können.</p>
+<details class="vertiefung">
+<summary>Für technisch Interessierte: Alles selbst nachrechnen</summary>
+<p>Ein Python-Skript rechnet alle Zahlen dieses Kapitels nach und erzeugt die Grafiken und die Daten für das Labor neu. Beim ersten Start lädt es das Modell in voller Genauigkeit herunter, etwa 470 MB. Mit einer eigenen Frage durchsucht es das Handbuch:</p>
 <pre><code class="language-bash">uv run docs/beispiele/03_semantische_suche.py &quot;Habt ihr Eis für Hunde?&quot;
 </code></pre>
 <p>Das Handbuch steht am Anfang von <a href="beispiele/03_semantische_suche.py"><code>beispiele/03_semantische_suche.py</code></a> und kann dort erweitert werden.</p>
+</details>
 </section><section id="quellen" class="quellen"><h2>Quellen</h2>
 <ul>
 <li>Reimers und Gurevych (2019): <a href="https://arxiv.org/abs/1908.10084">Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks</a></li>
@@ -451,13 +517,13 @@ Frage: Mir tut der Kopf weh, wenn ich Eis esse.
 <li>Hugging Face: <a href="https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2">paraphrase-multilingual-MiniLM-L12-v2</a></li>
 <li>Hugging Face: <a href="https://huggingface.co/docs/transformers.js">Transformers.js</a></li>
 </ul></section>
-    <nav class="blaettern" aria-label="Weitere Kapitel"><a href="kapitel-2.html"><small>← Kapitel 2</small>Tokenizer und große Sprachmodelle</a></nav>
+    <nav class="blaettern" aria-label="Weitere Kapitel"><a href="kapitel-2.html"><small>← Kapitel 2</small>Große Sprachmodelle: Wie ein Computer Texte schreibt</a></nav>
   </article>
 </div>
 </main>
 <footer class="fuss"><div class="huelle">
   <span>KI-Workshop: vom Eisverkäufer zum Sprachmodell. Alle Daten im Beispiel sind erfunden.<br>Texte und Grafiken: <a href="https://creativecommons.org/licenses/by/4.0/deed.de">CC BY 4.0</a> · Code: <a href="https://github.com/kariha70/ki-workshop/blob/main/LICENSE">MIT</a> · <a href="https://github.com/kariha70/ki-workshop">Quellcode auf GitHub</a></span>
-  <span><a href="index.html">Startseite</a> · <a href="kapitel-1.html">Kapitel 1</a> · <a href="kapitel-2.html">Kapitel 2</a> · <a href="kapitel-3.html">Kapitel 3</a> · <a href="app/labor-1.html">Labor 1</a> · <a href="app/labor-2.html">Labor 2</a> · <a href="app/labor-3.html">Labor 3</a></span>
+  <span><a href="index.html">Startseite</a> · <a href="kapitel-1.html">Kapitel 1</a> · <a href="kapitel-2.html">Kapitel 2</a> · <a href="kapitel-3.html">Kapitel 3</a> · <a href="app/labor-1.html">Labor 1</a> · <a href="app/labor-2.html">Labor 2</a> · <a href="app/labor-3.html">Labor 3</a> · <a href="glossar.html">Glossar</a> · <a href="leitfaden.html">Leitfaden</a></span>
 </div></footer>
 <script src="assets/thema.js"></script>
 <script src="assets/site.js"></script>

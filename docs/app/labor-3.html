@@ -78,6 +78,7 @@
   @media (max-width: 880px) { .panel { grid-template-columns: minmax(0, 1fr); } }
   .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; min-width: 0; }
   .ref { color: var(--muted); font-size: 13px; margin-bottom: 10px; }
+  .ref a { color: inherit; }
   .intro p:last-child, .tasks ul { margin-bottom: 0; }
   .tasks ul { padding-left: 18px; }
   .tasks li { margin-bottom: 6px; }
@@ -188,12 +189,12 @@
 <body>
 <div class="leiste"><div class="leiste-innen">
   <a class="marke" href="../index.html" aria-label="KI-Workshop, zur Startseite"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.5 11.5h11L12 23z" fill="#eb6834"/><circle cx="12" cy="8" r="6.2" fill="#2a78d6"/><path d="M8.6 9.3 12 5.4l3.4 3.9M8.6 9.3h6.8" stroke="#fff" stroke-width="0.9" fill="none" stroke-linejoin="round"/><circle cx="12" cy="5.4" r="1.35" fill="#fff"/><circle cx="8.6" cy="9.3" r="1.35" fill="#fff"/><circle cx="15.4" cy="9.3" r="1.35" fill="#fff"/></svg><span>KI-Workshop</span></a>
-  <nav aria-label="Workshop"><a href="../kapitel-1.html">Kapitel 1</a><a href="../kapitel-2.html">Kapitel 2</a><a href="../kapitel-3.html">Kapitel 3</a><span class="trenner"></span><a href="labor-1.html">Labor 1</a><a href="labor-2.html">Labor 2</a><a href="labor-3.html" aria-current="page">Labor 3</a></nav>
+  <nav aria-label="Workshop"><a href="../kapitel-1.html">Kapitel 1</a><a href="../kapitel-2.html">Kapitel 2</a><a href="../kapitel-3.html">Kapitel 3</a><span class="trenner"></span><a href="labor-1.html">Labor 1</a><a href="labor-2.html">Labor 2</a><a href="labor-3.html" aria-current="page">Labor 3</a><span class="trenner"></span><a href="../glossar.html">Glossar</a></nav>
   <button class="thema-knopf" type="button" aria-label="Design wechseln"><svg class="mond" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><svg class="sonne" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
 </div></div>
 <header>
   <h1>Suchen nach Bedeutung</h1>
-  <p class="sub">Zu „Semantische Suche und RAG“: den Kosinus von Hand nachrechnen, eigene Sätze vergleichen, im Handbuch der Eisdiele suchen und den Prompt für ein Sprachmodell zusammenstellen.</p>
+  <p class="sub">Zu Kapitel 3: Ähnlichkeit mit zwei Pfeilen ausprobieren, eigene Sätze vergleichen, im Handbuch der Eisdiele suchen und den Prompt für einen Chat-Assistenten zusammenstellen. Probier es am besten zu zweit aus und erklärt euch gegenseitig, was ihr seht.</p>
   <nav class="tabs" role="tablist" aria-label="Themen">
     <button role="tab" id="t-kosinus" aria-controls="p-kosinus" data-tab="kosinus"><span class="nr">1</span>Kosinus</button>
     <button role="tab" id="t-vergleich" aria-controls="p-vergleich" data-tab="vergleich"><span class="nr">2</span>Sätze vergleichen</button>
@@ -208,7 +209,7 @@
     <div class="side">
       <div class="card intro">
         <h2>Kosinus von Hand</h2>
-        <p class="ref">Abschnitte 2 und 3 im Text</p>
+        <p class="ref"><a href="../kapitel-3.html#2-ein-text-ein-pfeil">Kapitel 3, Abschnitte 2 und 3</a></p>
         <p>Zwei Pfeile mit je zwei Zahlen. Die Spitzen lassen sich mit der Maus oder dem Finger ziehen, die Zahlen auch direkt eintippen.</p>
         <p>Der Kosinus misst, wie gleich die Pfeile ausgerichtet sind. Die Länge spielt dabei keine Rolle, beim Abstand schon.</p>
       </div>
@@ -225,7 +226,7 @@
       <div class="card tasks">
         <h3>Ausprobieren</h3>
         <ul>
-          <li>Bei „F und P“ und „F und H“ die Rechnung aus dem Text nachvollziehen. Welcher Pfeil liegt näher, welcher zeigt in dieselbe Richtung?</li>
+          <li>Bei „F und P“ und „F und H“ vergleichen: Welcher Pfeil liegt näher, welcher zeigt in dieselbe Richtung?</li>
           <li>Pfeil B doppelt so lang machen, ohne seine Richtung zu ändern. Was passiert mit Kosinus und Abstand?</li>
           <li>Einen Kosinus von genau 0 einstellen. Welcher Winkel gehört dazu?</li>
           <li>B in die Gegenrichtung von A drehen.</li>
@@ -250,7 +251,7 @@
     <div class="side">
       <div class="card intro">
         <h2>Sätze vergleichen</h2>
-        <p class="ref">Abschnitte 3, 4 und 7 im Text</p>
+        <p class="ref"><a href="../kapitel-3.html#3-ähnlichkeit-messen-der-kosinus">Kapitel 3, Abschnitte 3, 4 und 7</a></p>
         <p>Das Embedding-Modell macht aus jedem Text 384 Zahlen. Der Kosinus zeigt, wie ähnlich die beiden Texte für das Modell sind.</p>
       </div>
       <div class="card">
@@ -293,7 +294,7 @@
     <div class="side">
       <div class="card intro">
         <h2>Suche im Handbuch</h2>
-        <p class="ref">Abschnitte 1, 5 und 7 im Text</p>
+        <p class="ref"><a href="../kapitel-3.html#1-suchen-nach-bedeutung">Kapitel 3, Abschnitte 1, 5 und 7</a></p>
         <p>Das Handbuch der Eisdiele hat 24 kurze Abschnitte. Links sucht das Embedding-Modell nach Bedeutung, rechts zählt die Stichwortsuche gemeinsame Wörter.</p>
       </div>
       <div class="card">
@@ -351,7 +352,7 @@
     <div class="side">
       <div class="card intro">
         <h2>Prompt für RAG</h2>
-        <p class="ref">Abschnitt 6 im Text</p>
+        <p class="ref"><a href="../kapitel-3.html#6-rag-nachschlagen-statt-raten">Kapitel 3, Abschnitt 6</a></p>
         <p>Aus der Anweisung, den besten Treffern der semantischen Suche und der Frage entsteht der Prompt, den ein RAG-System an das Sprachmodell schickt.</p>
         <p>Ein Sprachmodell ist hier nicht eingebaut. Der Prompt lässt sich aber kopieren und in einen beliebigen Chat-Assistenten einfügen.</p>
       </div>

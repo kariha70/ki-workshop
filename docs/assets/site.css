@@ -219,3 +219,82 @@ img { max-width: 100%; }
 }
 .text blockquote p { margin: 0; }
 .text blockquote strong { color: var(--text); }
+
+/* Lernziele am Anfang eines Kapitels */
+.lernziele {
+  margin: 0 0 36px;
+  padding: 18px 22px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--blue);
+  border-radius: 14px;
+  box-shadow: var(--schatten);
+}
+.lernziele p { margin: 0 0 8px; }
+.lernziele ul { margin: 0 0 10px; }
+.lernziele p:last-child { margin: 0; color: var(--text2); font-size: 15px; }
+
+/* Fragen zum Mitdenken, mit aufklappbarer Auflösung */
+.frage {
+  margin: 28px 0;
+  padding: 16px 20px;
+  background: var(--wash);
+  border: 1px dashed color-mix(in srgb, var(--blue) 45%, transparent);
+  border-radius: 14px;
+}
+.frage > p:last-child { margin-bottom: 0; }
+.frage details { margin-top: 4px; }
+.frage summary { cursor: pointer; font-weight: 600; color: var(--blue); width: fit-content; }
+.frage details[open] summary { margin-bottom: 10px; }
+.frage details > :last-child { margin-bottom: 0; }
+
+/* Vertiefungen und Selbsttest zum Aufklappen */
+details.vertiefung, details.quiz {
+  margin: 24px 0;
+  padding: 0 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+details.quiz { margin: 10px 0; }
+details.vertiefung > summary, details.quiz > summary {
+  display: flex; align-items: baseline; gap: 10px;
+  margin: 0 -20px; padding: 13px 20px;
+  cursor: pointer; list-style: none; font-weight: 600; line-height: 1.45;
+}
+details.vertiefung > summary::-webkit-details-marker, details.quiz > summary::-webkit-details-marker { display: none; }
+details.vertiefung > summary::before, details.quiz > summary::before {
+  content: "+"; flex: none; width: 22px; height: 22px; border-radius: 6px;
+  display: inline-flex; align-items: center; justify-content: center; transform: translateY(2px);
+  background: var(--wash); color: var(--blue); font-weight: 700;
+}
+details.vertiefung[open] > summary::before, details.quiz[open] > summary::before { content: "−"; }
+details.vertiefung > summary { color: var(--text2); }
+details.vertiefung[open] > summary, details.quiz[open] > summary { border-bottom: 1px solid var(--grid); margin-bottom: 16px; }
+details.vertiefung[open], details.quiz[open] { padding-bottom: 4px; }
+
+/* Startseite: Glossar und Leitfaden */
+.zusatzkarten { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+.zusatzkarte { display: block; padding: 20px 22px; text-decoration: none; color: inherit; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--schatten); }
+.zusatzkarte:hover { border-color: var(--axis); }
+.zusatzkarte h3 { margin: 0 0 6px; font-size: 18px; color: var(--blue); }
+.zusatzkarte p { margin: 0; color: var(--text2); font-size: 15px; }
+details.start-anleitung summary { cursor: pointer; font-weight: 600; }
+details.start-anleitung[open] summary { margin-bottom: 12px; }
+
+/* Ausdruck als Handout: helles Design, ohne Navigation */
+@media print {
+  :root:not([data-druck]) {
+    color-scheme: light;
+    --page: #fff; --surface: #fff; --text: #0b0b0b; --text2: #52514e; --muted: #6b6a66;
+    --grid: #e1e0d9; --axis: #c3c2b7; --border: rgba(11, 11, 11, 0.15);
+    --blue: #2a78d6; --orange: #eb6834; --wash: rgba(42, 120, 214, 0.08);
+    --wash-orange: rgba(235, 104, 52, 0.10); --code: #f0efec; --schatten: none;
+  }
+  .leiste, .fortschritt, .verzeichnis, .kapitel-kopf .aktionen, .labor-hinweis .knopf, .blaettern, .fuss { display: none; }
+  .raster { display: block; padding: 0; }
+  .text { max-width: none; font-size: 11pt; }
+  .text h2 { break-after: avoid; margin-top: 28px; }
+  .text figure, .tabelle, .text pre, .frage, blockquote, details { break-inside: avoid; }
+  .kapitel-kopf { padding: 0 0 16px; background: none; }
+}
