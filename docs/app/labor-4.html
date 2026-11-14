@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try{var t=localStorage.getItem("ki-workshop-thema");if(t==="dark"||t==="light")document.documentElement.dataset.theme=t}catch(e){}</script>
+<title>Agenten bei der Arbeit</title>
+<style>
+  :root {
+    color-scheme: light;
+    --page: #f9f9f7;
+    --surface: #fcfcfb;
+    --text: #0b0b0b;
+    --text2: #52514e;
+    --muted: #898781;
+    --grid: #e1e0d9;
+    --axis: #c3c2b7;
+    --border: rgba(11, 11, 11, 0.10);
+    --blue: #2a78d6;
+    --orange: #eb6834;
+    --green: #0c8a5c;
+    --red: #c4381a;
+    --wash: rgba(42, 120, 214, 0.08);
+    --wash-blue: rgba(42, 120, 214, 0.12);
+    --wash-orange: rgba(235, 104, 52, 0.13);
+    --wash-green: rgba(12, 138, 92, 0.12);
+    --wash-red: rgba(196, 56, 26, 0.11);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --page: #0d0d0d;
+      --surface: #1a1a19;
+      --text: #f0efec;
+      --text2: #c3c2b7;
+      --muted: #898781;
+      --grid: #2c2c2a;
+      --axis: #383835;
+      --border: rgba(255, 255, 255, 0.10);
+      --blue: #3987e5;
+      --orange: #d95926;
+      --green: #2fb57f;
+      --red: #e8603f;
+      --wash: rgba(57, 135, 229, 0.14);
+      --wash-blue: rgba(57, 135, 229, 0.20);
+      --wash-orange: rgba(217, 89, 38, 0.22);
+      --wash-green: rgba(47, 181, 127, 0.18);
+      --wash-red: rgba(232, 96, 63, 0.18);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --page: #0d0d0d;
+    --surface: #1a1a19;
+    --text: #f0efec;
+    --text2: #c3c2b7;
+    --muted: #898781;
+    --grid: #2c2c2a;
+    --axis: #383835;
+    --border: rgba(255, 255, 255, 0.10);
+    --blue: #3987e5;
+    --orange: #d95926;
+    --green: #2fb57f;
+    --red: #e8603f;
+    --wash: rgba(57, 135, 229, 0.14);
+    --wash-blue: rgba(57, 135, 229, 0.20);
+    --wash-orange: rgba(217, 89, 38, 0.22);
+    --wash-green: rgba(47, 181, 127, 0.18);
+    --wash-red: rgba(232, 96, 63, 0.18);
+  }
+
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--page); color: var(--text); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  header, main, footer { max-width: 1240px; margin: 0 auto; padding-left: 16px; padding-right: 16px; }
+  header { padding-top: 20px; }
+  h1 { font-size: 26px; line-height: 1.2; margin: 0 0 6px; }
+  h2 { font-size: 19px; margin: 0 0 2px; }
+  h3 { font-size: 15px; margin: 0 0 8px; }
+  p { margin: 0 0 10px; }
+  code, .mono { font: 13.5px ui-monospace, "SF Mono", Menlo, monospace; }
+  code { background: var(--wash); padding: 1px 5px; border-radius: 4px; }
+  .sub { color: var(--text2); margin: 0 0 18px; max-width: 760px; }
+
+  nav.tabs { display: flex; gap: 2px; overflow-x: auto; border-bottom: 1px solid var(--grid); }
+  nav.tabs button { appearance: none; border: 0; background: none; font: inherit; cursor: pointer; white-space: nowrap; padding: 10px 14px; color: var(--text2); border-bottom: 2px solid transparent; margin-bottom: -1px; }
+  nav.tabs button:hover { color: var(--text); }
+  nav.tabs button[aria-selected="true"] { color: var(--text); border-bottom-color: var(--blue); font-weight: 600; }
+  nav.tabs button .nr { color: var(--muted); margin-right: 6px; font-weight: 400; }
+
+  main { padding-top: 18px; padding-bottom: 24px; }
+  .panel { display: grid; grid-template-columns: minmax(280px, 350px) minmax(0, 1fr); gap: 16px; align-items: start; }
+  .panel[hidden] { display: none; }
+  .side, .haupt { display: grid; gap: 16px; min-width: 0; }
+  @media (max-width: 880px) {
+    .panel { grid-template-columns: minmax(0, 1fr); }
+    /* Auf schmalen Bildschirmen stehen Ablauf und Kontext direkt unter den Knöpfen, die Aufträge danach */
+    .side { display: contents; }
+    .side .tasks { order: 2; }
+    .haupt { order: 1; }
+  }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; min-width: 0; }
+  .ref { color: var(--muted); font-size: 13px; margin-bottom: 10px; }
+  .ref a { color: inherit; }
+  .intro p:last-child, .tasks ul { margin-bottom: 0; }
+  .tasks ul { padding-left: 18px; }
+  .tasks li { margin-bottom: 6px; }
+  .tasks li:last-child { margin-bottom: 0; }
+  .titel { font-size: 15px; font-weight: 600; margin: 0 0 2px; }
+  .titel-sub { font-size: 13px; color: var(--text2); margin: 0 0 12px; }
+  .hinweis { font-size: 13px; color: var(--text2); margin: 8px 0 0; }
+
+  .knoepfe { display: flex; flex-wrap: wrap; gap: 8px; }
+  button.knopf { appearance: none; font: inherit; font-size: 14px; cursor: pointer; padding: 6px 12px; border-radius: 8px; border: 1px solid var(--axis); background: var(--surface); color: var(--text); }
+  button.knopf:hover:not(:disabled) { background: var(--wash); }
+  button.knopf.primaer { background: var(--blue); border-color: var(--blue); color: #fff; }
+  button.knopf.primaer:hover:not(:disabled) { filter: brightness(1.08); background: var(--blue); }
+  button.knopf:disabled { opacity: 0.5; cursor: default; }
+  .schalter { display: flex; align-items: center; gap: 8px; font-size: 14px; cursor: pointer; margin-top: 14px; }
+  .schalter input { width: 16px; height: 16px; accent-color: var(--blue); margin: 0; }
+
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+  .stat { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 10px 14px; }
+  .stat .label { font-size: 13px; color: var(--text2); }
+  .stat .wert { font-size: 22px; font-weight: 600; line-height: 1.3; font-variant-numeric: tabular-nums; }
+  .stat .zusatz { font-size: 12.5px; color: var(--muted); }
+
+  /* Werkzeuge in der Seitenleiste */
+  .werkzeugliste { display: grid; gap: 10px; }
+  .werkzeugliste div { font-size: 13.5px; color: var(--text2); }
+  .werkzeugliste .name { display: block; font: 600 13.5px ui-monospace, "SF Mono", Menlo, monospace; color: var(--text); }
+  .marke-freigabe { display: inline-block; margin-left: 6px; font: 600 11px system-ui, sans-serif; color: var(--orange); background: var(--wash-orange); border-radius: 4px; padding: 0 5px; vertical-align: 1px; }
+
+  /* 1. Werkzeug wählen */
+  .anfrage { font-size: 21px; line-height: 1.35; margin: 0 0 16px; }
+  .optionen { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 8px; }
+  .optionen button { appearance: none; text-align: left; cursor: pointer; padding: 9px 12px; border-radius: 10px; border: 1px solid var(--axis); background: var(--surface); color: var(--text); font: 600 13.5px ui-monospace, "SF Mono", Menlo, monospace; }
+  .optionen button.kein { font: 600 14px system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .optionen button:hover:not(:disabled) { background: var(--wash); }
+  .optionen button:disabled { cursor: default; opacity: 0.55; }
+  .optionen button.gewaehlt { opacity: 1; border-width: 2px; padding: 8px 11px; }
+  .optionen button.richtig { opacity: 1; border-color: var(--green); background: var(--wash-green); }
+  .optionen button.falsch { border-color: var(--red); background: var(--wash-red); }
+  .rueckmeldung { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--grid); }
+  .rueckmeldung[hidden] { display: none; }
+  .urteil { font-weight: 600; margin-bottom: 6px; }
+  .urteil.gut { color: var(--green); }
+  .urteil.schlecht { color: var(--red); }
+  .block-titel { font-size: 13px; color: var(--text2); font-weight: 600; margin: 12px 0 4px; }
+  pre.json { margin: 0; padding: 10px 12px; border-radius: 8px; background: var(--wash); overflow-x: auto; white-space: pre-wrap; word-break: break-word; font: 13px/1.45 ui-monospace, "SF Mono", Menlo, monospace; }
+  .navi { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 16px; }
+  .navi .stand { font-size: 13px; color: var(--text2); }
+
+  /* 2. und 3. Der Ablauf */
+  .beteiligte { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+  .person { border: 1px solid var(--axis); border-radius: 10px; padding: 8px 10px; text-align: center; font-size: 14px; font-weight: 600; color: var(--text2); background: var(--surface); transition: background 0.15s, color 0.15s, border-color 0.15s; }
+  .person small { display: block; font-weight: 400; font-size: 12px; color: var(--muted); }
+  .person.aktiv { color: #fff; }
+  .person.aktiv small { color: rgba(255, 255, 255, 0.85); }
+  .person.aktiv[data-wer="mensch"], .person.aktiv[data-wer="werkzeug"] { background: var(--text); border-color: var(--text); color: var(--page); }
+  .person.aktiv[data-wer="mensch"] small, .person.aktiv[data-wer="werkzeug"] small { color: var(--page); opacity: 0.8; }
+  .person.aktiv[data-wer="rahmen"] { background: var(--blue); border-color: var(--blue); }
+  .person.aktiv[data-wer="modell"] { background: var(--orange); border-color: var(--orange); }
+  .person.ziel { border-style: dashed; border-color: var(--text2); color: var(--text); }
+  @media (max-width: 560px) { .beteiligte { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .richtung { font-size: 13px; color: var(--text2); margin: 10px 0 0; text-align: center; }
+  .schritt-nr { font-size: 13px; color: var(--muted); margin: 0 0 2px; }
+  .schritt-titel { font-size: 18px; font-weight: 600; margin: 0 0 6px; }
+  .schritt-text { margin: 0; }
+  .freigabe { margin-top: 14px; padding: 12px 14px; border-radius: 10px; border: 1px solid var(--orange); background: var(--wash-orange); }
+  .freigabe[hidden] { display: none; }
+  .freigabe p { margin: 0 0 10px; font-weight: 600; }
+  .steuerung { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  .fuellstand { height: 10px; border-radius: 5px; background: var(--grid); overflow: hidden; margin: 2px 0 12px; }
+  .fuellstand div { height: 100%; background: var(--blue); transition: width 0.2s; }
+  .kontext { display: grid; gap: 8px; }
+  .nachricht { border-radius: 10px; padding: 8px 12px; border-left: 4px solid var(--axis); background: var(--page); }
+  .nachricht.neu { box-shadow: 0 0 0 2px var(--blue) inset; }
+  .nachricht[data-rolle="modell"] { border-left-color: var(--orange); background: var(--wash-orange); }
+  .nachricht[data-rolle="werkzeug"] { border-left-color: var(--blue); background: var(--wash-blue); }
+  .nachricht .kopf { display: flex; justify-content: space-between; gap: 8px; font-size: 12.5px; color: var(--text2); font-weight: 600; margin-bottom: 2px; }
+  .nachricht .kopf span:last-child { font-weight: 400; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .nachricht .inhalt { white-space: pre-wrap; word-break: break-word; font-size: 14px; }
+  .nachricht .aufruf { font: 13px/1.45 ui-monospace, "SF Mono", Menlo, monospace; }
+  .nachricht details summary { cursor: pointer; font-size: 14px; }
+  .nachricht details p { font-size: 13.5px; color: var(--text2); margin: 8px 0 0; }
+  .leer { color: var(--muted); font-size: 14px; }
+
+  footer { color: var(--muted); font-size: 13px; padding-bottom: 28px; }
+  footer a { color: var(--text2); }
+</style>
+<link rel="stylesheet" href="../assets/leiste.css">
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+</head>
+<body>
+<div class="leiste"><div class="leiste-innen">
+  <a class="marke" href="../index.html" aria-label="KI-Workshop, zur Startseite"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.5 11.5h11L12 23z" fill="#eb6834"/><circle cx="12" cy="8" r="6.2" fill="#2a78d6"/><path d="M8.6 9.3 12 5.4l3.4 3.9M8.6 9.3h6.8" stroke="#fff" stroke-width="0.9" fill="none" stroke-linejoin="round"/><circle cx="12" cy="5.4" r="1.35" fill="#fff"/><circle cx="8.6" cy="9.3" r="1.35" fill="#fff"/><circle cx="15.4" cy="9.3" r="1.35" fill="#fff"/></svg><span>KI-Workshop</span></a>
+  <nav aria-label="Workshop"><a href="../kapitel-1.html">Kapitel 1</a><a href="../kapitel-2.html">Kapitel 2</a><a href="../kapitel-3.html">Kapitel 3</a><a href="../kapitel-4.html">Kapitel 4</a><a href="../kapitel-5.html">Kapitel 5</a><span class="trenner"></span><a href="labor-1.html">Labor 1</a><a href="labor-2.html">Labor 2</a><a href="labor-3.html">Labor 3</a><a href="labor-4.html" aria-current="page">Labor 4</a><a href="labor-5.html">Labor 5</a><span class="trenner"></span><a href="../glossar.html">Glossar</a></nav>
+  <button class="thema-knopf" type="button" aria-label="Design wechseln"><svg class="mond" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><svg class="sonne" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+</div></div>
+<header>
+  <h1>Agenten bei der Arbeit</h1>
+  <p class="sub">Zu Kapitel 4: selbst das passende Werkzeug wählen, einem Agenten Schritt für Schritt zusehen, Freigaben erteilen und eine eingeschleuste Anweisung abfangen. Probier es am besten zu zweit aus und erklärt euch gegenseitig, was ihr seht.</p>
+  <nav class="tabs" role="tablist" aria-label="Themen">
+    <button role="tab" id="t-werkzeug" aria-controls="p-werkzeug" data-tab="werkzeug"><span class="nr">1</span>Werkzeug wählen</button>
+    <button role="tab" id="t-schleife" aria-controls="p-schleife" data-tab="schleife"><span class="nr">2</span>Agentenschleife</button>
+    <button role="tab" id="t-einschleusen" aria-controls="p-einschleusen" data-tab="einschleusen"><span class="nr">3</span>Eingeschleuste Anweisung</button>
+  </nav>
+</header>
+
+<main>
+  <section class="panel" id="p-werkzeug" role="tabpanel" aria-labelledby="t-werkzeug" hidden>
+    <div class="side">
+      <div class="card intro">
+        <h2>Werkzeug wählen</h2>
+        <p class="ref"><a href="../kapitel-4.html#2-werkzeuge-das-modell-schreibt-einen-auftrag">Kapitel 4, Abschnitt 2</a></p>
+        <p>Du bist das Sprachmodell. Der Eisverkäufer schreibt dir eine Anfrage, und du hast die Werkzeuge der Eisdiele zur Verfügung. Entscheide, welches Werkzeug du zuerst aufrufst oder ob du ohne Werkzeug antwortest.</p>
+        <p>Nach deiner Wahl siehst du den Aufruf und das echte Ergebnis des Werkzeugs.</p>
+      </div>
+      <div class="card">
+        <p class="titel">Die Werkzeuge</p>
+        <p class="titel-sub">Diese Beschreibungen bekommt das Modell in jeder Runde.</p>
+        <div class="werkzeugliste" id="w-liste"></div>
+      </div>
+      <div class="card tasks">
+        <h3>Ausprobieren</h3>
+        <ul>
+          <li>Bei welchen Anfragen braucht das Modell kein Werkzeug?</li>
+          <li>Beim Hund: Vergleicht die Anfrage mit der Suchanfrage im Aufruf. Wer hat sie formuliert?</li>
+          <li>Bei „Reicht unser Eis für Samstag?“ überlegen: Wie viele Aufrufe braucht es bis zur Antwort?</li>
+        </ul>
+      </div>
+    </div>
+    <div class="haupt">
+      <div class="stats" id="w-stats"></div>
+      <div class="card">
+        <p class="schritt-nr">Anfrage des Eisverkäufers</p>
+        <p class="anfrage" id="w-anfrage"></p>
+        <div class="optionen" id="w-optionen"></div>
+        <div class="rueckmeldung" id="w-rueckmeldung" hidden>
+          <div class="urteil" id="w-urteil"></div>
+          <p id="w-erklaerung"></p>
+          <div id="w-aufruf"></div>
+        </div>
+        <div class="navi">
+          <button type="button" class="knopf" id="w-zurueck">Zurück</button>
+          <span class="stand" id="w-stand"></span>
+          <button type="button" class="knopf primaer" id="w-weiter">Nächste Anfrage</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="p-schleife" role="tabpanel" aria-labelledby="t-schleife" hidden>
+    <div class="side">
+      <div class="card intro">
+        <h2>Agentenschleife</h2>
+        <p class="ref"><a href="../kapitel-4.html#4-ein-agent-bei-der-arbeit">Kapitel 4, Abschnitte 3 bis 6</a></p>
+        <p>Der Eisverkäufer gibt seinem Agenten einen Auftrag. Geh den Ablauf Schritt für Schritt durch und beobachte, wer gerade an der Reihe ist und wie der Kontext wächst.</p>
+        <p>Vor der Bestellung fragt das Rahmenprogramm dich. Du entscheidest an Stelle des Eisverkäufers.</p>
+      </div>
+      <div class="card">
+        <p class="titel">Auftrag</p>
+        <p class="titel-sub" id="s-auftrag"></p>
+        <div class="steuerung">
+          <button type="button" class="knopf" id="s-zurueck">Zurück</button>
+          <button type="button" class="knopf primaer" id="s-weiter">Weiter</button>
+          <button type="button" class="knopf" id="s-neu">Von vorn</button>
+        </div>
+      </div>
+      <div class="card tasks">
+        <h3>Ausprobieren</h3>
+        <ul>
+          <li>Bei jedem Schritt auf die vier Kästen oben achten: Wann ist das Sprachmodell an der Reihe, wann das Rahmenprogramm?</li>
+          <li>Beobachten, wie der Kontext wächst und wie viele Tokens das Modell insgesamt liest.</li>
+          <li>Einmal die Bestellung erlauben und einmal ablehnen. Wie ändert sich die Antwort?</li>
+        </ul>
+      </div>
+    </div>
+    <div class="haupt" id="s-haupt"></div>
+  </section>
+
+  <section class="panel" id="p-einschleusen" role="tabpanel" aria-labelledby="t-einschleusen" hidden>
+    <div class="side">
+      <div class="card intro">
+        <h2>Eingeschleuste Anweisung</h2>
+        <p class="ref"><a href="../kapitel-4.html#9-risiken-fehlerketten-und-eingeschleuste-anweisungen">Kapitel 4, Abschnitt 9</a></p>
+        <p>Der Agent soll die neuen E-Mails zusammenfassen. In einer davon steht eine Anweisung an KI-Assistenten. Das Modell kann sie nicht sicher vom Auftrag des Eisverkäufers unterscheiden.</p>
+        <p>Die Entscheidungen des Modells sind wie im Kapitel vorgegeben. Die Regel im Rahmenprogramm legt fest, ob die Bestellung durchgeht.</p>
+      </div>
+      <div class="card">
+        <p class="titel">Auftrag</p>
+        <p class="titel-sub" id="e-auftrag"></p>
+        <div class="steuerung">
+          <button type="button" class="knopf" id="e-zurueck">Zurück</button>
+          <button type="button" class="knopf primaer" id="e-weiter">Weiter</button>
+          <button type="button" class="knopf" id="e-neu">Von vorn</button>
+        </div>
+        <label class="schalter"><input type="checkbox" id="e-freigabe" checked> <span>Bestellungen nur mit Freigabe</span></label>
+        <p class="hinweis">Diese Regel steht im Rahmenprogramm. Ändern startet den Ablauf neu.</p>
+      </div>
+      <div class="card tasks">
+        <h3>Ausprobieren</h3>
+        <ul>
+          <li>Ohne Freigabe durchlaufen lassen: Was kostet die eingeschleuste Anweisung?</li>
+          <li>Mit Freigabe durchlaufen lassen und die Nachfrage genau lesen, bevor du entscheidest.</li>
+          <li>Die E-Mail im Kontext suchen: Woran könnte das Modell erkennen, dass die Anweisung nicht vom Eisverkäufer stammt?</li>
+        </ul>
+      </div>
+    </div>
+    <div class="haupt" id="e-haupt"></div>
+  </section>
+</main>
+
+<footer>
+  Die Abläufe und Ergebnisse hat das Skript <code>docs/beispiele/04_agenten.py</code> vorab berechnet: Werkzeuge, Schleife, Freigaben und Tokenzählung sind echt, die Entscheidungen des Sprachmodells gibt ein Drehbuch vor. Die Seite läuft ohne Server und ohne Internetverbindung.
+  <br>Texte und Grafiken: <a href="https://creativecommons.org/licenses/by/4.0/deed.de">CC BY 4.0</a> · Code: <a href="https://github.com/kariha70/ki-workshop/blob/main/LICENSE">MIT</a> · <a href="https://github.com/kariha70/ki-workshop">Quellcode auf GitHub</a>
+</footer>
+
+<script src="agenten-daten.js"></script>
+<script>
+"use strict";
+
+const DATEN = window.AGENTEN_DATEN;
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const zahl = x => x.toLocaleString("de-DE");
+const json = x => JSON.stringify(x, null, 2);
+
+// ---------- Tabs ----------
+const TABS = ["werkzeug", "schleife", "einschleusen"];
+function zeigeTab(name, fokus = false) {
+  if (!TABS.includes(name)) name = "werkzeug";
+  for (const t of TABS) {
+    const knopf = document.querySelector(`[data-tab="${t}"]`);
+    knopf.setAttribute("aria-selected", String(t === name));
+    knopf.tabIndex = t === name ? 0 : -1;
+    document.getElementById("p-" + t).hidden = t !== name;
+  }
+  if (fokus) document.querySelector(`[data-tab="${name}"]`).focus();
+  if (location.hash !== "#" + name) history.replaceState(null, "", "#" + name);
+}
+document.querySelectorAll("[data-tab]").forEach(knopf => {
+  knopf.addEventListener("click", () => zeigeTab(knopf.dataset.tab));
+  knopf.addEventListener("keydown", e => {
+    const i = TABS.indexOf(knopf.dataset.tab);
+    if (e.key === "ArrowRight") zeigeTab(TABS[(i + 1) % TABS.length], true);
+    if (e.key === "ArrowLeft") zeigeTab(TABS[(i + TABS.length - 1) % TABS.length], true);
+  });
+});
+window.addEventListener("hashchange", () => zeigeTab(location.hash.slice(1)));
+
+// ---------- 1. Werkzeug wählen ----------
+const FREIGABE = new Set(DATEN.mitFreigabe);
+$("#w-liste").innerHTML = DATEN.werkzeuge.map(w =>
+  `<div><span class="name">${esc(w.name)}${FREIGABE.has(w.name) ? '<span class="marke-freigabe">Freigabe</span>' : ""}</span>${esc(w.description)}</div>`).join("");
+
+const KEIN = "kein";
+const W = { nr: 0, wahl: DATEN.aufgaben.map(() => null) };
+const optionen = [...DATEN.werkzeuge.map(w => w.name), KEIN];
+const optionKnoepfe = optionen.map(name => {
+  const b = document.createElement("button");
+  b.type = "button";
+  b.textContent = name === KEIN ? "Kein Werkzeug, selbst antworten" : name;
+  if (name === KEIN) b.classList.add("kein");
+  b.addEventListener("click", () => { W.wahl[W.nr] = name; zeichneWerkzeug(); });
+  $("#w-optionen").append(b);
+  return [name, b];
+});
+$("#w-zurueck").addEventListener("click", () => { W.nr = Math.max(0, W.nr - 1); zeichneWerkzeug(); });
+$("#w-weiter").addEventListener("click", () => { W.nr = Math.min(DATEN.aufgaben.length - 1, W.nr + 1); zeichneWerkzeug(); });
+
+$("#w-stats").innerHTML = ["beantwortet", "richtig"].map(k =>
+  `<div class="stat"><div class="label">${{ beantwortet: "Beantwortet", richtig: "Passend gewählt" }[k]}</div><div class="wert" data-w="${k}"></div></div>`).join("");
+
+const istRichtig = (aufgabe, wahl) => aufgabe.richtig.length ? aufgabe.richtig.includes(wahl) : wahl === KEIN;
+
+function zeichneWerkzeug() {
+  const aufgabe = DATEN.aufgaben[W.nr];
+  const wahl = W.wahl[W.nr];
+  $("#w-anfrage").textContent = "„" + aufgabe.anfrage + "“";
+  for (const [name, b] of optionKnoepfe) {
+    b.disabled = wahl !== null;
+    const passend = aufgabe.richtig.length ? aufgabe.richtig.includes(name) : name === KEIN;
+    b.classList.toggle("gewaehlt", name === wahl);
+    b.classList.toggle("richtig", wahl !== null && passend);
+    b.classList.toggle("falsch", wahl === name && !passend);
+  }
+  const rueck = $("#w-rueckmeldung");
+  rueck.hidden = wahl === null;
+  if (wahl !== null) {
+    const gut = istRichtig(aufgabe, wahl);
+    const urteil = $("#w-urteil");
+    urteil.className = "urteil " + (gut ? "gut" : "schlecht");
+    urteil.textContent = gut ? "Passt." : aufgabe.richtig.length
+      ? `Besser wäre ${aufgabe.richtig.map(n => "„" + n + "“").join(" oder ")}.`
+      : "Hier braucht es kein Werkzeug.";
+    $("#w-erklaerung").textContent = aufgabe.erklaerung;
+    $("#w-aufruf").innerHTML = aufgabe.aufruf
+      ? `<div class="block-titel">So schreibt das Modell den Aufruf</div><pre class="json">${esc(aufgabe.aufruf)}</pre>`
+        + `<div class="block-titel">Das liefert das Werkzeug zurück</div><pre class="json">${esc(json(aufgabe.ergebnis))}</pre>`
+      : "";
+  }
+  const beantwortet = W.wahl.filter(w => w !== null).length;
+  $('[data-w="beantwortet"]').textContent = `${beantwortet} von ${DATEN.aufgaben.length}`;
+  $('[data-w="richtig"]').textContent = String(DATEN.aufgaben.filter((a, i) => W.wahl[i] !== null && istRichtig(a, W.wahl[i])).length);
+  $("#w-stand").textContent = `Anfrage ${W.nr + 1} von ${DATEN.aufgaben.length}`;
+  $("#w-zurueck").disabled = W.nr === 0;
+  $("#w-weiter").disabled = W.nr === DATEN.aufgaben.length - 1;
+}
+
+// ---------- 2. und 3. Ein Ablauf zum Durchklicken ----------
+const BETEILIGTE = [["mensch", "Eisverkäufer", "Mensch"], ["rahmen", "Rahmenprogramm", "gewöhnliches Programm"], ["modell", "Sprachmodell", "schreibt nur Text"], ["werkzeug", "Werkzeuge", "gewöhnliche Programme"]];
+const NAMEN = Object.fromEntries(BETEILIGTE.map(([k, n]) => [k, n]));
+const ROLLEN = { nutzer: "Eisverkäufer", modell: "Sprachmodell", werkzeug: "Werkzeug" };
+
+function ablauf(praefix, lauf, freigabeSchalter) {
+  const haupt = $(`#${praefix}-haupt`);
+  haupt.innerHTML = `
+    <div class="card">
+      <div class="beteiligte">${BETEILIGTE.map(([k, n, z]) => `<div class="person" data-wer="${k}">${n}<small>${z}</small></div>`).join("")}</div>
+      <p class="richtung" data-f="richtung"></p>
+    </div>
+    <div class="card" aria-live="polite">
+      <p class="schritt-nr" data-f="nr"></p>
+      <p class="schritt-titel" data-f="titel"></p>
+      <p class="schritt-text" data-f="text"></p>
+      <div class="freigabe" data-f="freigabe" hidden>
+        <p data-f="frage"></p>
+        <div class="knoepfe">
+          <button type="button" class="knopf primaer" data-f="erlauben">Erlauben</button>
+          <button type="button" class="knopf" data-f="ablehnen">Ablehnen</button>
+        </div>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="label">Kontext jetzt</div><div class="wert" data-f="kontext"></div><div class="zusatz">Tokens, die gerade im Kontext stehen</div></div>
+      <div class="stat"><div class="label">Runden</div><div class="wert" data-f="runden"></div><div class="zusatz">so oft hat das Modell den Kontext gelesen</div></div>
+      <div class="stat"><div class="label">Gelesen insgesamt</div><div class="wert" data-f="gelesen"></div><div class="zusatz">Tokens über alle Runden</div></div>
+    </div>
+    <div class="card">
+      <p class="titel">Der Kontext</p>
+      <p class="titel-sub">Alles, was das Modell in jeder Runde liest. Neues kommt unten dazu.</p>
+      <div class="fuellstand"><div data-f="balken"></div></div>
+      <div class="kontext" data-f="liste"></div>
+    </div>`;
+  const f = name => haupt.querySelector(`[data-f="${name}"]`);
+  const A = { nr: 0, entscheidung: null };
+  $(`#${praefix}-auftrag`).textContent = "„" + lauf.auftrag + "“";
+
+  // Der größte Kontext aller Zweige ist die volle Breite des Füllstands
+  const maxKontext = Math.max(...Object.values(lauf.zweige).map(z => DATEN.festTokens + z.nachrichten.reduce((s, n) => s + n.tokens, 0)));
+
+  function zweig() {
+    if (freigabeSchalter && !freigabeSchalter.checked) return lauf.zweige.ohne;
+    return lauf.zweige[A.entscheidung || "erlaubt"];
+  }
+  const freigabeIndex = () => zweig().ereignisse.findIndex(e => e.freigabe);
+
+  function zeichne() {
+    const z = zweig();
+    const ereignisse = z.ereignisse;
+    const e = ereignisse[A.nr];
+    const offen = Boolean(e.freigabe) && A.entscheidung === null;
+
+    haupt.querySelectorAll(".person").forEach(p => {
+      p.classList.toggle("aktiv", p.dataset.wer === e.wer);
+      p.classList.toggle("ziel", p.dataset.wer === e.nach && e.nach !== e.wer);
+    });
+    f("richtung").textContent = `${NAMEN[e.wer]} → ${NAMEN[e.nach]}`;
+    f("nr").textContent = `Schritt ${A.nr + 1} von ${ereignisse.length}`;
+    f("titel").textContent = e.titel;
+    f("text").textContent = e.text;
+    f("freigabe").hidden = !offen;
+    if (offen) f("frage").textContent = e.frage;
+
+    // Sichtbar sind alle Nachrichten, die bis zu diesem Schritt in den Kontext gekommen sind
+    let sichtbar = 0, runden = 0, gelesen = 0;
+    ereignisse.slice(0, A.nr + 1).forEach(x => {
+      if (x.titel === "Auftrag" || x.wer === "modell" || x.wer === "werkzeug") sichtbar++;
+      if (x.liest) { runden++; gelesen += x.liest; }
+    });
+    const nachrichten = z.nachrichten.slice(0, sichtbar);
+    const kontext = DATEN.festTokens + nachrichten.reduce((s, n) => s + n.tokens, 0);
+    const neu = (e.titel === "Auftrag" || e.wer === "modell" || e.wer === "werkzeug") ? sichtbar - 1 : -1;
+    f("kontext").textContent = zahl(kontext);
+    f("runden").textContent = String(runden);
+    f("gelesen").textContent = zahl(gelesen);
+    f("balken").style.width = (100 * kontext / maxKontext).toFixed(1) + "%";
+
+    const fest = `<div class="nachricht"><div class="kopf"><span>Anweisungen und ${DATEN.werkzeuge.length} Werkzeugbeschreibungen</span><span>${zahl(DATEN.festTokens)} Tokens</span></div>
+      <details><summary>Ansehen</summary><p>${esc(DATEN.systemprompt)}</p><p class="mono">${DATEN.werkzeuge.map(w => esc(w.name)).join(", ")}</p></details></div>`;
+    f("liste").innerHTML = fest + nachrichten.map((n, i) => {
+      const titel = n.rolle === "werkzeug" ? `Werkzeug ${n.werkzeug}` : ROLLEN[n.rolle];
+      let inhalt = esc(n.text);
+      if (n.aufruf) {
+        const [gedanke, ...aufruf] = n.text.split("\n");
+        inhalt = esc(gedanke) + `\n<span class="aufruf">${esc(aufruf.join("\n"))}</span>`;
+      } else if (n.rolle === "werkzeug") {
+        inhalt = `<span class="aufruf">${esc(n.text)}</span>`;
+      }
+      return `<div class="nachricht${i === neu ? " neu" : ""}" data-rolle="${n.rolle}"><div class="kopf"><span>${esc(titel)}</span><span>${n.tokens} Tokens</span></div><div class="inhalt">${inhalt}</div></div>`;
+    }).join("");
+
+    $(`#${praefix}-zurueck`).disabled = A.nr === 0;
+    $(`#${praefix}-weiter`).disabled = offen || A.nr === ereignisse.length - 1;
+  }
+
+  $(`#${praefix}-weiter`).addEventListener("click", () => { A.nr = Math.min(A.nr + 1, zweig().ereignisse.length - 1); zeichne(); });
+  $(`#${praefix}-zurueck`).addEventListener("click", () => {
+    A.nr = Math.max(0, A.nr - 1);
+    if (A.nr <= freigabeIndex()) A.entscheidung = null;
+    zeichne();
+  });
+  $(`#${praefix}-neu`).addEventListener("click", () => { A.nr = 0; A.entscheidung = null; zeichne(); });
+  f("erlauben").addEventListener("click", () => { A.entscheidung = "erlaubt"; A.nr++; zeichne(); });
+  f("ablehnen").addEventListener("click", () => { A.entscheidung = "abgelehnt"; A.nr++; zeichne(); });
+  if (freigabeSchalter) freigabeSchalter.addEventListener("change", () => { A.nr = 0; A.entscheidung = null; zeichne(); });
+  zeichne();
+}
+
+// ---------- Start ----------
+zeichneWerkzeug();
+ablauf("s", DATEN.laeufe.bestellung, null);
+ablauf("e", DATEN.laeufe.emails, $("#e-freigabe"));
+zeigeTab(location.hash.slice(1));
+</script>
+<script src="../assets/thema.js"></script>
+</body>
+</html>
