@@ -13,7 +13,7 @@ Der Workshop folgt einigen Grundsätzen. Sie helfen auch bei der Entscheidung, w
 - **Didaktische Reduktion.** Der Hauptweg jedes Kapitels kommt ohne Formeln aus. Rechnungen, Programmcode und Hintergründe stehen in aufklappbaren Kästen „Für Neugierige“. Öffne sie im Workshop nur, wenn jemand danach fragt.
 - **Selbst ausprobieren.** Zu jedem Kapitel gibt es ein Labor im Browser. Am besten arbeiten zwei Personen an einem Gerät und erklären sich gegenseitig, was sie sehen.
 - **Sichern und wiederholen.** Lernziele am Anfang, ein Merksatz nach jedem Abschnitt, „Das Wichtigste in Kürze“ und ein kleiner Selbsttest am Ende jedes Kapitels. Zu Beginn der zweiten Sitzung wird der Stoff der ersten wiederholt.
-- **Transfer in den Alltag.** Kapitel 2 und 3 enden mit Faustregeln für die Arbeit mit Chat-Assistenten. Dort passen die eigenen Erfahrungen der Teilnehmenden gut hinein.
+- **Transfer in den Alltag.** Kapitel 2, 3 und 5 enden mit Faustregeln für die Arbeit mit Chat-Assistenten. Dort passen die eigenen Erfahrungen der Teilnehmenden gut hinein.
 
 ## Gruppe und Voraussetzungen
 
@@ -59,6 +59,8 @@ Die erste Sitzung klärt, **wie** KI funktioniert: wie eine Maschine lernt und w
 | Ausprobieren | Aufträge im Labor bearbeiten | Partnerarbeit |
 | Austausch | Beobachtungen aus dem Labor zusammentragen | Plenum |
 | Sicherung | Merksätze wiederholen, Selbsttest gemeinsam lösen | Plenum, Quiz |
+
+**Mit dem Zusatzmodul:** Kapitel 5 über Reasoning-Modelle passt als dritte Sitzung von etwa zwei Stunden: Wiederholung von Kapitel 2 (Abschnitte 8 und 9) als Einstieg, dann Modul 5 mit Labor 5, zum Schluss Diskussion und Transfer.
 
 **Wenn die Zeit knapp wird:** In Modul 1 die Abschnitte 8 bis 10 nur als kurzen Ausblick zeigen. In Modul 2 die Abschnitte 4 bis 7 auf je einen Satz und ein Bild kürzen. In Modul 3 die Abschnitte 3 bis 5 zusammenfassen und mehr Zeit für RAG und die Praxis lassen.
 
@@ -172,6 +174,35 @@ Die erste Sitzung klärt, **wie** KI funktioniert: wie eine Maschine lernt und w
 - *„Sind meine Dokumente dann im Modell gespeichert?“* Nicht in seinen Parametern. Die gefundenen Auszüge werden aber zusammen mit der Frage an das Sprachmodell geschickt, unter Umständen an einen externen Anbieter.
 - *„Warum nicht einfach eine normale Volltextsuche?“* Die findet keine Umschreibungen. Umgekehrt ist sie bei genauen Zahlen und Namen besser. Gute Systeme kombinieren beides (hybride Suche).
 
+## Modul 5: Wie ein Sprachmodell vor der Antwort nachdenkt
+
+*Zusatzmodul, etwa 90 Minuten. Passt als dritte Sitzung oder als Vertiefung für Gruppen, die schon regelmäßig mit Chat-Assistenten arbeiten. Voraussetzung sind Kapitel 1 und 2.*
+
+**Leitfrage:** Warum lösen heutige Chat-Assistenten Rechen- und Planungsaufgaben, an denen sie vor wenigen Jahren noch gescheitert sind?
+
+**Kernbotschaften:**
+
+1. Ein Sprachmodell rechnet pro Token immer gleich viel. Ein aufgeschriebener Rechenweg gibt ihm mehr Tokens zum Rechnen und hält Zwischenergebnisse fest.
+2. Reasoning-Modelle werden belohnt, wenn ihr Ergebnis stimmt. Gründliches Nachdenken mit Proben lernen sie dabei selbst.
+3. Nachdenken kostet Zeit und Tokens. Das Denkprotokoll hilft beim Prüfen, ist aber kein Beweis dafür, wie die Antwort entstand.
+
+**Ablauf:**
+
+- **Einstieg:** Die Aufgabe des Eisverkäufers aus Abschnitt 1 zeigen und die Gruppe ohne Zettel schätzen lassen. Die Antworten sammeln: Meist kommen mehrere verschiedene Zahlen zusammen. Dann mit Zettel rechnen lassen und fragen, was sich geändert hat.
+- **Erarbeitung:** Abschnitt 2 kurz mit der Zeitleiste. Abschnitte 3 und 4 ausführlich, hier liegt die Grundidee. Bei Abschnitt 5 die gesammelten Schätzungen vom Einstieg wieder aufgreifen: Hätte eine Abstimmung in der Gruppe die richtige Zahl ergeben? Abschnitt 6 mit der Frage zum Bruchrechnen einleiten. Abschnitte 7 bis 9 ausführlich, sie erklären die Alltagserfahrung mit Reasoning-Modellen.
+- **Labor 5, Aufträge zur Auswahl:**
+    - Im Schritt „Rechenweg“ 100 Antworten ohne und mit Rechenweg vergleichen. Welche Antwort ist jeweils die häufigste?
+    - Im Schritt „Abstimmen“ mit und ohne Rechenweg über 9 Antworten abstimmen. Wann hilft die Abstimmung, wann nicht?
+    - Im Schritt „Belohnung“ das Training mehrmals laufen lassen. Steigen beide Kurven gleichzeitig? Woran liegt das?
+- **Diskussion:** „Bei welchen Aufgaben aus eurem Alltag würdet ihr ein Reasoning-Modell nehmen, bei welchen nicht?“ Danach gemeinsam die Faustregeln aus Abschnitt 9 durchgehen. Wer ein Reasoning-Modell zur Verfügung hat, kann ihm die Aufgabe des Eisverkäufers stellen und das Denkprotokoll mit der Gruppe lesen.
+
+**Typische Rückfragen:**
+
+- *„Denkt das Modell jetzt wirklich?“* Es erzeugt weiterhin Token für Token, nur zuerst einen Rechenweg und dann die Antwort. Ob man das „Denken“ nennt, ist wie beim „Verstehen“ in Modul 2 eine Frage der Definition. Hier lieber offen diskutieren.
+- *„Ist ein Reasoning-Modell ein ganz neues Modell?“* Nein. Es ist derselbe Transformer, mit einer zusätzlichen Trainingsstufe am Ende (Abschnitt 6).
+- *„Warum nicht immer das gründlichste Modell nehmen?“* Weil es langsamer und teurer ist und einfache Fragen manchmal unnötig verkompliziert. Für Formulieren und Zusammenfassen bringt es wenig.
+- *„Kann ich dem Denkprotokoll trauen?“* Es zeigt, welche Schritte das Modell aufgeschrieben hat, und hilft beim Finden von Fehlern. Dass die Antwort wirklich auf diesem Weg entstand, ist nicht garantiert (Abschnitt 8).
+
 ## Abschluss des Workshops
 
 - **Rückblick:** Die Pinnwand aus der ersten Sitzung („Wo ist euch KI begegnet?“) wieder hervorholen. Welche Beispiele lassen sich jetzt besser erklären?
@@ -183,8 +214,8 @@ Die erste Sitzung klärt, **wie** KI funktioniert: wie eine Maschine lernt und w
 
 **Ein paar Tage vorher:**
 
-- Die Webseite des Workshops auf dem Präsentationsrechner öffnen und alle drei Labore einmal durchklicken.
-- Labor 1 und Labor 2 laufen vollständig ohne Internetverbindung.
+- Die Webseite des Workshops auf dem Präsentationsrechner öffnen und alle Labore einmal durchklicken.
+- Labor 1, Labor 2 und Labor 5 laufen vollständig ohne Internetverbindung.
 - Labor 3: Die Beispiele aus dem Text funktionieren sofort. Für eigene Eingaben lädt das Labor einmalig ein Modell von etwa 118 MB aus dem Internet. Erledige das vorab auf dem Präsentationsrechner, dann ist es im Browser gespeichert. Für die Geräte der Teilnehmenden ein stabiles WLAN einplanen oder bei den Beispielen bleiben.
 - Für die RAG-Übung in Labor 3 einen Chat-Assistenten bereithalten, den die Teilnehmenden nutzen dürfen. Die Prompts enthalten nur das erfundene Handbuch der Eisdiele.
 
@@ -194,6 +225,6 @@ Die erste Sitzung klärt, **wie** KI funktioniert: wie eine Maschine lernt und w
 - Oben rechts lässt sich zwischen hellem und dunklem Design umschalten. Für Beamer ist das helle Design meist besser.
 - In Sitzung 1 die Tabelle mit den zehn Tagen aus Kapitel 1 für die Schätzaufgabe groß zeigen oder ausdrucken.
 
-**Handouts:** Jedes Kapitel lässt sich über die Druckfunktion des Browsers ausdrucken oder als PDF speichern. Navigation und Schaltflächen werden dabei ausgeblendet, alle aufklappbaren Kästen automatisch geöffnet. Am Ende der ersten Sitzung bieten sich Kapitel 1 und 2 an, am Ende der zweiten Kapitel 3 und das Glossar.
+**Handouts:** Jedes Kapitel lässt sich über die Druckfunktion des Browsers ausdrucken oder als PDF speichern. Navigation und Schaltflächen werden dabei ausgeblendet, alle aufklappbaren Kästen automatisch geöffnet. Am Ende der ersten Sitzung bieten sich Kapitel 1 und 2 an, am Ende der zweiten Kapitel 3 und das Glossar, nach dem Zusatzmodul Kapitel 5.
 
 **Ohne Internet im Raum:** Die ganze Webseite lässt sich lokal starten, wenn Python installiert ist: `python3 -m http.server --directory docs` im Ordner des Workshops ausführen und dann `http://localhost:8000` im Browser öffnen.

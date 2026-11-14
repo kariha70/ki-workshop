@@ -4,12 +4,13 @@
 
 # KI-Workshop: Vom Eisverkäufer zum Sprachmodell
 
-**Ein Workshop über neuronale Netze, Sprachmodelle wie ChatGPT und die Suche in eigenen Unterlagen.<br>Alles wird an einem durchgehenden Beispiel erklärt, Vorkenntnisse und Programmieren sind nicht nötig.**
+**Ein Workshop über neuronale Netze, Sprachmodelle wie ChatGPT, die Suche in eigenen Unterlagen und Modelle, die vor der Antwort nachdenken.<br>Alles wird an einem durchgehenden Beispiel erklärt, Vorkenntnisse und Programmieren sind nicht nötig.**
 
 [**Zur Website**](https://kariha70.github.io/ki-workshop/) ·
 [Kapitel 1](https://kariha70.github.io/ki-workshop/kapitel-1.html) ·
 [Kapitel 2](https://kariha70.github.io/ki-workshop/kapitel-2.html) ·
 [Kapitel 3](https://kariha70.github.io/ki-workshop/kapitel-3.html) ·
+[Kapitel 5](https://kariha70.github.io/ki-workshop/kapitel-5.html) ·
 [Labore](https://kariha70.github.io/ki-workshop/#labore) ·
 [Glossar](https://kariha70.github.io/ki-workshop/glossar.html) ·
 [Leitfaden](https://kariha70.github.io/ki-workshop/leitfaden.html)
@@ -22,13 +23,13 @@
 
 ## Worum es geht
 
-Ein Eisverkäufer möchte wissen, wie viel Eis er morgen braucht. Von dieser Frage aus geht der Workshop Schritt für Schritt weiter: zu einer Geraden durch die Verkaufszahlen, einem Neuron, einem kleinen Netz, einem Sprachmodell und einer Suche nach Bedeutung.
+Ein Eisverkäufer möchte wissen, wie viel Eis er morgen braucht. Von dieser Frage aus geht der Workshop Schritt für Schritt weiter: zu einer Geraden durch die Verkaufszahlen, einem Neuron, einem kleinen Netz, einem Sprachmodell, einer Suche nach Bedeutung und einem Modell, das vor der Antwort nachdenkt.
 
 Der Workshop richtet sich an alle, die verstehen wollen, was in einem Chat-Assistenten wie ChatGPT, Claude oder Gemini passiert, und die ihn danach besser einsetzen möchten. Vorwissen ist nicht nötig, Grundrechenarten genügen.
 
 | | |
 | --- | --- |
-| **Ein durchgehendes Beispiel** | Gerade, Neuron, Netz, Sprachmodell und Suche bauen alle auf dem Eisverkäufer auf. |
+| **Ein durchgehendes Beispiel** | Gerade, Neuron, Netz, Sprachmodell, Suche und Reasoning-Modell bauen alle auf dem Eisverkäufer auf. |
 | **Fragen und Merksätze** | Jedes Kapitel beginnt mit Lernzielen und enthält Fragen zum Nachdenken, einen Merksatz pro Abschnitt und am Ende einen kurzen Selbsttest. |
 | **Labore im Browser** | Regler verschieben, Texte zerlegen, nach Bedeutung suchen. Die Labore laufen direkt im Browser, ohne Installation. |
 | **Rechnungen zum Aufklappen** | Formeln und Rechenwege stehen in aufklappbaren Kästen. Für das Verständnis des Haupttexts sind sie nicht nötig. |
@@ -65,9 +66,19 @@ Wie eine Suche nach Bedeutung funktioniert und wie ein Chat-Assistent mit RAG Fr
 Lesezeit: etwa 15 Minuten
 </td>
 </tr>
+<tr>
+<td width="33%" valign="top">
+<a href="https://kariha70.github.io/ki-workshop/kapitel-5.html"><img src="docs/bilder/kapitel-5/04-abstimmen.png" alt="Trefferquote einer Abstimmung über mehrere Antworten, mit und ohne Rechenweg"></a>
+<h3>5 · Reasoning-Modelle</h3>
+<b>Wie ein Sprachmodell vor der Antwort nachdenkt</b><br><br>
+Wie aus Sprachmodellen Reasoning-Modelle wurden, die vor der Antwort nachdenken: Rechenweg, Abstimmen und eine Belohnung für richtige Ergebnisse.<br><br>
+<sub>Entwicklung seit GPT-2 · Rechenweg · Chain of Thought · Abstimmen · Verstärkungslernen · Denkaufwand · Denkprotokoll</sub><br><br>
+Lesezeit: etwa 20 Minuten
+</td>
+</tr>
 </table>
 
-Die Lesezeit gilt für den Hauptweg ohne die aufklappbaren Kästen. Kapitel 2 und 3 enden mit Faustregeln für den Alltag mit Chat-Assistenten, alle drei mit einem kleinen Selbsttest.
+Die Lesezeit gilt für den Hauptweg ohne die aufklappbaren Kästen. Kapitel 2, 3 und 5 enden mit Faustregeln für den Alltag mit Chat-Assistenten, alle Kapitel mit einem kleinen Selbsttest.
 
 ## Die Labore
 
@@ -91,13 +102,20 @@ Eigenen Text in Tokens zerlegen, Deutsch und Englisch vergleichen und mit der Te
 Ähnlichkeit von Hand ausprobieren, eigene Sätze vergleichen, im Handbuch der Eisdiele suchen und einen Prompt für einen Chat-Assistenten bauen.
 </td>
 </tr>
+<tr>
+<td width="33%" valign="top">
+<a href="https://kariha70.github.io/ki-workshop/app/labor-5.html"><img src="docs/bilder/labor-5.png" alt="Labor 5"></a>
+<b>Labor 5: Nachdenken zum Anfassen</b><br>
+Ein Modell mit und ohne Rechenweg rechnen lassen, über mehrere Antworten abstimmen und ein Spielzeug-Training mit Belohnung beobachten.
+</td>
+</tr>
 </table>
 
-Labor 1 und 2 funktionieren auch ohne Internet. Labor 3 rechnet die Beispiele aus dem Text sofort. Für eigene Eingaben lädt es einmalig ein Embedding-Modell (etwa 118 MB) von Hugging Face und rechnet dann im Browser.
+Labor 1, 2 und 5 funktionieren auch ohne Internet. Labor 3 rechnet die Beispiele aus dem Text sofort. Für eigene Eingaben lädt es einmalig ein Embedding-Modell (etwa 118 MB) von Hugging Face und rechnet dann im Browser.
 
 ## Zum Nachschlagen und Vorbereiten
 
-**[Glossar](https://kariha70.github.io/ki-workshop/glossar.html):** Alle 51 Fachbegriffe aus dem Workshop in Alltagssprache, von *Aktivierungsfunktion* bis *Weight*, jeweils mit Verweis auf den Abschnitt, in dem sie ausführlich erklärt werden.
+**[Glossar](https://kariha70.github.io/ki-workshop/glossar.html):** Alle 61 Fachbegriffe aus dem Workshop in Alltagssprache, von *Aktivierungsfunktion* bis *Weight*, jeweils mit Verweis auf den Abschnitt, in dem sie ausführlich erklärt werden.
 
 **[Leitfaden für Moderierende](https://kariha70.github.io/ki-workshop/leitfaden.html):** für alle, die den Workshop vor Ort mit einer Gruppe ohne technisches Vorwissen halten. Er enthält
 
@@ -128,9 +146,10 @@ python3 -m http.server --directory docs
 | `uv run docs/beispiele/01_eisverkaeufer.py` | Rechnet Kapitel 1 nach und erzeugt alle Grafiken (etwa eine halbe Minute) |
 | `uv run docs/beispiele/02_tokenizer.py "Drei Kugeln Vanille, bitte."` | Zerlegt eigenen Text mit `o200k_base` und `cl100k_base`. Ohne Text: alle Beispiele und Grafiken aus Kapitel 2 |
 | `uv run docs/beispiele/03_semantische_suche.py "Habt ihr Eis für Hunde?"` | Durchsucht das Handbuch der Eisdiele. Ohne Frage: alle Zahlen, Grafiken und Labordaten aus Kapitel 3 |
+| `uv run docs/beispiele/05_nachdenken.py` | Rechnet die Aufgabe aus Kapitel 5 nach, zählt Tokens, spielt die Simulationen durch und erzeugt Grafiken und Labordaten |
 
 > [!NOTE]
-> Beim ersten Start laden manche Skripte Daten aus dem Internet: das zweite die Vokabulare von tiktoken, das dritte das Embedding-Modell in voller Genauigkeit (etwa 470 MB). Danach liegen sie im Cache.
+> Beim ersten Start laden manche Skripte Daten aus dem Internet: das zweite und das fünfte die Vokabulare von tiktoken, das dritte das Embedding-Modell in voller Genauigkeit (etwa 470 MB). Danach liegen sie im Cache.
 
 ## Aufbau des Repos
 
@@ -140,6 +159,7 @@ ki-workshop/
 │   ├── 01-Neuronale-Netze-Grundlagen.md
 │   ├── 02-Tokenizer-und-Sprachmodelle.md
 │   ├── 03-Semantische-Suche-und-RAG.md
+│   ├── 05-Reasoning-Modelle.md
 │   ├── glossar.md                 Fachbegriffe in Alltagssprache
 │   ├── leitfaden.md               Leitfaden für Moderierende
 │   ├── *.html                     erzeugt aus den Markdown-Dateien
@@ -165,7 +185,7 @@ Für die Texte gelten folgende Regeln:
 
 - **Erst erleben, dann benennen:** Jeder größere Gedanke beginnt mit einer Frage an die Leserin oder den Leser („Kurz überlegen“). Der Fachbegriff kommt danach.
 - **Der Hauptweg kommt ohne Formeln aus.** Rechnungen, Programmcode und Hintergründe stehen in Kästen `<details class="vertiefung">` mit dem Titel „Für Neugierige“.
-- **Jeder Abschnitt endet mit einem Merksatz**, jedes Kapitel mit „Das Wichtigste in Kürze“ und einem Selbsttest „Teste dich“. Kapitel 2 und 3 nennen außerdem ihre Quellen.
+- **Jeder Abschnitt endet mit einem Merksatz**, jedes Kapitel mit „Das Wichtigste in Kürze“ und einem Selbsttest „Teste dich“. Kapitel 2, 3 und 5 nennen außerdem ihre Quellen.
 - **Alle Daten im Beispiel sind erfunden**, alle Zahlen im Text kommen aus den Skripten. Ausgedachte Werte, etwa in schematischen Grafiken, sind als ausgedacht gekennzeichnet.
 - **Neue Fachbegriffe** gehören auch ins Glossar.
 
@@ -185,7 +205,7 @@ npm --prefix werkzeuge/tiktoken run bauen
 | [paraphrase-multilingual-MiniLM-L12-v2](https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2) | Embedding-Modell für Kapitel 3 | Apache-2.0 |
 | [NumPy](https://numpy.org), [Matplotlib](https://matplotlib.org), [ONNX Runtime](https://onnxruntime.ai), [Python-Markdown](https://python-markdown.github.io) | Skripte und Seitenbau | jeweils eigene freie Lizenz |
 
-Die Quellen zu den Inhalten stehen am Ende von Kapitel 2 und 3.
+Die Quellen zu den Inhalten stehen am Ende von Kapitel 2, 3 und 5.
 
 ## Lizenz
 
