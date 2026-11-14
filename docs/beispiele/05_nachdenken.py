@@ -45,7 +45,7 @@ VORRAT = 4
 
 FRAGE = (
     "Für das lange Wochenende sind angesagt: Freitag 24 °C, Samstag 27 °C, Sonntag 25 °C. "
-    "In einen Behälter passen 70 Kugeln, im Kühlraum stehen noch 4 volle Behälter. "
+    "In einen Behälter passen 70 Kugeln, im Gefrierschrank stehen noch 4 volle Behälter. "
     "Wie viele Behälter muss der Eisverkäufer nachbestellen?"
 )
 
@@ -62,7 +62,7 @@ SCHRITTE = [
     ("sonntag", "Bedarf Sonntag", "vergisst, dass Sonntag Wochenende ist"),
     ("summe", "Summe", "verrechnet sich beim Addieren um 100"),
     ("behaelter", "Behälter", "rundet ab statt auf"),
-    ("vorrat", "Vorrat abziehen", "vergisst den Vorrat im Kühlraum"),
+    ("vorrat", "Vorrat abziehen", "vergisst den Vorrat im Gefrierschrank"),
 ]
 
 
@@ -112,7 +112,7 @@ NACHDENKEN = [
     "Moment, der Sonntag gehört auch zum Wochenende. Also 10 · 25 + 50 + 20 = 320 Kugeln.",
     "Zusammen: 260 + 340 + 320 = 920 Kugeln. Probe: 260 + 340 = 600, dazu 320 ergibt 920.",
     "920 : 70 = 13,14. 13 Behälter reichen nur für 910 Kugeln, das sind 10 zu wenig. Also 14 Behälter.",
-    "Im Kühlraum stehen 4: 14 − 4 = 10.",
+    "Im Gefrierschrank stehen 4: 14 − 4 = 10.",
     "Gegenprobe: 10 neue und 4 alte Behälter fassen 14 · 70 = 980 Kugeln, das reicht für 920.",
     "Antwort: 10 Behälter.",
 ]

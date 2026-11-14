@@ -23,7 +23,7 @@
   <p class="augenbraue">Kapitel 5 · etwa 20 Minuten Lesezeit</p>
   <h1>Reasoning-Modelle: Wie ein Sprachmodell vor der Antwort nachdenkt</h1>
   <div class="einleitung"><p>Frühe Chat-Assistenten schrieben flüssige Texte, scheiterten aber oft an Aufgaben mit mehreren Rechenschritten. Heutige Modelle lösen Mathe-Wettbewerbsaufgaben und schreiben lange Programme. Gebaut sind sie fast genauso wie die Sprachmodelle aus Kapitel 2. Der Unterschied: Sie schreiben vor der Antwort einen Rechenweg und wurden darauf trainiert, dabei zu richtigen Ergebnissen zu kommen.</p>
-<p>Die Entwicklung verlief in vier Stufen: Die Modelle wurden größer, schrieben einen Rechenweg auf, wurden zu Assistenten und schließlich mit einer Belohnung für richtige Ergebnisse trainiert. Das Ergebnis heißt <strong>Reasoning-Modell</strong> (englisch reasoning, schlussfolgern).</p></div>
+<p>Die Entwicklung verlief in vier Stufen: Die Modelle wurden größer, schrieben einen Rechenweg auf, wurden zu Assistenten und schließlich mit einer Belohnung für richtige Ergebnisse trainiert. Das Ergebnis heißt <strong>Reasoning-Modell</strong> (englisch Reasoning Model, von reasoning, schlussfolgern).</p></div>
   <div class="aktionen">
     <a class="knopf primaer" href="#1-eine-aufgabe-mit-mehreren-schritten">Lesen</a>
     <a class="knopf" href="app/labor-5.html">Im Labor ausprobieren</a>
@@ -87,7 +87,7 @@
     <section id="1-eine-aufgabe-mit-mehreren-schritten"><h2>1. Eine Aufgabe mit mehreren Schritten</h2>
 <p>Der Eisverkäufer aus Kapitel 1 plant das lange Wochenende. Er hat sein Modell <code>Kugeln = 10 · Temperatur + 50 · Wochenende + 20</code> und diese Angaben (erfunden wie alle Daten im Workshop):</p>
 <blockquote>
-<p>Für das lange Wochenende sind angesagt: Freitag 24 °C, Samstag 27 °C, Sonntag 25 °C. In einen Behälter passen 70 Kugeln, im Kühlraum stehen noch 4 volle Behälter. Wie viele Behälter muss der Eisverkäufer nachbestellen?</p>
+<p>Für das lange Wochenende sind angesagt: Freitag 24 °C, Samstag 27 °C, Sonntag 25 °C. In einen Behälter passen 70 Kugeln, im Gefrierschrank stehen noch 4 volle Behälter. Wie viele Behälter muss der Eisverkäufer nachbestellen?</p>
 </blockquote>
 <div class="frage">
 <p><strong>Kurz überlegen:</strong> Kannst du die Antwort ohne Zettel nennen? Und wenn du einen Zettel nimmst: Was schreibst du zuerst auf?</p>
@@ -146,7 +146,7 @@
 <p>Die wichtigsten Stationen:</p>
 <figure><img alt="Eine Zeitleiste von 2017 bis 2025. Blau: 2017 der Transformer, 2019 GPT-2, das Texte fortsetzt, 2020 GPT-3, das aus Beispielen im Prompt lernt, 2022 Chain of Thought mit „Schritt für Schritt“ im Prompt, im November 2022 ChatGPT als Assistent durch menschliches Feedback. Orange: im September 2024 OpenAI o1 als erstes Reasoning-Modell, im Januar 2025 DeepSeek-R1 mit offen beschriebenem Trainingsweg, im Februar 2025 Claude 3.7 Sonnet mit einstellbarer Denkzeit." src="bilder/kapitel-5/01-zeitleiste.png" loading="lazy"></figure>
 <ol>
-<li><strong>Größer werden (bis 2020).</strong> GPT-2 konnte Texte fortsetzen, GPT-3 war über hundertmal so groß und konnte etwas Neues: Gibt man ihm im Prompt, also im Text, den es als Eingabe bekommt, ein paar Beispiele für eine Aufgabe, löst es weitere Aufgaben derselben Art, ohne dass seine Weights verändert werden. Das heißt <strong>Lernen aus Beispielen im Prompt</strong> (englisch in-context learning, mit wenigen Beispielen auch few-shot). Bei Rechenaufgaben mit mehreren Schritten blieben die Modelle aber schwach, auch die sehr großen.</li>
+<li><strong>Größer werden (bis 2020).</strong> GPT-2 konnte Texte fortsetzen, GPT-3 war über hundertmal so groß und konnte etwas Neues: Gibt man ihm im Prompt, also im Text, den es als Eingabe bekommt, ein paar Beispiele für eine Aufgabe, löst es weitere Aufgaben derselben Art, ohne dass seine Weights verändert werden. Das heißt <strong>Lernen aus Beispielen im Prompt</strong> (englisch In-Context Learning, mit wenigen Beispielen auch Few-Shot Learning). Bei Rechenaufgaben mit mehreren Schritten blieben die Modelle aber schwach, auch die sehr großen.</li>
 <li><strong>Den Rechenweg aufschreiben (2022).</strong> Forschende bei Google zeigten: Enthalten die Beispiele im Prompt einen Rechenweg, schreibt das Modell auch selbst einen und liegt viel öfter richtig (Abschnitt 4).</li>
 <li><strong>Ein Assistent werden (2022).</strong> Feinabstimmung und menschliches Feedback aus Kapitel 2 machten aus dem Textvervollständiger einen Assistenten. Ende 2022 erschien ChatGPT.</li>
 <li><strong>Nachdenken lernen (seit 2024).</strong> Modelle werden zusätzlich darauf trainiert, vor der Antwort lange nachzudenken, und dafür belohnt, wenn das Ergebnis stimmt (Abschnitt 6). OpenAI stellte im September 2024 das erste Modell dieser Art vor. Seitdem bieten die meisten großen Anbieter Reasoning-Modelle an, oft als Schalter oder Einstellung im selben Chat-Assistenten.</li>
@@ -179,7 +179,7 @@ Sorte: Erdbeere → Farbe:
 <details class="vertiefung">
 <summary>Für Neugierige: Warum ein Durchlauf begrenzt ist</summary>
 <p>Ein Transformer hat eine feste Zahl von Blöcken (Kapitel 2, Abschnitt 6). Information kann pro Durchlauf nur von Block zu Block nach oben wandern. Muss ein Ergebnis über mehr Zwischenschritte entstehen, als Blöcke da sind, wird es schwierig. Ein aufgeschriebenes Token geht dagegen beim nächsten Durchlauf wieder ganz unten als Eingabe hinein. Der Text wirkt so wie ein Speicher, mit dem das Modell beliebig viele Schritte hintereinander ausführen kann.</p>
-<p>Schon 2021 zeigten Forschende, dass Sprachmodelle mit einem solchen „Notizblock“ (englisch scratchpad) Rechenaufgaben und Programmabläufe deutlich besser lösen (Nye u. a., 2021).</p>
+<p>Schon 2021 zeigten Forschende, dass Sprachmodelle mit einem solchen „Notizblock“ (englisch Scratchpad) Rechenaufgaben und Programmabläufe deutlich besser lösen (Nye u. a., 2021).</p>
 </details>
 <blockquote>
 <p><strong>Merke:</strong> Pro Token rechnet ein Sprachmodell immer gleich viel. Ein Rechenweg gibt ihm mehr Tokens zum Rechnen und hält jedes Zwischenergebnis als Text fest.</p>
@@ -187,8 +187,8 @@ Sorte: Erdbeere → Farbe:
 </section><section id="4-schritt-für-schritt-chain-of-thought"><h2>4. Schritt für Schritt: Chain of Thought</h2>
 <p>Den Rechenweg bekommt man auf zwei Arten:</p>
 <ul>
-<li><strong>Mit Beispielen:</strong> Man zeigt dem Modell im Prompt einige Aufgaben mitsamt Rechenweg. Es übernimmt das Muster. So machten es Forschende bei Google 2022 und gaben dem Verfahren seinen Namen: <strong>Chain of Thought</strong> (Gedankenkette).</li>
-<li><strong>Mit einem Satz:</strong> Noch im selben Jahr zeigte eine Studie, dass schon der Zusatz „Denken wir Schritt für Schritt nach“ (englisch „Let's think step by step“) genügt. Bei einem Modell von OpenAI stieg der Anteil richtig gelöster Textaufgaben auf Grundschulniveau damit von 10,4 % auf 40,7 %.</li>
+<li><strong>Mit Beispielen:</strong> Man zeigt dem Modell im Prompt einige Aufgaben mitsamt Rechenweg. Es übernimmt das Muster. So machten es Forschende bei Google 2022 und gaben dem Verfahren seinen Namen: <strong>Chain of Thought</strong> (deutsch Gedankenkette).</li>
+<li><strong>Mit einem Satz:</strong> Noch im selben Jahr zeigte eine Studie, dass schon der Zusatz „Denken wir Schritt für Schritt nach“ (englisch „Let's think step by step“) genügt. Bei einem Modell von OpenAI stieg der Anteil richtig gelöster Textaufgaben auf Grundschulniveau damit von 10,4 % auf 40,7 %. Weil kein Beispiel nötig ist, heißt diese Variante Zero-Shot Chain of Thought.</li>
 </ul>
 <p>Wie sich das auf die Antworten auswirkt, zeigt eine kleine Simulation. Ein ausgedachtes Modell rechnet die Aufgabe des Eisverkäufers, und in jedem der sechs Schritte passiert ihm mit einer festen Wahrscheinlichkeit ein typischer Fehler, etwa die aus Abschnitt 1. Ohne Rechenweg liegt diese Wahrscheinlichkeit bei 25 % pro Schritt, mit Rechenweg bei 8 %. Beide Werte sind ausgedacht, die Rechnung dahinter ist echt:</p>
 <figure><img alt="Zwei Balkendiagramme mit den Antworten 6 bis 14. Ohne Rechenweg ist 9 mit 28 Prozent die häufigste Antwort, die richtige 10 kommt nur auf 18 Prozent, ebenso oft wie 8. Mit Rechenweg ist 10 mit 61 Prozent klar vorn, danach folgt 9 mit 22 Prozent." src="bilder/kapitel-5/03-antworten.png" loading="lazy"></figure>
@@ -201,7 +201,7 @@ Sorte: Erdbeere → Farbe:
 <li>mit Rechenweg: 0,92⁶ ≈ 0,61</li>
 </ul>
 <p>Dazu kommen wenige Fälle, in denen sich mehrere Fehler zufällig aufheben. Ohne Rechenweg sind das 0,3 % der Antworten, deshalb steht im Diagramm 18 % statt 17,8 %.</p>
-<p>Bei vielen Schritten wirken schon kleine Fehlerquoten stark. Mit 20 Schritten und 8 % Fehler pro Schritt wären nur noch 19 % der Antworten richtig.</p>
+<p>Bei vielen Schritten wirken schon kleine Fehlerquoten stark. Mit 20 Schritten und 8 % Fehler pro Schritt wären nur noch 19 % der Antworten richtig. Dieselbe Rechnung gilt für Agenten, die viele Werkzeuge nacheinander aufrufen (<a href="kapitel-4.html#9-risiken-fehlerketten-und-eingeschleuste-anweisungen">Kapitel 4, Abschnitt 9</a>).</p>
 </details>
 <blockquote>
 <p><strong>Merke:</strong> Mit einem Rechenweg macht ein Sprachmodell pro Schritt weniger Fehler. Weil jeder Schritt stimmen muss, steigt der Anteil richtiger Antworten deutlich.</p>
@@ -219,7 +219,7 @@ Sorte: Erdbeere → Farbe:
 <p>Der 10. Richtige Rechenwege führen alle zum selben Ergebnis. Fehler führen in verschiedene Richtungen und verteilen sich deshalb auf mehrere falsche Zahlen.</p>
 </details>
 </div>
-<p>Dasselbe funktioniert mit einem Sprachmodell: mehrere Antworten mit Rechenweg erzeugen und das Ergebnis nehmen, das am häufigsten vorkommt. Das Verfahren heißt <strong>Selbstkonsistenz</strong> (englisch self-consistency) oder Mehrheitsentscheid. In der Simulation sieht das so aus:</p>
+<p>Dasselbe funktioniert mit einem Sprachmodell: mehrere Antworten mit Rechenweg erzeugen und das Ergebnis nehmen, das am häufigsten vorkommt. Das Verfahren heißt <strong>Selbstkonsistenz</strong> (englisch Self-Consistency) oder Mehrheitsentscheid (englisch Majority Voting). In der Simulation sieht das so aus:</p>
 <figure><img alt="Ein Liniendiagramm. Mit Rechenweg gewinnt bei einer einzelnen Antwort in 61 Prozent der Fälle die richtige Antwort, bei 5 Antworten in 82 Prozent, bei 9 in 91 Prozent und bei 25 in 99 Prozent. Ohne Rechenweg bleibt die Linie unabhängig von der Zahl der Antworten bei 17 bis 20 Prozent." src="bilder/kapitel-5/04-abstimmen.png" loading="lazy"></figure>
 <p>Mit Rechenweg steigt die Trefferquote von 61 % bei einer Antwort auf 91 % bei neun Antworten. Ohne Rechenweg hilft die Abstimmung nicht: Dort ist die 9 häufiger als die 10, und eine Abstimmung bestätigt die häufigste Antwort, auch wenn sie falsch ist.</p>
 <p>Echte Modelle verhalten sich ähnlich. In der Studie, die das Verfahren 2022 vorstellte, stieg der Anteil gelöster Textaufgaben bei einem Modell von Google von 56,5 % mit einem Rechenweg auf 74,4 % mit einer Abstimmung über 40 Rechenwege.</p>
@@ -244,19 +244,19 @@ Sorte: Erdbeere → Farbe:
 <p>Viele Aufgaben stellen und nur sagen: richtig oder falsch. Wer übt, merkt mit der Zeit selbst, welche Vorgehensweisen zu richtigen Ergebnissen führen, etwa sauber Zwischenergebnisse notieren oder am Ende die Probe machen. Ein Reasoning-Modell lernt auf diese Weise.</p>
 </details>
 </div>
-<p>Diese Stufe heißt <strong>Verstärkungslernen</strong> (englisch reinforcement learning). Das Modell bekommt Aufgaben mit einer prüfbaren Lösung, vor allem aus Mathematik und Programmierung. Es darf beliebig lange nachdenken und gibt dann eine Antwort. Ein Prüfprogramm kontrolliert nur das Ergebnis: Stimmt die Zahl? Laufen die Tests des Programms durch? Antworten, die richtig waren, werden wahrscheinlicher gemacht, falsche unwahrscheinlicher. Das ist dasselbe Prinzip wie beim menschlichen Feedback, nur bewertet hier ein Programm statt eines Menschen:</p>
+<p>Diese Stufe heißt <strong>Verstärkungslernen</strong> (englisch Reinforcement Learning). Das Modell bekommt Aufgaben mit einer prüfbaren Lösung, vor allem aus Mathematik und Programmierung. Es darf beliebig lange nachdenken und gibt dann eine Antwort. Ein <strong>Prüfprogramm</strong> (englisch Verifier) kontrolliert nur das Ergebnis: Stimmt die Zahl? Laufen die Tests des Programms durch? Antworten, die richtig waren, werden wahrscheinlicher gemacht, falsche unwahrscheinlicher. Weil die Belohnung (englisch Reward) aus einer nachprüfbaren Lösung kommt, heißt das Verfahren auch Reinforcement Learning with Verifiable Rewards, kurz RLVR. Das ist dasselbe Prinzip wie beim menschlichen Feedback, nur bewertet hier ein Programm statt eines Menschen:</p>
 <figure><img alt="Vier Trainingsstufen nebeneinander. Vortraining: Text fortsetzen, bewertet wird, ob das nächste Token richtig war. Feinabstimmung: Beispielgespräche, bewertet wird, ob die Antwort zum Vorbild passt. Feedback: Antworten vergleichen, bewertet wird, welche Antwort Menschen besser finden. Belohnung, hervorgehoben: Aufgaben mit prüfbarer Lösung, bewertet wird, ob das Ergebnis stimmt und die Programmtests laufen. Wie lange das Modell vorher nachdenkt, ist frei." src="bilder/kapitel-5/05-stufen.png" loading="lazy"></figure>
 <p>Ein Prüfprogramm wird nicht müde und kann Millionen Antworten bewerten. Deshalb lässt sich diese Stufe sehr lange fortsetzen.</p>
-<p>Was dabei passiert, zeigt eine Spielzeug-Simulation mit der Aufgabe des Eisverkäufers. Das ausgedachte Modell hat nur eine Stellschraube: wie oft es einen Rechenschritt nachprüft. Eine Prüfung kostet etwa 20 Tokens und findet einen Fehler in diesem Schritt mit einer Wahrscheinlichkeit von 80 %. Zu Beginn prüft das Modell nur 8 % der Schritte. Niemand sagt ihm, dass Prüfen hilft, es bekommt nur „richtig“ oder „falsch“ für das Endergebnis:</p>
-<figure><img alt="Zwei Liniendiagramme über 150 Trainingsrunden. Links steigt der Anteil richtiger Antworten von 63 auf 89 Prozent. Rechts steigt die Länge der Antwort von 129 auf 234 Tokens. Beide Kurven steigen anfangs langsam, zwischen Runde 60 und 100 schnell, danach flachen sie ab." src="bilder/kapitel-5/06-training.png" loading="lazy"></figure>
+<p>Was dabei passiert, zeigt eine Spielzeug-Simulation mit der Aufgabe des Eisverkäufers. Das ausgedachte Modell hat nur eine Stellschraube: wie oft es einen Rechenschritt nachprüft. Eine Prüfung kostet etwa 21 Tokens und findet einen Fehler in diesem Schritt mit einer Wahrscheinlichkeit von 80 %. Zu Beginn prüft das Modell nur 8 % der Schritte. Niemand sagt ihm, dass Prüfen hilft, es bekommt nur „richtig“ oder „falsch“ für das Endergebnis:</p>
+<figure><img alt="Zwei Liniendiagramme über 150 Trainingsrunden. Links steigt der Anteil richtiger Antworten von 63 auf 89 Prozent. Rechts steigt die Länge der Antwort von 130 auf 240 Tokens. Beide Kurven steigen anfangs langsam, zwischen Runde 60 und 100 schnell, danach flachen sie ab." src="bilder/kapitel-5/06-training.png" loading="lazy"></figure>
 <p>Nach 150 Runden prüft das Modell 95 % der Schritte. Der Anteil richtiger Antworten steigt von 63 % auf 89 %, die Antworten werden fast doppelt so lang.</p>
-<p>Bei echten Modellen ist das Ergebnis ähnlich. Das Team von DeepSeek trainierte ein Sprachmodell nur mit solchen Belohnungen, ohne Beispielgespräche vorweg. Bei den Aufgaben eines US-amerikanischen Mathematik-Wettbewerbs für Schülerinnen und Schüler (AIME 2024) stieg der Anteil gelöster Aufgaben im Lauf des Trainings von 15,6 % auf 71,0 %, mit Abstimmung über mehrere Antworten auf 86,7 %. Die Antworten wurden von selbst immer länger. Das Modell begann, Zwischenergebnisse zu überprüfen und Lösungswege zu verwerfen. In seinen Denkprotokollen tauchten Sätze auf wie „Moment, das schaue ich mir noch einmal Schritt für Schritt an“. Das Forschungsteam nannte das einen Aha-Moment.</p>
+<p>Bei echten Modellen ist das Ergebnis ähnlich. Das Team von DeepSeek trainierte ein Sprachmodell nur mit solchen Belohnungen, ohne Beispielgespräche vorweg. Bei den Aufgaben eines US-amerikanischen Mathematik-Wettbewerbs für Schülerinnen und Schüler (AIME 2024) stieg der Anteil gelöster Aufgaben im Lauf des Trainings von 15,6 % auf 71,0 %, mit Abstimmung über mehrere Antworten auf 86,7 %. Die Antworten wurden von selbst immer länger. Das Modell begann, Zwischenergebnisse zu überprüfen und Lösungswege zu verwerfen. In seinen Denkprotokollen tauchten Sätze auf wie „Moment, das schaue ich mir noch einmal Schritt für Schritt an“. Das Forschungsteam nannte das einen Aha-Moment (englisch Aha Moment).</p>
 <details class="vertiefung">
 <summary>Für Neugierige: Wie die Belohnung zu den Weights kommt</summary>
 <p>Im Spielzeugmodell gibt es eine einzige Stellschraube, die Prüfquote. In jeder Runde erzeugt es 32 Antworten. Wurde in einer überdurchschnittlich belohnten Antwort öfter geprüft als erwartet, steigt die Prüfquote ein Stück. Wurde in einer schlechter belohnten Antwort öfter geprüft, sinkt sie. Das Verfahren heißt REINFORCE und ist eine Form des Gradientenabstiegs aus Kapitel 1. Der Unterschied: Die Richtung ergibt sich nicht aus einem Fehler, der sich direkt ableiten lässt, sondern aus dem Vergleich besser und schlechter belohnter Versuche.</p>
 <p>Ein echtes Modell hat statt einer Stellschraube Milliarden Weights. Das Prinzip bleibt: Tokens in Antworten, die überdurchschnittlich belohnt wurden, werden wahrscheinlicher. DeepSeek verwendete eine Variante namens GRPO, die für jede Aufgabe eine Gruppe von Antworten erzeugt und jede Antwort mit dem Durchschnitt ihrer Gruppe vergleicht.</p>
-<p>Die Belohnung funktioniert dort am besten, wo sich Ergebnisse automatisch prüfen lassen: Mathematik, Programmierung, Logikrätsel. Für Aufsätze oder Ratschläge gibt es kein Prüfprogramm. Dort wird weiter mit menschlichem Feedback oder mit Modellen gearbeitet, die menschliche Bewertungen nachahmen.</p>
-<p>Ein fertiges Reasoning-Modell kann auch kleinere Modelle unterrichten: Man trainiert sie mit seinen Denkprotokollen wie mit Beispielgesprächen bei der Feinabstimmung. Das heißt <strong>Destillation</strong>. DeepSeek veröffentlichte auf diese Weise mehrere kleine Modelle, die auf einem gewöhnlichen Rechner laufen.</p>
+<p>Die Belohnung funktioniert dort am besten, wo sich Ergebnisse automatisch prüfen lassen: Mathematik, Programmierung, Logikrätsel. Für Aufsätze oder Ratschläge gibt es kein Prüfprogramm. Dort wird weiter mit menschlichem Feedback oder mit Modellen gearbeitet, die menschliche Bewertungen nachahmen (englisch Reward Models).</p>
+<p>Ein fertiges Reasoning-Modell kann auch kleinere Modelle unterrichten: Man trainiert sie mit seinen Denkprotokollen wie mit Beispielgesprächen bei der Feinabstimmung. Das heißt <strong>Destillation</strong> (englisch Distillation). DeepSeek veröffentlichte auf diese Weise mehrere kleine Modelle, die auf einem gewöhnlichen Rechner laufen.</p>
 </details>
 <blockquote>
 <p><strong>Merke:</strong> Reasoning-Modelle werden belohnt, wenn ihr Ergebnis stimmt. Wie sie dahin kommen, lernen sie selbst. Dabei werden ihre Denkprotokolle länger und gründlicher.</p>
@@ -266,7 +266,7 @@ Sorte: Erdbeere → Farbe:
   <div><strong>Ausprobieren: Belohnung</strong><span>Starte das Spielzeug-Training und beobachte, wie Trefferquote und Länge der Antworten wachsen.</span></div>
   <a class="knopf primaer" href="app/labor-5.html#training">Zum Labor</a>
 </aside></section><section id="7-nachdenken-kostet-zeit-und-tokens"><h2>7. Nachdenken kostet Zeit und Tokens</h2>
-<p>Ein Reasoning-Modell schreibt vor der Antwort ein <strong>Denkprotokoll</strong> (oft auch Gedankengang oder englisch reasoning trace). Für die Aufgabe des Eisverkäufers könnte es so aussehen. Der Text ist ausgedacht, aber typisch für solche Protokolle:</p>
+<p>Ein Reasoning-Modell schreibt vor der Antwort ein <strong>Denkprotokoll</strong> (auch Gedankengang, englisch Reasoning Trace). Für die Aufgabe des Eisverkäufers könnte es so aussehen. Der Text ist ausgedacht, aber typisch für solche Protokolle:</p>
 <pre><code class="language-text">Gefragt sind Behälter, nicht Kugeln. Ich rechne erst den Bedarf für jeden Tag aus.
 Freitag, 24 °C, Werktag: 10 · 24 + 20 = 260 Kugeln.
 Samstag, 27 °C, Wochenende: 10 · 27 + 50 + 20 = 340 Kugeln.
@@ -274,15 +274,15 @@ Sonntag, 25 °C: 10 · 25 + 20 = 270 Kugeln.
 Moment, der Sonntag gehört auch zum Wochenende. Also 10 · 25 + 50 + 20 = 320 Kugeln.
 Zusammen: 260 + 340 + 320 = 920 Kugeln. Probe: 260 + 340 = 600, dazu 320 ergibt 920.
 920 : 70 = 13,14. 13 Behälter reichen nur für 910 Kugeln, das sind 10 zu wenig. Also 14 Behälter.
-Im Kühlraum stehen 4: 14 − 4 = 10.
+Im Gefrierschrank stehen 4: 14 − 4 = 10.
 Gegenprobe: 10 neue und 4 alte Behälter fassen 14 · 70 = 980 Kugeln, das reicht für 920.
 Antwort: 10 Behälter.
 </code></pre>
 <p>Danach folgt die eigentliche Antwort: „Er muss 10 Behälter nachbestellen.“ Das Modell plant, macht einen Fehler, bemerkt ihn und rechnet zweimal nach. Das kostet Tokens:</p>
-<figure><img alt="Drei waagerechte Balken. Die Kurzantwort hat 11 Tokens, die Antwort mit Rechenweg 131 Tokens, das Nachdenken mit Proben samt Antwort 265 Tokens." src="bilder/kapitel-5/07-denkaufwand.png" loading="lazy"></figure>
-<p>Denkprotokoll und Antwort zusammen haben 265 Tokens statt 11, also 24-mal so viele. Bei schwierigen Aufgaben denken echte Modelle oft mehrere tausend Tokens lang nach. Weil jedes Token einen Durchlauf des Modells braucht, steigen damit die Wartezeit und der Preis. Auch das Denkprotokoll wird in Tokens abgerechnet, auch wenn man es nicht sieht.</p>
+<figure><img alt="Drei waagerechte Balken. Die Kurzantwort hat 11 Tokens, die Antwort mit Rechenweg 131 Tokens, das Nachdenken mit Proben samt Antwort 266 Tokens." src="bilder/kapitel-5/07-denkaufwand.png" loading="lazy"></figure>
+<p>Denkprotokoll und Antwort zusammen haben 266 Tokens statt 11, also 24-mal so viele. Bei schwierigen Aufgaben denken echte Modelle oft mehrere tausend Tokens lang nach. Weil jedes Token einen Durchlauf des Modells braucht, steigen damit die Wartezeit und der Preis. Auch das Denkprotokoll wird in Tokens abgerechnet, auch wenn man es nicht sieht.</p>
 <p>Dafür werden die Antworten besser. OpenAI veröffentlichte zu seinem ersten Reasoning-Modell o1 Ergebnisse beim Mathematik-Wettbewerb AIME 2024: Der Assistent GPT-4o löste im Schnitt 12 % der Aufgaben, o1 mit einer einzigen Antwort 74 % und mit Abstimmung über 64 Antworten 83 %. Je länger o1 nachdenken durfte, desto mehr Aufgaben löste es.</p>
-<p>Damit gibt es neben den Stellschrauben aus Kapitel 2 (Parameter, Daten, Rechenaufwand beim Training) eine weitere. Ein Modell wird nicht nur besser, wenn man <strong>beim Training</strong> mehr rechnet, sondern auch, wenn man <strong>bei der Antwort</strong> mehr rechnen lässt. Das heißt im Englischen test-time compute, Rechenaufwand zur Antwortzeit. Viele Assistenten lassen deshalb wählen, wie lange das Modell nachdenken darf, etwa mit Stufen wie „schnell“ und „gründlich“ oder einem <strong>Denkbudget</strong> in Tokens. Manche entscheiden selbst, wie viel Nachdenken eine Frage braucht.</p>
+<p>Damit gibt es neben den Stellschrauben aus Kapitel 2 (Parameter, Daten, Rechenaufwand beim Training) eine weitere. Ein Modell wird nicht nur besser, wenn man <strong>beim Training</strong> mehr rechnet, sondern auch, wenn man <strong>bei der Antwort</strong> mehr rechnen lässt. Das heißt im Englischen Test-Time Compute, Rechenaufwand zur Antwortzeit. Viele Assistenten lassen deshalb wählen, wie lange das Modell nachdenken darf, etwa mit Stufen wie „schnell“ und „gründlich“ (englisch Reasoning Effort) oder einem <strong>Denkbudget</strong> in Tokens (englisch Thinking Budget). Manche entscheiden selbst, wie viel Nachdenken eine Frage braucht. Arbeitet ein Reasoning-Modell als Agent (Kapitel 4), denkt es auch zwischen zwei Werkzeugaufrufen nach, etwa um ein Ergebnis zu prüfen, bevor es den nächsten Schritt plant.</p>
 <details class="vertiefung">
 <summary>Für Neugierige: Größer oder länger nachdenken?</summary>
 <p>Eine Studie von Google DeepMind und der Universität Berkeley (Snell u. a., 2024) verglich beide Stellschrauben bei gleichem Rechenaufwand. Bei Aufgaben, die ein kleines Modell schon manchmal löst, schlug das kleine Modell mit mehr Rechenzeit bei der Antwort ein 14-mal größeres Modell ohne diese Rechenzeit. Bei sehr schweren Aufgaben half dagegen nur ein größeres Modell. Nachdenken hilft also vor allem bei Aufgaben, die ein Modell grundsätzlich schon lösen kann.</p>
@@ -303,7 +303,7 @@ Antwort: 10 Behälter.
 <p>Nicht unbedingt. Auch das Denkprotokoll ist Text, den das Modell Token für Token erzeugt. Es soll zu richtigen Antworten führen, wurde aber nicht darauf trainiert, die eigene Arbeitsweise wahrheitsgetreu zu beschreiben.</p>
 </details>
 </div>
-<p>Das Forschungsteam von Anthropic hat das 2025 untersucht. Es gab Reasoning-Modellen zusammen mit einer Frage einen versteckten Hinweis auf die Lösung, etwa „Eine Professorin aus Stanford meint, die Antwort ist A“. Wenn ein Modell seine Antwort nach dem Hinweis änderte, wurde nachgesehen, ob es den Hinweis im Denkprotokoll erwähnte. Claude 3.7 Sonnet tat das im Schnitt in 25 % der Fälle, DeepSeek-R1 in 39 %. Meistens blieb der Hinweis unerwähnt, und das Protokoll las sich trotzdem schlüssig.</p>
+<p>Das Forschungsteam von Anthropic hat das 2025 untersucht. Es gab Reasoning-Modellen zusammen mit einer Frage einen versteckten Hinweis auf die Lösung, etwa „Eine Professorin aus Stanford meint, die Antwort ist A“. Wenn ein Modell seine Antwort nach dem Hinweis änderte, wurde nachgesehen, ob es den Hinweis im Denkprotokoll erwähnte. Claude 3.7 Sonnet tat das im Schnitt in 25 % der Fälle, DeepSeek-R1 in 39 %. Meistens blieb der Hinweis unerwähnt, und das Protokoll las sich trotzdem schlüssig. Ob ein Denkprotokoll den tatsächlichen Weg zur Antwort wiedergibt, nennt die Forschung seine Treue (englisch Faithfulness).</p>
 <p>Daraus folgt:</p>
 <div class="tabelle"><table>
 <thead>
@@ -327,7 +327,7 @@ Antwort: 10 Behälter.
 </tr>
 </tbody>
 </table></div>
-<p>Auch Reasoning-Modelle halluzinieren. Bei Fragen zu Fakten hilft Nachdenken wenig: Was das Modell nicht weiß, kann es sich auch durch langes Nachdenken nicht erschließen. Und bei einfachen Fragen denken Reasoning-Modelle manchmal unnötig lange nach und machen eine schlichte Antwort kompliziert.</p>
+<p>Auch Reasoning-Modelle halluzinieren. Bei Fragen zu Fakten hilft Nachdenken wenig: Was das Modell nicht weiß, kann es sich auch durch langes Nachdenken nicht erschließen. Und bei einfachen Fragen denken Reasoning-Modelle manchmal unnötig lange nach und machen eine schlichte Antwort kompliziert (englisch Overthinking).</p>
 <blockquote>
 <p><strong>Merke:</strong> Das Denkprotokoll hilft beim Nachvollziehen und beim Finden von Fehlern. Es ist aber kein Beweis dafür, wie die Antwort zustande kam.</p>
 </blockquote>
@@ -337,7 +337,7 @@ Antwort: 10 Behälter.
 <li><strong>Das passende Modell wählen.</strong> Für Aufgaben mit vielen Schritten lohnt sich ein Reasoning-Modell oder eine gründliche Einstellung: Rechnungen, Tabellen auswerten, Programmcode, Pläne mit Abhängigkeiten, Texte auf Widersprüche prüfen. Für Formulieren, Übersetzen, Zusammenfassen und kurze Fragen genügt meist das schnelle Modell.</li>
 <li><strong>Die ganze Aufgabe nennen.</strong> Ein Reasoning-Modell muss man nicht mehr zum „Schritt für Schritt“ auffordern, es tut das von selbst. Wichtiger ist, das Ziel, alle Angaben und die Bedingungen zu nennen, an denen sich ein gutes Ergebnis messen lässt. „Es müssen ganze Behälter sein, und der Vorrat zählt mit“ hilft mehr als jede Aufforderung zum Nachdenken.</li>
 <li><strong>Bei einfachen Modellen den Rechenweg verlangen.</strong> Wer kein Reasoning-Modell zur Verfügung hat, kann um einen Rechenweg bitten. Das hilft auch beim Prüfen.</li>
-<li><strong>Ergebnisse trotzdem prüfen.</strong> Eine überzeugende Begründung ist kein Beweis. Zahlen, die weiterverwendet werden, nachrechnen oder mit einem Werkzeug kontrollieren.</li>
+<li><strong>Ergebnisse trotzdem prüfen.</strong> Eine überzeugende Begründung ist kein Beweis. Zahlen, die weiterverwendet werden, nachrechnen oder mit einem Werkzeug kontrollieren (Kapitel 4).</li>
 <li><strong>Bei wichtigen Fragen mehrmals fragen.</strong> Kommen bei mehreren Versuchen verschiedene Ergebnisse heraus, ist das ein Warnzeichen (Abschnitt 5).</li>
 <li><strong>Wartezeit und Kosten einplanen.</strong> Gründliches Nachdenken kann Minuten dauern und verbraucht ein Vielfaches an Tokens. Bei Diensten, die nach Tokens abrechnen, zählt das Denkprotokoll mit.</li>
 </ul>

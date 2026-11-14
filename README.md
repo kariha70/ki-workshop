@@ -133,7 +133,7 @@ Labor 1, 2, 4 und 5 funktionieren auch ohne Internet. Labor 3 rechnet die Beispi
 
 ## Zum Nachschlagen und Vorbereiten
 
-**[Glossar](https://kariha70.github.io/ki-workshop/glossar.html):** Alle 79 Fachbegriffe aus dem Workshop in Alltagssprache, von *Agent* bis *Workflow*, jeweils mit Verweis auf den Abschnitt, in dem sie ausführlich erklärt werden.
+**[Glossar](https://kariha70.github.io/ki-workshop/glossar.html):** Alle 82 Fachbegriffe aus dem Workshop in Alltagssprache, von *Agent* bis *Workflow*, jeweils mit Verweis auf den Abschnitt, in dem sie ausführlich erklärt werden.
 
 **[Leitfaden für Moderierende](https://kariha70.github.io/ki-workshop/leitfaden.html):** für alle, die den Workshop vor Ort mit einer Gruppe ohne technisches Vorwissen halten. Er enthält
 
