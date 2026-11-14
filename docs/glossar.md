@@ -4,6 +4,10 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 
 ## A
 
+**Agent** (KI-Agent): Ein Sprachmodell, das in einer Schleife Werkzeuge benutzt, bis eine Aufgabe erledigt ist. Den Weg wählt das Modell selbst anhand der Ergebnisse. → [Kapitel 4, Abschnitt 3](04-Vom-Chat-zum-Agenten.md#3-die-agentenschleife)
+
+**Agentenschleife**: Der Ablauf, den das Rahmenprogramm wiederholt: Das Modell liest den Kontext und schreibt einen Werkzeugaufruf, das Rahmenprogramm führt ihn aus und hängt das Ergebnis an. Die Schleife endet, wenn das Modell eine Antwort statt eines Aufrufs schreibt. → [Kapitel 4, Abschnitt 3](04-Vom-Chat-zum-Agenten.md#3-die-agentenschleife)
+
 **Aktivierungsfunktion** (auch „der Knick“, häufigste Form: ReLU): Eine kleine Regel, die ein Neuron am Ende auf sein Ergebnis anwendet, etwa „Negative Werte werden zu 0“. Ohne sie ergeben auch viele Neuronen zusammen nur eine Gerade. → [Kapitel 1, Abschnitt 9](01-Neuronale-Netze-Grundlagen.md#9-der-knick-die-aktivierungsfunktion)
 
 **Anwendung** (auch Inferenz): Die Phase nach dem Training, in der ein Modell nur noch Vorhersagen ausrechnet. Seine Parameter bleiben dabei fest. Wenn du mit einem Chat-Assistenten schreibst, ist das Anwendung. → [Kapitel 1, Abschnitt 6](01-Neuronale-Netze-Grundlagen.md#6-eine-zweite-beobachtung-das-wochenende)
@@ -42,7 +46,13 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 
 **Feinabstimmung** (Fine-Tuning): Ein zusätzliches Training nach dem Vortraining, mit ausgewählten Beispielen. Bei Chat-Assistenten sind das Beispielgespräche mit guten Antworten. → [Kapitel 2, Abschnitt 9](02-Tokenizer-und-Sprachmodelle.md#9-vom-textvervollständiger-zum-assistenten)
 
+**Freigabe** (englisch Human in the Loop): Ein Mensch muss zustimmen, bevor das Rahmenprogramm einen Werkzeugaufruf mit Folgen ausführt, etwa eine Bestellung. Die Regel steht im Rahmenprogramm, das Modell kann sie nicht umgehen. → [Kapitel 4, Abschnitt 4](04-Vom-Chat-zum-Agenten.md#4-ein-agent-bei-der-arbeit)
+
+**Function Calling**: siehe Werkzeugaufruf.
+
 ## G
+
+**Gedächtnis** (eines Agenten): Notizen, die ein Agent über ein Werkzeug in einer Datei oder Datenbank speichert und später wieder hervorholt. Anders als der Kontext bleiben sie nach dem Gespräch erhalten. Die Weights des Modells ändern sich dabei nicht. → [Kapitel 4, Abschnitt 6](04-Vom-Chat-zum-Agenten.md#6-der-kontext-als-arbeitsplatz)
 
 **Gradient**: Die Richtung, in der der Fehler am stärksten ansteigt, für alle Parameter zugleich. Der Gradientenabstieg geht in die Gegenrichtung. → [Kapitel 1, Abschnitt 5](01-Neuronale-Netze-Grundlagen.md#5-lernen-heißt-schritt-für-schritt-bergab)
 
@@ -51,6 +61,8 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 ## H
 
 **Halluzination**: Eine Antwort eines Sprachmodells, die plausibel klingt, aber nicht stimmt, etwa eine erfundene Quelle. Sie entsteht, weil das Modell wahrscheinlichen Text erzeugt, ohne ihn zu prüfen. → [Kapitel 2, Abschnitt 10](02-Tokenizer-und-Sprachmodelle.md#10-typische-schwächen)
+
+**Harness**: siehe Rahmenprogramm.
 
 **Hybride Suche**: Eine Kombination aus Stichwortsuche und semantischer Suche. Sie findet sowohl Umschreibungen als auch genaue Zahlen und Namen. → [Kapitel 3, Abschnitt 7](03-Semantische-Suche-und-RAG.md#7-typische-schwächen)
 
@@ -63,6 +75,8 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 ## K
 
 **Künstliche Intelligenz** (KI): Sammelbegriff für Computerprogramme, die Aufgaben lösen, für die man bisher menschliche Intelligenz brauchte, etwa Sprache verstehen oder Bilder erkennen. Fast alle heutigen KI-Anwendungen beruhen auf neuronalen Netzen, die aus Beispielen lernen. → [Kapitel 1](01-Neuronale-Netze-Grundlagen.md)
+
+**Kontext**: Alles, was ein Sprachmodell bei einer Antwort liest: Anweisungen, Werkzeugbeschreibungen, das bisherige Gespräch und bei einem Agenten alle Aufrufe und Ergebnisse. Das Rahmenprogramm schickt ihn in jeder Runde ganz mit. → [Kapitel 4, Abschnitt 6](04-Vom-Chat-zum-Agenten.md#6-der-kontext-als-arbeitsplatz)
 
 **Kontextfenster**: Die Obergrenze dafür, wie viel Text ein Sprachmodell auf einmal berücksichtigen kann, gemessen in Tokens. Dazu gehören das bisherige Gespräch und alle mitgeschickten Dokumente. → [Kapitel 2, Abschnitt 9](02-Tokenizer-und-Sprachmodelle.md#9-vom-textvervollständiger-zum-assistenten)
 
@@ -88,6 +102,8 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 
 **Maschinelles Lernen**: Aus Beispielen mit bekannter Antwort eine Regel gewinnen, die auch für neue Fälle eine Antwort liefert, statt die Regel von Hand zu programmieren. → [Kapitel 1, Abschnitt 1](01-Neuronale-Netze-Grundlagen.md#1-der-eisverkäufer)
 
+**MCP** (Model Context Protocol): Ein offener Standard, um Werkzeuge an Agenten anzuschließen. Ein MCP-Server bietet Werkzeuge an, etwa für einen Kalender, und jedes Rahmenprogramm, das MCP beherrscht, kann sie nutzen. → [Kapitel 4, Abschnitt 8](04-Vom-Chat-zum-Agenten.md#8-werkzeuge-anschließen-und-arbeit-verteilen)
+
 **Mittlerer quadratischer Fehler** (Mean Squared Error, MSE): Ein Fehlermaß: alle Fehler quadrieren und den Durchschnitt bilden. So heben sich Fehler nach oben und unten nicht auf, und große Fehler zählen besonders stark. → [Kapitel 1, Abschnitt 4](01-Neuronale-Netze-Grundlagen.md#4-wie-gut-passt-die-gerade-fehler-messen)
 
 **Modell**: Eine Rechenregel, die aus Eingaben eine Vorhersage macht und deren Zahlen (Parameter) aus Daten gelernt wurden. → [Kapitel 1, Abschnitt 2](01-Neuronale-Netze-Grundlagen.md#2-eine-gerade-durch-die-punkte)
@@ -104,7 +120,11 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 
 **Prompt**: Der Text, den ein Sprachmodell als Eingabe bekommt: deine Frage, das bisherige Gespräch und gegebenenfalls Anweisungen und mitgeschickte Textauszüge. → [Kapitel 3, Abschnitt 6](03-Semantische-Suche-und-RAG.md#6-rag-erst-nachschlagen-dann-antworten)
 
+**Prompt-Injection** (eingeschleuste Anweisung): Eine Anweisung in einem fremden Text, etwa in einer E-Mail oder auf einer Webseite, die ein Agent liest. Weil für das Modell alles im Kontext Text ist, befolgt es solche Anweisungen manchmal, als kämen sie vom Nutzer. → [Kapitel 4, Abschnitt 9](04-Vom-Chat-zum-Agenten.md#9-risiken-fehlerketten-und-eingeschleuste-anweisungen)
+
 ## R
+
+**Rahmenprogramm** (englisch oft Harness): Das gewöhnliche Programm um das Sprachmodell eines Agenten. Es steuert die Agentenschleife, schickt dem Modell den Kontext, führt Werkzeugaufrufe aus und achtet auf Freigaben und Grenzen. → [Kapitel 4, Abschnitt 2](04-Vom-Chat-zum-Agenten.md#2-werkzeuge-das-modell-schreibt-einen-auftrag)
 
 **RAG** (Retrieval-Augmented Generation, durch Nachschlagen ergänztes Erzeugen): Vor der Antwort werden passende Textstellen gesucht und dem Sprachmodell im Prompt mitgegeben. Das Modell stützt seine Antwort auf diese Textstellen und kann sie als Quelle nennen. → [Kapitel 3, Abschnitt 6](03-Semantische-Suche-und-RAG.md#6-rag-erst-nachschlagen-dann-antworten)
 
@@ -113,6 +133,8 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 **ReLU**: siehe Aktivierungsfunktion.
 
 ## S
+
+**Sandbox**: Eine abgeschottete Umgebung, in der ein Agent Programme ausführen kann, ohne an den Rest des Computers oder an vertrauliche Daten zu kommen. → [Kapitel 4, Abschnitt 10](04-Vom-Chat-zum-Agenten.md#10-was-das-für-den-alltag-heißt)
 
 **Schicht**: Eine Gruppe von Neuronen, die gleichzeitig rechnen. Die Schichten zwischen Eingabe und Ausgabe heißen verborgene Schichten (Hidden Layers). → [Kapitel 1, Abschnitt 10](01-Neuronale-Netze-Grundlagen.md#10-vom-neuron-zum-netz)
 
@@ -130,6 +152,10 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 
 **Stichwortsuche**: Eine Suche, die zählt, wie viele Wörter der Frage in einem Text vorkommen. Sie scheitert an Umschreibungen und anderen Wortformen, findet aber genaue Zahlen und Namen zuverlässig. → [Kapitel 3, Abschnitt 1](03-Semantische-Suche-und-RAG.md#1-suchen-nach-bedeutung)
 
+**Sub-Agent**: siehe Unteragent.
+
+**Systemprompt**: Anweisungen ganz am Anfang des Kontexts, die festlegen, welche Rolle ein Assistent oder Agent hat und welche Regeln gelten. Wer den Agenten einrichtet, schreibt sie. Nutzer bekommen sie meist nicht zu sehen. → [Kapitel 4, Abschnitt 5](04-Vom-Chat-zum-Agenten.md#5-die-bausteine-im-überblick)
+
 ## T
 
 **Temperatur**: Eine Stellschraube beim Erzeugen von Text. Bei niedriger Temperatur wählt das Modell fast immer das wahrscheinlichste Wort, bei hoher Temperatur wird es abwechslungsreicher, aber auch fehleranfälliger. → [Kapitel 2, Abschnitt 8](02-Tokenizer-und-Sprachmodelle.md#8-text-erzeugen)
@@ -142,13 +168,17 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 
 **Tokenizer**: Das Programm, das Text in Tokens zerlegt und jedem eine Nummer gibt. Es wird vorab gelernt und bleibt danach fest. → [Kapitel 2, Abschnitt 2](02-Tokenizer-und-Sprachmodelle.md#2-text-in-zahlen-der-tokenizer)
 
+**Tool**: siehe Werkzeug.
+
 **Training**: Die Phase, in der ein Modell aus Daten lernt, also seine Parameter einstellt. → [Kapitel 1, Abschnitt 6](01-Neuronale-Netze-Grundlagen.md#6-eine-zweite-beobachtung-das-wochenende)
 
 **Transformer**: Die Bauweise heutiger Sprachmodelle: ein Stapel aus Blöcken mit Attention und Neuronen mit Knick. Das „T“ in GPT steht dafür. → [Kapitel 2, Abschnitt 6](02-Tokenizer-und-Sprachmodelle.md#6-der-transformer)
 
-## Ü
+## U
 
 **Überanpassung** (Overfitting): Ein Modell lernt die Trainingsdaten auswendig, statt den Zusammenhang zu erkennen. Im Training sieht es gut aus, bei neuen Daten liegt es weit daneben. → [Kapitel 1, Abschnitt 7](01-Neuronale-Netze-Grundlagen.md#7-die-prüfung-funktioniert-es-auch-an-neuen-tagen)
+
+**Unteragent** (englisch Sub-Agent): Ein Agent, dem ein anderer Agent eine Teilaufgabe übergibt. Er arbeitet mit eigenem Kontext und meldet nur das Ergebnis zurück. → [Kapitel 4, Abschnitt 8](04-Vom-Chat-zum-Agenten.md#8-werkzeuge-anschließen-und-arbeit-verteilen)
 
 ## V
 
@@ -163,3 +193,9 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 ## W
 
 **Weight** (Gewicht): Die Zahl, mit der ein Neuron eine Eingabe malnimmt. Sie sagt, wie stark diese Eingabe die Vorhersage beeinflusst. Bei der Geraden ist es die Steigung. → [Kapitel 1, Abschnitt 3](01-Neuronale-Netze-Grundlagen.md#3-zwei-stellschrauben-weight-und-bias)
+
+**Werkzeug** (englisch Tool): Ein gewöhnliches Programm, das ein Sprachmodell über einen Werkzeugaufruf nutzen kann, etwa eine Wettervorhersage, ein Rechner oder eine Suche. Das Modell kennt es nur aus seiner Beschreibung. → [Kapitel 4, Abschnitt 2](04-Vom-Chat-zum-Agenten.md#2-werkzeuge-das-modell-schreibt-einen-auftrag)
+
+**Werkzeugaufruf** (englisch Tool Call oder Function Calling): Text in festem Format, mit dem ein Sprachmodell um die Ausführung eines Werkzeugs bittet, etwa `wetter_vorhersage({"tag": "Samstag"})`. Ausführen kann es ihn nicht selbst, das übernimmt das Rahmenprogramm. → [Kapitel 4, Abschnitt 2](04-Vom-Chat-zum-Agenten.md#2-werkzeuge-das-modell-schreibt-einen-auftrag)
+
+**Workflow**: Ein Ablauf, dessen Schritte vorab im Programm festgelegt sind, etwa bei RAG: immer erst suchen, dann antworten. Bei einem Agenten wählt das Modell die Schritte selbst. → [Kapitel 4, Abschnitt 3](04-Vom-Chat-zum-Agenten.md#3-die-agentenschleife)

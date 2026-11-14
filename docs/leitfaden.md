@@ -1,6 +1,6 @@
 # Leitfaden für Moderierende
 
-Dieser Leitfaden hilft dir, den Workshop vor Ort mit einer Gruppe ohne technisches Vorwissen durchzuführen. Er ist für 10 bis 15 Teilnehmende und zwei Sitzungen gedacht. Er schlägt einen Ablauf vor, nennt Fragen an die Gruppe, sammelt typische Rückfragen aus dem Publikum und enthält eine Checkliste für die Technik.
+Dieser Leitfaden hilft dir, den Workshop vor Ort mit einer Gruppe ohne technisches Vorwissen durchzuführen. Er ist für 10 bis 15 Teilnehmende und zwei Sitzungen gedacht. Zwei Zusatzmodule zu KI-Agenten und zu Reasoning-Modellen können als weitere, kürzere Sitzungen folgen. Er schlägt einen Ablauf vor, nennt Fragen an die Gruppe, sammelt typische Rückfragen aus dem Publikum und enthält eine Checkliste für die Technik.
 
 Alle Zeitangaben sind Vorschläge. Wenn eine Diskussion gut läuft, kannst du dafür einen Abschnitt kürzen oder weglassen, siehe „Wenn die Zeit knapp wird“.
 
@@ -8,12 +8,12 @@ Alle Zeitangaben sind Vorschläge. Wenn eine Diskussion gut läuft, kannst du da
 
 Der Workshop folgt einigen Grundsätzen. Sie helfen auch bei der Entscheidung, was du kürzen oder ergänzen kannst.
 
-- **Ein durchgehendes Beispiel.** Alle Kapitel arbeiten mit demselben Beispiel, dem Eisverkäufer. Neues wird immer an Bekanntes angeknüpft, vom ersten Kapitel bis zur Suche im Handbuch der Eisdiele.
+- **Ein durchgehendes Beispiel.** Alle Kapitel arbeiten mit demselben Beispiel, dem Eisverkäufer. Neues wird immer an Bekanntes angeknüpft, vom ersten Kapitel bis zum Agenten, der für die Eisdiele nachbestellt.
 - **Erst erleben, dann benennen.** Jeder größere Gedanke beginnt mit einer Frage an die Gruppe („Kurz überlegen“). Fachbegriffe kommen erst, wenn die Idee verstanden ist, und dann nur einmal mit der englischen Entsprechung.
 - **Didaktische Reduktion.** Der Hauptweg jedes Kapitels kommt ohne Formeln aus. Rechnungen, Programmcode und Hintergründe stehen in aufklappbaren Kästen „Für Neugierige“. Öffne sie im Workshop nur, wenn jemand danach fragt.
 - **Selbst ausprobieren.** Zu jedem Kapitel gibt es ein Labor im Browser. Am besten arbeiten zwei Personen an einem Gerät und erklären sich gegenseitig, was sie sehen.
 - **Sichern und wiederholen.** Lernziele am Anfang, ein Merksatz nach jedem Abschnitt, „Das Wichtigste in Kürze“ und ein kleiner Selbsttest am Ende jedes Kapitels. Zu Beginn der zweiten Sitzung wird der Stoff der ersten wiederholt.
-- **Transfer in den Alltag.** Kapitel 2, 3 und 5 enden mit Faustregeln für die Arbeit mit Chat-Assistenten. Dort passen die eigenen Erfahrungen der Teilnehmenden gut hinein.
+- **Transfer in den Alltag.** Kapitel 2 bis 5 enden mit Faustregeln für die Arbeit mit Chat-Assistenten und Agenten. Dort passen die eigenen Erfahrungen der Teilnehmenden gut hinein.
 
 ## Gruppe und Voraussetzungen
 
@@ -22,7 +22,7 @@ Der Workshop folgt einigen Grundsätzen. Sie helfen auch bei der Entscheidung, w
 - **Geräte:** ein Laptop oder Tablet pro Paar, also 5 bis 8 Geräte. Die Labore funktionieren zur Not auch auf dem Smartphone, sind dort aber eng.
 - **Raum:** Beamer oder großer Bildschirm, Flipchart oder Pinnwand für Fragen und Blitzlichter. Tische, an denen zwei Personen gemeinsam auf einen Bildschirm schauen können.
 
-## Zeitplan für zwei Sitzungen
+## Zeitplan für zwei Sitzungen und zwei Zusatzmodule
 
 Jede Sitzung dauert etwa dreieinhalb Stunden mit einer Pause. Die Uhrzeiten sind ein Beispiel. Zwischen den Sitzungen sollten ein paar Tage bis höchstens zwei Wochen liegen.
 
@@ -50,6 +50,21 @@ Die erste Sitzung klärt, **wie** KI funktioniert: wie eine Maschine lernt und w
 | 12:05 | Abschluss: offene Fragen, Transfer, Rückmeldung |
 | 12:30 | Ende |
 
+**Zusatzsitzung zu Kapitel 4: Wenn KI handelt**
+
+Diese Sitzung setzt Kapitel 2 und 3 voraus. Sie eignet sich für Gruppen, die Assistenten mit Werkzeugen oder Agenten einsetzen wollen. Steht ein ganzer Tag zur Verfügung, kann sie nach einer Mittagspause direkt an Sitzung 2 anschließen. Den Abschluss des Workshops verschiebst du dann ans Ende dieser Sitzung.
+
+| Zeit | Inhalt |
+| --- | --- |
+| 9:00 | Wiederholung: Selbsttest aus Kapitel 3 als Quiz, Blitzlicht |
+| 9:20 | **Modul 4, Teil 1:** Wie ein Sprachmodell Werkzeuge benutzt (Kapitel 4, Abschnitte 1 bis 5, Labor 4: Werkzeug wählen und Agentenschleife) |
+| 10:30 | Pause |
+| 10:45 | **Modul 4, Teil 2:** Kontext, Risiken und Leitplanken (Kapitel 4, Abschnitte 6 bis 10, Labor 4: Eingeschleuste Anweisung) |
+| 11:40 | Abschluss: offene Fragen, Transfer, Rückmeldung |
+| 12:00 | Ende |
+
+**Zusatzsitzung zu Kapitel 5: Wenn KI nachdenkt.** Kapitel 5 über Reasoning-Modelle passt als weitere Sitzung von etwa zwei Stunden: Wiederholung von Kapitel 2 (Abschnitte 8 und 9) als Einstieg, dann Modul 5 mit Labor 5, zum Schluss Diskussion und Transfer. Die beiden Zusatzsitzungen hängen nicht voneinander ab. Wer beide plant, hält sie in der Reihenfolge der Kapitel.
+
 **Jedes Modul folgt demselben Ablauf:**
 
 | Phase | Was passiert | Methode |
@@ -60,13 +75,11 @@ Die erste Sitzung klärt, **wie** KI funktioniert: wie eine Maschine lernt und w
 | Austausch | Beobachtungen aus dem Labor zusammentragen | Plenum |
 | Sicherung | Merksätze wiederholen, Selbsttest gemeinsam lösen | Plenum, Quiz |
 
-**Mit dem Zusatzmodul:** Kapitel 5 über Reasoning-Modelle passt als dritte Sitzung von etwa zwei Stunden: Wiederholung von Kapitel 2 (Abschnitte 8 und 9) als Einstieg, dann Modul 5 mit Labor 5, zum Schluss Diskussion und Transfer.
-
-**Wenn die Zeit knapp wird:** In Modul 1 die Abschnitte 8 bis 10 nur als kurzen Ausblick zeigen. In Modul 2 die Abschnitte 4 bis 7 auf je einen Satz und ein Bild kürzen. In Modul 3 die Abschnitte 3 bis 5 zusammenfassen und mehr Zeit für RAG und die Praxis lassen.
+**Wenn die Zeit knapp wird:** In Modul 1 die Abschnitte 8 bis 10 nur als kurzen Ausblick zeigen. In Modul 2 die Abschnitte 4 bis 7 auf je einen Satz und ein Bild kürzen. In Modul 3 die Abschnitte 3 bis 5 zusammenfassen und mehr Zeit für RAG und die Praxis lassen. In Modul 4 die Abschnitte 7 und 8 auf je einen Satz kürzen und die Zeit für Abschnitt 4, Abschnitt 9 und das Labor verwenden.
 
 ## Einstieg in die erste Sitzung
 
-- **Blitzlicht:** „Wo ist euch KI zuletzt begegnet?“ Jede Person nennt ein Beispiel. Die Antworten auf einer Pinnwand sammeln und am Ende der zweiten Sitzung wieder aufgreifen. Die Pinnwand dafür fotografieren oder aufbewahren.
+- **Blitzlicht:** „Wo ist euch KI zuletzt begegnet?“ Jede Person nennt ein Beispiel. Die Antworten auf einer Pinnwand sammeln und am Ende der letzten Sitzung wieder aufgreifen. Die Pinnwand dafür fotografieren oder aufbewahren.
 - **Erwartungen:** „Was möchtet ihr in diesem Workshop verstehen?“ auf Karten schreiben lassen. Fragen, die im Workshop nicht vorkommen, offen benennen.
 - **Fragenspeicher:** Ein Plakat für Fragen, die gerade nicht passen. Es wird am Ende jeder Sitzung abgearbeitet.
 
@@ -174,9 +187,49 @@ Die erste Sitzung klärt, **wie** KI funktioniert: wie eine Maschine lernt und w
 - *„Sind meine Dokumente dann im Modell gespeichert?“* Nicht in seinen Parametern. Die gefundenen Auszüge werden aber zusammen mit der Frage an das Sprachmodell geschickt, unter Umständen an einen externen Anbieter.
 - *„Warum nicht einfach eine normale Volltextsuche?“* Die findet keine Umschreibungen. Umgekehrt ist sie bei genauen Zahlen und Namen besser. Gute Systeme kombinieren beides (hybride Suche).
 
+## Einstieg in die Zusatzsitzung zu Kapitel 4
+
+- **Wiederholung als Quiz:** Die Fragen aus „Teste dich“ in Kapitel 3 vorlesen und in Paaren beantworten lassen. Kapitel 4 baut auf zwei Punkten daraus auf: Das Sprachmodell lernt im Gespräch nicht dazu, und RAG gibt ihm Texte im Prompt mit.
+- **Blitzlicht:** „Wo habt ihr schon erlebt, dass ein Assistent etwas getan hat, statt nur zu antworten?“ Typische Antworten sind Websuche, Termine eintragen oder Code ausführen. Die Beispiele später den Bausteinen aus Abschnitt 5 zuordnen.
+
+## Modul 4: Wenn KI handelt
+
+*Zusatzsitzung, etwa 125 Minuten plus Pause. Voraussetzung sind Kapitel 2 und 3.*
+
+**Leitfrage:** Wie kann ein Programm, das nur Text schreibt, Wetter abfragen, rechnen und Eis bestellen?
+
+**Kernbotschaften:**
+
+1. Das Sprachmodell schreibt nur einen Werkzeugaufruf. Ein gewöhnliches Programm, das Rahmenprogramm, führt ihn aus.
+2. Ein Agent ist ein Sprachmodell in einer Schleife. Den Weg zur Lösung wählt das Modell selbst, Schritt für Schritt.
+3. Was ein Agent darf, legen Menschen im Rahmenprogramm fest. Freigaben und wenige Rechte schützen auch dann, wenn das Modell sich irrt oder getäuscht wird.
+
+**Teil 1: Wie ein Sprachmodell Werkzeuge benutzt (Abschnitte 1 bis 5)**
+
+- **Einstieg:** Den Auftrag „Wie viel Eis brauche ich für Samstag? Bestell bitte nach, was fehlt.“ zeigen und die Gruppe sammeln lassen, was der Assistent dafür wissen und können müsste (Abschnitt 1).
+- **Erarbeitung:** Abschnitte 2 und 3 ausführlich. Das Bild vom Restaurant hilft: Der Gast schreibt die Bestellung, die Küche kocht. Bei Abschnitt 4 das Sequenzdiagramm gemeinsam von oben nach unten lesen. Abschnitt 5 als Zusammenfassung mit dem Schaubild.
+- **Labor 4, Aufträge:**
+    - Im Schritt „Werkzeug wählen“ alle acht Anfragen bearbeiten. Bei welchen braucht es kein Werkzeug?
+    - Im Schritt „Agentenschleife“ den Auftrag durchklicken, einmal mit erlaubter und einmal mit abgelehnter Bestellung.
+- **Rollenspiel als Alternative zum Labor:** Drei Personen spielen Sprachmodell, Rahmenprogramm und Wetterdienst. Das „Sprachmodell“ darf nur Zettel schreiben, das „Rahmenprogramm“ trägt die Zettel hin und her und schreibt jedes Ergebnis auf ein Flipchart, den Kontext. Das zeigt ohne Technik, wer was tut und wie der Kontext wächst.
+
+**Teil 2: Kontext, Risiken und Leitplanken (Abschnitte 6 bis 10)**
+
+- **Einstieg:** „Der Agent hat in Runde 5 noch die Temperatur aus Runde 1 benutzt. Woher kannte er sie?“ Die Antwort führt zurück zu Kapitel 2, Abschnitt 9.
+- **Erarbeitung:** Abschnitt 6 mit dem Balkendiagramm, Abschnitte 7 und 8 als Überblick. Abschnitt 9 ausführlich, zuerst die Schätzfrage mit den 95 %, dann die E-Mail mit der eingeschleusten Anweisung.
+- **Labor 4, Schritt „Eingeschleuste Anweisung“:** einmal ohne und einmal mit Freigabe durchlaufen lassen. Was hat die Bestellung ohne Freigabe gekostet?
+- **Diskussion:** „Welche Aufgaben würdet ihr einem Agenten übertragen? Welche Werkzeuge bräuchte er, und welche davon nur mit Freigabe?“ Die Antworten an der Tabelle zur tödlichen Dreierkombination prüfen und die Faustregeln aus Abschnitt 10 ergänzen.
+
+**Typische Rückfragen:**
+
+- *„Ist ein Agent eine andere KI als ein Chat-Assistent?“* Nein. Meist steckt dasselbe Sprachmodell dahinter. Neu sind die Werkzeuge und das Rahmenprogramm mit der Schleife.
+- *„Wird ein Agent mit der Zeit klüger?“* Das Modell nicht, seine Weights bleiben fest. Ein Agent kann Notizen speichern und wieder lesen (Abschnitt 6). Das wirkt wie Lernen. Das Modell bleibt dabei gleich und liest nur seine eigenen Notizen wieder.
+- *„Kann ein Agent auf meinem Rechner alles?“* Nur, was das Rahmenprogramm ihm erlaubt. Deshalb bei jedem Agenten nachsehen, welche Werkzeuge und Rechte er hat.
+- *„Lässt sich Prompt-Injection nicht einfach abstellen?“* Bisher nicht zuverlässig. Für das Modell ist alles im Kontext Text. Schutz bieten Freigaben, wenige Rechte und die Trennung der drei Zutaten aus Abschnitt 9.
+
 ## Modul 5: Wie ein Sprachmodell vor der Antwort nachdenkt
 
-*Zusatzmodul, etwa 90 Minuten. Passt als dritte Sitzung oder als Vertiefung für Gruppen, die schon regelmäßig mit Chat-Assistenten arbeiten. Voraussetzung sind Kapitel 1 und 2.*
+*Zusatzmodul, etwa 90 Minuten. Passt als eigene Zusatzsitzung oder als Vertiefung für Gruppen, die schon regelmäßig mit Chat-Assistenten arbeiten. Voraussetzung sind Kapitel 1 und 2.*
 
 **Leitfrage:** Warum lösen heutige Chat-Assistenten Rechen- und Planungsaufgaben, an denen sie vor wenigen Jahren noch gescheitert sind?
 
@@ -215,7 +268,7 @@ Die erste Sitzung klärt, **wie** KI funktioniert: wie eine Maschine lernt und w
 **Ein paar Tage vorher:**
 
 - Die Webseite des Workshops auf dem Präsentationsrechner öffnen und alle Labore einmal durchklicken.
-- Labor 1, Labor 2 und Labor 5 laufen vollständig ohne Internetverbindung.
+- Labor 1, Labor 2, Labor 4 und Labor 5 laufen vollständig ohne Internetverbindung.
 - Labor 3: Die Beispiele aus dem Text funktionieren sofort. Für eigene Eingaben lädt das Labor einmalig ein Modell von etwa 118 MB aus dem Internet. Erledige das vorab auf dem Präsentationsrechner, dann ist es im Browser gespeichert. Für die Geräte der Teilnehmenden ein stabiles WLAN einplanen oder bei den Beispielen bleiben.
 - Für die RAG-Übung in Labor 3 einen Chat-Assistenten bereithalten, den die Teilnehmenden nutzen dürfen. Die Prompts enthalten nur das erfundene Handbuch der Eisdiele.
 
@@ -225,6 +278,6 @@ Die erste Sitzung klärt, **wie** KI funktioniert: wie eine Maschine lernt und w
 - Oben rechts lässt sich zwischen hellem und dunklem Design umschalten. Für Beamer ist das helle Design meist besser.
 - In Sitzung 1 die Tabelle mit den zehn Tagen aus Kapitel 1 für die Schätzaufgabe groß zeigen oder ausdrucken.
 
-**Handouts:** Jedes Kapitel lässt sich über die Druckfunktion des Browsers ausdrucken oder als PDF speichern. Navigation und Schaltflächen werden dabei ausgeblendet, alle aufklappbaren Kästen automatisch geöffnet. Am Ende der ersten Sitzung bieten sich Kapitel 1 und 2 an, am Ende der zweiten Kapitel 3 und das Glossar, nach dem Zusatzmodul Kapitel 5.
+**Handouts:** Jedes Kapitel lässt sich über die Druckfunktion des Browsers ausdrucken oder als PDF speichern. Navigation und Schaltflächen werden dabei ausgeblendet, alle aufklappbaren Kästen automatisch geöffnet. Am Ende der ersten Sitzung bieten sich Kapitel 1 und 2 an, am Ende der zweiten Kapitel 3 und das Glossar, nach den Zusatzsitzungen Kapitel 4 und Kapitel 5.
 
 **Ohne Internet im Raum:** Die ganze Webseite lässt sich lokal starten, wenn Python installiert ist: `python3 -m http.server --directory docs` im Ordner des Workshops ausführen und dann `http://localhost:8000` im Browser öffnen.

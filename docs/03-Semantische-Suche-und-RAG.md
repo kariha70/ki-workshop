@@ -352,6 +352,12 @@ Fragen mit Verneinungen („ohne Milch“), mit genauen Zahlen oder Namen und Fr
 
 </details>
 
+## Wie es weitergeht
+
+Bei RAG sucht ein Programm vor jeder Antwort, und das Sprachmodell liest nur die Treffer. Kapitel 4 dreht das um: Das Modell bekommt die Suche und weitere Werkzeuge an die Hand und entscheidet selbst, wann es welches benutzt, etwa um das Wetter abzufragen oder Eis zu bestellen.
+
+Wie daraus ein Agent wird, der eine Aufgabe in vielen Schritten erledigt, zeigt [Kapitel 4](04-Vom-Chat-zum-Agenten.md).
+
 ## Selbst ausprobieren
 
 In [Labor 3](app/labor-3.html) lässt sich der Kosinus mit zwei Pfeilen von Hand ausprobieren. Außerdem kann man eigene Sätze vergleichen, im Handbuch der Eisdiele suchen und den Prompt für RAG zusammenstellen, um ihn in einen Chat-Assistenten zu kopieren. Die Beispiele aus diesem Kapitel funktionieren sofort. Für eigene Eingaben lädt das Labor das Embedding-Modell einmalig in den Browser, etwa 118 MB. Danach rechnet es ohne Server direkt auf dem eigenen Rechner. Diese verkleinerte Fassung des Modells liefert Werte, die um ein bis zwei Hundertstel von denen im Text abweichen können.
