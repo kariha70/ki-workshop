@@ -60,7 +60,7 @@ SUCH_DATEN = such_daten_laden()
 WETTER = {
     "Freitag": {"hoechstwert_grad": 24, "himmel": "heiter", "regen_prozent": 20},
     "Samstag": {"hoechstwert_grad": 27, "himmel": "sonnig", "regen_prozent": 10},
-    "Sonntag": {"hoechstwert_grad": 21, "himmel": "bewölkt", "regen_prozent": 60},
+    "Sonntag": {"hoechstwert_grad": 25, "himmel": "bewölkt", "regen_prozent": 60},
 }
 VORRAT_KUGELN = 140
 KUGELN_PRO_BEHAELTER = 70

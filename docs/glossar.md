@@ -4,9 +4,9 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 
 ## A
 
-**Agent** (KI-Agent): Ein Sprachmodell, das in einer Schleife Werkzeuge benutzt, bis eine Aufgabe erledigt ist. Den Weg wählt das Modell selbst anhand der Ergebnisse. → [Kapitel 4, Abschnitt 3](04-Vom-Chat-zum-Agenten.md#3-die-agentenschleife)
+**Agent** (KI-Agent, englisch AI Agent): Ein Sprachmodell, das in einer Schleife Werkzeuge benutzt, bis eine Aufgabe erledigt ist. Den Weg wählt das Modell selbst anhand der Ergebnisse. → [Kapitel 4, Abschnitt 3](04-Vom-Chat-zum-Agenten.md#3-die-agentenschleife)
 
-**Agentenschleife**: Der Ablauf, den das Rahmenprogramm wiederholt: Das Modell liest den Kontext und schreibt einen Werkzeugaufruf, das Rahmenprogramm führt ihn aus und hängt das Ergebnis an. Die Schleife endet, wenn das Modell eine Antwort statt eines Aufrufs schreibt. → [Kapitel 4, Abschnitt 3](04-Vom-Chat-zum-Agenten.md#3-die-agentenschleife)
+**Agentenschleife** (englisch Agent Loop): Der Ablauf, den das Rahmenprogramm wiederholt: Das Modell liest den Kontext und schreibt einen Werkzeugaufruf, das Rahmenprogramm führt ihn aus und hängt das Ergebnis an. Die Schleife endet, wenn das Modell eine Antwort statt eines Aufrufs schreibt. → [Kapitel 4, Abschnitt 3](04-Vom-Chat-zum-Agenten.md#3-die-agentenschleife)
 
 **Aktivierungsfunktion** (auch „der Knick“, häufigste Form: ReLU): Eine kleine Regel, die ein Neuron am Ende auf sein Ergebnis anwendet, etwa „Negative Werte werden zu 0“. Ohne sie ergeben auch viele Neuronen zusammen nur eine Gerade. → [Kapitel 1, Abschnitt 9](01-Neuronale-Netze-Grundlagen.md#9-der-knick-die-aktivierungsfunktion)
 
@@ -30,11 +30,11 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 
 **Deep Learning**: Lernen mit neuronalen Netzen, die viele Schichten hintereinander haben. Die meisten heutigen KI-Anwendungen beruhen darauf. → [Kapitel 1, Abschnitt 10](01-Neuronale-Netze-Grundlagen.md#10-vom-neuron-zum-netz)
 
-**Denkbudget**: Die Obergrenze dafür, wie viele Tokens ein Reasoning-Modell vor der Antwort zum Nachdenken verwenden darf. Manche Assistenten lassen sie direkt in Tokens einstellen, andere bieten Stufen wie „schnell“ und „gründlich“. → [Kapitel 5, Abschnitt 7](05-Reasoning-Modelle.md#7-nachdenken-kostet-zeit-und-tokens)
+**Denkbudget** (englisch Thinking Budget): Die Obergrenze dafür, wie viele Tokens ein Reasoning-Modell vor der Antwort zum Nachdenken verwenden darf. Manche Assistenten lassen sie direkt in Tokens einstellen, andere bieten Stufen wie „schnell“ und „gründlich“. → [Kapitel 5, Abschnitt 7](05-Reasoning-Modelle.md#7-nachdenken-kostet-zeit-und-tokens)
 
-**Denkprotokoll** (englisch reasoning trace): Der Text, den ein Reasoning-Modell vor seiner Antwort schreibt, mit Plan, Rechenweg und Proben. Es hilft beim Nachvollziehen, beschreibt aber nicht zuverlässig, wie die Antwort entstanden ist. → [Kapitel 5, Abschnitt 8](05-Reasoning-Modelle.md#8-was-das-denkprotokoll-verrät-und-was-nicht)
+**Denkprotokoll** (englisch Reasoning Trace): Der Text, den ein Reasoning-Modell vor seiner Antwort schreibt, mit Plan, Rechenweg und Proben. Es hilft beim Nachvollziehen, beschreibt aber nicht zuverlässig, wie die Antwort entstanden ist. → [Kapitel 5, Abschnitt 8](05-Reasoning-Modelle.md#8-was-das-denkprotokoll-verrät-und-was-nicht)
 
-**Destillation**: Ein kleineres Modell wird mit den Antworten eines größeren trainiert, etwa mit den Denkprotokollen eines Reasoning-Modells. So übernimmt es einen Teil von dessen Fähigkeiten. → [Kapitel 5, Abschnitt 6](05-Reasoning-Modelle.md#6-belohnung-für-richtige-ergebnisse)
+**Destillation** (englisch Distillation): Ein kleineres Modell wird mit den Antworten eines größeren trainiert, etwa mit den Denkprotokollen eines Reasoning-Modells. So übernimmt es einen Teil von dessen Fähigkeiten. → [Kapitel 5, Abschnitt 6](05-Reasoning-Modelle.md#6-belohnung-für-richtige-ergebnisse)
 
 ## E
 
@@ -46,13 +46,13 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 
 **Feinabstimmung** (Fine-Tuning): Ein zusätzliches Training nach dem Vortraining, mit ausgewählten Beispielen. Bei Chat-Assistenten sind das Beispielgespräche mit guten Antworten. → [Kapitel 2, Abschnitt 9](02-Tokenizer-und-Sprachmodelle.md#9-vom-textvervollständiger-zum-assistenten)
 
-**Freigabe** (englisch Human in the Loop): Ein Mensch muss zustimmen, bevor das Rahmenprogramm einen Werkzeugaufruf mit Folgen ausführt, etwa eine Bestellung. Die Regel steht im Rahmenprogramm, das Modell kann sie nicht umgehen. → [Kapitel 4, Abschnitt 4](04-Vom-Chat-zum-Agenten.md#4-ein-agent-bei-der-arbeit)
+**Freigabe** (englisch Approval, das Prinzip heißt Human in the Loop): Ein Mensch muss zustimmen, bevor das Rahmenprogramm einen Werkzeugaufruf mit Folgen ausführt, etwa eine Bestellung. Die Regel steht im Rahmenprogramm, das Modell kann sie nicht umgehen. → [Kapitel 4, Abschnitt 4](04-Vom-Chat-zum-Agenten.md#4-ein-agent-bei-der-arbeit)
 
 **Function Calling**: siehe Werkzeugaufruf.
 
 ## G
 
-**Gedächtnis** (eines Agenten): Notizen, die ein Agent über ein Werkzeug in einer Datei oder Datenbank speichert und später wieder hervorholt. Anders als der Kontext bleiben sie nach dem Gespräch erhalten. Die Weights des Modells ändern sich dabei nicht. → [Kapitel 4, Abschnitt 6](04-Vom-Chat-zum-Agenten.md#6-der-kontext-als-arbeitsplatz)
+**Gedächtnis** (eines Agenten, englisch Memory): Notizen, die ein Agent über ein Werkzeug in einer Datei oder Datenbank speichert und später wieder hervorholt. Anders als der Kontext bleiben sie nach dem Gespräch erhalten. Die Weights des Modells ändern sich dabei nicht. → [Kapitel 4, Abschnitt 6](04-Vom-Chat-zum-Agenten.md#6-der-kontext-als-arbeitsplatz)
 
 **Gradient**: Die Richtung, in der der Fehler am stärksten ansteigt, für alle Parameter zugleich. Der Gradientenabstieg geht in die Gegenrichtung. → [Kapitel 1, Abschnitt 5](01-Neuronale-Netze-Grundlagen.md#5-lernen-heißt-schritt-für-schritt-bergab)
 
@@ -76,9 +76,9 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 
 **Künstliche Intelligenz** (KI): Sammelbegriff für Computerprogramme, die Aufgaben lösen, für die man bisher menschliche Intelligenz brauchte, etwa Sprache verstehen oder Bilder erkennen. Fast alle heutigen KI-Anwendungen beruhen auf neuronalen Netzen, die aus Beispielen lernen. → [Kapitel 1](01-Neuronale-Netze-Grundlagen.md)
 
-**Kontext**: Alles, was ein Sprachmodell bei einer Antwort liest: Anweisungen, Werkzeugbeschreibungen, das bisherige Gespräch und bei einem Agenten alle Aufrufe und Ergebnisse. Das Rahmenprogramm schickt ihn in jeder Runde ganz mit. → [Kapitel 4, Abschnitt 6](04-Vom-Chat-zum-Agenten.md#6-der-kontext-als-arbeitsplatz)
+**Kontext** (englisch Context): Alles, was ein Sprachmodell bei einer Antwort liest: Anweisungen, Werkzeugbeschreibungen, das bisherige Gespräch und bei einem Agenten alle Aufrufe und Ergebnisse. Das Rahmenprogramm schickt ihn in jeder Runde ganz mit. → [Kapitel 4, Abschnitt 6](04-Vom-Chat-zum-Agenten.md#6-der-kontext-als-arbeitsplatz)
 
-**Kontextfenster**: Die Obergrenze dafür, wie viel Text ein Sprachmodell auf einmal berücksichtigen kann, gemessen in Tokens. Dazu gehören das bisherige Gespräch und alle mitgeschickten Dokumente. → [Kapitel 2, Abschnitt 9](02-Tokenizer-und-Sprachmodelle.md#9-vom-textvervollständiger-zum-assistenten)
+**Kontextfenster** (englisch Context Window): Die Obergrenze dafür, wie viel Text ein Sprachmodell auf einmal berücksichtigen kann, gemessen in Tokens. Dazu gehören das bisherige Gespräch und alle mitgeschickten Dokumente. → [Kapitel 2, Abschnitt 9](02-Tokenizer-und-Sprachmodelle.md#9-vom-textvervollständiger-zum-assistenten)
 
 **Kosinus** (Kosinus-Ähnlichkeit): Ein Maß dafür, wie gleich zwei Pfeile ausgerichtet sind. 1 heißt gleiche Richtung, 0 heißt nichts gemeinsam. Damit misst die semantische Suche, wie ähnlich zwei Texte sind. → [Kapitel 3, Abschnitt 3](03-Semantische-Suche-und-RAG.md#3-ähnlichkeit-messen-der-kosinus)
 
@@ -86,11 +86,13 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 
 ## L
 
-**Lernen aus Beispielen im Prompt** (englisch in-context learning, auch Few-Shot): Ein Sprachmodell löst eine Aufgabe, weil im Prompt ein paar Beispiele dafür stehen. Seine Weights ändern sich dabei nicht. → [Kapitel 5, Abschnitt 2](05-Reasoning-Modelle.md#2-wie-es-dazu-kam-von-gpt-2-bis-heute)
+**Lernen aus Beispielen im Prompt** (englisch In-Context Learning, mit wenigen Beispielen Few-Shot Learning): Ein Sprachmodell löst eine Aufgabe, weil im Prompt ein paar Beispiele dafür stehen. Seine Weights ändern sich dabei nicht. → [Kapitel 5, Abschnitt 2](05-Reasoning-Modelle.md#2-wie-es-dazu-kam-von-gpt-2-bis-heute)
 
 **Lernen aus menschlichem Feedback** (englisch Reinforcement Learning from Human Feedback, RLHF): Ein Trainingsschritt, bei dem Menschen Antworten des Modells vergleichen und das Modell so weitertrainiert wird, dass bevorzugte Antworten wahrscheinlicher werden. → [Kapitel 2, Abschnitt 9](02-Tokenizer-und-Sprachmodelle.md#9-vom-textvervollständiger-zum-assistenten)
 
 **Lernrate**: Die Schrittlänge beim Gradientenabstieg. Ist sie zu klein, dauert das Lernen sehr lange. Ist sie zu groß, springt das Modell über das Ziel hinaus und lernt gar nicht. → [Kapitel 1, Abschnitt 5](01-Neuronale-Netze-Grundlagen.md#5-lernen-heißt-schritt-für-schritt-bergab)
+
+**Lethal Trifecta**: siehe tödliche Dreierkombination.
 
 **Lineare Regression**: Ein Verfahren, das eine Gerade so durch Messpunkte legt, dass sie insgesamt möglichst wenig danebenliegt. Der einfachste Fall eines lernenden Modells. → [Kapitel 1, Abschnitt 2](01-Neuronale-Netze-Grundlagen.md#2-eine-gerade-durch-die-punkte)
 
@@ -122,13 +124,15 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 
 **Prompt-Injection** (eingeschleuste Anweisung): Eine Anweisung in einem fremden Text, etwa in einer E-Mail oder auf einer Webseite, die ein Agent liest. Weil für das Modell alles im Kontext Text ist, befolgt es solche Anweisungen manchmal, als kämen sie vom Nutzer. → [Kapitel 4, Abschnitt 9](04-Vom-Chat-zum-Agenten.md#9-risiken-fehlerketten-und-eingeschleuste-anweisungen)
 
+**Prüfprogramm** (englisch Verifier): Ein Programm, das beim Training eines Reasoning-Modells kontrolliert, ob ein Ergebnis stimmt, etwa ob eine Zahl richtig ist oder ein Programm seine Tests besteht. Es bewertet nur das Ergebnis, nicht den Weg dorthin. → [Kapitel 5, Abschnitt 6](05-Reasoning-Modelle.md#6-belohnung-für-richtige-ergebnisse)
+
 ## R
 
 **Rahmenprogramm** (englisch oft Harness): Das gewöhnliche Programm um das Sprachmodell eines Agenten. Es steuert die Agentenschleife, schickt dem Modell den Kontext, führt Werkzeugaufrufe aus und achtet auf Freigaben und Grenzen. → [Kapitel 4, Abschnitt 2](04-Vom-Chat-zum-Agenten.md#2-werkzeuge-das-modell-schreibt-einen-auftrag)
 
 **RAG** (Retrieval-Augmented Generation, durch Nachschlagen ergänztes Erzeugen): Vor der Antwort werden passende Textstellen gesucht und dem Sprachmodell im Prompt mitgegeben. Das Modell stützt seine Antwort auf diese Textstellen und kann sie als Quelle nennen. → [Kapitel 3, Abschnitt 6](03-Semantische-Suche-und-RAG.md#6-rag-erst-nachschlagen-dann-antworten)
 
-**Reasoning-Modell** (Denkmodell): Ein Sprachmodell, das vor der Antwort ein Denkprotokoll schreibt und mit Verstärkungslernen darauf trainiert wurde, dabei zu richtigen Ergebnissen zu kommen. Stark bei Aufgaben mit vielen Schritten, dafür langsamer und teurer. → [Kapitel 5, Abschnitt 6](05-Reasoning-Modelle.md#6-belohnung-für-richtige-ergebnisse)
+**Reasoning-Modell** (englisch Reasoning Model, auch Denkmodell): Ein Sprachmodell, das vor der Antwort ein Denkprotokoll schreibt und mit Verstärkungslernen darauf trainiert wurde, dabei zu richtigen Ergebnissen zu kommen. Stark bei Aufgaben mit vielen Schritten, dafür langsamer und teurer. → [Kapitel 5, Abschnitt 6](05-Reasoning-Modelle.md#6-belohnung-für-richtige-ergebnisse)
 
 **ReLU**: siehe Aktivierungsfunktion.
 
@@ -138,7 +142,7 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 
 **Schicht**: Eine Gruppe von Neuronen, die gleichzeitig rechnen. Die Schichten zwischen Eingabe und Ausgabe heißen verborgene Schichten (Hidden Layers). → [Kapitel 1, Abschnitt 10](01-Neuronale-Netze-Grundlagen.md#10-vom-neuron-zum-netz)
 
-**Selbstkonsistenz** (Self-Consistency): Ein Sprachmodell rechnet dieselbe Aufgabe mehrmals mit Rechenweg, und das häufigste Ergebnis gilt. Das erhöht die Trefferquote, wenn die richtige Antwort häufiger vorkommt als jede falsche. → [Kapitel 5, Abschnitt 5](05-Reasoning-Modelle.md#5-mehrmals-rechnen-dann-abstimmen)
+**Selbstkonsistenz** (englisch Self-Consistency, auch Mehrheitsentscheid oder Majority Voting): Ein Sprachmodell rechnet dieselbe Aufgabe mehrmals mit Rechenweg, und das häufigste Ergebnis gilt. Das erhöht die Trefferquote, wenn die richtige Antwort häufiger vorkommt als jede falsche. → [Kapitel 5, Abschnitt 5](05-Reasoning-Modelle.md#5-mehrmals-rechnen-dann-abstimmen)
 
 **Selbstüberwachtes Lernen**: Lernen aus Daten, die ihre richtigen Antworten selbst mitbringen. Bei Text ist an jeder Stelle bekannt, wie es weitergeht, niemand muss etwas beschriften. → [Kapitel 2, Abschnitt 1](02-Tokenizer-und-Sprachmodelle.md#1-was-kommt-als-nächstes)
 
@@ -154,7 +158,7 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 
 **Sub-Agent**: siehe Unteragent.
 
-**Systemprompt**: Anweisungen ganz am Anfang des Kontexts, die festlegen, welche Rolle ein Assistent oder Agent hat und welche Regeln gelten. Wer den Agenten einrichtet, schreibt sie. Nutzer bekommen sie meist nicht zu sehen. → [Kapitel 4, Abschnitt 5](04-Vom-Chat-zum-Agenten.md#5-die-bausteine-im-überblick)
+**Systemprompt** (englisch System Prompt): Anweisungen ganz am Anfang des Kontexts, die festlegen, welche Rolle ein Assistent oder Agent hat und welche Regeln gelten. Wer den Agenten einrichtet, schreibt sie. Nutzer bekommen sie meist nicht zu sehen. → [Kapitel 4, Abschnitt 5](04-Vom-Chat-zum-Agenten.md#5-die-bausteine-im-überblick)
 
 ## T
 
@@ -163,6 +167,8 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 **Testdaten**: Daten, die vor dem Training beiseitegelegt werden, um das fertige Modell zu prüfen. Nur an ihnen sieht man, ob es auch mit Neuem zurechtkommt. → [Kapitel 1, Abschnitt 7](01-Neuronale-Netze-Grundlagen.md#7-die-prüfung-funktioniert-es-auch-an-neuen-tagen)
 
 **Test-Time Compute** (Rechenaufwand zur Antwortzeit): Wie viel ein Modell bei der Antwort rechnen darf, etwa durch ein längeres Denkprotokoll oder mehrere Antworten mit Abstimmung. Neben Größe und Training eine eigene Stellschraube für die Qualität. → [Kapitel 5, Abschnitt 7](05-Reasoning-Modelle.md#7-nachdenken-kostet-zeit-und-tokens)
+
+**Tödliche Dreierkombination** (englisch Lethal Trifecta): Ein Agent ist besonders gefährdet, wenn er zugleich an private Daten kommt, fremde Inhalte liest und etwas nach außen schicken kann. Dann kann eine eingeschleuste Anweisung ihn dazu bringen, private Daten weiterzugeben. Fehlt eine der drei Zutaten, ist dieser Weg versperrt. → [Kapitel 4, Abschnitt 9](04-Vom-Chat-zum-Agenten.md#9-risiken-fehlerketten-und-eingeschleuste-anweisungen)
 
 **Token**: Ein Textstück, mit dem ein Sprachmodell arbeitet, meist ein Wort oder ein Wortteil. Preis, Geschwindigkeit und Textlänge werden bei Sprachmodellen in Tokens gemessen. → [Kapitel 2, Abschnitt 2](02-Tokenizer-und-Sprachmodelle.md#2-text-in-zahlen-der-tokenizer)
 
@@ -186,7 +192,7 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 
 **Vektordatenbank**: Ein Speicher für sehr viele Embeddings, der ähnliche Einträge schnell findet, ohne jeden einzeln zu vergleichen. → [Kapitel 3, Abschnitt 5](03-Semantische-Suche-und-RAG.md#5-suchen-in-einer-textsammlung)
 
-**Verstärkungslernen** (Reinforcement Learning): Lernen durch Belohnung. Das Modell probiert etwas aus, bekommt eine Bewertung, und belohnte Verhaltensweisen werden wahrscheinlicher. Reasoning-Modelle werden so mit Aufgaben trainiert, deren Ergebnis ein Programm prüfen kann. → [Kapitel 5, Abschnitt 6](05-Reasoning-Modelle.md#6-belohnung-für-richtige-ergebnisse)
+**Verstärkungslernen** (englisch Reinforcement Learning): Lernen durch Belohnung. Das Modell probiert etwas aus, bekommt eine Bewertung, und belohnte Verhaltensweisen werden wahrscheinlicher. Reasoning-Modelle werden so mit Aufgaben trainiert, deren Ergebnis ein Programm prüfen kann. → [Kapitel 5, Abschnitt 6](05-Reasoning-Modelle.md#6-belohnung-für-richtige-ergebnisse)
 
 **Vortraining** (Pretraining): Die erste und aufwendigste Trainingsphase eines Sprachmodells, mit riesigen Textmengen. Danach kann es Text fortsetzen, ist aber noch kein Assistent. → [Kapitel 2, Abschnitt 9](02-Tokenizer-und-Sprachmodelle.md#9-vom-textvervollständiger-zum-assistenten)
 
