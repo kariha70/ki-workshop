@@ -18,9 +18,19 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 
 **Byte-Pair-Encoding**: Das verbreitete Verfahren, mit dem ein Tokenizer sein Vokabular lernt: Häufig nebeneinander stehende Zeichen werden Schritt für Schritt zu größeren Stücken zusammengefasst. → [Kapitel 2, Abschnitt 2](02-Tokenizer-und-Sprachmodelle.md#2-text-in-zahlen-der-tokenizer)
 
+## C
+
+**Chain of Thought** (Gedankenkette): Ein Sprachmodell schreibt vor dem Ergebnis einen Rechenweg auf. Weil jedes Zwischenergebnis im Text steht und wieder gelesen werden kann, liegt es bei Aufgaben mit mehreren Schritten deutlich öfter richtig. → [Kapitel 5, Abschnitt 4](05-Reasoning-Modelle.md#4-schritt-für-schritt-chain-of-thought)
+
 ## D
 
 **Deep Learning**: Lernen mit neuronalen Netzen, die viele Schichten hintereinander haben. Die meisten heutigen KI-Anwendungen beruhen darauf. → [Kapitel 1, Abschnitt 10](01-Neuronale-Netze-Grundlagen.md#10-vom-neuron-zum-netz)
+
+**Denkbudget**: Die Obergrenze dafür, wie viele Tokens ein Reasoning-Modell vor der Antwort zum Nachdenken verwenden darf. Manche Assistenten lassen sie direkt in Tokens einstellen, andere bieten Stufen wie „schnell“ und „gründlich“. → [Kapitel 5, Abschnitt 7](05-Reasoning-Modelle.md#7-nachdenken-kostet-zeit-und-tokens)
+
+**Denkprotokoll** (englisch reasoning trace): Der Text, den ein Reasoning-Modell vor seiner Antwort schreibt, mit Plan, Rechenweg und Proben. Es hilft beim Nachvollziehen, beschreibt aber nicht zuverlässig, wie die Antwort entstanden ist. → [Kapitel 5, Abschnitt 8](05-Reasoning-Modelle.md#8-was-das-denkprotokoll-verrät-und-was-nicht)
+
+**Destillation**: Ein kleineres Modell wird mit den Antworten eines größeren trainiert, etwa mit den Denkprotokollen eines Reasoning-Modells. So übernimmt es einen Teil von dessen Fähigkeiten. → [Kapitel 5, Abschnitt 6](05-Reasoning-Modelle.md#6-belohnung-für-richtige-ergebnisse)
 
 ## E
 
@@ -46,6 +56,8 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 
 ## I
 
+**In-Context-Lernen**: siehe Lernen aus Beispielen im Prompt.
+
 **Inferenz**: siehe Anwendung.
 
 ## K
@@ -59,6 +71,8 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 **Kreuzentropie**: Das Fehlermaß beim Training von Sprachmodellen. Es misst, wie wenig Wahrscheinlichkeit das Modell dem Wort gegeben hat, das tatsächlich folgt. → [Kapitel 2, Abschnitt 1](02-Tokenizer-und-Sprachmodelle.md#1-was-kommt-als-nächstes)
 
 ## L
+
+**Lernen aus Beispielen im Prompt** (englisch in-context learning, auch Few-Shot): Ein Sprachmodell löst eine Aufgabe, weil im Prompt ein paar Beispiele dafür stehen. Seine Weights ändern sich dabei nicht. → [Kapitel 5, Abschnitt 2](05-Reasoning-Modelle.md#2-wie-es-dazu-kam-von-gpt-2-bis-heute)
 
 **Lernen aus menschlichem Feedback** (englisch Reinforcement Learning from Human Feedback, RLHF): Ein Trainingsschritt, bei dem Menschen Antworten des Modells vergleichen und das Modell so weitertrainiert wird, dass bevorzugte Antworten wahrscheinlicher werden. → [Kapitel 2, Abschnitt 9](02-Tokenizer-und-Sprachmodelle.md#9-vom-textvervollständiger-zum-assistenten)
 
@@ -94,11 +108,15 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 
 **RAG** (Retrieval-Augmented Generation, durch Nachschlagen ergänztes Erzeugen): Vor der Antwort werden passende Textstellen gesucht und dem Sprachmodell im Prompt mitgegeben. Das Modell stützt seine Antwort auf diese Textstellen und kann sie als Quelle nennen. → [Kapitel 3, Abschnitt 6](03-Semantische-Suche-und-RAG.md#6-rag-erst-nachschlagen-dann-antworten)
 
+**Reasoning-Modell** (Denkmodell): Ein Sprachmodell, das vor der Antwort ein Denkprotokoll schreibt und mit Verstärkungslernen darauf trainiert wurde, dabei zu richtigen Ergebnissen zu kommen. Stark bei Aufgaben mit vielen Schritten, dafür langsamer und teurer. → [Kapitel 5, Abschnitt 6](05-Reasoning-Modelle.md#6-belohnung-für-richtige-ergebnisse)
+
 **ReLU**: siehe Aktivierungsfunktion.
 
 ## S
 
 **Schicht**: Eine Gruppe von Neuronen, die gleichzeitig rechnen. Die Schichten zwischen Eingabe und Ausgabe heißen verborgene Schichten (Hidden Layers). → [Kapitel 1, Abschnitt 10](01-Neuronale-Netze-Grundlagen.md#10-vom-neuron-zum-netz)
+
+**Selbstkonsistenz** (Self-Consistency): Ein Sprachmodell rechnet dieselbe Aufgabe mehrmals mit Rechenweg, und das häufigste Ergebnis gilt. Das erhöht die Trefferquote, wenn die richtige Antwort häufiger vorkommt als jede falsche. → [Kapitel 5, Abschnitt 5](05-Reasoning-Modelle.md#5-mehrmals-rechnen-dann-abstimmen)
 
 **Selbstüberwachtes Lernen**: Lernen aus Daten, die ihre richtigen Antworten selbst mitbringen. Bei Text ist an jeder Stelle bekannt, wie es weitergeht, niemand muss etwas beschriften. → [Kapitel 2, Abschnitt 1](02-Tokenizer-und-Sprachmodelle.md#1-was-kommt-als-nächstes)
 
@@ -118,6 +136,8 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 
 **Testdaten**: Daten, die vor dem Training beiseitegelegt werden, um das fertige Modell zu prüfen. Nur an ihnen sieht man, ob es auch mit Neuem zurechtkommt. → [Kapitel 1, Abschnitt 7](01-Neuronale-Netze-Grundlagen.md#7-die-prüfung-funktioniert-es-auch-an-neuen-tagen)
 
+**Test-Time Compute** (Rechenaufwand zur Antwortzeit): Wie viel ein Modell bei der Antwort rechnen darf, etwa durch ein längeres Denkprotokoll oder mehrere Antworten mit Abstimmung. Neben Größe und Training eine eigene Stellschraube für die Qualität. → [Kapitel 5, Abschnitt 7](05-Reasoning-Modelle.md#7-nachdenken-kostet-zeit-und-tokens)
+
 **Token**: Ein Textstück, mit dem ein Sprachmodell arbeitet, meist ein Wort oder ein Wortteil. Preis, Geschwindigkeit und Textlänge werden bei Sprachmodellen in Tokens gemessen. → [Kapitel 2, Abschnitt 2](02-Tokenizer-und-Sprachmodelle.md#2-text-in-zahlen-der-tokenizer)
 
 **Tokenizer**: Das Programm, das Text in Tokens zerlegt und jedem eine Nummer gibt. Es wird vorab gelernt und bleibt danach fest. → [Kapitel 2, Abschnitt 2](02-Tokenizer-und-Sprachmodelle.md#2-text-in-zahlen-der-tokenizer)
@@ -135,6 +155,8 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 **Vektor**: Ein Pfeil, beschrieben durch eine Liste von Zahlen. Embeddings sind Vektoren. → [Kapitel 3, Abschnitt 2](03-Semantische-Suche-und-RAG.md#2-ein-text-ein-pfeil)
 
 **Vektordatenbank**: Ein Speicher für sehr viele Embeddings, der ähnliche Einträge schnell findet, ohne jeden einzeln zu vergleichen. → [Kapitel 3, Abschnitt 5](03-Semantische-Suche-und-RAG.md#5-suchen-in-einer-textsammlung)
+
+**Verstärkungslernen** (Reinforcement Learning): Lernen durch Belohnung. Das Modell probiert etwas aus, bekommt eine Bewertung, und belohnte Verhaltensweisen werden wahrscheinlicher. Reasoning-Modelle werden so mit Aufgaben trainiert, deren Ergebnis ein Programm prüfen kann. → [Kapitel 5, Abschnitt 6](05-Reasoning-Modelle.md#6-belohnung-für-richtige-ergebnisse)
 
 **Vortraining** (Pretraining): Die erste und aufwendigste Trainingsphase eines Sprachmodells, mit riesigen Textmengen. Danach kann es Text fortsetzen, ist aber noch kein Assistent. → [Kapitel 2, Abschnitt 9](02-Tokenizer-und-Sprachmodelle.md#9-vom-textvervollständiger-zum-assistenten)
 

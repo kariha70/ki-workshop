@@ -6,7 +6,7 @@
 
 Start: uv run werkzeuge/seite_bauen.py
 
-Erzeugt docs/index.html (Startseite), docs/kapitel-1.html bis docs/kapitel-3.html sowie
+Erzeugt docs/index.html (Startseite), die Kapitelseiten docs/kapitel-N.html sowie
 das Glossar und den Leitfaden für Moderierende aus den Markdown-Dateien. Nach jeder
 Änderung an einem Kapitel neu ausführen.
 Die Labore in docs/app/ sind eigenständige Seiten und werden hier nur verlinkt.
@@ -66,6 +66,21 @@ KAPITEL = [
             6: ("app/labor-3.html#rag", "Prompt für RAG", "Stell den Prompt zusammen und gib ihn einem Chat-Assistenten. Nennt er die Quelle?"),
         },
     },
+    {
+        "nr": 5,
+        "quelle": "05-Reasoning-Modelle.md",
+        "ziel": "kapitel-5.html",
+        "labor": "app/labor-5.html",
+        "bild": "bilder/kapitel-5/04-abstimmen.png",
+        "teaser": "Wie aus Sprachmodellen Reasoning-Modelle wurden, die vor der Antwort nachdenken: Rechenweg, Abstimmen und eine Belohnung für richtige Ergebnisse.",
+        "themen": ["Entwicklung seit GPT-2", "Rechenweg", "Chain of Thought", "Abstimmen", "Verstärkungslernen", "Denkaufwand", "Denkprotokoll"],
+        "labore": {
+            4: ("app/labor-5.html#rechenweg", "Rechenweg", "Lass das Modell 100-mal ohne und mit Rechenweg rechnen. Welche Antwort ist jeweils die häufigste?"),
+            5: ("app/labor-5.html#abstimmen", "Abstimmen", "Stimm über 9 Antworten ab, einmal mit und einmal ohne Rechenweg. Wann hilft die Abstimmung?"),
+            6: ("app/labor-5.html#training", "Belohnung", "Starte das Spielzeug-Training und beobachte, wie Trefferquote und Länge der Antworten wachsen."),
+            7: ("app/labor-5.html#tokens", "Denkaufwand", "Vergleich die Kurzantwort mit dem Denkprotokoll Token für Token. Wo bemerkt das Modell seinen Fehler?"),
+        },
+    },
 ]
 
 # Seiten neben den Kapiteln, ohne Labor und ohne Blättern
@@ -80,6 +95,7 @@ LABORE = [
     ("app/labor-1.html", "Labor 1: Wie eine Maschine lernt", "Eine Gerade mit Reglern verschieben, Schritt für Schritt bergab gehen, den Knick einschalten und ein kleines Netz lernen lassen.", "bilder/labor-1.png"),
     ("app/labor-2.html", "Labor 2: Tokens und Temperatur", "Eigenen Text in Tokens zerlegen, Deutsch und Englisch vergleichen und mit der Temperatur das nächste Wort auslosen.", "bilder/labor-2.png"),
     ("app/labor-3.html", "Labor 3: Suchen nach Bedeutung", "Ähnlichkeit von Hand ausprobieren, eigene Sätze vergleichen, im Handbuch der Eisdiele suchen und einen Prompt für einen Chat-Assistenten bauen.", "bilder/labor-3.png"),
+    ("app/labor-5.html", "Labor 5: Nachdenken zum Anfassen", "Ein Modell mit und ohne Rechenweg rechnen lassen, über mehrere Antworten abstimmen und ein Spielzeug-Training mit Belohnung beobachten.", "bilder/labor-5.png"),
 ]
 
 LOGO = (DOCS / "assets" / "logo.svg").read_text().strip()
@@ -88,8 +104,8 @@ SYMBOL_LABOR = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width=
 
 
 def leiste(aktiv):
-    eintraege = [("kapitel-1.html", "Kapitel 1"), ("kapitel-2.html", "Kapitel 2"), ("kapitel-3.html", "Kapitel 3"), None,
-                 ("app/labor-1.html", "Labor 1"), ("app/labor-2.html", "Labor 2"), ("app/labor-3.html", "Labor 3"), None,
+    eintraege = [("kapitel-1.html", "Kapitel 1"), ("kapitel-2.html", "Kapitel 2"), ("kapitel-3.html", "Kapitel 3"), ("kapitel-5.html", "Kapitel 5"), None,
+                 ("app/labor-1.html", "Labor 1"), ("app/labor-2.html", "Labor 2"), ("app/labor-3.html", "Labor 3"), ("app/labor-5.html", "Labor 5"), None,
                  ("glossar.html", "Glossar")]
     links = ""
     for eintrag in eintraege:
@@ -129,7 +145,7 @@ def seite(titel, beschreibung, aktiv, inhalt):
 </main>
 <footer class="fuss"><div class="huelle">
   <span>KI-Workshop: vom Eisverkäufer zum Sprachmodell. Alle Daten im Beispiel sind erfunden.<br>Texte und Grafiken: <a href="https://creativecommons.org/licenses/by/4.0/deed.de">CC BY 4.0</a> · Code: <a href="https://github.com/kariha70/ki-workshop/blob/main/LICENSE">MIT</a> · <a href="https://github.com/kariha70/ki-workshop">Quellcode auf GitHub</a></span>
-  <span><a href="index.html">Startseite</a> · <a href="kapitel-1.html">Kapitel 1</a> · <a href="kapitel-2.html">Kapitel 2</a> · <a href="kapitel-3.html">Kapitel 3</a> · <a href="app/labor-1.html">Labor 1</a> · <a href="app/labor-2.html">Labor 2</a> · <a href="app/labor-3.html">Labor 3</a> · <a href="glossar.html">Glossar</a> · <a href="leitfaden.html">Leitfaden</a></span>
+  <span><a href="index.html">Startseite</a> · <a href="kapitel-1.html">Kapitel 1</a> · <a href="kapitel-2.html">Kapitel 2</a> · <a href="kapitel-3.html">Kapitel 3</a> · <a href="kapitel-5.html">Kapitel 5</a> · <a href="app/labor-1.html">Labor 1</a> · <a href="app/labor-2.html">Labor 2</a> · <a href="app/labor-3.html">Labor 3</a> · <a href="app/labor-5.html">Labor 5</a> · <a href="glossar.html">Glossar</a> · <a href="leitfaden.html">Leitfaden</a></span>
 </div></footer>
 <script src="assets/thema.js"></script>
 <script src="assets/site.js"></script>
@@ -302,7 +318,7 @@ def startseite(infos):
   <div>
     <p class="augenbraue">KI-Workshop</p>
     <h1>Vom Eisverkäufer zum Sprachmodell</h1>
-    <p class="lead">Ein Workshop über neuronale Netze, Sprachmodelle wie ChatGPT und die Suche in eigenen Unterlagen. Alles wird an einem durchgehenden Beispiel erklärt, Vorkenntnisse und Programmieren sind nicht nötig.</p>
+    <p class="lead">Ein Workshop über neuronale Netze, Sprachmodelle wie ChatGPT, die Suche in eigenen Unterlagen und Modelle, die vor der Antwort nachdenken. Alles wird an einem durchgehenden Beispiel erklärt, Vorkenntnisse und Programmieren sind nicht nötig.</p>
     <div class="aktionen"><a class="knopf primaer" href="kapitel-1.html">Mit Kapitel 1 beginnen</a><a class="knopf" href="#labore">Direkt ausprobieren</a></div>
   </div>
   {ILLUSTRATION}
@@ -319,7 +335,7 @@ def startseite(infos):
     <h2>So lernst du in diesem Workshop</h2>
     <p class="bereich-sub">Alle Kapitel sind gleich aufgebaut.</p>
     <div class="merkmale">
-      <div class="merkmal"><div class="symbol">{SYMBOLE["faden"]}</div><h3>Ein durchgehendes Beispiel</h3><p>Ein Eisverkäufer will wissen, wie viel Eis er braucht. An seinen Daten entstehen Gerade, Neuron und Netz. Die Kapitel zu Sprachmodell und Suche greifen das Beispiel wieder auf.</p></div>
+      <div class="merkmal"><div class="symbol">{SYMBOLE["faden"]}</div><h3>Ein durchgehendes Beispiel</h3><p>Ein Eisverkäufer will wissen, wie viel Eis er braucht. An seinen Daten entstehen Gerade, Neuron und Netz. Die Kapitel zu Sprachmodell, Suche und Reasoning-Modellen greifen das Beispiel wieder auf.</p></div>
       <div class="merkmal"><div class="symbol">{SYMBOLE["frage"]}</div><h3>Fragen und Merksätze</h3><p>Jedes Kapitel beginnt mit Lernzielen und enthält Fragen zum Nachdenken, einen Merksatz pro Abschnitt und am Ende einen kurzen Selbsttest.</p></div>
       <div class="merkmal"><div class="symbol">{SYMBOLE["labor"]}</div><h3>Labore im Browser</h3><p>Regler verschieben, Texte zerlegen, nach Bedeutung suchen. Die Labore laufen direkt im Browser, ohne Installation.</p></div>
       <div class="merkmal"><div class="symbol">{SYMBOLE["kasten"]}</div><h3>Rechnungen zum Aufklappen</h3><p>Formeln und Rechenwege stehen in aufklappbaren Kästen. Für das Verständnis des Haupttexts sind sie nicht nötig.</p></div>
@@ -345,7 +361,8 @@ def startseite(infos):
     <p>Hinter jeder Zahl und jeder Grafik steht ein Python-Skript. Für den Workshop ist es nicht nötig. Die Skripte brauchen nur <a href="https://docs.astral.sh/uv/">uv</a>, die Abhängigkeiten installiert uv selbst:</p>
     <div class="text"><pre><code>uv run docs/beispiele/01_eisverkaeufer.py
 uv run docs/beispiele/02_tokenizer.py "Drei Kugeln Vanille, bitte."
-uv run docs/beispiele/03_semantische_suche.py "Habt ihr Eis für Hunde?"</code></pre></div>
+uv run docs/beispiele/03_semantische_suche.py "Habt ihr Eis für Hunde?"
+uv run docs/beispiele/05_nachdenken.py</code></pre></div>
   </details>
 </div>"""
     (DOCS / "index.html").write_text(seite("KI-Workshop: Vom Eisverkäufer zum Sprachmodell", "Wie neuronale Netze, Sprachmodelle und die Suche nach Bedeutung funktionieren, an einem durchgehenden Beispiel erklärt, ohne Vorkenntnisse und mit Laboren zum Ausprobieren.", "index.html", inhalt), encoding="utf-8")
