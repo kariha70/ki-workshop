@@ -95,6 +95,20 @@ KAPITEL = [
             7: ("app/labor-5.html#tokens", "Denkaufwand", "Vergleich die Kurzantwort mit dem Denkprotokoll Token für Token. Wo bemerkt das Modell seinen Fehler?"),
         },
     },
+    {
+        "nr": 6,
+        "quelle": "06-Gut-fragen.md",
+        "ziel": "kapitel-6.html",
+        "labor": "app/labor-6.html",
+        "bild": "bilder/kapitel-6/01-bausteine.png",
+        "teaser": "Wie du einem Chat-Assistenten Aufgaben so stellst, dass brauchbare Ergebnisse herauskommen: sechs Bausteine für gute Prompts, Nachbessern im Gespräch und typische Fallen.",
+        "themen": ["Prompt Engineering", "Sechs Bausteine", "Markierungen", "Beispiele", "Nachbessern", "Aufgabenketten", "Gefälligkeit"],
+        "labore": {
+            2: ("app/labor-6.html#baukasten", "Prompt-Baukasten", "Bau den Prompt für die Kundin Baustein für Baustein zusammen und kopier ihn in einen Chat-Assistenten. Wie ändert sich die Antwort?"),
+            5: ("app/labor-6.html#check", "Was fehlt?", "Finde in fünf schwachen Prompts die fehlenden Bausteine und vergleich mit der verbesserten Fassung."),
+            9: ("app/labor-6.html#fragen", "Offen fragen", "Vergleich suggestive und offene Fragen mit ihren Antworten. Woran erkennst du eine Suggestivfrage?"),
+        },
+    },
 ]
 
 # Seiten neben den Kapiteln, ohne Labor und ohne Blättern
@@ -111,6 +125,7 @@ LABORE = [
     ("app/labor-3.html", "Labor 3: Suchen nach Bedeutung", "Ähnlichkeit von Hand ausprobieren, eigene Sätze vergleichen, im Handbuch der Eisdiele suchen und einen Prompt für einen Chat-Assistenten bauen.", "bilder/labor-3.png"),
     ("app/labor-4.html", "Labor 4: Agenten bei der Arbeit", "Selbst das passende Werkzeug wählen, einem Agenten Schritt für Schritt zusehen, Freigaben erteilen und eine eingeschleuste Anweisung abfangen.", "bilder/labor-4.png"),
     ("app/labor-5.html", "Labor 5: Nachdenken zum Anfassen", "Ein Modell mit und ohne Rechenweg rechnen lassen, über mehrere Antworten abstimmen und ein Spielzeug-Training mit Belohnung beobachten.", "bilder/labor-5.png"),
+    ("app/labor-6.html", "Labor 6: Prompt-Werkstatt", "Prompts aus sechs Bausteinen zusammenbauen und ausprobieren, in schwachen Prompts die Lücken finden und suggestive mit offenen Fragen vergleichen.", "bilder/labor-6.png"),
 ]
 
 LOGO = (DOCS / "assets" / "logo.svg").read_text().strip()
@@ -119,8 +134,8 @@ SYMBOL_LABOR = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width=
 
 
 def leiste(aktiv):
-    eintraege = [("kapitel-1.html", "Kapitel 1"), ("kapitel-2.html", "Kapitel 2"), ("kapitel-3.html", "Kapitel 3"), ("kapitel-4.html", "Kapitel 4"), ("kapitel-5.html", "Kapitel 5"), None,
-                 ("app/labor-1.html", "Labor 1"), ("app/labor-2.html", "Labor 2"), ("app/labor-3.html", "Labor 3"), ("app/labor-4.html", "Labor 4"), ("app/labor-5.html", "Labor 5"), None,
+    eintraege = [("kapitel-1.html", "Kapitel 1"), ("kapitel-2.html", "Kapitel 2"), ("kapitel-3.html", "Kapitel 3"), ("kapitel-4.html", "Kapitel 4"), ("kapitel-5.html", "Kapitel 5"), ("kapitel-6.html", "Kapitel 6"), None,
+                 ("app/labor-1.html", "Labor 1"), ("app/labor-2.html", "Labor 2"), ("app/labor-3.html", "Labor 3"), ("app/labor-4.html", "Labor 4"), ("app/labor-5.html", "Labor 5"), ("app/labor-6.html", "Labor 6"), None,
                  ("glossar.html", "Glossar")]
     links = ""
     for eintrag in eintraege:
@@ -160,7 +175,7 @@ def seite(titel, beschreibung, aktiv, inhalt):
 </main>
 <footer class="fuss"><div class="huelle">
   <span>KI-Workshop: vom Eisverkäufer zum Sprachmodell. Alle Daten im Beispiel sind erfunden.<br>Texte und Grafiken: <a href="https://creativecommons.org/licenses/by/4.0/deed.de">CC BY 4.0</a> · Code: <a href="https://github.com/kariha70/ki-workshop/blob/main/LICENSE">MIT</a> · <a href="https://github.com/kariha70/ki-workshop">Quellcode auf GitHub</a></span>
-  <span><a href="index.html">Startseite</a> · <a href="kapitel-1.html">Kapitel 1</a> · <a href="kapitel-2.html">Kapitel 2</a> · <a href="kapitel-3.html">Kapitel 3</a> · <a href="kapitel-4.html">Kapitel 4</a> · <a href="kapitel-5.html">Kapitel 5</a> · <a href="app/labor-1.html">Labor 1</a> · <a href="app/labor-2.html">Labor 2</a> · <a href="app/labor-3.html">Labor 3</a> · <a href="app/labor-4.html">Labor 4</a> · <a href="app/labor-5.html">Labor 5</a> · <a href="glossar.html">Glossar</a> · <a href="leitfaden.html">Leitfaden</a></span>
+  <span><a href="index.html">Startseite</a> · <a href="kapitel-1.html">Kapitel 1</a> · <a href="kapitel-2.html">Kapitel 2</a> · <a href="kapitel-3.html">Kapitel 3</a> · <a href="kapitel-4.html">Kapitel 4</a> · <a href="kapitel-5.html">Kapitel 5</a> · <a href="kapitel-6.html">Kapitel 6</a> · <a href="app/labor-1.html">Labor 1</a> · <a href="app/labor-2.html">Labor 2</a> · <a href="app/labor-3.html">Labor 3</a> · <a href="app/labor-4.html">Labor 4</a> · <a href="app/labor-5.html">Labor 5</a> · <a href="app/labor-6.html">Labor 6</a> · <a href="glossar.html">Glossar</a> · <a href="leitfaden.html">Leitfaden</a></span>
 </div></footer>
 <script src="assets/thema.js"></script>
 <script src="assets/site.js"></script>
@@ -333,7 +348,7 @@ def startseite(infos):
   <div>
     <p class="augenbraue">KI-Workshop</p>
     <h1>Vom Eisverkäufer zum Sprachmodell</h1>
-    <p class="lead">Ein Workshop über neuronale Netze, Sprachmodelle wie ChatGPT, die Suche in eigenen Unterlagen, KI-Agenten, die Werkzeuge benutzen, und Modelle, die vor der Antwort nachdenken. Alles wird an einem durchgehenden Beispiel erklärt, Vorkenntnisse und Programmieren sind nicht nötig.</p>
+    <p class="lead">Ein Workshop über neuronale Netze, Sprachmodelle wie ChatGPT, die Suche in eigenen Unterlagen, KI-Agenten, die Werkzeuge benutzen, Modelle, die vor der Antwort nachdenken, und gute Prompts für den Alltag. Alles wird an einem durchgehenden Beispiel erklärt, Vorkenntnisse und Programmieren sind nicht nötig.</p>
     <div class="aktionen"><a class="knopf primaer" href="kapitel-1.html">Mit Kapitel 1 beginnen</a><a class="knopf" href="#labore">Direkt ausprobieren</a></div>
   </div>
   {ILLUSTRATION}
@@ -350,7 +365,7 @@ def startseite(infos):
     <h2>So lernst du in diesem Workshop</h2>
     <p class="bereich-sub">Alle Kapitel sind gleich aufgebaut.</p>
     <div class="merkmale">
-      <div class="merkmal"><div class="symbol">{SYMBOLE["faden"]}</div><h3>Ein durchgehendes Beispiel</h3><p>Ein Eisverkäufer will wissen, wie viel Eis er braucht. An seinen Daten entstehen Gerade, Neuron und Netz. Die Kapitel zu Sprachmodell, Suche, Agenten und Reasoning-Modellen greifen das Beispiel wieder auf.</p></div>
+      <div class="merkmal"><div class="symbol">{SYMBOLE["faden"]}</div><h3>Ein durchgehendes Beispiel</h3><p>Ein Eisverkäufer will wissen, wie viel Eis er braucht. An seinen Daten entstehen Gerade, Neuron und Netz. Alle weiteren Kapitel greifen das Beispiel wieder auf.</p></div>
       <div class="merkmal"><div class="symbol">{SYMBOLE["frage"]}</div><h3>Fragen und Merksätze</h3><p>Jedes Kapitel beginnt mit Lernzielen und enthält Fragen zum Nachdenken, einen Merksatz pro Abschnitt und am Ende einen kurzen Selbsttest.</p></div>
       <div class="merkmal"><div class="symbol">{SYMBOLE["labor"]}</div><h3>Labore im Browser</h3><p>Regler verschieben, Texte zerlegen, nach Bedeutung suchen, einem Agenten zusehen. Die Labore laufen direkt im Browser, ohne Installation.</p></div>
       <div class="merkmal"><div class="symbol">{SYMBOLE["kasten"]}</div><h3>Rechnungen zum Aufklappen</h3><p>Formeln und Rechenwege stehen in aufklappbaren Kästen. Für das Verständnis des Haupttexts sind sie nicht nötig.</p></div>
@@ -366,8 +381,8 @@ def startseite(infos):
   <section class="bereich">
     <h2>Nachschlagen und vorbereiten</h2>
     <div class="zusatzkarten">
-      <a class="zusatzkarte" href="glossar.html"><h3>Glossar</h3><p>Alle Fachbegriffe in Alltagssprache, von „Agent“ bis „Workflow“, jeweils mit Verweis auf das Kapitel, in dem sie erklärt werden.</p></a>
-      <a class="zusatzkarte" href="leitfaden.html"><h3>Leitfaden für Moderierende</h3><p>Ablauf für zwei Sitzungen und zwei Zusatzmodule mit 10 bis 15 Teilnehmenden, Fragen an die Gruppe, typische Rückfragen aus dem Publikum und eine Checkliste für die Technik.</p></a>
+      <a class="zusatzkarte" href="glossar.html"><h3>Glossar</h3><p>Alle Fachbegriffe in Alltagssprache, von „Agent“ bis „Zero-Shot“, jeweils mit Verweis auf das Kapitel, in dem sie erklärt werden.</p></a>
+      <a class="zusatzkarte" href="leitfaden.html"><h3>Leitfaden für Moderierende</h3><p>Ablauf für zwei Sitzungen und drei Zusatzmodule mit 10 bis 15 Teilnehmenden, Fragen an die Gruppe, typische Rückfragen aus dem Publikum und eine Checkliste für die Technik.</p></a>
     </div>
   </section>
 
@@ -378,10 +393,11 @@ def startseite(infos):
 uv run docs/beispiele/02_tokenizer.py "Drei Kugeln Vanille, bitte."
 uv run docs/beispiele/03_semantische_suche.py "Habt ihr Eis für Hunde?"
 uv run docs/beispiele/04_agenten.py
-uv run docs/beispiele/05_nachdenken.py</code></pre></div>
+uv run docs/beispiele/05_nachdenken.py
+uv run docs/beispiele/06_prompts.py</code></pre></div>
   </details>
 </div>"""
-    (DOCS / "index.html").write_text(seite("KI-Workshop: Vom Eisverkäufer zum Sprachmodell", "Wie neuronale Netze, Sprachmodelle, die Suche nach Bedeutung, KI-Agenten und Reasoning-Modelle funktionieren, an einem durchgehenden Beispiel erklärt, ohne Vorkenntnisse und mit Laboren zum Ausprobieren.", "index.html", inhalt), encoding="utf-8")
+    (DOCS / "index.html").write_text(seite("KI-Workshop: Vom Eisverkäufer zum Sprachmodell", "Wie neuronale Netze, Sprachmodelle, die Suche nach Bedeutung, KI-Agenten und Reasoning-Modelle funktionieren und wie man gute Prompts schreibt, an einem durchgehenden Beispiel erklärt, ohne Vorkenntnisse und mit Laboren zum Ausprobieren.", "index.html", inhalt), encoding="utf-8")
 
 
 def main():

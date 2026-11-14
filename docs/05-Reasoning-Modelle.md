@@ -358,6 +358,10 @@ Nein. Das Denkprotokoll ist selbst erzeugter Text und beschreibt nicht zuverläs
 
 </details>
 
+## Wie es weitergeht
+
+Du weißt jetzt, wie Sprachmodelle, Suche, Agenten und Reasoning-Modelle arbeiten. Was daraus für den Alltag folgt, steht in [Kapitel 6](06-Gut-fragen.md): welche Angaben in einen Prompt gehören, wie du eine Antwort im Gespräch verbesserst und welche Fragen ein Modell in die Irre führen.
+
 ## Selbst ausprobieren
 
 In [Labor 5](app/labor-5.html) kannst du das ausgedachte Modell aus diesem Kapitel selbst rechnen lassen, mit und ohne Rechenweg. Du kannst einstellen, wie oft es sich verrechnet, über beliebig viele Antworten abstimmen und das Spielzeug-Training aus Abschnitt 6 Runde für Runde beobachten. Außerdem zeigt das Labor die drei Antworten aus Abschnitt 7 als Tokens. Es läuft direkt im Browser, auch ohne Internetverbindung.

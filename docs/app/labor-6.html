@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try{var t=localStorage.getItem("ki-workshop-thema");if(t==="dark"||t==="light")document.documentElement.dataset.theme=t}catch(e){}</script>
+<title>Prompt-Werkstatt</title>
+<style>
+  :root {
+    color-scheme: light;
+    --page: #f9f9f7;
+    --surface: #fcfcfb;
+    --text: #0b0b0b;
+    --text2: #52514e;
+    --muted: #898781;
+    --grid: #e1e0d9;
+    --axis: #c3c2b7;
+    --border: rgba(11, 11, 11, 0.10);
+    --blue: #2a78d6;
+    --orange: #eb6834;
+    --green: #0c8a5c;
+    --red: #c4381a;
+    --wash: rgba(42, 120, 214, 0.08);
+    --wash-green: rgba(12, 138, 92, 0.12);
+    --wash-red: rgba(196, 56, 26, 0.11);
+    --b-aufgabe: #2a78d6;
+    --b-hintergrund: #1baf7a;
+    --b-material: #eda100;
+    --b-form: #8a63d2;
+    --b-beispiel: #d6488f;
+    --b-regeln: #eb6834;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --page: #0d0d0d;
+      --surface: #1a1a19;
+      --text: #f0efec;
+      --text2: #c3c2b7;
+      --muted: #898781;
+      --grid: #2c2c2a;
+      --axis: #383835;
+      --border: rgba(255, 255, 255, 0.10);
+      --blue: #3987e5;
+      --orange: #d95926;
+      --green: #2fb57f;
+      --red: #e8603f;
+      --wash: rgba(57, 135, 229, 0.14);
+      --wash-green: rgba(47, 181, 127, 0.18);
+      --wash-red: rgba(232, 96, 63, 0.18);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --page: #0d0d0d;
+    --surface: #1a1a19;
+    --text: #f0efec;
+    --text2: #c3c2b7;
+    --muted: #898781;
+    --grid: #2c2c2a;
+    --axis: #383835;
+    --border: rgba(255, 255, 255, 0.10);
+    --blue: #3987e5;
+    --orange: #d95926;
+    --green: #2fb57f;
+    --red: #e8603f;
+    --wash: rgba(57, 135, 229, 0.14);
+    --wash-green: rgba(47, 181, 127, 0.18);
+    --wash-red: rgba(232, 96, 63, 0.18);
+  }
+
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--page); color: var(--text); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  header, main, footer { max-width: 1240px; margin: 0 auto; padding-left: 16px; padding-right: 16px; }
+  header { padding-top: 20px; }
+  h1 { font-size: 26px; line-height: 1.2; margin: 0 0 6px; }
+  h2 { font-size: 19px; margin: 0 0 2px; }
+  h3 { font-size: 15px; margin: 0 0 8px; }
+  p { margin: 0 0 10px; }
+  code { font: 13.5px ui-monospace, "SF Mono", Menlo, monospace; background: var(--wash); padding: 1px 5px; border-radius: 4px; }
+  .sub { color: var(--text2); margin: 0 0 18px; max-width: 760px; }
+
+  nav.tabs { display: flex; gap: 2px; overflow-x: auto; border-bottom: 1px solid var(--grid); }
+  nav.tabs button { appearance: none; border: 0; background: none; font: inherit; cursor: pointer; white-space: nowrap; padding: 10px 14px; color: var(--text2); border-bottom: 2px solid transparent; margin-bottom: -1px; }
+  nav.tabs button:hover { color: var(--text); }
+  nav.tabs button[aria-selected="true"] { color: var(--text); border-bottom-color: var(--blue); font-weight: 600; }
+  nav.tabs button .nr { color: var(--muted); margin-right: 6px; font-weight: 400; }
+
+  main { padding-top: 18px; padding-bottom: 24px; }
+  .panel { display: grid; grid-template-columns: minmax(280px, 350px) minmax(0, 1fr); gap: 16px; align-items: start; }
+  .panel[hidden] { display: none; }
+  .side, .haupt { display: grid; gap: 16px; min-width: 0; }
+  @media (max-width: 880px) {
+    .panel { grid-template-columns: minmax(0, 1fr); }
+    /* Auf schmalen Bildschirmen stehen die Ergebnisse direkt unter den Einstellungen, die Aufträge danach */
+    .side { display: contents; }
+    .side .tasks { order: 2; }
+    .haupt { order: 1; }
+  }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; min-width: 0; }
+  .ref { color: var(--muted); font-size: 13px; margin-bottom: 10px; }
+  .ref a { color: inherit; }
+  .intro p:last-child, .tasks ul { margin-bottom: 0; }
+  .tasks ul { padding-left: 18px; }
+  .tasks li { margin-bottom: 6px; }
+  .tasks li:last-child { margin-bottom: 0; }
+  .titel { font-size: 15px; font-weight: 600; margin: 0 0 2px; }
+  .titel-sub { font-size: 13px; color: var(--text2); margin: 0 0 12px; }
+  .gruppe + .gruppe { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--grid); }
+  .gruppe-titel { font-size: 13px; font-weight: 600; color: var(--text2); margin-bottom: 6px; }
+  .hinweis { font-size: 13px; color: var(--text2); margin: 8px 0 0; }
+
+  .knoepfe { display: flex; flex-wrap: wrap; gap: 8px; }
+  button.knopf { appearance: none; font: inherit; font-size: 14px; cursor: pointer; padding: 6px 12px; border-radius: 8px; border: 1px solid var(--axis); background: var(--surface); color: var(--text); }
+  button.knopf:hover:not(:disabled) { background: var(--wash); }
+  button.knopf.primaer { background: var(--blue); border-color: var(--blue); color: #fff; }
+  button.knopf.primaer:hover:not(:disabled) { filter: brightness(1.08); background: var(--blue); }
+  button.knopf:disabled { opacity: 0.5; cursor: default; }
+  .segment { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--axis); border-radius: 8px; overflow: hidden; }
+  .segment button { appearance: none; font: inherit; font-size: 14px; border: 0; background: none; color: var(--text2); padding: 5px 12px; cursor: pointer; }
+  .segment button + button { border-left: 1px solid var(--axis); }
+  .segment button[aria-pressed="true"] { background: var(--wash); color: var(--text); font-weight: 600; }
+
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+  .stat { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 10px 14px; }
+  .stat .label { font-size: 13px; color: var(--text2); }
+  .stat .wert { font-size: 22px; font-weight: 600; line-height: 1.3; font-variant-numeric: tabular-nums; }
+  .stat .zusatz { font-size: 12.5px; color: var(--muted); }
+
+  /* Bausteine */
+  .farbe-aufgabe { --b: var(--b-aufgabe); }
+  .farbe-hintergrund { --b: var(--b-hintergrund); }
+  .farbe-material { --b: var(--b-material); }
+  .farbe-form { --b: var(--b-form); }
+  .farbe-beispiel { --b: var(--b-beispiel); }
+  .farbe-regeln { --b: var(--b-regeln); }
+  .schalterliste { display: grid; gap: 6px; }
+  .baustein-schalter { display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; align-items: start; padding: 7px 10px; border-radius: 8px; border: 1px solid var(--border); border-left: 4px solid var(--b); cursor: pointer; }
+  .baustein-schalter input { margin: 3px 0 0; width: 16px; height: 16px; accent-color: var(--b); grid-row: span 2; }
+  .baustein-schalter .name { font-weight: 600; font-size: 14px; }
+  .baustein-schalter .name small { font-weight: 400; color: var(--muted); margin-left: 4px; }
+  .baustein-schalter .frage { font-size: 13px; color: var(--text2); }
+  .baustein-schalter.aus { opacity: 0.45; cursor: default; }
+
+  .prompt { display: grid; gap: 8px; }
+  .teil { border-left: 4px solid var(--b); background: var(--page); border-radius: 0 8px 8px 0; padding: 6px 10px; }
+  .teil .kopf { font-size: 12px; font-weight: 600; color: var(--b); margin-bottom: 2px; }
+  .teil pre { margin: 0; white-space: pre-wrap; word-break: break-word; font: 13.5px/1.5 ui-monospace, "SF Mono", Menlo, monospace; }
+  .leer { color: var(--muted); font-size: 14px; margin: 0; }
+  .antwort { white-space: pre-wrap; background: var(--page); border-radius: 8px; padding: 10px 12px; margin: 0; font-size: 14.5px; }
+  .etikett { display: inline-block; font-size: 12px; font-weight: 600; border-radius: 4px; padding: 0 6px; background: var(--wash); color: var(--text2); margin-left: 6px; vertical-align: 1px; }
+  .fehlt { margin: 0; padding-left: 18px; font-size: 14px; }
+  .fehlt li { margin-bottom: 4px; }
+
+  /* 2. Was fehlt? */
+  pre.schwach { margin: 0 0 14px; white-space: pre-wrap; word-break: break-word; font: 15px/1.5 ui-monospace, "SF Mono", Menlo, monospace; background: var(--page); padding: 10px 12px; border-radius: 8px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+  .chips button { appearance: none; font: inherit; font-size: 14px; cursor: pointer; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--axis); border-left: 4px solid var(--b); background: var(--surface); color: var(--text); }
+  .chips button[aria-pressed="true"] { background: var(--wash); font-weight: 600; }
+  .chips button.richtig { background: var(--wash-green); border-color: var(--green); border-left-color: var(--b); }
+  .chips button.falsch { background: var(--wash-red); border-color: var(--red); border-left-color: var(--b); }
+  .chips button.vergessen { border-style: dashed; border-color: var(--green); border-left: 4px solid var(--b); }
+  .chips button:disabled { cursor: default; }
+  .aufloesung[hidden] { display: none; }
+  .aufloesung { border-top: 1px solid var(--grid); padding-top: 14px; }
+  .legende { font-size: 13px; color: var(--text2); margin: 0 0 10px; }
+  .navi { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 16px; }
+  .navi .stand { font-size: 13px; color: var(--text2); }
+
+  /* 3. Offen fragen */
+  .liste { display: grid; gap: 4px; }
+  .liste button { appearance: none; font: inherit; font-size: 14px; text-align: left; cursor: pointer; padding: 6px 10px; border-radius: 8px; border: 1px solid transparent; background: none; color: var(--text); }
+  .liste button:hover { background: var(--wash); }
+  .liste button[aria-pressed="true"] { background: var(--wash); border-color: var(--axis); font-weight: 600; }
+  .paar { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  @media (max-width: 640px) { .paar { grid-template-columns: minmax(0, 1fr); } }
+  .frage-text { font-weight: 600; font-size: 15.5px; margin: 0 0 10px; }
+  .card.suggestiv { border-top: 4px solid var(--red); }
+  .card.offen { border-top: 4px solid var(--green); }
+
+  footer { color: var(--muted); font-size: 13px; padding-bottom: 28px; }
+  footer a { color: var(--text2); }
+</style>
+<link rel="stylesheet" href="../assets/leiste.css">
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+</head>
+<body>
+<div class="leiste"><div class="leiste-innen">
+  <a class="marke" href="../index.html" aria-label="KI-Workshop, zur Startseite"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.5 11.5h11L12 23z" fill="#eb6834"/><circle cx="12" cy="8" r="6.2" fill="#2a78d6"/><path d="M8.6 9.3 12 5.4l3.4 3.9M8.6 9.3h6.8" stroke="#fff" stroke-width="0.9" fill="none" stroke-linejoin="round"/><circle cx="12" cy="5.4" r="1.35" fill="#fff"/><circle cx="8.6" cy="9.3" r="1.35" fill="#fff"/><circle cx="15.4" cy="9.3" r="1.35" fill="#fff"/></svg><span>KI-Workshop</span></a>
+  <nav aria-label="Workshop"><a href="../kapitel-1.html">Kapitel 1</a><a href="../kapitel-2.html">Kapitel 2</a><a href="../kapitel-3.html">Kapitel 3</a><a href="../kapitel-4.html">Kapitel 4</a><a href="../kapitel-5.html">Kapitel 5</a><a href="../kapitel-6.html">Kapitel 6</a><span class="trenner"></span><a href="labor-1.html">Labor 1</a><a href="labor-2.html">Labor 2</a><a href="labor-3.html">Labor 3</a><a href="labor-4.html">Labor 4</a><a href="labor-5.html">Labor 5</a><a href="labor-6.html" aria-current="page">Labor 6</a><span class="trenner"></span><a href="../glossar.html">Glossar</a></nav>
+  <button class="thema-knopf" type="button" aria-label="Design wechseln"><svg class="mond" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><svg class="sonne" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+</div></div>
+<header>
+  <h1>Prompt-Werkstatt</h1>
+  <p class="sub">Zu Kapitel 6: Prompts aus sechs Bausteinen zusammenbauen und in einem Chat-Assistenten ausprobieren, in schwachen Prompts die Lücken finden und suggestive mit offenen Fragen vergleichen. Probier es am besten zu zweit aus und erklärt euch gegenseitig, was ihr seht.</p>
+  <nav class="tabs" role="tablist" aria-label="Themen">
+    <button role="tab" id="t-baukasten" aria-controls="p-baukasten" data-tab="baukasten"><span class="nr">1</span>Prompt-Baukasten</button>
+    <button role="tab" id="t-check" aria-controls="p-check" data-tab="check"><span class="nr">2</span>Was fehlt?</button>
+    <button role="tab" id="t-fragen" aria-controls="p-fragen" data-tab="fragen"><span class="nr">3</span>Offen fragen</button>
+  </nav>
+</header>
+
+<main>
+  <section class="panel" id="p-baukasten" role="tabpanel" aria-labelledby="t-baukasten" hidden>
+    <div class="side">
+      <div class="card intro">
+        <h2>Prompt-Baukasten</h2>
+        <p class="ref"><a href="../kapitel-6.html#2-die-sechs-bausteine-eines-prompts">Kapitel 6, Abschnitte 2 bis 5</a></p>
+        <p>Wähl eine Aufgabe der Eisdiele und schalte die Bausteine ein und aus. Der Prompt rechts wächst mit, die Tokens sind mit dem Tokenizer aus Kapitel 2 gezählt.</p>
+        <p>Ein Sprachmodell ist hier nicht eingebaut. Kopier den Prompt in einen Chat-Assistenten und vergleiche die Antworten.</p>
+      </div>
+      <div class="card">
+        <div class="gruppe">
+          <div class="gruppe-titel">Aufgabe</div>
+          <div class="liste" id="b-aufgaben"></div>
+        </div>
+        <div class="gruppe">
+          <div class="gruppe-titel">Bausteine</div>
+          <div class="schalterliste" id="b-schalter"></div>
+          <div class="knoepfe" style="margin-top:10px">
+            <button type="button" class="knopf" id="b-typisch">Typischer Prompt</button>
+            <button type="button" class="knopf" id="b-alle">Alle Bausteine</button>
+          </div>
+          <p class="hinweis">„Typischer Prompt“ heißt: nur Aufgabe und Material, so wie viele Leute fragen.</p>
+        </div>
+      </div>
+      <div class="card tasks">
+        <h3>Ausprobieren</h3>
+        <ul>
+          <li>Den typischen und den vollständigen Prompt in einen Chat-Assistenten kopieren und die Antworten vergleichen.</li>
+          <li>Nur einen Baustein weglassen: Welcher fehlt in der Antwort am meisten?</li>
+          <li>Bei der Auswertung den Hintergrund ein- und ausschalten. Was ändert ein einziger Satz?</li>
+        </ul>
+      </div>
+    </div>
+    <div class="haupt">
+      <div class="stats" id="b-stats"></div>
+      <div class="card">
+        <div class="knoepfe" style="justify-content:space-between;align-items:center;margin-bottom:12px">
+          <p class="titel" style="margin:0">Dein Prompt</p>
+          <button type="button" class="knopf primaer" id="b-kopieren">Prompt kopieren</button>
+        </div>
+        <div class="prompt" id="b-prompt"></div>
+      </div>
+      <div class="card">
+        <p class="titel">Was noch fehlt</p>
+        <p class="titel-sub">Diese Fragen beantwortet dein Prompt noch nicht.</p>
+        <div id="b-fehlt"></div>
+      </div>
+      <div class="card">
+        <p class="titel" id="b-antwort-titel">So könnte die Antwort aussehen</p>
+        <p class="titel-sub" id="b-antwort-sub"></p>
+        <div id="b-antwort"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="p-check" role="tabpanel" aria-labelledby="t-check" hidden>
+    <div class="side">
+      <div class="card intro">
+        <h2>Was fehlt?</h2>
+        <p class="ref"><a href="../kapitel-6.html#2-die-sechs-bausteine-eines-prompts">Kapitel 6, Abschnitte 2 bis 5</a></p>
+        <p>Fünf Prompts, wie sie oft geschrieben werden. Markiere die Bausteine, die deiner Meinung nach fehlen, und lös dann auf.</p>
+        <p>Es gibt nicht die eine richtige Lösung. Die Auflösung nennt die Lücken, die am meisten ausmachen.</p>
+      </div>
+      <div class="card tasks">
+        <h3>Ausprobieren</h3>
+        <ul>
+          <li>Erst zu zweit diskutieren, dann markieren.</li>
+          <li>Einen schwachen und den verbesserten Prompt in einen Chat-Assistenten geben und vergleichen.</li>
+          <li>Einen eigenen Prompt aus dem Alltag mitbringen: Welche Bausteine fehlen ihm?</li>
+        </ul>
+      </div>
+    </div>
+    <div class="haupt">
+      <div class="stats" id="c-stats"></div>
+      <div class="card">
+        <p class="titel">Der Prompt</p>
+        <pre class="schwach" id="c-prompt"></pre>
+        <div class="gruppe-titel">Welche Bausteine fehlen?</div>
+        <div class="chips" id="c-chips"></div>
+        <button type="button" class="knopf primaer" id="c-aufloesen">Auflösen</button>
+        <div class="aufloesung" id="c-aufloesung" hidden>
+          <p class="legende">Grün: richtig erkannt. Rot: fehlt nicht. Gestrichelt: fehlt, aber nicht markiert.</p>
+          <p id="c-erklaerung"></p>
+          <div class="gruppe-titel">Verbesserte Fassung</div>
+          <pre class="schwach" id="c-besser" style="margin:0"></pre>
+        </div>
+        <div class="navi">
+          <button type="button" class="knopf" id="c-zurueck">Zurück</button>
+          <span class="stand" id="c-stand"></span>
+          <button type="button" class="knopf primaer" id="c-weiter">Nächster Prompt</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="p-fragen" role="tabpanel" aria-labelledby="t-fragen" hidden>
+    <div class="side">
+      <div class="card intro">
+        <h2>Offen fragen</h2>
+        <p class="ref"><a href="../kapitel-6.html#9-fallen-suggestivfragen-und-gefälligkeit">Kapitel 6, Abschnitt 9</a></p>
+        <p>Sprachmodelle neigen dazu, ihrem Gegenüber recht zu geben (Gefälligkeit, englisch Sycophancy). Eine Suggestivfrage legt deshalb oft schon die Antwort fest.</p>
+        <p>Die Antworten hier sind ausgedacht, aber typisch.</p>
+      </div>
+      <div class="card">
+        <div class="gruppe-titel">Situation</div>
+        <div class="liste" id="f-liste"></div>
+      </div>
+      <div class="card tasks">
+        <h3>Ausprobieren</h3>
+        <ul>
+          <li>Beide Fragen in einen Chat-Assistenten geben. Antwortet er ähnlich wie hier?</li>
+          <li>Eine eigene Suggestivfrage aus dem Alltag in eine offene Frage umschreiben.</li>
+          <li>Bei einer richtigen Antwort „Bist du sicher?“ fragen und beobachten, was passiert.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="haupt">
+      <div class="paar">
+        <div class="card suggestiv">
+          <p class="titel-sub">Suggestiv gefragt</p>
+          <p class="frage-text" id="f-suggestiv"></p>
+          <p class="antwort" id="f-antwort-suggestiv"></p>
+        </div>
+        <div class="card offen">
+          <p class="titel-sub">Offen gefragt</p>
+          <p class="frage-text" id="f-neutral"></p>
+          <p class="antwort" id="f-antwort-neutral"></p>
+        </div>
+      </div>
+      <div class="card">
+        <p class="titel">Was passiert hier?</p>
+        <p id="f-erklaerung" style="margin:0"></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  Prompts, Token-Zahlen und Beispielantworten hat das Skript <code>docs/beispiele/06_prompts.py</code> vorab erzeugt. Die Beispielantworten sind ausgedacht, aber typisch. Die Seite läuft ohne Server und ohne Internetverbindung.
+  <br>Texte und Grafiken: <a href="https://creativecommons.org/licenses/by/4.0/deed.de">CC BY 4.0</a> · Code: <a href="https://github.com/kariha70/ki-workshop/blob/main/LICENSE">MIT</a> · <a href="https://github.com/kariha70/ki-workshop">Quellcode auf GitHub</a>
+</footer>
+
+<script src="prompt-daten.js"></script>
+<script>
+"use strict";
+
+const DATEN = window.PROMPT_DATEN;
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const BAUSTEINE = DATEN.bausteine;
+const NAME = Object.fromEntries(BAUSTEINE.map(b => [b.id, b.name]));
+
+// ---------- Tabs ----------
+const TABS = ["baukasten", "check", "fragen"];
+function zeigeTab(name, fokus = false) {
+  if (!TABS.includes(name)) name = "baukasten";
+  for (const t of TABS) {
+    const knopf = document.querySelector(`[data-tab="${t}"]`);
+    knopf.setAttribute("aria-selected", String(t === name));
+    knopf.tabIndex = t === name ? 0 : -1;
+    document.getElementById("p-" + t).hidden = t !== name;
+  }
+  if (fokus) document.querySelector(`[data-tab="${name}"]`).focus();
+  if (location.hash !== "#" + name) history.replaceState(null, "", "#" + name);
+}
+document.querySelectorAll("[data-tab]").forEach(knopf => {
+  knopf.addEventListener("click", () => zeigeTab(knopf.dataset.tab));
+  knopf.addEventListener("keydown", e => {
+    const i = TABS.indexOf(knopf.dataset.tab);
+    if (e.key === "ArrowRight") zeigeTab(TABS[(i + 1) % TABS.length], true);
+    if (e.key === "ArrowLeft") zeigeTab(TABS[(i + TABS.length - 1) % TABS.length], true);
+  });
+});
+window.addEventListener("hashchange", () => zeigeTab(location.hash.slice(1)));
+
+// ---------- 1. Prompt-Baukasten ----------
+const B = { aufgabe: DATEN.aufgaben[0], an: new Set(DATEN.aufgaben[0].typisch) };
+const vorhanden = a => BAUSTEINE.map(b => b.id).filter(id => a.bausteine[id]);
+const gewaehlt = () => vorhanden(B.aufgabe).filter(id => B.an.has(id));
+const gleich = (liste, menge) => liste.length === menge.length && liste.every(x => menge.includes(x));
+
+const aufgabenKnoepfe = DATEN.aufgaben.map(a => {
+  const k = document.createElement("button");
+  k.type = "button";
+  k.textContent = a.titel;
+  k.addEventListener("click", () => { B.aufgabe = a; B.an = new Set(a.typisch); zeichneBaukasten(); });
+  $("#b-aufgaben").append(k);
+  return [a, k];
+});
+
+const schalter = BAUSTEINE.map(b => {
+  const label = document.createElement("label");
+  label.className = `baustein-schalter farbe-${b.id}`;
+  label.innerHTML = `<input type="checkbox"><span class="name">${esc(b.name)}<small>${esc(b.englisch)}</small></span><span class="frage">${esc(b.frage)}</span>`;
+  const box = label.querySelector("input");
+  box.addEventListener("change", () => { box.checked ? B.an.add(b.id) : B.an.delete(b.id); zeichneBaukasten(); });
+  $("#b-schalter").append(label);
+  return [b.id, label, box];
+});
+
+$("#b-typisch").addEventListener("click", () => { B.an = new Set(B.aufgabe.typisch); zeichneBaukasten(); });
+$("#b-alle").addEventListener("click", () => { B.an = new Set(vorhanden(B.aufgabe)); zeichneBaukasten(); });
+
+$("#b-stats").innerHTML = [["tokens", "Tokens im Prompt"], ["bausteine", "Bausteine"], ["voll", "Vollständiger Prompt"]].map(([k, l]) =>
+  `<div class="stat"><div class="label">${l}</div><div class="wert" data-b="${k}"></div><div class="zusatz" data-bz="${k}"></div></div>`).join("");
+
+const promptText = () => gewaehlt().map(id => B.aufgabe.bausteine[id]).join("\n\n");
+
+function zeichneBaukasten() {
+  const a = B.aufgabe;
+  aufgabenKnoepfe.forEach(([x, k]) => k.setAttribute("aria-pressed", String(x === a)));
+  for (const [id, label, box] of schalter) {
+    const da = Boolean(a.bausteine[id]);
+    box.disabled = !da;
+    box.checked = da && B.an.has(id);
+    label.classList.toggle("aus", !da);
+    label.title = da ? "" : "Für diese Aufgabe nicht nötig";
+  }
+  const auswahl = gewaehlt();
+  const alle = vorhanden(a);
+  const tokens = auswahl.length ? a.tokens[auswahl.join("+")] : 0;
+  $('[data-b="tokens"]').textContent = String(tokens);
+  $('[data-bz="tokens"]').textContent = "gezählt mit o200k_base";
+  $('[data-b="bausteine"]').textContent = `${auswahl.length} von ${alle.length}`;
+  $('[data-bz="bausteine"]').textContent = alle.length < BAUSTEINE.length ? "ein Baustein ist hier nicht nötig" : "";
+  $('[data-b="voll"]').textContent = String(a.tokens[alle.join("+")]);
+  $('[data-bz="voll"]').textContent = "Tokens mit allen Bausteinen";
+
+  $("#b-prompt").innerHTML = auswahl.length
+    ? auswahl.map(id => `<div class="teil farbe-${id}"><div class="kopf">${esc(NAME[id])}</div><pre>${esc(a.bausteine[id])}</pre></div>`).join("")
+    : `<p class="leer">Noch kein Baustein gewählt.</p>`;
+  $("#b-kopieren").disabled = !auswahl.length;
+
+  const fehlt = alle.filter(id => !B.an.has(id));
+  $("#b-fehlt").innerHTML = fehlt.length
+    ? `<ul class="fehlt">${fehlt.map(id => { const b = BAUSTEINE.find(x => x.id === id); return `<li><strong>${esc(b.name)}:</strong> ${esc(b.frage)}</li>`; }).join("")}</ul>`
+    : `<p class="leer">Nichts. Der Prompt enthält alle Bausteine, die diese Aufgabe braucht.</p>`;
+
+  let antwort = null, art = "";
+  if (gleich(auswahl, a.typisch)) { antwort = a.antwortTypisch; art = "auf den typischen Prompt"; }
+  else if (gleich(auswahl, alle)) { antwort = a.antwortVollstaendig; art = "auf den vollständigen Prompt"; }
+  $("#b-antwort-sub").innerHTML = antwort
+    ? `Antwort ${art}<span class="etikett">ausgedacht</span>`
+    : "Für den typischen und den vollständigen Prompt zeigt das Labor eine ausgedachte, aber typische Antwort.";
+  $("#b-antwort").innerHTML = antwort
+    ? `<p class="antwort">${esc(antwort)}</p>`
+    : `<p class="leer">Für diese Auswahl gibt es hier keine Beispielantwort. Kopier den Prompt in einen Chat-Assistenten und sieh nach.</p>`;
+}
+
+$("#b-kopieren").addEventListener("click", async () => {
+  const knopf = $("#b-kopieren");
+  try {
+    await navigator.clipboard.writeText(promptText());
+    knopf.textContent = "Kopiert";
+  } catch (e) {
+    knopf.textContent = "Kopieren nicht möglich";
+  }
+  setTimeout(() => { knopf.textContent = "Prompt kopieren"; }, 1600);
+});
+
+// ---------- 2. Was fehlt? ----------
+const C = { nr: 0, markiert: DATEN.schwach.map(() => new Set()), aufgeloest: DATEN.schwach.map(() => false) };
+const chipKnoepfe = BAUSTEINE.map(b => {
+  const k = document.createElement("button");
+  k.type = "button";
+  k.className = `farbe-${b.id}`;
+  k.textContent = b.name;
+  k.addEventListener("click", () => {
+    const m = C.markiert[C.nr];
+    m.has(b.id) ? m.delete(b.id) : m.add(b.id);
+    zeichneCheck();
+  });
+  $("#c-chips").append(k);
+  return [b.id, k];
+});
+$("#c-aufloesen").addEventListener("click", () => { C.aufgeloest[C.nr] = true; zeichneCheck(); });
+$("#c-zurueck").addEventListener("click", () => { C.nr = Math.max(0, C.nr - 1); zeichneCheck(); });
+$("#c-weiter").addEventListener("click", () => { C.nr = Math.min(DATEN.schwach.length - 1, C.nr + 1); zeichneCheck(); });
+$("#c-stats").innerHTML = [["geloest", "Aufgelöst"], ["treffer", "Lücken richtig erkannt"]].map(([k, l]) =>
+  `<div class="stat"><div class="label">${l}</div><div class="wert" data-c="${k}"></div></div>`).join("");
+
+function zeichneCheck() {
+  const s = DATEN.schwach[C.nr];
+  const m = C.markiert[C.nr];
+  const auf = C.aufgeloest[C.nr];
+  $("#c-prompt").textContent = s.prompt;
+  for (const [id, k] of chipKnoepfe) {
+    k.setAttribute("aria-pressed", String(m.has(id)));
+    k.disabled = auf;
+    const fehlt = s.fehlt.includes(id);
+    k.classList.toggle("richtig", auf && m.has(id) && fehlt);
+    k.classList.toggle("falsch", auf && m.has(id) && !fehlt);
+    k.classList.toggle("vergessen", auf && !m.has(id) && fehlt);
+  }
+  $("#c-aufloesen").hidden = auf;
+  $("#c-aufloesung").hidden = !auf;
+  $("#c-erklaerung").textContent = `Es fehlen vor allem: ${s.fehlt.map(id => NAME[id]).join(", ")}. ${s.erklaerung}`;
+  $("#c-besser").textContent = s.besser;
+  $("#c-stand").textContent = `Prompt ${C.nr + 1} von ${DATEN.schwach.length}`;
+  $("#c-zurueck").disabled = C.nr === 0;
+  $("#c-weiter").disabled = C.nr === DATEN.schwach.length - 1;
+  const geloest = DATEN.schwach.filter((_, i) => C.aufgeloest[i]);
+  const treffer = DATEN.schwach.reduce((n, x, i) => n + (C.aufgeloest[i] ? x.fehlt.filter(id => C.markiert[i].has(id)).length : 0), 0);
+  const moeglich = DATEN.schwach.reduce((n, x, i) => n + (C.aufgeloest[i] ? x.fehlt.length : 0), 0);
+  $('[data-c="geloest"]').textContent = `${geloest.length} von ${DATEN.schwach.length}`;
+  $('[data-c="treffer"]').textContent = moeglich ? `${treffer} von ${moeglich}` : "–";
+}
+
+// ---------- 3. Offen fragen ----------
+const F = { nr: 0 };
+const paarKnoepfe = DATEN.fragepaare.map((p, i) => {
+  const k = document.createElement("button");
+  k.type = "button";
+  k.textContent = p.titel;
+  k.addEventListener("click", () => { F.nr = i; zeichneFragen(); });
+  $("#f-liste").append(k);
+  return k;
+});
+function zeichneFragen() {
+  const p = DATEN.fragepaare[F.nr];
+  paarKnoepfe.forEach((k, i) => k.setAttribute("aria-pressed", String(i === F.nr)));
+  $("#f-suggestiv").textContent = "„" + p.suggestiv + "“";
+  $("#f-antwort-suggestiv").textContent = p.antwortSuggestiv;
+  $("#f-neutral").textContent = "„" + p.neutral + "“";
+  $("#f-antwort-neutral").textContent = p.antwortNeutral;
+  $("#f-erklaerung").textContent = p.erklaerung;
+}
+
+// ---------- Start ----------
+zeichneBaukasten();
+zeichneCheck();
+zeichneFragen();
+zeigeTab(location.hash.slice(1));
+</script>
+<script src="../assets/thema.js"></script>
+</body>
+</html>
