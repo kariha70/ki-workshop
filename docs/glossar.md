@@ -14,6 +14,8 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 
 **Attention** (Aufmerksamkeit): Der Baustein im Sprachmodell, mit dem jedes Wort auf die Wörter davor schaut und entscheidet, welche gerade wichtig sind. So erfasst das Modell Zusammenhänge über viele Wörter hinweg. → [Kapitel 2, Abschnitt 5](02-Tokenizer-und-Sprachmodelle.md#5-ein-wort-reicht-nicht-attention)
 
+**Aufgabenkette** (englisch Prompt Chaining): Du verteilst eine große Aufgabe auf mehrere Prompts nacheinander, etwa sammeln, gliedern, schreiben, prüfen. Das Ergebnis jedes Schritts kommt als Material in den nächsten. → [Kapitel 6, Abschnitt 8](06-Gut-fragen.md#8-große-aufgaben-zerlegen)
+
 ## B
 
 **Backpropagation** (Rückwärtsverteilung des Fehlers): Das Verfahren, mit dem ein neuronales Netz herausfindet, welches Neuron wie viel zu einem Fehler beigetragen hat. Der Fehler wird vom Ende des Netzes rückwärts durchgereicht. → [Kapitel 1, Abschnitt 10](01-Neuronale-Netze-Grundlagen.md#10-vom-neuron-zum-netz)
@@ -25,6 +27,10 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 ## C
 
 **Chain of Thought** (Gedankenkette): Ein Sprachmodell schreibt vor dem Ergebnis einen Rechenweg auf. Weil jedes Zwischenergebnis im Text steht und wieder gelesen werden kann, liegt es bei Aufgaben mit mehreren Schritten deutlich öfter richtig. → [Kapitel 5, Abschnitt 4](05-Reasoning-Modelle.md#4-schritt-für-schritt-chain-of-thought)
+
+**Context Engineering**: Die Weiterentwicklung von Prompt Engineering für Agenten. Es geht um alles, was im Kontext steht, also auch um Werkzeugbeschreibungen, Suchtreffer und Notizen. → [Kapitel 6, Abschnitt 2](06-Gut-fragen.md#2-die-sechs-bausteine-eines-prompts)
+
+**Custom Instructions**: siehe eigene Anweisungen.
 
 ## D
 
@@ -38,6 +44,8 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 
 ## E
 
+**Eigene Anweisungen** (englisch Custom Instructions): Hintergrund und Regeln, die man in einem Chat-Assistenten einmal hinterlegt und die er bei jedem Gespräch mitschickt, ähnlich wie einen Systemprompt. → [Kapitel 6, Abschnitt 6](06-Gut-fragen.md#6-rollen-und-feste-anweisungen)
+
 **Embedding**: Eine Liste von Zahlen, die die Bedeutung eines Wortes oder Textes darstellt. Ähnliche Bedeutungen bekommen ähnliche Zahlenlisten. Man kann sich ein Embedding als Pfeil vorstellen. → [Kapitel 2, Abschnitt 4](02-Tokenizer-und-Sprachmodelle.md#4-bedeutung-als-zahlenliste-embeddings) und [Kapitel 3, Abschnitt 2](03-Semantische-Suche-und-RAG.md#2-ein-text-ein-pfeil)
 
 **Embedding-Modell**: Ein Modell, das aus einem ganzen Text ein Embedding macht. Es ist ähnlich gebaut wie ein Sprachmodell, erzeugt aber keinen Text. Grundlage der semantischen Suche. → [Kapitel 3, Abschnitt 4](03-Semantische-Suche-und-RAG.md#4-woher-die-zahlen-kommen-embedding-modelle)
@@ -46,6 +54,8 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 
 **Feinabstimmung** (Fine-Tuning): Ein zusätzliches Training nach dem Vortraining, mit ausgewählten Beispielen. Bei Chat-Assistenten sind das Beispielgespräche mit guten Antworten. → [Kapitel 2, Abschnitt 9](02-Tokenizer-und-Sprachmodelle.md#9-vom-textvervollständiger-zum-assistenten)
 
+**Few-Shot Prompting**: siehe Lernen aus Beispielen im Prompt.
+
 **Freigabe** (englisch Approval, das Prinzip heißt Human in the Loop): Ein Mensch muss zustimmen, bevor das Rahmenprogramm einen Werkzeugaufruf mit Folgen ausführt, etwa eine Bestellung. Die Regel steht im Rahmenprogramm, das Modell kann sie nicht umgehen. → [Kapitel 4, Abschnitt 4](04-Vom-Chat-zum-Agenten.md#4-ein-agent-bei-der-arbeit)
 
 **Function Calling**: siehe Werkzeugaufruf.
@@ -53,6 +63,8 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 ## G
 
 **Gedächtnis** (eines Agenten, englisch Memory): Notizen, die ein Agent über ein Werkzeug in einer Datei oder Datenbank speichert und später wieder hervorholt. Anders als der Kontext bleiben sie nach dem Gespräch erhalten. Die Weights des Modells ändern sich dabei nicht. → [Kapitel 4, Abschnitt 6](04-Vom-Chat-zum-Agenten.md#6-der-kontext-als-arbeitsplatz)
+
+**Gefälligkeit** (englisch Sycophancy): Die Neigung von Sprachmodellen, ihrem Gegenüber recht zu geben, auch wenn es falschliegt. Sie entsteht unter anderem beim Lernen aus menschlichem Feedback, weil Menschen zustimmende Antworten oft besser bewerten. → [Kapitel 6, Abschnitt 9](06-Gut-fragen.md#9-fallen-suggestivfragen-und-gefälligkeit)
 
 **Gradient**: Die Richtung, in der der Fehler am stärksten ansteigt, für alle Parameter zugleich. Der Gradientenabstieg geht in die Gegenrichtung. → [Kapitel 1, Abschnitt 5](01-Neuronale-Netze-Grundlagen.md#5-lernen-heißt-schritt-für-schritt-bergab)
 
@@ -100,7 +112,11 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 
 **Loss** (Verlustfunktion): Allgemeiner Name für die Zahl, die misst, wie falsch ein Modell liegt. Lernen heißt, diese Zahl möglichst klein zu machen. → [Kapitel 1, Abschnitt 4](01-Neuronale-Netze-Grundlagen.md#4-wie-gut-passt-die-gerade-fehler-messen)
 
+**Lost in the Middle**: Sprachmodelle nutzen Angaben am Anfang und am Ende eines langen Kontexts oft besser als solche in der Mitte. Bei langen Dokumenten steht die Frage deshalb am besten am Ende. → [Kapitel 6, Abschnitt 3](06-Gut-fragen.md#3-material-klar-abgrenzen)
+
 ## M
+
+**Markierung** (englisch Delimiter): Zeichen oder Wörter, die im Prompt ein Material umschließen, etwa `<email>` und `</email>`. Sie zeigen dem Modell, wo das Material anfängt und aufhört. → [Kapitel 6, Abschnitt 3](06-Gut-fragen.md#3-material-klar-abgrenzen)
 
 **Maschinelles Lernen**: Aus Beispielen mit bekannter Antwort eine Regel gewinnen, die auch für neue Fälle eine Antwort liefert, statt die Regel von Hand zu programmieren. → [Kapitel 1, Abschnitt 1](01-Neuronale-Netze-Grundlagen.md#1-der-eisverkäufer)
 
@@ -120,7 +136,11 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 
 **Parameter**: Die Zahlen, die ein Modell beim Training einstellt, also alle Weights und Biases. Die Gerade des Eisverkäufers hat 2, sein kleines Netz 9, große Sprachmodelle viele Milliarden. → [Kapitel 1, Abschnitt 3](01-Neuronale-Netze-Grundlagen.md#3-zwei-stellschrauben-weight-und-bias)
 
-**Prompt**: Der Text, den ein Sprachmodell als Eingabe bekommt: deine Frage, das bisherige Gespräch und gegebenenfalls Anweisungen und mitgeschickte Textauszüge. → [Kapitel 3, Abschnitt 6](03-Semantische-Suche-und-RAG.md#6-rag-erst-nachschlagen-dann-antworten)
+**Prompt**: Der Text, den ein Sprachmodell als Eingabe bekommt: deine Frage, das bisherige Gespräch und gegebenenfalls Anweisungen und mitgeschickte Textauszüge. → [Kapitel 3, Abschnitt 6](03-Semantische-Suche-und-RAG.md#6-rag-erst-nachschlagen-dann-antworten) und [Kapitel 6](06-Gut-fragen.md)
+
+**Prompt Chaining**: siehe Aufgabenkette.
+
+**Prompt Engineering**: Prompts so formulieren, dass ein Sprachmodell die Aufgabe gut löst. Dazu gehören sechs Bausteine: Aufgabe, Hintergrund, Material, Form, Beispiel und Regeln. → [Kapitel 6, Abschnitt 2](06-Gut-fragen.md#2-die-sechs-bausteine-eines-prompts)
 
 **Prompt-Injection** (eingeschleuste Anweisung): Eine Anweisung in einem fremden Text, etwa in einer E-Mail oder auf einer Webseite, die ein Agent liest. Weil für das Modell alles im Kontext Text ist, befolgt es solche Anweisungen manchmal, als kämen sie vom Nutzer. → [Kapitel 4, Abschnitt 9](04-Vom-Chat-zum-Agenten.md#9-risiken-fehlerketten-und-eingeschleuste-anweisungen)
 
@@ -136,6 +156,8 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 
 **ReLU**: siehe Aktivierungsfunktion.
 
+**Rollen-Prompt** (englisch Role Prompting oder Persona): Ein Satz wie „Du bist ein erfahrener Texter“ am Anfang eines Prompts. Er verändert vor allem den Ton. Sachfragen beantwortet ein Modell damit im Schnitt nicht richtiger. → [Kapitel 6, Abschnitt 6](06-Gut-fragen.md#6-rollen-und-feste-anweisungen)
+
 ## S
 
 **Sandbox**: Eine abgeschottete Umgebung, in der ein Agent Programme ausführen kann, ohne an den Rest des Computers oder an vertrauliche Daten zu kommen. → [Kapitel 4, Abschnitt 10](04-Vom-Chat-zum-Agenten.md#10-was-das-für-den-alltag-heißt)
@@ -145,6 +167,8 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 **Selbstkonsistenz** (englisch Self-Consistency, auch Mehrheitsentscheid oder Majority Voting): Ein Sprachmodell rechnet dieselbe Aufgabe mehrmals mit Rechenweg, und das häufigste Ergebnis gilt. Das erhöht die Trefferquote, wenn die richtige Antwort häufiger vorkommt als jede falsche. → [Kapitel 5, Abschnitt 5](05-Reasoning-Modelle.md#5-mehrmals-rechnen-dann-abstimmen)
 
 **Selbstüberwachtes Lernen**: Lernen aus Daten, die ihre richtigen Antworten selbst mitbringen. Bei Text ist an jeder Stelle bekannt, wie es weitergeht, niemand muss etwas beschriften. → [Kapitel 2, Abschnitt 1](02-Tokenizer-und-Sprachmodelle.md#1-was-kommt-als-nächstes)
+
+**Self-Refine**: Das Modell prüft seinen eigenen Entwurf gegen vorgegebene Regeln und überarbeitet ihn. Das hilft bei Form und Ton, bei Fakten und Rechnungen weniger. → [Kapitel 6, Abschnitt 7](06-Gut-fragen.md#7-im-gespräch-verbessern)
 
 **Semantische Suche**: Eine Suche, die Texte nach ihrer Bedeutung vergleicht. Sie findet auch Texte, die die Frage mit ganz anderen Worten beantworten. → [Kapitel 3, Abschnitt 1](03-Semantische-Suche-und-RAG.md#1-suchen-nach-bedeutung)
 
@@ -156,7 +180,15 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 
 **Stichwortsuche**: Eine Suche, die zählt, wie viele Wörter der Frage in einem Text vorkommen. Sie scheitert an Umschreibungen und anderen Wortformen, findet aber genaue Zahlen und Namen zuverlässig. → [Kapitel 3, Abschnitt 1](03-Semantische-Suche-und-RAG.md#1-suchen-nach-bedeutung)
 
+**Structured Output**: siehe strukturierte Ausgabe.
+
+**Strukturierte Ausgabe** (englisch Structured Output): Eine Antwort in fester, maschinenlesbarer Form, etwa nach einem JSON Schema. Über die Programmierschnittstellen der Anbieter lässt sie sich erzwingen. → [Kapitel 6, Abschnitt 5](06-Gut-fragen.md#5-die-form-vorgeben)
+
 **Sub-Agent**: siehe Unteragent.
+
+**Suggestivfrage** (englisch Leading Question): Eine Frage, die die erwartete Antwort schon vorgibt, etwa „… ist doch super, oder?“. Sprachmodelle stimmen solchen Fragen leicht zu. → [Kapitel 6, Abschnitt 9](06-Gut-fragen.md#9-fallen-suggestivfragen-und-gefälligkeit)
+
+**Sycophancy**: siehe Gefälligkeit.
 
 **Systemprompt** (englisch System Prompt): Anweisungen ganz am Anfang des Kontexts, die festlegen, welche Rolle ein Assistent oder Agent hat und welche Regeln gelten. Wer den Agenten einrichtet, schreibt sie. Nutzer bekommen sie meist nicht zu sehen. → [Kapitel 4, Abschnitt 5](04-Vom-Chat-zum-Agenten.md#5-die-bausteine-im-überblick)
 
@@ -205,3 +237,7 @@ Alle Fachbegriffe aus dem Workshop, kurz erklärt und alphabetisch sortiert. Vie
 **Werkzeugaufruf** (englisch Tool Call oder Function Calling): Text in festem Format, mit dem ein Sprachmodell um die Ausführung eines Werkzeugs bittet, etwa `wetter_vorhersage({"tag": "Samstag"})`. Ausführen kann es ihn nicht selbst, das übernimmt das Rahmenprogramm. → [Kapitel 4, Abschnitt 2](04-Vom-Chat-zum-Agenten.md#2-werkzeuge-das-modell-schreibt-einen-auftrag)
 
 **Workflow**: Ein Ablauf, dessen Schritte vorab im Programm festgelegt sind, etwa bei RAG: immer erst suchen, dann antworten. Bei einem Agenten wählt das Modell die Schritte selbst. → [Kapitel 4, Abschnitt 3](04-Vom-Chat-zum-Agenten.md#3-die-agentenschleife)
+
+## Z
+
+**Zero-Shot**: Eine Aufgabe ohne Beispiel im Prompt stellen. Mit einem oder mehreren Beispielen heißt es Few-Shot. → [Kapitel 6, Abschnitt 4](06-Gut-fragen.md#4-beispiele-zeigen)

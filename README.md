@@ -4,7 +4,7 @@
 
 # KI-Workshop: Vom Eisverkäufer zum Sprachmodell
 
-**Ein Workshop über neuronale Netze, Sprachmodelle wie ChatGPT, die Suche in eigenen Unterlagen, KI-Agenten und Modelle, die vor der Antwort nachdenken.<br>Alles wird an einem durchgehenden Beispiel erklärt, Vorkenntnisse und Programmieren sind nicht nötig.**
+**Ein Workshop über neuronale Netze, Sprachmodelle wie ChatGPT, die Suche in eigenen Unterlagen, KI-Agenten, Modelle, die vor der Antwort nachdenken, und gute Prompts für den Alltag.<br>Alles wird an einem durchgehenden Beispiel erklärt, Vorkenntnisse und Programmieren sind nicht nötig.**
 
 [**Zur Website**](https://kariha70.github.io/ki-workshop/) ·
 [Kapitel 1](https://kariha70.github.io/ki-workshop/kapitel-1.html) ·
@@ -12,6 +12,7 @@
 [Kapitel 3](https://kariha70.github.io/ki-workshop/kapitel-3.html) ·
 [Kapitel 4](https://kariha70.github.io/ki-workshop/kapitel-4.html) ·
 [Kapitel 5](https://kariha70.github.io/ki-workshop/kapitel-5.html) ·
+[Kapitel 6](https://kariha70.github.io/ki-workshop/kapitel-6.html) ·
 [Labore](https://kariha70.github.io/ki-workshop/#labore) ·
 [Glossar](https://kariha70.github.io/ki-workshop/glossar.html) ·
 [Leitfaden](https://kariha70.github.io/ki-workshop/leitfaden.html)
@@ -32,7 +33,7 @@ Der Workshop richtet sich an alle, die verstehen wollen, was in einem Chat-Assis
 | --- | --- |
 | **Ein durchgehendes Beispiel** | Gerade, Neuron, Netz, Sprachmodell, Suche, Agent und Reasoning-Modell bauen alle auf dem Eisverkäufer auf. |
 | **Fragen und Merksätze** | Jedes Kapitel beginnt mit Lernzielen und enthält Fragen zum Nachdenken, einen Merksatz pro Abschnitt und am Ende einen kurzen Selbsttest. |
-| **Labore im Browser** | Regler verschieben, Texte zerlegen, nach Bedeutung suchen, einem Agenten zusehen. Die Labore laufen direkt im Browser, ohne Installation. |
+| **Labore im Browser** | Regler verschieben, Texte zerlegen, nach Bedeutung suchen, einem Agenten zusehen, Prompts bauen. Die Labore laufen direkt im Browser, ohne Installation. |
 | **Rechnungen zum Aufklappen** | Formeln und Rechenwege stehen in aufklappbaren Kästen. Für das Verständnis des Haupttexts sind sie nicht nötig. |
 | **Nachrechenbare Zahlen** | Zu jedem Kapitel gibt es ein Python-Skript, das alle Zahlen und Grafiken erzeugt. Ausgedachte Werte in schematischen Grafiken sind als solche gekennzeichnet. |
 
@@ -78,7 +79,7 @@ Lesezeit: etwa 25 Minuten
 </td>
 </tr>
 <tr>
-<td width="33%" valign="top">
+<td width="50%" valign="top">
 <a href="https://kariha70.github.io/ki-workshop/kapitel-5.html"><img src="docs/bilder/kapitel-5/04-abstimmen.png" alt="Trefferquote einer Abstimmung über mehrere Antworten, mit und ohne Rechenweg"></a>
 <h3>5 · Reasoning-Modelle</h3>
 <b>Wie ein Sprachmodell vor der Antwort nachdenkt</b><br><br>
@@ -86,10 +87,18 @@ Wie aus Sprachmodellen Reasoning-Modelle wurden, die vor der Antwort nachdenken:
 <sub>Entwicklung seit GPT-2 · Rechenweg · Chain of Thought · Abstimmen · Verstärkungslernen · Denkaufwand · Denkprotokoll</sub><br><br>
 Lesezeit: etwa 20 Minuten
 </td>
+<td width="50%" valign="top">
+<a href="https://kariha70.github.io/ki-workshop/kapitel-6.html"><img src="docs/bilder/kapitel-6/01-bausteine.png" alt="Ein vollständiger Prompt, gegliedert in die sechs Bausteine Aufgabe, Hintergrund, Material, Form, Beispiel und Regeln"></a>
+<h3>6 · Gut fragen</h3>
+<b>Wie du im Alltag mit Chat-Assistenten arbeitest</b><br><br>
+Wie du einem Chat-Assistenten Aufgaben so stellst, dass brauchbare Ergebnisse herauskommen: sechs Bausteine für gute Prompts, Nachbessern im Gespräch und typische Fallen.<br><br>
+<sub>Prompt Engineering · Sechs Bausteine · Markierungen · Beispiele · Nachbessern · Aufgabenketten · Gefälligkeit</sub><br><br>
+Lesezeit: etwa 20 Minuten
+</td>
 </tr>
 </table>
 
-Die Lesezeit gilt für den Hauptweg ohne die aufklappbaren Kästen. Kapitel 2 bis 5 enden mit Faustregeln für den Alltag mit Chat-Assistenten und Agenten, alle Kapitel mit einem kleinen Selbsttest.
+Die Lesezeit gilt für den Hauptweg ohne die aufklappbaren Kästen. Kapitel 2 bis 5 enden mit Faustregeln für den Alltag mit Chat-Assistenten und Agenten, Kapitel 6 fasst sie zu einem Spickzettel zusammen. Alle Kapitel enden mit einem kleinen Selbsttest.
 
 ## Die Labore
 
@@ -121,24 +130,29 @@ Selbst das passende Werkzeug wählen, einem Agenten Schritt für Schritt zusehen
 </td>
 </tr>
 <tr>
-<td width="33%" valign="top">
+<td width="50%" valign="top">
 <a href="https://kariha70.github.io/ki-workshop/app/labor-5.html"><img src="docs/bilder/labor-5.png" alt="Labor 5"></a>
 <b>Labor 5: Nachdenken zum Anfassen</b><br>
 Ein Modell mit und ohne Rechenweg rechnen lassen, über mehrere Antworten abstimmen und ein Spielzeug-Training mit Belohnung beobachten.
 </td>
+<td width="50%" valign="top">
+<a href="https://kariha70.github.io/ki-workshop/app/labor-6.html"><img src="docs/bilder/labor-6.png" alt="Labor 6"></a>
+<b>Labor 6: Prompt-Werkstatt</b><br>
+Prompts aus sechs Bausteinen zusammenbauen und ausprobieren, in schwachen Prompts die Lücken finden und suggestive mit offenen Fragen vergleichen.
+</td>
 </tr>
 </table>
 
-Labor 1, 2, 4 und 5 funktionieren auch ohne Internet. Labor 3 rechnet die Beispiele aus dem Text sofort. Für eigene Eingaben lädt es einmalig ein Embedding-Modell (etwa 118 MB) von Hugging Face und rechnet dann im Browser.
+Labor 1, 2, 4, 5 und 6 funktionieren auch ohne Internet. Labor 3 rechnet die Beispiele aus dem Text sofort. Für eigene Eingaben lädt es einmalig ein Embedding-Modell (etwa 118 MB) von Hugging Face und rechnet dann im Browser.
 
 ## Zum Nachschlagen und Vorbereiten
 
-**[Glossar](https://kariha70.github.io/ki-workshop/glossar.html):** Alle 82 Fachbegriffe aus dem Workshop in Alltagssprache, von *Agent* bis *Workflow*, jeweils mit Verweis auf den Abschnitt, in dem sie ausführlich erklärt werden.
+**[Glossar](https://kariha70.github.io/ki-workshop/glossar.html):** Alle 99 Fachbegriffe aus dem Workshop in Alltagssprache, von *Agent* bis *Zero-Shot*, jeweils mit Verweis auf den Abschnitt, in dem sie ausführlich erklärt werden.
 
 **[Leitfaden für Moderierende](https://kariha70.github.io/ki-workshop/leitfaden.html):** für alle, die den Workshop vor Ort mit einer Gruppe ohne technisches Vorwissen halten. Er enthält
 
 - das didaktische Konzept hinter den Kapiteln
-- einen Zeitplan für zwei Sitzungen von je etwa dreieinhalb Stunden und zwei Zusatzmodule zu KI-Agenten und Reasoning-Modellen, gedacht für 10 bis 15 Teilnehmende
+- einen Zeitplan für zwei Sitzungen von je etwa dreieinhalb Stunden und drei Zusatzmodule zu KI-Agenten, Reasoning-Modellen und guten Prompts, gedacht für 10 bis 15 Teilnehmende
 - für jedes Modul Einstieg, Fragen an die Gruppe, typische Rückfragen und Aufträge für die Labore
 - eine Checkliste für Vorbereitung und Technik, auch für einen Raum ohne Internet
 
@@ -166,9 +180,10 @@ python3 -m http.server --directory docs
 | `uv run docs/beispiele/03_semantische_suche.py "Habt ihr Eis für Hunde?"` | Durchsucht das Handbuch der Eisdiele. Ohne Frage: alle Zahlen, Grafiken und Labordaten aus Kapitel 3 |
 | `uv run docs/beispiele/04_agenten.py` | Spielt den Agenten der Eisdiele durch, zählt die Tokens und erzeugt alle Grafiken und Labordaten aus Kapitel 4. Nutzt Daten aus den Skripten zu Kapitel 1 und 3 |
 | `uv run docs/beispiele/05_nachdenken.py` | Rechnet die Aufgabe aus Kapitel 5 nach, zählt Tokens, spielt die Simulationen durch und erzeugt Grafiken und Labordaten |
+| `uv run docs/beispiele/06_prompts.py` | Setzt die Prompts aus Kapitel 6 aus ihren Bausteinen zusammen, zählt die Tokens und erzeugt Grafiken und Labordaten. Nutzt die Verkaufszahlen aus dem Skript zu Kapitel 1 |
 
 > [!NOTE]
-> Beim ersten Start laden manche Skripte Daten aus dem Internet: das zweite, das vierte und das fünfte die Vokabulare von tiktoken, das dritte das Embedding-Modell in voller Genauigkeit (etwa 470 MB). Danach liegen sie im Cache.
+> Beim ersten Start laden manche Skripte Daten aus dem Internet: das zweite, vierte, fünfte und sechste die Vokabulare von tiktoken, das dritte das Embedding-Modell in voller Genauigkeit (etwa 470 MB). Danach liegen sie im Cache.
 
 ## Aufbau des Repos
 
@@ -180,6 +195,7 @@ ki-workshop/
 │   ├── 03-Semantische-Suche-und-RAG.md
 │   ├── 04-Vom-Chat-zum-Agenten.md
 │   ├── 05-Reasoning-Modelle.md
+│   ├── 06-Gut-fragen.md
 │   ├── glossar.md                 Fachbegriffe in Alltagssprache
 │   ├── leitfaden.md               Leitfaden für Moderierende
 │   ├── *.html                     erzeugt aus den Markdown-Dateien
@@ -205,7 +221,7 @@ Für die Texte gelten folgende Regeln:
 
 - **Erst erleben, dann benennen:** Jeder größere Gedanke beginnt mit einer Frage an die Leserin oder den Leser („Kurz überlegen“). Der Fachbegriff kommt danach.
 - **Der Hauptweg kommt ohne Formeln aus.** Rechnungen, Programmcode und Hintergründe stehen in Kästen `<details class="vertiefung">` mit dem Titel „Für Neugierige“.
-- **Jeder Abschnitt endet mit einem Merksatz**, jedes Kapitel mit „Das Wichtigste in Kürze“ und einem Selbsttest „Teste dich“. Kapitel 2 bis 5 nennen außerdem ihre Quellen.
+- **Jeder Abschnitt endet mit einem Merksatz**, jedes Kapitel mit „Das Wichtigste in Kürze“ und einem Selbsttest „Teste dich“. Kapitel 2 bis 6 nennen außerdem ihre Quellen.
 - **Alle Daten im Beispiel sind erfunden**, alle Zahlen im Text kommen aus den Skripten. Ausgedachte Werte, etwa in schematischen Grafiken, sind als ausgedacht gekennzeichnet.
 - **Neue Fachbegriffe** gehören auch ins Glossar.
 
@@ -225,7 +241,7 @@ npm --prefix werkzeuge/tiktoken run bauen
 | [paraphrase-multilingual-MiniLM-L12-v2](https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2) | Embedding-Modell für Kapitel 3 | Apache-2.0 |
 | [NumPy](https://numpy.org), [Matplotlib](https://matplotlib.org), [ONNX Runtime](https://onnxruntime.ai), [Python-Markdown](https://python-markdown.github.io) | Skripte und Seitenbau | jeweils eigene freie Lizenz |
 
-Die Quellen zu den Inhalten stehen am Ende von Kapitel 2 bis 5.
+Die Quellen zu den Inhalten stehen am Ende von Kapitel 2 bis 6.
 
 ## Lizenz
 

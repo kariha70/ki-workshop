@@ -1,6 +1,6 @@
 # Leitfaden für Moderierende
 
-Dieser Leitfaden hilft dir, den Workshop vor Ort mit einer Gruppe ohne technisches Vorwissen durchzuführen. Er ist für 10 bis 15 Teilnehmende und zwei Sitzungen gedacht. Zwei Zusatzmodule zu KI-Agenten und zu Reasoning-Modellen können als weitere, kürzere Sitzungen folgen. Er schlägt einen Ablauf vor, nennt Fragen an die Gruppe, sammelt typische Rückfragen aus dem Publikum und enthält eine Checkliste für die Technik.
+Dieser Leitfaden hilft dir, den Workshop vor Ort mit einer Gruppe ohne technisches Vorwissen durchzuführen. Er ist für 10 bis 15 Teilnehmende und zwei Sitzungen gedacht. Drei Zusatzmodule zu KI-Agenten, zu Reasoning-Modellen und zu guten Prompts können als weitere, kürzere Sitzungen folgen. Er schlägt einen Ablauf vor, nennt Fragen an die Gruppe, sammelt typische Rückfragen aus dem Publikum und enthält eine Checkliste für die Technik.
 
 Alle Zeitangaben sind Vorschläge. Wenn eine Diskussion gut läuft, kannst du dafür einen Abschnitt kürzen oder weglassen, siehe „Wenn die Zeit knapp wird“.
 
@@ -13,7 +13,7 @@ Der Workshop folgt einigen Grundsätzen. Sie helfen auch bei der Entscheidung, w
 - **Didaktische Reduktion.** Der Hauptweg jedes Kapitels kommt ohne Formeln aus. Rechnungen, Programmcode und Hintergründe stehen in aufklappbaren Kästen „Für Neugierige“. Öffne sie im Workshop nur, wenn jemand danach fragt.
 - **Selbst ausprobieren.** Zu jedem Kapitel gibt es ein Labor im Browser. Am besten arbeiten zwei Personen an einem Gerät und erklären sich gegenseitig, was sie sehen.
 - **Sichern und wiederholen.** Lernziele am Anfang, ein Merksatz nach jedem Abschnitt, „Das Wichtigste in Kürze“ und ein kleiner Selbsttest am Ende jedes Kapitels. Zu Beginn der zweiten Sitzung wird der Stoff der ersten wiederholt.
-- **Transfer in den Alltag.** Kapitel 2 bis 5 enden mit Faustregeln für die Arbeit mit Chat-Assistenten und Agenten. Dort passen die eigenen Erfahrungen der Teilnehmenden gut hinein.
+- **Transfer in den Alltag.** Kapitel 2 bis 5 enden mit Faustregeln für die Arbeit mit Chat-Assistenten und Agenten, Kapitel 6 sammelt sie zu einem Spickzettel. Dort passen die eigenen Erfahrungen der Teilnehmenden gut hinein.
 
 ## Gruppe und Voraussetzungen
 
@@ -22,7 +22,7 @@ Der Workshop folgt einigen Grundsätzen. Sie helfen auch bei der Entscheidung, w
 - **Geräte:** ein Laptop oder Tablet pro Paar, also 5 bis 8 Geräte. Die Labore funktionieren zur Not auch auf dem Smartphone, sind dort aber eng.
 - **Raum:** Beamer oder großer Bildschirm, Flipchart oder Pinnwand für Fragen und Blitzlichter. Tische, an denen zwei Personen gemeinsam auf einen Bildschirm schauen können.
 
-## Zeitplan für zwei Sitzungen und zwei Zusatzmodule
+## Zeitplan für zwei Sitzungen und drei Zusatzmodule
 
 Jede Sitzung dauert etwa dreieinhalb Stunden mit einer Pause. Die Uhrzeiten sind ein Beispiel. Zwischen den Sitzungen sollten ein paar Tage bis höchstens zwei Wochen liegen.
 
@@ -63,7 +63,11 @@ Diese Sitzung setzt Kapitel 2 und 3 voraus. Sie eignet sich für Gruppen, die As
 | 11:40 | Abschluss: offene Fragen, Transfer, Rückmeldung |
 | 12:00 | Ende |
 
-**Zusatzsitzung zu Kapitel 5: Wenn KI nachdenkt.** Kapitel 5 über Reasoning-Modelle passt als weitere Sitzung von etwa zwei Stunden: Wiederholung von Kapitel 2 (Abschnitte 8 und 9) als Einstieg, dann Modul 5 mit Labor 5, zum Schluss Diskussion und Transfer. Die beiden Zusatzsitzungen hängen nicht voneinander ab. Wer beide plant, hält sie in der Reihenfolge der Kapitel.
+**Zusatzsitzung zu Kapitel 5: Wenn KI nachdenkt.** Kapitel 5 über Reasoning-Modelle passt als weitere Sitzung von etwa zwei Stunden: Wiederholung von Kapitel 2 (Abschnitte 8 und 9) als Einstieg, dann Modul 5 mit Labor 5, zum Schluss Diskussion und Transfer.
+
+**Zusatzsitzung zu Kapitel 6: Gut fragen.** Kapitel 6 ist das praktischste Kapitel und passt als eigene Sitzung von etwa zwei Stunden, in der die Teilnehmenden vor allem selbst Prompts schreiben. Voraussetzung ist Kapitel 2. Die Verweise auf die Kapitel 3 bis 5 lassen sich auch ohne diese Kapitel in einem Satz erklären. Bei wenig Zeit passt der Spickzettel aus Abschnitt 10 ans Ende von Sitzung 2.
+
+Die Zusatzsitzungen hängen nicht voneinander ab. Wer mehrere plant, hält sie in der Reihenfolge der Kapitel.
 
 **Jedes Modul folgt demselben Ablauf:**
 
@@ -256,6 +260,36 @@ Diese Sitzung setzt Kapitel 2 und 3 voraus. Sie eignet sich für Gruppen, die As
 - *„Warum nicht immer das gründlichste Modell nehmen?“* Weil es langsamer und teurer ist und einfache Fragen manchmal unnötig verkompliziert. Für Formulieren und Zusammenfassen bringt es wenig.
 - *„Kann ich dem Denkprotokoll trauen?“* Es zeigt, welche Schritte das Modell aufgeschrieben hat, und hilft beim Finden von Fehlern. Dass die Antwort wirklich auf diesem Weg entstand, ist nicht garantiert (Abschnitt 8).
 
+## Modul 6: Gut fragen
+
+*Zusatzsitzung, etwa 100 Minuten plus Pause. Voraussetzung ist Kapitel 2.*
+
+**Leitfrage:** Warum bekommen zwei Personen auf dieselbe Aufgabe so unterschiedlich gute Antworten?
+
+**Kernbotschaften:**
+
+1. Ein Sprachmodell weiß nur, was im Prompt steht. Sechs Bausteine helfen, nichts Wichtiges zu vergessen: Aufgabe, Hintergrund, Material, Form, Beispiel und Regeln.
+2. Die erste Antwort ist ein Entwurf. Genaue Rückmeldungen und das Zerlegen großer Aufgaben verbessern das Ergebnis.
+3. Suggestivfragen führen zu Zustimmung. Offene Fragen und nachprüfbare Rechenwege helfen gegen Gefälligkeit.
+
+**Ablauf:**
+
+- **Einstieg:** Die E-Mail der Kundin aus Abschnitt 1 zeigen. Die Gruppe sammelt in Paaren, was eine neue Aushilfe wissen müsste, um sie zu beantworten. Danach die Liste mit den sechs Bausteinen vergleichen.
+- **Erarbeitung:** Abschnitte 1 und 2 ausführlich. Abschnitte 3 bis 6 als Tipps mit je einem Beispiel. Abschnitte 7 und 8 live an einem Chat-Assistenten vorführen, gern mit einer Aufgabe aus der Gruppe. Abschnitt 9 mit der Frage zum Glühwein-Eis beginnen.
+- **Labor 6, Aufträge zur Auswahl:**
+    - Im Schritt „Prompt-Baukasten“ den typischen und den vollständigen Prompt in einen Chat-Assistenten kopieren und die Antworten vergleichen.
+    - Im Schritt „Was fehlt?“ alle fünf Prompts bearbeiten, erst zu zweit diskutieren, dann auflösen.
+    - Im Schritt „Offen fragen“ bei einer richtigen Antwort „Bist du sicher?“ fragen und beobachten, was passiert.
+- **Praxisphase:** Jede Person bringt eine echte Aufgabe aus dem eigenen Alltag mit und schreibt dafür einen Prompt mit den sechs Bausteinen. Eine zweite Person prüft ihn mit der Liste am Ende von Abschnitt 10.
+- **Diskussion:** „Welchen Baustein vergesst ihr am häufigsten? Was würdet ihr als eigene Anweisungen hinterlegen?“
+
+**Typische Rückfragen:**
+
+- *„Gibt es Zauberwörter, die immer funktionieren?“* Nein. Eine Rolle wie „Du bist ein Experte“ macht ein Modell nicht klüger (Abschnitt 6). Auch Drohungen oder versprochenes Trinkgeld, die im Internet kursieren, wirken wenig verlässlich. Mehr helfen klare Angaben.
+- *„Lohnt sich ein langer Prompt, wenn die Antwort kurz sein soll?“* Meist ja. Der vollständige Prompt für die Kundin hat 219 Tokens. Mehrere Runden Nachbessern kosten meist mehr.
+- *„Merkt sich der Assistent meinen guten Prompt?“* Nicht von selbst. Gute Prompts als Vorlage speichern oder das, was immer gilt, in die eigenen Anweisungen schreiben.
+- *„Funktioniert ein guter Prompt bei jedem Assistenten?“* Die Bausteine gelten für alle Sprachmodelle. Wie lang oder förmlich die Antworten ausfallen, unterscheidet sich zwischen den Anbietern, deshalb ein neues Modell immer mit eigenen Aufgaben ausprobieren.
+
 ## Abschluss des Workshops
 
 - **Rückblick:** Die Pinnwand aus der ersten Sitzung („Wo ist euch KI begegnet?“) wieder hervorholen. Welche Beispiele lassen sich jetzt besser erklären?
@@ -268,9 +302,9 @@ Diese Sitzung setzt Kapitel 2 und 3 voraus. Sie eignet sich für Gruppen, die As
 **Ein paar Tage vorher:**
 
 - Die Webseite des Workshops auf dem Präsentationsrechner öffnen und alle Labore einmal durchklicken.
-- Labor 1, Labor 2, Labor 4 und Labor 5 laufen vollständig ohne Internetverbindung.
+- Labor 1, Labor 2, Labor 4, Labor 5 und Labor 6 laufen vollständig ohne Internetverbindung.
 - Labor 3: Die Beispiele aus dem Text funktionieren sofort. Für eigene Eingaben lädt das Labor einmalig ein Modell von etwa 118 MB aus dem Internet. Erledige das vorab auf dem Präsentationsrechner, dann ist es im Browser gespeichert. Für die Geräte der Teilnehmenden ein stabiles WLAN einplanen oder bei den Beispielen bleiben.
-- Für die RAG-Übung in Labor 3 einen Chat-Assistenten bereithalten, den die Teilnehmenden nutzen dürfen. Die Prompts enthalten nur das erfundene Handbuch der Eisdiele.
+- Für die RAG-Übung in Labor 3 und den Prompt-Baukasten in Labor 6 einen Chat-Assistenten bereithalten, den die Teilnehmenden nutzen dürfen. Die Prompts enthalten nur erfundene Daten der Eisdiele.
 
 **Am Tag selbst:**
 
@@ -278,6 +312,6 @@ Diese Sitzung setzt Kapitel 2 und 3 voraus. Sie eignet sich für Gruppen, die As
 - Oben rechts lässt sich zwischen hellem und dunklem Design umschalten. Für Beamer ist das helle Design meist besser.
 - In Sitzung 1 die Tabelle mit den zehn Tagen aus Kapitel 1 für die Schätzaufgabe groß zeigen oder ausdrucken.
 
-**Handouts:** Jedes Kapitel lässt sich über die Druckfunktion des Browsers ausdrucken oder als PDF speichern. Navigation und Schaltflächen werden dabei ausgeblendet, alle aufklappbaren Kästen automatisch geöffnet. Am Ende der ersten Sitzung bieten sich Kapitel 1 und 2 an, am Ende der zweiten Kapitel 3 und das Glossar, nach den Zusatzsitzungen Kapitel 4 und Kapitel 5.
+**Handouts:** Jedes Kapitel lässt sich über die Druckfunktion des Browsers ausdrucken oder als PDF speichern. Navigation und Schaltflächen werden dabei ausgeblendet, alle aufklappbaren Kästen automatisch geöffnet. Am Ende der ersten Sitzung bieten sich Kapitel 1 und 2 an, am Ende der zweiten Kapitel 3 und das Glossar, nach den Zusatzsitzungen Kapitel 4 bis 6. Der Spickzettel aus Kapitel 6, Abschnitt 10 passt ausgedruckt auf eine Seite.
 
 **Ohne Internet im Raum:** Die ganze Webseite lässt sich lokal starten, wenn Python installiert ist: `python3 -m http.server --directory docs` im Ordner des Workshops ausführen und dann `http://localhost:8000` im Browser öffnen.

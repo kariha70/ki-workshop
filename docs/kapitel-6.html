@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try{var t=localStorage.getItem("ki-workshop-thema");if(t==="dark"||t==="light")document.documentElement.dataset.theme=t}catch(e){}</script>
+<title>Kapitel 6: Gut fragen: Wie du im Alltag mit Chat-Assistenten arbeitest</title>
+<meta name="description" content="Wie du einem Chat-Assistenten Aufgaben so stellst, dass brauchbare Ergebnisse herauskommen: sechs Bausteine für gute Prompts, Nachbessern im Gespräch und typische Fallen.">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/leiste.css">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<!-- Erzeugt von werkzeuge/seite_bauen.py, bitte nicht von Hand ändern. -->
+<div class="fortschritt" aria-hidden="true"><div></div></div>
+<header class="leiste"><div class="leiste-innen">
+  <a class="marke" href="index.html" aria-label="KI-Workshop, zur Startseite"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.5 11.5h11L12 23z" fill="#eb6834"/><circle cx="12" cy="8" r="6.2" fill="#2a78d6"/><path d="M8.6 9.3 12 5.4l3.4 3.9M8.6 9.3h6.8" stroke="#fff" stroke-width="0.9" fill="none" stroke-linejoin="round"/><circle cx="12" cy="5.4" r="1.35" fill="#fff"/><circle cx="8.6" cy="9.3" r="1.35" fill="#fff"/><circle cx="15.4" cy="9.3" r="1.35" fill="#fff"/></svg><span>KI-Workshop</span></a>
+  <nav aria-label="Workshop"><a href="kapitel-1.html">Kapitel 1</a><a href="kapitel-2.html">Kapitel 2</a><a href="kapitel-3.html">Kapitel 3</a><a href="kapitel-4.html">Kapitel 4</a><a href="kapitel-5.html">Kapitel 5</a><a href="kapitel-6.html" aria-current="page">Kapitel 6</a><span class="trenner"></span><a href="app/labor-1.html">Labor 1</a><a href="app/labor-2.html">Labor 2</a><a href="app/labor-3.html">Labor 3</a><a href="app/labor-4.html">Labor 4</a><a href="app/labor-5.html">Labor 5</a><a href="app/labor-6.html">Labor 6</a><span class="trenner"></span><a href="glossar.html">Glossar</a></nav>
+  <button class="thema-knopf" type="button" aria-label="Design wechseln"><svg class="mond" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><svg class="sonne" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+</div></header>
+<main>
+<div class="kapitel-kopf"><div class="huelle">
+  <p class="augenbraue">Kapitel 6 · etwa 20 Minuten Lesezeit</p>
+  <h1>Gut fragen: Wie du im Alltag mit Chat-Assistenten arbeitest</h1>
+  <div class="einleitung"><p>Zwei Personen stellen demselben Chat-Assistenten dieselbe Aufgabe. Die eine bekommt einen brauchbaren Text, die andere eine Antwort voller Floskeln. Das liegt selten am Modell: Es weiß nur, was im Prompt steht, und die beiden Prompts waren verschieden.</p>
+<p>Dieses Kapitel sammelt, was sich im Alltag bewährt hat: welche Angaben in einen guten Prompt gehören, wie man im Gespräch nachbessert, wie man große Aufgaben zerlegt und welche Fragen ein Modell in die Irre führen. Jeder Tipp folgt aus etwas, das du in den Kapiteln 2 bis 5 kennengelernt hast.</p></div>
+  <div class="aktionen">
+    <a class="knopf primaer" href="#1-warum-die-frage-zählt">Lesen</a>
+    <a class="knopf" href="app/labor-6.html">Im Labor ausprobieren</a>
+  </div>
+</div></div>
+<div class="huelle raster">
+  <aside class="verzeichnis" aria-label="Inhalt">
+    <details open><summary>Inhalt</summary><ol><li><a href="#1-warum-die-frage-zählt">1. Warum die Frage zählt</a></li><li><a href="#2-die-sechs-bausteine-eines-prompts">2. Die sechs Bausteine eines Prompts</a></li><li><a href="#3-material-klar-abgrenzen">3. Material klar abgrenzen</a></li><li><a href="#4-beispiele-zeigen">4. Beispiele zeigen</a></li><li><a href="#5-die-form-vorgeben">5. Die Form vorgeben</a></li><li><a href="#6-rollen-und-feste-anweisungen">6. Rollen und feste Anweisungen</a></li><li><a href="#7-im-gespräch-verbessern">7. Im Gespräch verbessern</a></li><li><a href="#8-große-aufgaben-zerlegen">8. Große Aufgaben zerlegen</a></li><li><a href="#9-fallen-suggestivfragen-und-gefälligkeit">9. Fallen: Suggestivfragen und Gefälligkeit</a></li><li><a href="#10-was-das-für-den-alltag-heißt">10. Was das für den Alltag heißt</a></li><li><a href="#das-wichtigste-in-kürze">Das Wichtigste in Kürze</a></li><li><a href="#teste-dich">Teste dich</a></li><li><a href="#selbst-ausprobieren">Selbst ausprobieren</a></li><li><a href="#quellen">Quellen</a></li></ol></details>
+    <a class="zum-labor" href="app/labor-6.html">Labor 6<small>Alles aus diesem Kapitel zum Ausprobieren</small></a>
+  </aside>
+  <article class="text">
+    
+<div class="lernziele">
+<p><strong>Nach diesem Kapitel kannst du …</strong></p>
+<ul>
+<li>die sechs Bausteine eines guten Prompts nennen und einen eigenen Prompt damit aufbauen.</li>
+<li>erklären, warum Beispiele, Markierungen und eine klare Form das Ergebnis verbessern.</li>
+<li>eine Antwort im Gespräch gezielt verbessern und große Aufgaben in Schritte zerlegen.</li>
+<li>Suggestivfragen vermeiden und einschätzen, wann du einer Antwort misstrauen solltest.</li>
+</ul>
+<p>Kästen „Für Neugierige“ enthalten Hintergründe. Für den Rest des Kapitels brauchst du sie nicht.</p>
+</div>
+<p>Wie in den anderen Kapiteln sind alle Daten erfunden. Die Token-Zahlen hat ein Python-Skript mit dem Tokenizer aus Kapitel 2 gezählt. Die Beispielantworten sind ausgedacht. Ein echtes Modell antwortet bei jedem Versuch etwas anders, der Unterschied zwischen den Prompts zeigt sich aber ähnlich.</p>
+
+    <section id="1-warum-die-frage-zählt"><h2>1. Warum die Frage zählt</h2>
+<p>Eine Kundin hat sich beschwert. Der Eisverkäufer kopiert ihre E-Mail in einen Chat-Assistenten und schreibt eine Zeile darüber:</p>
+<pre><code class="language-text">Schreib eine Antwort auf die E-Mail einer Kundin.
+
+&lt;email&gt;
+Hallo, ich habe am Samstag 25 Minuten auf zwei Kugeln gewartet. Und dann war die Kugel Pistazie auch noch winzig. So macht das keinen Spaß.
+&lt;/email&gt;
+</code></pre>
+<p>Eine typische Antwort sieht so aus:</p>
+<pre><code class="language-text">Sehr geehrte Kundin,
+
+vielen Dank für Ihre Nachricht. Wir bedauern sehr, dass Ihr Besuch nicht Ihren Erwartungen entsprochen hat. Ihre Zufriedenheit liegt uns am Herzen, und wir nehmen Ihr Feedback zum Anlass, unsere Abläufe zu überprüfen. Wir hoffen, Sie bald wieder bei uns begrüßen zu dürfen.
+
+Mit freundlichen Grüßen
+[Ihr Name]
+</code></pre>
+<p>Die Antwort enthält keinen Fehler, hilft aber nicht weiter: Sie geht weder auf die Wartezeit noch auf die kleine Kugel ein und könnte an jedes Geschäft gehen.</p>
+<div class="frage">
+<p><strong>Kurz überlegen:</strong> Stell dir vor, eine neue Aushilfe soll diese Antwort schreiben, an ihrem ersten Tag. Was müsstest du ihr vorher sagen?</p>
+<details>
+<summary>Auflösung</summary>
+<p>Zum Beispiel: Die Kundin ist Stammkundin. Am Samstag waren wir nur zu zweit. Wir schreiben in der Sie-Form, kurz und ohne Floskeln. Eine Kugel gratis ist in Ordnung, Geld zurück nicht. Und so klang eine frühere Antwort, die gut ankam.</p>
+<p>Ein Sprachmodell braucht dieselben Angaben. Es ist wie eine belesene Aushilfe am ersten Tag: Es kann gut formulieren, kennt aber weder die Eisdiele noch die Kundin noch deine Vorlieben.</p>
+</details>
+</div>
+<p>Das folgt aus Kapitel 2 und 4: Ein Sprachmodell erzeugt den Text, der zu seinem Kontext am wahrscheinlichsten passt. Steht im Kontext wenig, passt ein allgemeiner Text am besten, und den bekommst du.</p>
+<blockquote>
+<p><strong>Merke:</strong> Ein Sprachmodell weiß nur, was im Prompt steht. Fehlen Angaben, füllt es die Lücken mit dem Wahrscheinlichsten, also mit Allgemeinem.</p>
+</blockquote>
+</section><section id="2-die-sechs-bausteine-eines-prompts"><h2>2. Die sechs Bausteine eines Prompts</h2>
+<p>Einen Prompt so zu formulieren, dass das Modell die Aufgabe gut löst, heißt <strong>Prompt Engineering</strong>. Dahinter stecken sechs Fragen, die du vor dem Abschicken beantwortest:</p>
+<div class="tabelle"><table>
+<thead>
+<tr>
+<th>Baustein</th>
+<th>Englisch</th>
+<th>Frage dahinter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Aufgabe</strong></td>
+<td>Task</td>
+<td>Was soll herauskommen?</td>
+</tr>
+<tr>
+<td><strong>Hintergrund</strong></td>
+<td>Context</td>
+<td>Wer, wofür, für wen?</td>
+</tr>
+<tr>
+<td><strong>Material</strong></td>
+<td>Input Data</td>
+<td>Womit soll das Modell arbeiten?</td>
+</tr>
+<tr>
+<td><strong>Form</strong></td>
+<td>Output Format</td>
+<td>Wie lang, wie gegliedert, in welchem Ton?</td>
+</tr>
+<tr>
+<td><strong>Beispiel</strong></td>
+<td>Example</td>
+<td>Wie sieht ein gutes Ergebnis aus?</td>
+</tr>
+<tr>
+<td><strong>Regeln</strong></td>
+<td>Constraints</td>
+<td>Was ist erlaubt, was nicht?</td>
+</tr>
+</tbody>
+</table></div>
+<p>Nicht jede Aufgabe braucht alle sechs. Für die Antwort an die Kundin sieht der vollständige Prompt so aus:</p>
+<figure><img alt="Der vollständige Prompt für die Antwort an die Kundin, in sechs farbige Bausteine gegliedert, rechts jeweils die Zahl der Tokens. Aufgabe, 12 Tokens: „Schreib eine Antwort auf die E-Mail einer Kundin.“ Hintergrund, 37 Tokens: kleine Eisdiele am Stadtpark, Stammkundin, am Samstag sehr voll, nur zu zweit am Stand. Material, 43 Tokens: die E-Mail der Kundin zwischen den Markierungen email. Form, 34 Tokens: höchstens 80 Wörter, Sie-Form, freundlich, ohne Floskeln, mit Unterschrift. Beispiel, 56 Tokens: eine frühere Antwort zwischen den Markierungen beispiel. Regeln, 37 Tokens: eine Kugel gratis, aber kein Rabatt in Euro, bei fehlenden Angaben nachfragen." src="bilder/kapitel-6/01-bausteine.png" loading="lazy"></figure>
+<p>Die Antwort darauf:</p>
+<pre><code class="language-text">Guten Tag,
+
+25 Minuten für zwei Kugeln sind zu lang, und eine winzige Kugel Pistazie ärgert mich genauso wie Sie. Am Samstag waren wir nur zu zweit am Stand, das reicht an so einem Tag nicht. Beim nächsten Besuch geht eine Kugel auf mich, gern wieder Pistazie, dann in voller Größe.
+
+Ihr Eisverkäufer vom Stadtpark
+</code></pre>
+<p>In der Antwort erkennst du jeden Baustein wieder: Sie nennt die Wartezeit und die kleine Kugel aus dem Material, erklärt sie mit dem Hintergrund, klingt wie das Beispiel, hält die Form ein und bietet die Kugel an, die die Regeln erlauben.</p>
+<p>Am stärksten wirkt oft der Hintergrund, also wofür du das Ergebnis brauchst. Ein zweites Beispiel: Der Eisverkäufer gibt dem Assistenten seine Verkaufszahlen aus Kapitel 1 und bittet um eine Zusammenfassung. Ohne Hintergrund beschreibt die Antwort das Offensichtliche:</p>
+<pre><code class="language-text">Die Verkaufszahlen der letzten zehn Tage zeigen einen klaren Zusammenhang zwischen Temperatur und Absatz: Je wärmer es war, desto mehr Kugeln wurden verkauft. Der niedrigste Wert lag bei 146 Kugeln an einem kühlen Tag mit 13 °C, der höchste bei 344 Kugeln bei 27 °C. Insgesamt ist die Entwicklung erfreulich, und an warmen Tagen ist die Nachfrage besonders hoch.
+</code></pre>
+<p>Mit dem Satz „Ich will entscheiden, ob sich am Wochenende eine dritte Aushilfe lohnt“ und den Regeln „Rechne mit einem Rechenwerkzeug, nicht im Kopf. Wenn dir für die Entscheidung eine Angabe fehlt, sag, welche.“ bekommt er eine Auswertung, die bei der Entscheidung hilft:</p>
+<pre><code class="language-text">Am Wochenende haben Sie im Schnitt 280 Kugeln verkauft, an Werktagen 230, also 50 mehr. Die Temperaturen lagen an beiden Arten von Tagen im Schnitt bei 21 °C, der Unterschied kommt also vom Wochenende selbst. Ob 50 Kugeln mehr eine dritte Aushilfe rechtfertigen, kann ich ohne eine Angabe nicht sagen: wie viele Kugeln zwei Leute pro Stunde schaffen.
+</code></pre>
+<details class="vertiefung">
+<summary>Für Neugierige: Was ein längerer Prompt kostet</summary>
+<p>Der typische Prompt aus Abschnitt 1 hat 55 Tokens, der vollständige 219 Tokens. Das ist das Vierfache, aber weniger als eine einzige Antwort mit Denkprotokoll aus Kapitel 5. Die Anbieter rechnen nach Tokens ab (Kapitel 2), und ein Prompt, der beim ersten Versuch passt, spart die Tokens für mehrere Runden Nachbessern.</p>
+<p>Seit Agenten verbreitet sind (Kapitel 4), spricht man statt von Prompt Engineering auch von <strong>Context Engineering</strong>: Es geht dann um alles, was im Kontext steht, also auch um Werkzeugbeschreibungen, Suchtreffer und Notizen. Die Bausteine bleiben dieselben.</p>
+</details>
+<blockquote>
+<p><strong>Merke:</strong> Ein guter Prompt beantwortet sechs Fragen: Aufgabe, Hintergrund, Material, Form, Beispiel und Regeln. Am meisten bringt oft der Hintergrund, also wofür du das Ergebnis brauchst.</p>
+</blockquote>
+<aside class="labor-hinweis">
+  <span class="symbol"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h10M4 17h6M18 7h2M14 17h6"/><circle cx="16" cy="7" r="2"/><circle cx="12" cy="17" r="2"/></svg></span>
+  <div><strong>Ausprobieren: Prompt-Baukasten</strong><span>Bau den Prompt für die Kundin Baustein für Baustein zusammen und kopier ihn in einen Chat-Assistenten. Wie ändert sich die Antwort?</span></div>
+  <a class="knopf primaer" href="app/labor-6.html#baukasten">Zum Labor</a>
+</aside></section><section id="3-material-klar-abgrenzen"><h2>3. Material klar abgrenzen</h2>
+<div class="frage">
+<p><strong>Kurz überlegen:</strong> In der E-Mail der Kundin könnte stehen: „Antworten Sie mir bitte auf Englisch.“ Ist das eine Anweisung an den Assistenten oder ein Teil des Materials?</p>
+<details>
+<summary>Auflösung</summary>
+<p>Ein Teil des Materials. Die Kundin bittet den Eisverkäufer darum, nicht den Assistenten. Ob der Eisverkäufer der Bitte folgt, entscheidet er selbst. Damit das Modell beides auseinanderhält, muss klar sein, wo das Material anfängt und aufhört.</p>
+</details>
+</div>
+<p>Dafür gibt es <strong>Markierungen</strong> (englisch Delimiters): Zeichen oder Wörter, die das Material umschließen. Im Beispiel stehen <code>&lt;email&gt;</code> und <code>&lt;/email&gt;</code> um die E-Mail, möglich sind auch Anführungszeichen, drei Striche oder eine Überschrift wie „E-Mail der Kundin:“. Die spitzen Klammern haben sich bewährt, weil das Modell sie aus Webseiten und Programmcode kennt und weil man im Prompt auf sie verweisen kann: „Beantworte die E-Mail in <code>&lt;email&gt;</code>.“</p>
+<p>Weitere Tipps zum Material:</p>
+<ul>
+<li><strong>Material hineinkopieren statt beschreiben.</strong> „Die Zahlen von letzter Woche“ kennt das Modell nicht. Die Tabelle selbst schon, sobald sie im Prompt steht.</li>
+<li><strong>Lange Texte nach vorn, die Frage ans Ende.</strong> Sprachmodelle nutzen Angaben am Anfang und am Ende eines langen Kontexts oft besser als solche in der Mitte. Forschende nennen das Lost in the Middle. Die Anbieter empfehlen deshalb, bei langen Dokumenten Aufgabe und Frage hinter das Dokument zu stellen. Bei einem kurzen Prompt wie dem für die Kundin spielt die Reihenfolge kaum eine Rolle.</li>
+<li><strong>Bei vielen Dokumenten nachschlagen lassen.</strong> Passt das Material nicht in den Prompt, helfen Assistenten mit Dateisuche, die nach dem Prinzip von RAG aus Kapitel 3 arbeiten.</li>
+<li><strong>Markierungen sind kein Schutz.</strong> Sie helfen dem Modell, Material und Auftrag zu trennen, schützen aber nicht sicher vor eingeschleusten Anweisungen (Kapitel 4, Abschnitt 9).</li>
+</ul>
+<blockquote>
+<p><strong>Merke:</strong> Material gehört in den Prompt, nicht nur ein Hinweis darauf. Markierungen zeigen, wo es anfängt und aufhört, und lange Texte stehen vor der Frage.</p>
+</blockquote>
+</section><section id="4-beispiele-zeigen"><h2>4. Beispiele zeigen</h2>
+<p>Manches lässt sich schwer beschreiben, aber leicht zeigen: der Ton der Eisdiele, der Aufbau einer Tabelle, die Länge eines Aushangs. Schon ein Beispiel im Prompt wirkt oft stärker als eine lange Beschreibung. Das ist das Lernen aus Beispielen im Prompt aus Kapitel 5, bei Prompts auch <strong>Few-Shot Prompting</strong> genannt. Ohne Beispiel heißt es Zero-Shot.</p>
+<div class="frage">
+<p><strong>Kurz überlegen:</strong> Der Eisverkäufer gibt als Beispiel immer dieselbe frühere Antwort mit, in der eine Kugel gratis angeboten wird. Was könnte schiefgehen?</p>
+<details>
+<summary>Auflösung</summary>
+<p>Das Modell übernimmt mehr als den Ton. Es bietet womöglich auch dann eine Gratiskugel an, wenn sich jemand über etwas anderes beschwert, oder baut die Sätze des Beispiels fast wörtlich nach. Ein Beispiel zeigt, wie das Ergebnis aussehen soll, und das Modell nimmt das wörtlich.</p>
+</details>
+</div>
+<p>Damit Beispiele helfen und nicht einengen:</p>
+<ul>
+<li><strong>Sagen, was am Beispiel gut ist.</strong> „So klingt eine frühere Antwort von mir“ macht klar, dass es um den Ton geht, nicht um den Inhalt.</li>
+<li><strong>Zwei oder drei verschiedene Beispiele.</strong> Was sich zwischen ihnen unterscheidet, darf sich auch im Ergebnis unterscheiden.</li>
+<li><strong>Beispiele markieren</strong> wie Material, etwa mit <code>&lt;beispiel&gt;</code>.</li>
+</ul>
+<blockquote>
+<p><strong>Merke:</strong> Beispiele zeigen Ton und Form schneller als eine Beschreibung. Das Modell ahmt sie genau nach, deshalb sag dazu, was am Beispiel gut ist.</p>
+</blockquote>
+</section><section id="5-die-form-vorgeben"><h2>5. Die Form vorgeben</h2>
+<p>Ohne Angabe zur Form wählt das Modell die Form, die es aus dem Training gewohnt ist: oft zu lang, mit Einleitung und Zusammenfassung, im Ton einer Pressemitteilung. Eine Zeile zur Form ändert das:</p>
+<ul>
+<li><strong>Länge:</strong> „höchstens drei Sätze“, „eine Seite“, „fünf Stichpunkte“</li>
+<li><strong>Gliederung:</strong> Fließtext, Stichpunkte, Tabelle mit bestimmten Spalten</li>
+<li><strong>Ton und Anrede:</strong> Sie oder du, sachlich oder locker, für Kinder oder für Fachleute</li>
+<li><strong>Sprache:</strong> die gewünschte Sprache ausdrücklich nennen, vor allem bei Übersetzungen oder wenn das Material in einer anderen Sprache ist</li>
+</ul>
+<div class="frage">
+<p><strong>Kurz überlegen:</strong> Der Eisverkäufer schreibt „genau 50 Wörter“. Warum trifft das Modell die Zahl oft nicht?</p>
+<details>
+<summary>Auflösung</summary>
+<p>Das Modell sieht keine Wörter, sondern Tokens (Kapitel 2). Ein Wort kann ein Token sein oder viele: „Eisdielenstammkundschaft“ ist ein einziges Wort und zerfällt in 7 Tokens. Wörter zählen muss das Modell nebenbei, während es Token für Token schreibt, und dabei verzählt es sich leicht.</p>
+</details>
+</div>
+<p>Im Text der Kapitel 1 bis 5 dieses Workshops kommen auf 100 Wörter im Schnitt 171 Tokens. Längenangaben in Sätzen, Absätzen oder Stichpunkten hält ein Modell zuverlässiger ein als genaue Wortzahlen, und „höchstens“ ist leichter als „genau“.</p>
+<p>Wer das Ergebnis in einem anderen Programm weiterverarbeiten will, kann eine feste Form verlangen, etwa eine Tabelle mit vorgegebenen Spalten. Über die Programmierschnittstellen der Anbieter kannst du eine <strong>strukturierte Ausgabe</strong> (englisch Structured Output) erzwingen: Die Antwort folgt dann einem JSON Schema, wie die Werkzeugaufrufe in Kapitel 4.</p>
+<blockquote>
+<p><strong>Merke:</strong> Eine Zeile zur Form spart viel Nacharbeit. Längen in Sätzen oder Stichpunkten klappen besser als genaue Wortzahlen, weil das Modell Tokens sieht, keine Wörter.</p>
+</blockquote>
+<aside class="labor-hinweis">
+  <span class="symbol"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h10M4 17h6M18 7h2M14 17h6"/><circle cx="16" cy="7" r="2"/><circle cx="12" cy="17" r="2"/></svg></span>
+  <div><strong>Ausprobieren: Was fehlt?</strong><span>Finde in fünf schwachen Prompts die fehlenden Bausteine und vergleich mit der verbesserten Fassung.</span></div>
+  <a class="knopf primaer" href="app/labor-6.html#check">Zum Labor</a>
+</aside></section><section id="6-rollen-und-feste-anweisungen"><h2>6. Rollen und feste Anweisungen</h2>
+<p>Viele Prompt-Tipps im Internet beginnen mit einer Rolle: „Du bist ein erfahrener Marketing-Experte.“ Das heißt <strong>Rollen-Prompt</strong> (englisch Role Prompting oder Persona).</p>
+<div class="frage">
+<p><strong>Kurz überlegen:</strong> Wird eine Antwort auf eine Sachfrage richtiger, wenn man das Modell vorher zum „Experten“ ernennt?</p>
+<details>
+<summary>Auflösung</summary>
+<p>Meist nicht. Das Wissen steckt in den Weights, und die ändert ein Satz im Prompt nicht. Eine Studie hat 2023 vier Familien von Sprachmodellen 2410 Sachfragen gestellt, mit und ohne Rolle im Systemprompt. Mit Rolle wurden die Antworten im Schnitt nicht besser, der Effekt einzelner Rollen war weitgehend zufällig.</p>
+</details>
+</div>
+<p>Auf Ton und Stil wirkt eine Rolle: „Du schreibst für Kinder im Grundschulalter“ verändert Wortwahl und Satzlänge. Wenn du eine Rolle nutzt, beschreib damit die Leserinnen und Leser und den Zweck. Genauer geht das mit dem Hintergrund aus Abschnitt 2.</p>
+<p>Angaben, die für jedes Gespräch gelten, musst du nicht jedes Mal neu schreiben. Viele Chat-Assistenten bieten <strong>eigene Anweisungen</strong> (englisch Custom Instructions) oder Projekte an, in denen man Hintergrund und Regeln einmal hinterlegt. Der Assistent schickt sie bei jedem Gespräch mit, wie den Systemprompt aus Kapitel 4. Für den Eisverkäufer könnte das so aussehen:</p>
+<pre><code class="language-text">Ich betreibe eine kleine Eisdiele am Stadtpark, geöffnet von März bis Oktober.
+Texte für Kundinnen und Kunden schreibe ich in der Sie-Form, kurz und ohne Floskeln.
+Wenn dir eine Angabe fehlt, frag nach, statt etwas zu erfinden.
+</code></pre>
+<blockquote>
+<p><strong>Merke:</strong> Eine Rolle macht ein Modell nicht klüger, sie verändert höchstens den Ton. Was immer gilt, gehört in die eigenen Anweisungen des Assistenten.</p>
+</blockquote>
+</section><section id="7-im-gespräch-verbessern"><h2>7. Im Gespräch verbessern</h2>
+<p>Die erste Antwort ist ein Entwurf. Wie bei einem Text von Kolleginnen oder Kollegen lohnt eine genaue Rückmeldung:</p>
+<figure><img alt="Ein Ablauf: Der Prompt mit Aufgabe, Hintergrund, Material und Form führt zu einem Entwurf, den das Modell schreibt. Zwischen Entwurf und Rückmeldung geht es hin und her: lesen, „Kürzer, und die Uhrzeit fehlt.“, überarbeiten. Passt das Ergebnis, ist es fertig. Ein Pfeil führt von der Rückmeldung zu „Gespräch verfahren?“: Dann ein neues Gespräch beginnen, den Prompt verbessern und nur das Wichtigste aus dem alten Gespräch mitnehmen." src="bilder/kapitel-6/02-gespraech.png" loading="lazy"></figure>
+<div class="frage">
+<p><strong>Kurz überlegen:</strong> Welche Rückmeldung hilft dem Modell mehr: „Das gefällt mir nicht.“ oder „Kürzer, und die Uhrzeit fehlt.“?</p>
+<details>
+<summary>Auflösung</summary>
+<p>Die zweite. „Gefällt mir nicht“ lässt offen, was sich ändern soll, also ändert das Modell irgendetwas, oft auch das, was schon gut war. Eine genaue Rückmeldung sagt, was bleiben und was anders werden soll.</p>
+</details>
+</div>
+<p>Was sich beim Nachbessern bewährt hat:</p>
+<ul>
+<li><strong>Genau sagen, was anders werden soll</strong>, und was bleiben soll.</li>
+<li><strong>Das Modell zuerst fragen lassen.</strong> „Stell mir zuerst die Fragen, die du für einen guten Aushang brauchst“ holt fehlende Angaben, bevor ein Entwurf entsteht.</li>
+<li><strong>Das Modell den eigenen Entwurf prüfen lassen.</strong> „Prüf deinen Entwurf gegen die Regeln oben und überarbeite ihn“ verbessert das Ergebnis oft. Forschende nannten das 2023 <strong>Self-Refine</strong>. Bei Fakten und Rechnungen hilft das weniger, dort braucht es eine Prüfung von außen, etwa ein Rechenwerkzeug oder eine Quelle.</li>
+<li><strong>Den Prompt verbessern lassen.</strong> Wer nach drei Runden das Ergebnis hat, das er wollte, kann fragen: „Schreib mir einen Prompt, der beim nächsten Mal gleich zu diesem Ergebnis führt.“</li>
+<li><strong>Neu anfangen, wenn das Gespräch verfahren ist.</strong> Das ganze Gespräch steht im Kontext (Kapitel 2 und 4), auch die verworfenen Entwürfe und Missverständnisse. Nach vielen Runden hilft ein neues Gespräch mit einem besseren Prompt oft mehr als die elfte Rückmeldung.</li>
+</ul>
+<blockquote>
+<p><strong>Merke:</strong> Die erste Antwort ist ein Entwurf, den eine genaue Rückmeldung verbessert. Ist ein Gespräch verfahren, kommst du mit einem neuen Gespräch und besserem Prompt oft schneller ans Ziel.</p>
+</blockquote>
+</section><section id="8-große-aufgaben-zerlegen"><h2>8. Große Aufgaben zerlegen</h2>
+<p>Der Eisverkäufer will eine neue Speisekarte mit Sorten, Preisen, Allergenen und kurzen Beschreibungen. In einem einzigen Prompt wird das selten gut: Das Modell muss zugleich sammeln, ordnen, formulieren und prüfen, und in der langen Antwort übersiehst du Fehler leicht.</p>
+<p>Besser ist eine <strong>Aufgabenkette</strong> (englisch Prompt Chaining): mehrere Prompts nacheinander, bei denen das Ergebnis des einen als Material in den nächsten kommt.</p>
+<figure><img alt="Vier Schritte nebeneinander: 1. Sammeln, was soll in die Speisekarte. 2. Gliedern, Reihenfolge und Überschriften. 3. Schreiben, Abschnitt für Abschnitt. 4. Prüfen, Preise und Allergene gegen die Liste, orange hervorgehoben. Darunter: Jeder Schritt ist ein eigener Prompt. Sein Ergebnis kommt als Material in den nächsten." src="bilder/kapitel-6/03-aufteilen.png" loading="lazy"></figure>
+<p>Das hat zwei Vorteile: Jeder Prompt enthält nur eine Teilaufgabe, und zwischen den Schritten kann der Eisverkäufer eingreifen, etwa die Gliederung ändern, bevor geschrieben wird.</p>
+<p>Für Aufgaben mit Rechnungen, Planung oder vielen Bedingungen gilt außerdem, was Kapitel 4 und 5 gezeigt haben:</p>
+<ul>
+<li><strong>Einen Rechenweg verlangen</strong> oder ein Reasoning-Modell wählen (Kapitel 5). Den Rechenweg kannst du außerdem nachprüfen.</li>
+<li><strong>Rechnen lassen statt schätzen lassen.</strong> Viele Assistenten können ein Rechenwerkzeug oder Programmcode ausführen (Kapitel 4). „Rechne mit einem Rechenwerkzeug“ steht deshalb in den Regeln der Auswertung aus Abschnitt 2.</li>
+<li><strong>Für Aktuelles die Suche einschalten.</strong> Ereignisse nach dem Ende der Trainingsdaten kennt das Modell nur, wenn es im Web sucht oder du den Text mitgibst.</li>
+</ul>
+<blockquote>
+<p><strong>Merke:</strong> Große Aufgaben gelingen besser als Kette kleiner Prompts. Für Rechnungen einen Rechenweg oder ein Werkzeug verlangen, für Aktuelles eine Suche.</p>
+</blockquote>
+</section><section id="9-fallen-suggestivfragen-und-gefälligkeit"><h2>9. Fallen: Suggestivfragen und Gefälligkeit</h2>
+<div class="frage">
+<p><strong>Kurz überlegen:</strong> Der Eisverkäufer fragt: „Meine Idee, im Winter Glühwein-Eis zu verkaufen, ist doch super, oder?“ Was für eine Antwort erwartest du?</p>
+<details>
+<summary>Auflösung</summary>
+<p>Wahrscheinlich Zustimmung. Die Frage gibt die Antwort schon vor, und Sprachmodelle neigen dazu, ihrem Gegenüber recht zu geben.</p>
+</details>
+</div>
+<p>Diese Neigung heißt <strong>Gefälligkeit</strong> (englisch Sycophancy). Eine Studie von 2023 fand sie bei allen fünf untersuchten Chat-Assistenten. Ein Grund liegt im Lernen aus menschlichem Feedback (Kapitel 2): Menschen bewerten Antworten, die ihrer eigenen Meinung entsprechen, oft besser, und das Modell lernt, solche Antworten zu geben.</p>
+<p>Drei häufige Fallen, mit ausgedachten, aber typischen Antworten:</p>
+<div class="tabelle"><table>
+<thead>
+<tr>
+<th>Falle</th>
+<th>Suggestiv gefragt</th>
+<th>Besser gefragt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Eine Idee bewerten</td>
+<td>„… ist doch super, oder?“ führt zu Lob.</td>
+<td>„Was spricht dafür, was dagegen?“ bringt auch die Winterpause von November bis Februar zur Sprache, wenn die Öffnungszeiten in den eigenen Anweisungen stehen (Abschnitt 6).</td>
+</tr>
+<tr>
+<td>Eine Rechnung prüfen</td>
+<td>„920 : 70 = 13 Behälter, das stimmt doch?“ führt zu „Ja, rund 13.“</td>
+<td>„Wie viele Behälter zu je 70 Kugeln brauche ich für 920 Kugeln? Schreib den Rechenweg auf.“ führt zu 14.</td>
+</tr>
+<tr>
+<td>Nachhaken</td>
+<td>„Bist du sicher? Ich glaube, es sind 13.“ und das Modell gibt die richtige Antwort auf.</td>
+<td>„Rechne Schritt für Schritt nach: Reichen 13 Behälter?“ führt zu 13 · 70 = 910, also nein.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Die Aufgabe mit den Behältern stammt aus Kapitel 5. Dazu kommen zwei Fallen aus den vorigen Kapiteln:</p>
+<ul>
+<li><strong>Erfundene Quellen und Fakten</strong> (Kapitel 2). Auch ein gut formulierter Prompt verhindert keine Halluzinationen. Wichtige Angaben in einer verlässlichen Quelle nachsehen.</li>
+<li><strong>Zu viel preisgeben.</strong> Alles im Prompt geht an den Anbieter. Namen von Kundinnen, Kontodaten und interne Zahlen gehören nur in Dienste, die dafür freigegeben sind.</li>
+</ul>
+<blockquote>
+<p><strong>Merke:</strong> Eine Suggestivfrage gibt die Antwort vor, und das Modell stimmt meist zu. Offen fragen, nach Gegenargumenten fragen und bei Rechnungen den Rechenweg verlangen statt „Bist du sicher?“.</p>
+</blockquote>
+<aside class="labor-hinweis">
+  <span class="symbol"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h10M4 17h6M18 7h2M14 17h6"/><circle cx="16" cy="7" r="2"/><circle cx="12" cy="17" r="2"/></svg></span>
+  <div><strong>Ausprobieren: Offen fragen</strong><span>Vergleich suggestive und offene Fragen mit ihren Antworten. Woran erkennst du eine Suggestivfrage?</span></div>
+  <a class="knopf primaer" href="app/labor-6.html#fragen">Zum Labor</a>
+</aside></section><section id="10-was-das-für-den-alltag-heißt"><h2>10. Was das für den Alltag heißt</h2>
+<p>Ein Spickzettel für typische Aufgaben:</p>
+<div class="tabelle"><table>
+<thead>
+<tr>
+<th>Aufgabe</th>
+<th>Worauf es ankommt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Texte schreiben</strong></td>
+<td>Leser und Zweck nennen, Länge und Ton vorgeben, ein Beispiel mitgeben, das Ergebnis als Entwurf behandeln.</td>
+</tr>
+<tr>
+<td><strong>Zusammenfassen</strong></td>
+<td>Sagen, wofür die Zusammenfassung gebraucht wird und worauf es ankommt. Bei wichtigen Dokumenten Fundstellen verlangen und nachsehen.</td>
+</tr>
+<tr>
+<td><strong>Übersetzen</strong></td>
+<td>Zielgruppe nennen, festlegen, was gleich bleibt (Namen, Preise, Fachbegriffe), bei Wichtigem von jemandem prüfen lassen, der die Sprache kann.</td>
+</tr>
+<tr>
+<td><strong>Rechnen und Tabellen</strong></td>
+<td>Daten hineinkopieren, Rechenweg oder Rechenwerkzeug verlangen, Ergebnisse stichprobenartig nachrechnen.</td>
+</tr>
+<tr>
+<td><strong>Recherchieren</strong></td>
+<td>Websuche einschalten, Quellen verlangen und öffnen. Ohne Suche kennt das Modell nur den Stand seiner Trainingsdaten.</td>
+</tr>
+<tr>
+<td><strong>Entscheiden</strong></td>
+<td>Offen fragen, Für und Wider verlangen, nach dem stärksten Gegenargument fragen. Die Entscheidung trifft der Mensch.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Und vor dem Abschicken, als kurze Prüfung:</p>
+<ul>
+<li>Weiß das Modell, <strong>wofür</strong> du das Ergebnis brauchst?</li>
+<li>Steht das <strong>Material</strong> im Prompt, deutlich markiert?</li>
+<li>Ist klar, <strong>wie</strong> das Ergebnis aussehen soll?</li>
+<li>Darf das Modell <strong>nachfragen</strong>, wenn etwas fehlt?</li>
+<li>Ist die Frage <strong>offen</strong> gestellt?</li>
+</ul>
+<blockquote>
+<p><strong>Merke:</strong> Gute Prompts beschreiben die Aufgabe so, wie man sie einer neuen Aushilfe erklären würde. Das Ergebnis bleibt ein Entwurf, den ein Mensch prüft.</p>
+</blockquote>
+</section><section id="das-wichtigste-in-kürze" class="kurz"><h2>Das Wichtigste in Kürze</h2>
+<ul>
+<li>Ein Sprachmodell weiß nur, was im Prompt steht. Fehlen Angaben, bekommt man Allgemeines.</li>
+<li><strong>Prompt Engineering</strong> heißt, sechs Fragen zu beantworten: <strong>Aufgabe</strong>, <strong>Hintergrund</strong>, <strong>Material</strong>, <strong>Form</strong>, <strong>Beispiel</strong> und <strong>Regeln</strong>. Am meisten bringt oft der Hintergrund.</li>
+<li><strong>Markierungen</strong> trennen Material vom Auftrag. Lange Texte stehen vor der Frage, weil Modelle Angaben in der Mitte eines langen Kontexts leichter übersehen.</li>
+<li><strong>Beispiele</strong> zeigen Ton und Form schneller als eine Beschreibung (Few-Shot Prompting). Das Modell ahmt sie genau nach.</li>
+<li>Längen in Sätzen oder Stichpunkten klappen besser als genaue Wortzahlen. Im Text der Kapitel 1 bis 5 kommen auf 100 Wörter 171 Tokens.</li>
+<li>Ein <strong>Rollen-Prompt</strong> macht ein Modell nicht klüger. Was immer gilt, gehört in die <strong>eigenen Anweisungen</strong> des Assistenten.</li>
+<li>Die erste Antwort ist ein Entwurf. Genaue Rückmeldungen verbessern ihn, ein verfahrenes Gespräch ersetzt man durch ein neues.</li>
+<li>Große Aufgaben gelingen als <strong>Aufgabenkette</strong>. Für Rechnungen einen Rechenweg oder ein Werkzeug verlangen.</li>
+<li>Sprachmodelle neigen zur <strong>Gefälligkeit</strong>. Offen fragen und Rechnungen nachprüfen statt „Bist du sicher?“.</li>
+</ul>
+</section><section id="teste-dich"><h2>Teste dich</h2>
+<details class="quiz">
+<summary>Warum bekommt man auf einen kurzen Prompt oft eine allgemeine Antwort voller Floskeln?</summary>
+<p>Das Modell erzeugt den Text, der zu seinem Kontext am wahrscheinlichsten passt. Steht wenig im Prompt, passt ein allgemeiner Text am besten. Erst Hintergrund, Material und Form machen eine bestimmte, passende Antwort wahrscheinlicher.</p>
+</details>
+<details class="quiz">
+<summary>Welche sechs Bausteine kann ein Prompt haben?</summary>
+<p>Aufgabe, Hintergrund, Material, Form, Beispiel und Regeln. Nicht jede Aufgabe braucht alle sechs.</p>
+</details>
+<details class="quiz">
+<summary>Wozu dienen Markierungen wie <code>&lt;email&gt;</code> im Prompt?</summary>
+<p>Sie zeigen, wo das Material anfängt und aufhört. So hält das Modell den Text der Kundin und den Auftrag des Eisverkäufers besser auseinander, und man kann im Prompt auf das Material verweisen.</p>
+</details>
+<details class="quiz">
+<summary>Warum hält ein Modell „höchstens drei Sätze“ zuverlässiger ein als „genau 50 Wörter“?</summary>
+<p>Das Modell sieht Tokens, keine Wörter. Ein Wort kann aus vielen Tokens bestehen, und Wörter zählen muss das Modell nebenbei. Sätze und Stichpunkte sind leichter zu überblicken, und „höchstens“ ist leichter einzuhalten als „genau“.</p>
+</details>
+<details class="quiz">
+<summary>Das Modell nennt 14 Behälter. Du fragst „Bist du sicher? Ich glaube, es sind 13.“ und es stimmt dir zu. Was ist passiert, und wie fragst du besser?</summary>
+<p>Das Modell hat aus Gefälligkeit eine richtige Antwort aufgegeben. Besser ist eine offene Bitte um einen nachprüfbaren Rechenweg: „Rechne Schritt für Schritt nach: Reichen 13 Behälter zu je 70 Kugeln für 920 Kugeln?“ Den Rechenweg prüfst du dann selbst.</p>
+</details>
+</section><section id="selbst-ausprobieren"><h2>Selbst ausprobieren</h2>
+<p>In <a href="app/labor-6.html">Labor 6</a> baust du Prompts aus den sechs Bausteinen zusammen, siehst, wie viele Tokens sie haben, und kopierst sie in einen Chat-Assistenten deiner Wahl. Für drei Aufgaben der Eisdiele lässt sich der typische mit dem vollständigen Prompt vergleichen. Außerdem findest du in schwachen Prompts die fehlenden Bausteine und vergleichst suggestive mit offenen Fragen. Das Labor läuft direkt im Browser, auch ohne Internetverbindung.</p>
+<details class="vertiefung">
+<summary>Für technisch Interessierte: Alles selbst nachrechnen</summary>
+<p>Ein Python-Skript setzt die Prompts aus ihren Bausteinen zusammen, zählt die Tokens, erzeugt die Grafiken und die Daten für das Labor:</p>
+<pre><code class="language-bash">uv run docs/beispiele/06_prompts.py
+</code></pre>
+<p>Die Bausteine der drei Aufgaben und die ausgedachten Beispielantworten stehen in <a href="beispiele/06_prompts.py"><code>beispiele/06_prompts.py</code></a> und lassen sich dort ändern. Die Verkaufszahlen für die Auswertung lädt das Skript aus dem Skript zu Kapitel 1. Die Antworten zur Auswertung berechnet es daraus.</p>
+</details>
+</section><section id="quellen" class="quellen"><h2>Quellen</h2>
+<ul>
+<li>Brown u. a. (2020): <a href="https://arxiv.org/abs/2005.14165">Language Models are Few-Shot Learners</a> (GPT-3)</li>
+<li>Liu u. a. (2023): <a href="https://arxiv.org/abs/2307.03172">Lost in the Middle: How Language Models Use Long Contexts</a></li>
+<li>Madaan u. a. (2023): <a href="https://arxiv.org/abs/2303.17651">Self-Refine: Iterative Refinement with Self-Feedback</a></li>
+<li>Sharma u. a. (2023): <a href="https://arxiv.org/abs/2310.13548">Towards Understanding Sycophancy in Language Models</a></li>
+<li>Zheng u. a. (2023): <a href="https://arxiv.org/abs/2311.10054">When „A Helpful Assistant“ Is Not Really Helpful: Personas in System Prompts Do Not Improve Performances of Large Language Models</a></li>
+<li>Anthropic: <a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview">Prompt engineering overview</a></li>
+<li>OpenAI: <a href="https://developers.openai.com/api/docs/guides/prompt-engineering">Prompt engineering</a></li>
+<li>Google: <a href="https://aistudio.google.com/docs/prompting-strategies">Prompt design strategies</a></li>
+</ul></section>
+    <nav class="blaettern" aria-label="Weitere Kapitel"><a href="kapitel-5.html"><small>← Kapitel 5</small>Reasoning-Modelle: Wie ein Sprachmodell vor der Antwort nachdenkt</a></nav>
+  </article>
+</div>
+</main>
+<footer class="fuss"><div class="huelle">
+  <span>KI-Workshop: vom Eisverkäufer zum Sprachmodell. Alle Daten im Beispiel sind erfunden.<br>Texte und Grafiken: <a href="https://creativecommons.org/licenses/by/4.0/deed.de">CC BY 4.0</a> · Code: <a href="https://github.com/kariha70/ki-workshop/blob/main/LICENSE">MIT</a> · <a href="https://github.com/kariha70/ki-workshop">Quellcode auf GitHub</a></span>
+  <span><a href="index.html">Startseite</a> · <a href="kapitel-1.html">Kapitel 1</a> · <a href="kapitel-2.html">Kapitel 2</a> · <a href="kapitel-3.html">Kapitel 3</a> · <a href="kapitel-4.html">Kapitel 4</a> · <a href="kapitel-5.html">Kapitel 5</a> · <a href="kapitel-6.html">Kapitel 6</a> · <a href="app/labor-1.html">Labor 1</a> · <a href="app/labor-2.html">Labor 2</a> · <a href="app/labor-3.html">Labor 3</a> · <a href="app/labor-4.html">Labor 4</a> · <a href="app/labor-5.html">Labor 5</a> · <a href="app/labor-6.html">Labor 6</a> · <a href="glossar.html">Glossar</a> · <a href="leitfaden.html">Leitfaden</a></span>
+</div></footer>
+<script src="assets/thema.js"></script>
+<script src="assets/site.js"></script>
+</body>
+</html>
